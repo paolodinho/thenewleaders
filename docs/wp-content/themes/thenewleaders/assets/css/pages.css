@@ -739,7 +739,7 @@
 
 .ec-howto { padding-block: 56px; }
 .ec-howto__h { font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--color-orange); margin-bottom: 24px; }
-.ec-howto__list { counter-reset: h; display: flex; flex-direction: column; gap: 14px; max-width: 780px; margin-bottom: 32px; }
+.ec-howto__list { counter-reset: h; list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 14px; max-width: 780px; margin-bottom: 32px; }
 .ec-howto__list li { counter-increment: h; position: relative; padding-left: 44px; font-size: 1.08rem; line-height: 1.5; color: var(--color-black); }
 .ec-howto__list li::before { content: counter(h); position: absolute; left: 0; top: -2px; width: 30px; height: 30px; border-radius: 50%; background: var(--color-tag-teal); color: #fff; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
 

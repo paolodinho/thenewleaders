@@ -263,4 +263,15 @@
     start();
   });
 
+  // ============================================================
+  // CHỐNG "MỒ CÔI" CHỮ — không để 1 từ vô nghĩa đứng riêng 1 dòng trên nút.
+  // Giữ 2 từ cuối dính nhau bằng non-breaking space ( ).
+  // ============================================================
+  document.querySelectorAll('.btn, .hero-cta__btn, .pg-hero__cta-btn').forEach(function (el) {
+    if (el.children.length) return; // bỏ qua nút có icon/element con
+    var t = el.textContent.replace(/\s+/g, ' ').trim();
+    var i = t.lastIndexOf(' ');
+    if (i > 0) el.textContent = t.slice(0, i) + ' ' + t.slice(i + 1);
+  });
+
 })();
