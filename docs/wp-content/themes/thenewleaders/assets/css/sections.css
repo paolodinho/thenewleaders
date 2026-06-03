@@ -1169,6 +1169,9 @@
   /* Chốt an toàn: chặn scroll ngang toàn trang trên mobile */
   html, body { overflow-x: hidden; max-width: 100%; }
 
+  /* Trang chủ: ẩn section 1 (video hero) trên mobile, giữ nguyên desktop */
+  .hero { display: none; }
+
   /* About: bỏ nghiêng/so le trên mobile cho gọn, full width */
   .about__item:nth-child(odd),
   .about__item:nth-child(even) { transform: none; margin-left: 0; max-width: 100%; }
