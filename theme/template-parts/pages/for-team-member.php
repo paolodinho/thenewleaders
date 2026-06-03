@@ -98,4 +98,5 @@ $P = [
 }
 $P['hero_img'] = get_template_directory_uri() . '/assets/media/cards/individuals.jpg';
 $P['why_img']  = get_template_directory_uri() . '/assets/media/cards/business.jpg';
+$P['break_img'] = get_template_directory_uri() . '/assets/media/blog/489051529_1063902545764159_4132571832738208689_n_2c76ddae9f.jpg';
 include locate_template('template-parts/pages/_program-detail.php');

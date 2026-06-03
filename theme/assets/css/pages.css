@@ -523,6 +523,10 @@
 .pg-banner { background: var(--color-white); padding: 48px 0 8px; }
 .pg-banner__fig { margin: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-mid); aspect-ratio: 16 / 7; }
 .pg-banner__fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Dải ảnh nghỉ mắt full-bleed giữa các section dài */
+.pg-photobreak { width: 100%; margin: 0; }
+.pg-photobreak__fig { margin: 0; overflow: hidden; aspect-ratio: 21 / 9; }
+.pg-photobreak__fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pg-pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .pg-pill { display: inline-flex; padding: 10px 22px; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.95rem; color: #fff; }
 .pg-pill--orange { background: var(--color-orange); }
@@ -610,6 +614,7 @@
   .pg-stats { grid-template-columns: 1fr; }
   .pg-tm__grid { columns: 2; }
   .pg-whyus__grid { grid-template-columns: 1fr; }
+  .pg-photobreak__fig { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 640px) {
   .pg-tm__grid { columns: 1; }

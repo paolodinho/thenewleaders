@@ -107,4 +107,5 @@ $P = [
 }
 $P['hero_img'] = get_template_directory_uri() . '/assets/media/cards/business.jpg';
 $P['why_img']  = get_template_directory_uri() . '/assets/media/cards/supportive.jpg';
+$P['break_img'] = get_template_directory_uri() . '/assets/media/blog/571135366_10238738229575339_2131594489788019463_n_4154f6840d.jpg';
 include locate_template('template-parts/pages/_program-detail.php');

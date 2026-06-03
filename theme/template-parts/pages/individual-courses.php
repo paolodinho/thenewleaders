@@ -131,6 +131,10 @@ $contact = tnl_url('contact');
     </div>
   </section>
 
+  <section class="pg-photobreak" aria-hidden="true">
+    <figure class="pg-photobreak__fig"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/media/blog/571135366_10238738229575339_2131594489788019463_n_4154f6840d.jpg'); ?>" alt="" loading="lazy"></figure>
+  </section>
+
   <section class="pg-whyus section">
     <div class="container">
       <h2 class="pg-whyus__title"><?php echo esc_html($whyus_h); ?></h2>

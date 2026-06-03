@@ -113,6 +113,13 @@ $accent = ['teal', 'green', 'orange', 'pink'];
   </section>
   <?php endif; ?>
 
+  <!-- Dải ảnh nghỉ mắt giữa nội dung dài -->
+  <?php if (!empty($P['break_img'])) : ?>
+  <section class="pg-photobreak" aria-hidden="true">
+    <figure class="pg-photobreak__fig"><img src="<?php echo esc_url($P['break_img']); ?>" alt="" loading="lazy"></figure>
+  </section>
+  <?php endif; ?>
+
   <!-- Testimonials -->
   <?php if (!empty($P['people'])) : ?>
   <section class="pg-tm section">

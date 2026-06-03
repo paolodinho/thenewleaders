@@ -149,6 +149,10 @@ $contact = tnl_url('contact');
     </div>
   </section>
 
+  <section class="pg-photobreak" aria-hidden="true">
+    <figure class="pg-photobreak__fig"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/media/blog/543056423_1342889727838456_4964845161702234963_n_4d3401ed37.jpg'); ?>" alt="" loading="lazy"></figure>
+  </section>
+
   <section class="ec-howto section">
     <div class="container">
       <h2 class="ec-howto__h"><?php echo esc_html($P['howto_h']); ?></h2>
