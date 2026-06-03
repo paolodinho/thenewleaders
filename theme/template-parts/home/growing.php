@@ -11,12 +11,13 @@ $posts_fallback = [
     ['img' => $s3 . 'workshop_4e15cbd0b3.jpg',           'title' => 'Who takes care of the people who lead people?'],
 ];
 
+// Ưu tiên Events CPT (khách tự quản lý ở admin → Sự kiện): sắp theo Thứ tự (menu_order)
 $posts_query = new WP_Query([
-    'post_type'      => 'post',
-    'posts_per_page' => 8,
+    'post_type'      => 'event',
+    'posts_per_page' => -1,
     'post_status'    => 'publish',
-    'orderby'        => 'date',
-    'order'          => 'DESC',
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
 ]);
 $use_wp = $posts_query->have_posts();
 ?>
@@ -33,8 +34,10 @@ $use_wp = $posts_query->have_posts();
       <div class="growing__track" id="growingTrack">
 
         <?php if ($use_wp) :
-          while ($posts_query->have_posts()) : $posts_query->the_post(); ?>
-            <a class="growing__item" href="<?php the_permalink(); ?>">
+          while ($posts_query->have_posts()) : $posts_query->the_post();
+            $ev_link = get_post_meta(get_the_ID(), '_tnl_event_link', true);
+            if (!$ev_link) $ev_link = tnl_url('resources'); ?>
+            <a class="growing__item" href="<?php echo esc_url($ev_link); ?>">
               <?php if (has_post_thumbnail()) : ?>
                 <div class="growing__item-img"><?php the_post_thumbnail('medium_large'); ?></div>
               <?php endif; ?>

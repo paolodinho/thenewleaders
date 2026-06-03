@@ -14,6 +14,9 @@ require get_template_directory() . '/inc/seo.php';
 // Sitemap XML tùy chỉnh + robots
 require get_template_directory() . '/inc/sitemap.php';
 
+// Events CPT — section "Cùng nhau phát triển" trang chủ (khách tự quản lý)
+require get_template_directory() . '/inc/events.php';
+
 // ============================================================
 // THEME SETUP
 // ============================================================
