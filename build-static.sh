@@ -22,6 +22,11 @@ rsync -a --exclude 'backups' "$THEME/assets" "$REPO/docs/wp-content/themes/thene
 mkdir -p "$REPO/docs/wp-includes/css/dist/block-library"
 cp "$WPROOT/wp-includes/css/classic-themes.min.css" "$REPO/docs/wp-includes/css/" 2>/dev/null || true
 cp "$WPROOT/wp-includes/css/dist/block-library/common.min.css" "$REPO/docs/wp-includes/css/dist/block-library/" 2>/dev/null || true
+# uploads (media library: ảnh sự kiện, testimonial, partner...) — cần cho ảnh không vỡ trên Pages
+if [ -d "$WPROOT/wp-content/uploads" ]; then
+  mkdir -p "$REPO/docs/wp-content/uploads"
+  rsync -a "$WPROOT/wp-content/uploads/" "$REPO/docs/wp-content/uploads/"
+fi
 # rewrite host -> /thenewleaders ; remove WP head cruft
 find "$REPO/docs" -type f \( -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i '' \
   -e 's#http://thenewleaders\.local#/thenewleaders#g' -e 's#http:\\/\\/thenewleaders\.local#/thenewleaders#g'
