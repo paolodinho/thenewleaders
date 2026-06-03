@@ -2,27 +2,23 @@
 /** our-services/individual-courses — verbatim từ live (EN/VI). Nhiều phần live để nguyên tiếng Anh. */
 $vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
 
-$tagline = 'Enhance your leadership with EQ Communicate with impact, inspire action, and lead real change Start mastering your EQ today!';
-$hero_cta = $vi ? 'Khám phá ngay!' : 'Explore now!';
-$pills = $vi ? ['Thiết thực.', 'Lấy con người làm trung tâm.', 'Đổi mới.', 'Tác động lâu dài.'] : ['Practical.', 'People-centered.', 'Innovative.', 'Enduring impact.'];
-
-$prog_h = 'Individual Program';
-$exec = ['t' => 'Executive 1-1 Coach', 'd' => 'Personalized coaching program to elevate your leadership exellence.', 'cta' => 'Learn more'];
-$courses_intro_h = 'EQ Leadership Communication Courses for Managers, Leaders';
-$courses_intro_d = 'Master EQ leadership communication to speak with impact, influence behaviors, and drive meaningful action. Build engagement, boost productivity, and unlock your team’s full potential.';
-$courses_intro_cta = 'Explore our courses!';
-$courses_label1 = 'Individual course 2025 schedule';
-$courses_label2 = 'Individual courses overview';
-$course_sub = 'Foundational EQ Leadership Course for Leaders, Managers';
-
-$c1_date = $vi ? 'Date: 15-16/3 & 14-15/6/2025' : 'Date: 19-20/4 & 14-15/6/2025';
-$courses = [
-  ['t' => 'Build a Positive Environment, Optimize for High-Performance Teams', 'date' => $c1_date, 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Learn the art of Emotional Intelligence to lead with impact—control emotions under pressure, communicate with influence, and build a high-performing team through proven strategies from Harvard.', 'cta' => 'Learn more'],
-  ['t' => 'Leading the New Generation, Unlock Potential with EQ', 'date' => 'Date: Date & Time: 12-13/7/2025', 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Understand and lead the new generation with science-backed insights on behavior, hormones, neuroscience, and Emotional Intelligence. Advance motivation and feedback strategies to inspire growth and lasting impact.', 'cta' => 'Coming soon'],
-  ['t' => 'Ignite Team Motivation – Lead with a New Approach', 'date' => 'Date: 13-14/9/2025', 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Unlock high-performance leadership by maximizing impact with minimal resources. Master science-backed motivation strategies, EQ-driven communication, and effective challenge-based approaches to foster a focused, creative, and goal-oriented team.', 'cta' => 'Learn more'],
-];
-
 if ($vi) {
+  $tagline = 'Nâng tầm khả năng lãnh đạo bằng EQ — giao tiếp tạo ảnh hưởng, khơi nguồn hành động và dẫn dắt thay đổi thật sự. Bắt đầu làm chủ EQ của bạn ngay hôm nay!';
+  $hero_cta = 'Khám phá ngay!';
+  $pills = ['Thiết thực.', 'Lấy con người làm trung tâm.', 'Đổi mới.', 'Tác động lâu dài.'];
+  $prog_h = 'Chương trình cá nhân';
+  $exec = ['t' => 'Coaching 1-1 cho lãnh đạo điều hành', 'd' => 'Chương trình coaching cá nhân hoá giúp nâng tầm năng lực lãnh đạo của bạn.', 'cta' => 'Tìm hiểu thêm'];
+  $courses_intro_h = 'Khoá học Giao tiếp Lãnh đạo bằng EQ cho Quản lý, Lãnh đạo';
+  $courses_intro_d = 'Làm chủ giao tiếp lãnh đạo bằng EQ để nói chuyện có sức ảnh hưởng, tác động đến hành vi và thúc đẩy hành động ý nghĩa. Xây dựng sự gắn kết, nâng cao hiệu suất và khai phá toàn bộ tiềm năng của đội ngũ.';
+  $courses_intro_cta = 'Khám phá các khoá học!';
+  $courses_label1 = 'Lịch khoá học cá nhân 2025';
+  $courses_label2 = 'Tổng quan các khoá học cá nhân';
+  $course_sub = 'Khoá học nền tảng Lãnh đạo bằng EQ cho Lãnh đạo, Quản lý';
+  $courses = [
+    ['t' => 'Xây dựng môi trường tích cực, tối ưu cho đội ngũ hiệu suất cao', 'date' => 'Ngày: 15-16/3 & 14-15/6/2025', 'loc' => 'Địa điểm: TP. Hồ Chí Minh', 'd' => 'Học nghệ thuật Trí tuệ Cảm xúc để lãnh đạo tạo ảnh hưởng — kiểm soát cảm xúc dưới áp lực, giao tiếp có sức thuyết phục và xây dựng đội ngũ hiệu suất cao bằng các chiến lược đã được kiểm chứng từ Harvard.', 'cta' => 'Tìm hiểu thêm'],
+    ['t' => 'Lãnh đạo thế hệ mới, khai phá tiềm năng bằng EQ', 'date' => 'Ngày & giờ: 12-13/7/2025', 'loc' => 'Địa điểm: TP. Hồ Chí Minh', 'd' => 'Thấu hiểu và dẫn dắt thế hệ mới với những hiểu biết khoa học về hành vi, hormone, khoa học thần kinh và Trí tuệ Cảm xúc. Nâng cao chiến lược tạo động lực và phản hồi để truyền cảm hứng phát triển và tạo tác động lâu dài.', 'cta' => 'Sắp ra mắt'],
+    ['t' => 'Khơi dậy động lực đội ngũ — Lãnh đạo theo cách mới', 'date' => 'Ngày: 13-14/9/2025', 'loc' => 'Địa điểm: TP. Hồ Chí Minh', 'd' => 'Khai phá năng lực lãnh đạo hiệu suất cao bằng cách tối đa hoá tác động với nguồn lực tối thiểu. Làm chủ chiến lược tạo động lực dựa trên khoa học, giao tiếp dẫn dắt bằng EQ và phương pháp thử thách hiệu quả để xây dựng đội ngũ tập trung, sáng tạo và hướng mục tiêu.', 'cta' => 'Tìm hiểu thêm'],
+  ];
   $whyus_h = 'Điều khiến chúng tôi khác biệt?'; $whyus_lead = '';
   $whyus = [
     ['t' => 'Dựa trên các chương trình đào tạo lãnh đạo hàng đầu trên thế giới', 'd' => 'Tổ chức giáo dục tiên phong tại Việt Nam cung cấp các chương trình Đào tạo Lãnh đạo với Trí tuệ Cảm xúc (EQ) dựa trên cấu trúc đào tạo lãnh đạo của trường Đại học Harvard và Đại học Oxford.'],
@@ -30,7 +26,7 @@ if ($vi) {
     ['t' => 'Thiết kế chương trình đào tạo mang tính thực tế', 'd' => 'Luyện tập thường xuyên là chìa khoá để hình thành và thuần thục kỹ năng. Chính vì vậy, chương trình của chúng tôi được thiết kế với 80% thời lượng đào tạo là thực hành và thảo luận dựa trên các tình huống thực tế trong doanh nghiệp và nhận đánh giá trực tiếp từ chuyên gia để bạn có thể áp dụng trực tiếp những kiến thức đã học vào công việc của mình và cuộc sống hàng ngày.'],
     ['t' => 'Chương trình đào tạo dài hạn mang lại hiệu quả lâu dài', 'd' => 'Chương trình dài hạn với các hoạt động thực hành liên tục và tham vấn cùng chuyên gia sau workshop đào tạo (tùy theo chương trình) nhằm xây dựng và phát triển kỹ năng giao tiếp bằng trí tuệ cảm xúc (EQ) trong cuộc sống và công việc.'],
   ];
-  $tm_h = 'What people are saying';
+  $tm_h = 'Khách hàng nói gì về chúng tôi';
   $people = [
     ['n' => 'Hung Tran', 'r' => 'Founder GOT IT USA & STEAM for Vietnam', 'q' => 'Khoá học của The New Leaders đã giúp tôi cải thiện kỹ năng của mình ở vị trí lãnh đạo của một startup tỉ đô để có thể tạo động lực & truyền cảm hứng cho team tiến về phía trước. Những điều học được từ khoá học này còn cực kì hữu ích khi tôi thường xuyên là diễn giả trong các sự kiện cộng đồng và là nhà sáng lập của một tổ chức phi chính phủ.'],
     ['n' => 'Barry Weisblatt', 'r' => 'Giám đốc Nghiên cứu tại VNDIRECT Securities Corporation, Nguyên giám đốc tại Equity Markets & Securitization VinFast Global', 'q' => 'Ngân đã thực sự giúp tôi trở thành một nhà lãnh đạo tốt hơn. Cô ấy biết lắng nghe và dựa trên kiến thức cũng như kinh nghiệm phong phú của bản thân để đưa ra những lời khuyên sâu sắc và thiết thực. Điều này giúp tôi đối mặt với các vấn đề và truyền cảm hứng cho nhóm hoạt động và phát triển một cách hiệu quả. Sau một thời gian ở vị trí dẫn đầu, chúng ta rất dễ để trở nên tự mãn trong cách làm việc. Chính vì vậy, Ngân đã giúp tôi có được góc nhìn mới và tiếp tục thăng tiến trong sự nghiệp.'],
@@ -38,6 +34,22 @@ if ($vi) {
     ['n' => 'Peter Mayer', 'r' => 'Cựu CEO tại Tập đoàn khách sạn Lodgis, Cựu CEO Fusion Resorts & Hotels, Cựu CEO Sofitel Legend Metropole Hanoi, Cựu Phó Chủ tịch Bất động sản J.P Morgan Châu Á, MBA Harvard', 'q' => 'Điều tạo nên sự khác biệt giữa Quản lý và Nhà lãnh đạo thành công không phải là năng lực chuyên môn của họ mà là khả năng kết nối với mọi người. Hiển nhiên là các CEO thường có tư duy chiến lược và kỹ năng tài chính rất tốt. Nhưng chính kỹ năng EQ sắc bén của họ mới là yếu tố thúc đẩy đội ngũ của họ. Chương trình coaching cho lãnh đạo điều hành từ The New Leaders giúp phát triển và trau dồi khả năng thiết yếu này.'],
   ];
 } else {
+  $tagline = 'Enhance your leadership with EQ. Communicate with impact, inspire action, and lead real change. Start mastering your EQ today!';
+  $hero_cta = 'Explore now!';
+  $pills = ['Practical.', 'People-centered.', 'Innovative.', 'Enduring impact.'];
+  $prog_h = 'Individual Program';
+  $exec = ['t' => 'Executive 1-1 Coach', 'd' => 'Personalized coaching program to elevate your leadership exellence.', 'cta' => 'Learn more'];
+  $courses_intro_h = 'EQ Leadership Communication Courses for Managers, Leaders';
+  $courses_intro_d = 'Master EQ leadership communication to speak with impact, influence behaviors, and drive meaningful action. Build engagement, boost productivity, and unlock your team’s full potential.';
+  $courses_intro_cta = 'Explore our courses!';
+  $courses_label1 = 'Individual course 2025 schedule';
+  $courses_label2 = 'Individual courses overview';
+  $course_sub = 'Foundational EQ Leadership Course for Leaders, Managers';
+  $courses = [
+    ['t' => 'Build a Positive Environment, Optimize for High-Performance Teams', 'date' => 'Date: 19-20/4 & 14-15/6/2025', 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Learn the art of Emotional Intelligence to lead with impact—control emotions under pressure, communicate with influence, and build a high-performing team through proven strategies from Harvard.', 'cta' => 'Learn more'],
+    ['t' => 'Leading the New Generation, Unlock Potential with EQ', 'date' => 'Date & Time: 12-13/7/2025', 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Understand and lead the new generation with science-backed insights on behavior, hormones, neuroscience, and Emotional Intelligence. Advance motivation and feedback strategies to inspire growth and lasting impact.', 'cta' => 'Coming soon'],
+    ['t' => 'Ignite Team Motivation – Lead with a New Approach', 'date' => 'Date: 13-14/9/2025', 'loc' => 'Location: Ho Chi Minh city', 'd' => 'Unlock high-performance leadership by maximizing impact with minimal resources. Master science-backed motivation strategies, EQ-driven communication, and effective challenge-based approaches to foster a focused, creative, and goal-oriented team.', 'cta' => 'Learn more'],
+  ];
   $whyus_h = 'Why us?'; $whyus_lead = 'We are distinguished from others because we provide:';
   $whyus = [
     ['t' => 'Worldwide recognized-quality Leadership Programs', 'd' => "The leading educational organization in Vietnam provides Emotional Intelligence (EQ) Leadership Training programs based on Harvard Business School and Oxford University's Leadership Frameworks."],
