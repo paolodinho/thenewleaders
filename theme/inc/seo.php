@@ -151,6 +151,22 @@ add_action('wp_head', function () {
             ],
         ];
         echo '<script type="application/ld+json">' . wp_json_encode($org, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+    } elseif (is_page()) {
+        // BreadcrumbList cho trang con (Home > [section] > current)
+        $lang = $s['lang'];
+        $uri  = get_page_uri(get_queried_object_id());
+        $map  = tnl_seo_map();
+        $home = home_url('/' . $lang . '/');
+        $items = [['@type' => 'ListItem', 'position' => 1, 'name' => ($lang === 'vi' ? 'Trang chủ' : 'Home'), 'item' => $home]];
+        $pos = 2; $accum = '';
+        foreach (array_filter(explode('/', $uri)) as $seg) {
+            $accum = $accum ? $accum . '/' . $seg : $seg;
+            $entry = $map[$seg] ?? null;
+            $name  = $entry ? ($entry[$lang][0] ?? $entry['en'][0]) : ucwords(str_replace('-', ' ', $seg));
+            $items[] = ['@type' => 'ListItem', 'position' => $pos++, 'name' => $name, 'item' => home_url('/' . $lang . '/' . $accum . '/')];
+        }
+        $bc = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $items];
+        echo '<script type="application/ld+json">' . wp_json_encode($bc, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
     }
     echo "<!-- /TNL SEO -->\n";
 }, 1);

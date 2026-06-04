@@ -99,7 +99,7 @@ $blog_imgs = [
       <h2 class="res-block__title"><?php echo esc_html($T['blog_h']); ?></h2>
       <div class="res-blog">
         <?php foreach ($T['blog'] as $i => $post) : ?>
-          <a href="#" class="res-post">
+          <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="res-post">
             <span class="res-post__thumb">
               <?php if (!empty($blog_imgs[$i])) : ?>
                 <img src="<?php echo esc_url($blog_imgs[$i]); ?>" alt="<?php echo esc_attr($post); ?>" loading="lazy">
@@ -116,7 +116,7 @@ $blog_imgs = [
   <section class="res-library section" id="library">
     <div class="container res-library__inner">
       <h2 class="res-library__title"><?php echo esc_html($T['lib_h']); ?></h2>
-      <a href="#" class="btn btn--primary res-library__more"><?php echo esc_html($T['lib_more']); ?></a>
+      <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="btn btn--primary res-library__more"><?php echo esc_html($T['lib_more']); ?></a>
     </div>
   </section>
 

@@ -39,7 +39,7 @@ $jobs = [
       <ul class="careers-jobs">
         <?php foreach ($jobs as $job) : ?>
           <li class="job-card">
-            <a href="#" class="job-card__link">
+            <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="job-card__link">
               <span class="job-card__title"><?php echo esc_html($job['t']); ?></span>
               <span class="job-card__date"><?php echo esc_html($date_label . ' ' . $job['d']); ?></span>
               <span class="job-card__arrow" aria-hidden="true">

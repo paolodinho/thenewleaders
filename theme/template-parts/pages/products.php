@@ -99,7 +99,7 @@ $pidx = 0;
               <?php foreach ($it['paras'] as $p) : ?>
                 <p class="prod-item__p"><?php echo esc_html($p); ?></p>
               <?php endforeach; ?>
-              <a href="#" class="btn btn--primary prod-item__cta"><?php echo esc_html($it['cta']); ?></a>
+              <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="btn btn--primary prod-item__cta"><?php echo esc_html($it['cta']); ?></a>
             </article>
           <?php endforeach; ?>
         </div>

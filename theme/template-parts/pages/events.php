@@ -123,7 +123,7 @@ $event_imgs = [
       <div class="ev-grid">
         <?php foreach ($T['events'] as $i => $ev) :
           $img = !empty($event_imgs[$i]) ? $media . $event_imgs[$i] : ''; ?>
-          <a href="#" class="ev-card">
+          <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="ev-card">
             <span class="ev-card__thumb<?php echo $img ? '' : ' ev-card__thumb--empty'; ?>">
               <?php if ($img) : ?>
                 <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($ev); ?>" loading="lazy">
@@ -141,7 +141,7 @@ $event_imgs = [
     <div class="container ev-community__inner">
       <h2 class="ev-community__title"><?php echo esc_html($T['comm_h']); ?></h2>
       <p class="ev-community__desc"><?php echo esc_html($T['comm_desc']); ?></p>
-      <a href="#" class="btn btn--outline ev-community__cta"><?php echo esc_html($T['comm_cta']); ?></a>
+      <a href="https://www.facebook.com/share/5AUg8xvJDnxr13ub" target="_blank" rel="noopener noreferrer" class="btn btn--outline ev-community__cta"><?php echo esc_html($T['comm_cta']); ?></a>
     </div>
   </section>
 
