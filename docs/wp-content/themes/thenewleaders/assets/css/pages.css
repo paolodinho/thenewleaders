@@ -989,3 +989,64 @@
 .tnl-form-msg.is-error { color: var(--color-feedback-error); }
 .newsletter__form .tnl-form-msg.is-success { color: #fff; }
 .newsletter__form .tnl-form-msg.is-error { color: #FFE0D8; }
+
+/* ============================================================
+   ĐỒNG BỘ CỠ TIÊU ĐỀ SECTION TRANG CON = TRANG CHỦ (đã duyệt)
+   Trang chủ dùng clamp(3rem,7.5vw,6rem) desktop / ~3.5rem mobile.
+   Áp cùng thang cho mọi tiêu đề section (H2) của trang con.
+   ============================================================ */
+.pg-curri__title,
+.pg-impact__title,
+.pg-impact2__title,
+.pg-tm__title,
+.pg-whyus__title,
+.ic-courses__h,
+.ec-intro__h,
+.ec-incl__h,
+.ec-blind__h,
+.ec-howto__h,
+.ec-who__h,
+.ec-tm__h,
+.ec-creds__h,
+.ec-exp__h,
+.se-reclaim__h,
+.se-special__h,
+.se-forwho__h,
+.se-about__h,
+.se-close__h,
+.cal-special__h,
+.cal-forwho__h,
+.cal-order__h,
+.prod-group__title {
+  font-size: clamp(3rem, 7.5vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+@media (max-width: 768px) {
+  .pg-curri__title,
+  .pg-impact__title,
+  .pg-impact2__title,
+  .pg-tm__title,
+  .pg-whyus__title,
+  .ic-courses__h,
+  .ec-intro__h,
+  .ec-incl__h,
+  .ec-blind__h,
+  .ec-howto__h,
+  .ec-who__h,
+  .ec-tm__h,
+  .ec-creds__h,
+  .ec-exp__h,
+  .se-reclaim__h,
+  .se-special__h,
+  .se-forwho__h,
+  .se-about__h,
+  .se-close__h,
+  .cal-special__h,
+  .cal-forwho__h,
+  .cal-order__h,
+  .prod-group__title {
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+    line-height: 1.08;
+  }
+}
