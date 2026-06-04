@@ -1,5 +1,8 @@
 <?php
 $s3 = get_template_directory_uri() . '/assets/media/partners/';
+$p_vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
+$partner_alt = $p_vi ? 'Đối tác' : 'Partner';
+$page_lbl = $p_vi ? 'Trang' : 'Page';
 
 /* Đầy đủ 57 logo đối tác — khớp y hệt trang đang live thenewleaders.asia (2026-06-02) */
 $s3_logos = [
@@ -84,7 +87,7 @@ $s3_logos = [
               <div class="partners__slide">
                 <?php foreach ($page as $logo) : ?>
                   <div class="partner-logo">
-                    <img src="<?php echo esc_url($logo['img']); ?>" alt="<?php echo esc_attr($logo['name']); ?>" loading="lazy">
+                    <img src="<?php echo esc_url($logo['img']); ?>" alt="<?php echo esc_attr($logo['name'] === 'Đối tác' ? $partner_alt : $logo['name']); ?>" loading="lazy">
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -92,9 +95,9 @@ $s3_logos = [
           </div>
         </div>
         <?php if (count($pages) > 1) : ?>
-          <div class="partners__dots" role="tablist" aria-label="Đối tác">
+          <div class="partners__dots" role="tablist" aria-label="<?php echo esc_attr($partner_alt); ?>">
             <?php foreach ($pages as $i => $_) : ?>
-              <button class="partners__dot<?php echo $i === 0 ? ' is-active' : ''; ?>" type="button" data-slide="<?php echo $i; ?>" aria-label="Trang <?php echo $i + 1; ?>"></button>
+              <button class="partners__dot<?php echo $i === 0 ? ' is-active' : ''; ?>" type="button" data-slide="<?php echo $i; ?>" aria-label="<?php echo esc_attr($page_lbl); ?> <?php echo $i + 1; ?>"></button>
             <?php endforeach; ?>
           </div>
         <?php endif; ?>
