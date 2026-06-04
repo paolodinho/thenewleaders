@@ -518,7 +518,7 @@
   overflow: hidden;
 }
 .testimonials__title {
-  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   line-height: 1.0;
   color: #FFC9A1;
@@ -622,7 +622,7 @@
   padding: 0 var(--container-px) 64px;
 }
 .about__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
@@ -715,7 +715,7 @@
   padding: 96px 0;
 }
 .why-us__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.0;
@@ -800,7 +800,7 @@
   padding: 96px 0;
 }
 .values__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
@@ -839,7 +839,7 @@
 }
 .growing__header { margin-bottom: 48px; }
 .growing__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.0;
@@ -926,7 +926,7 @@
 
 .partners__intro { padding: 96px 0 48px; }
 .partners__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.0;
@@ -1226,7 +1226,7 @@
   .wwd-row__desc { font-size: 1.125rem; max-width: 100%; }
 
   .testimonials { padding: 96px 0 80px; }
-  .testimonials__title { font-size: clamp(2.5rem, 10vw, 4rem); max-width: 100%; margin-bottom: 48px; }
+  .testimonials__title { font-size: clamp(1.7rem, 6vw, 2.5rem); max-width: 100%; margin-bottom: 40px; }
   /* Mobile: 1 cột nhưng SO LE — ảnh + viền accent đổi bên trái/phải theo mục,
      chữ luôn căn trái cho dễ đọc */
   .trow, .trow--right { grid-template-columns: 1fr; gap: 16px; }
@@ -1291,7 +1291,7 @@
   .why-us__title,
   .values__title,
   .growing__title,
-  .partners__title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  .partners__title { font-size: clamp(1.7rem, 6vw, 2.5rem); }
 
   .about__mission { font-size: 1.25rem; }
   .about__item { gap: 18px; padding: 22px 22px; align-items: flex-start; }
