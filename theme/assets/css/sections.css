@@ -1130,15 +1130,16 @@
    ============================================================ */
 .site-footer { background: #141414; color: rgba(255,255,255,0.7); }
 .site-footer__top {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: flex-start;
   flex-wrap: wrap; gap: 20px 40px;
   padding: 36px 0;
 }
-.site-footer__links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 0; }
+.site-footer__links { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 4px 0; }
 .site-footer__links a {
   position: relative; font-size: 0.95rem; line-height: 1.4; color: rgba(255,255,255,0.66);
   padding: 6px 18px; transition: color var(--transition);
 }
+.site-footer__links a:first-child { padding-left: 0; }
 .site-footer__links a:not(:last-child)::after {
   content: ""; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
   width: 1px; height: 13px; background: rgba(255,255,255,0.18);
