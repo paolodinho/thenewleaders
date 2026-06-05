@@ -20,6 +20,11 @@ event_slugs=( the-strategic-interview giao-tiep-hieu-qua empower-her-08-03-2026 
 for s in "${event_slugs[@]}"; do
   out="$REPO/docs/su-kien/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s "$B/su-kien/$s/" -o "$out"
 done
+# Bài blog (post, /blog/{slug}, đơn ngữ)
+blog_slugs=( khi-doi-ngu-im-lang doi-tu-duy-thay-ket-qua hieu-suat-doi-ngu-khong-den-tu-kpi-ma-den-tu-cam-xuc mua-bao-nhan-vian-xin-off-sep-eq-cao-se-noi-gi 5-bieu-hien-sep-eq-can-cai-thien khi-my-dam-phan-ho-khong-choi-co-vua-ma-la-poker team-restart-don-t-let-the-new-year-begin-with-stagnation )
+for s in "${blog_slugs[@]}"; do
+  out="$REPO/docs/blog/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s "$B/blog/$s/" -o "$out"
+done
 # assets
 mkdir -p "$REPO/docs/wp-content/themes/thenewleaders"
 cp "$THEME/style.css" "$REPO/docs/wp-content/themes/thenewleaders/"
