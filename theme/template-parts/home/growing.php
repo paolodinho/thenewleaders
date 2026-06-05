@@ -36,12 +36,12 @@ $use_wp = $posts_query->have_posts();
         <?php if ($use_wp) :
           while ($posts_query->have_posts()) : $posts_query->the_post();
             $ev_link = get_post_meta(get_the_ID(), '_tnl_event_link', true);
-            if (!$ev_link) $ev_link = tnl_url('resources'); ?>
+            if (!$ev_link) $ev_link = get_permalink(); ?>
             <a class="growing__item" href="<?php echo esc_url($ev_link); ?>">
               <?php if (has_post_thumbnail()) : ?>
                 <div class="growing__item-img"><?php the_post_thumbnail('medium_large'); ?></div>
               <?php endif; ?>
-              <p class="growing__item-title"><?php the_title(); ?></p>
+              <p class="growing__item-title"><?php echo esc_html(function_exists('tnl_event_title') ? tnl_event_title() : get_the_title()); ?></p>
             </a>
           <?php endwhile;
           wp_reset_postdata();

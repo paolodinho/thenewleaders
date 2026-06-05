@@ -62,6 +62,14 @@ $T = [
 ];
 }
 $tools_anchors = ['#blog', '#library', '#tools'];
+$tool_urls = [
+  'FONOS' => 'https://fonos.vn',
+  'Audible' => 'https://www.audible.com',
+  'Shopee' => 'https://shopee.vn',
+  'Coursera' => 'https://www.coursera.org',
+  'FAHASA' => 'https://www.fahasa.com',
+  'Alpha Books' => 'https://www.alphabooks.vn',
+];
 
 /* Ảnh blog (thứ tự khớp cả EN/VI) — kéo từ live */
 $media = get_template_directory_uri() . '/assets/media/blog/';
@@ -126,8 +134,9 @@ $blog_imgs = [
       <h2 class="res-block__title"><?php echo esc_html($T['tools_h']); ?></h2>
       <div class="res-tools">
         <?php foreach ($T['tools'] as $tool) : ?>
+          <?php $turl = $tool_urls[$tool['n']] ?? ''; ?>
           <article class="res-tool">
-            <h3 class="res-tool__name"><?php echo esc_html($tool['n']); ?></h3>
+            <h3 class="res-tool__name"><?php if ($turl) : ?><a href="<?php echo esc_url($turl); ?>" target="_blank" rel="noopener noreferrer nofollow"><?php echo esc_html($tool['n']); ?></a><?php else : echo esc_html($tool['n']); endif; ?></h3>
             <p class="res-tool__desc"><?php echo esc_html($tool['d']); ?></p>
           </article>
         <?php endforeach; ?>

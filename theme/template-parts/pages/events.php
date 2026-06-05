@@ -102,6 +102,10 @@ $event_imgs = [
     '7_8424e51c08.png',
     '6_3d5bd538dc.png',
 ];
+/* Slug trang chi tiết (CPT event) — khớp thứ tự danh sách events */
+$event_slugs = [
+    'the-strategic-interview','giao-tiep-hieu-qua','empower-her-08-03-2026','bond-beyond-lanh-dao-doi-ngu-hr-trong-mua-dich-chuyen','who-takes-care-of-the-people-who-lead-people','eq-for-finance-tu-ly-tri-den-suc-anh-huong','the-true-well-being-2','leading-with-eq-how-hr-can-future-proof-finance-teams','manipulate-behavior-for-good-using-emotional-intelligence','wine-and-why','emotional-intelligence-for-leading-the-new-generations','leading-after-layoffs','thriving-in-vietnamese-leadership-culture','the-true-well-being-1','persolkelly-coffee-and-connect-series-leading-effectively-with-emotional-intelligence','guest-speaker-adapting-and-thriving-a-leadership-journey-in-a-dynamic-world-2','am-cham-communicating-with-impact-telling-your-own-story-1','transform-your-sales-approach-with-emotional-intelligence','elevate-your-leadership-skills-through-emotional-intelligence','master-the-art-of-leadership-enhance-skills-with-emotional-intelligence','medisetter-enhancing-medical-services-through-emotionally-intelligent-communication-2','leaders-talk-series-leadership-storytelling-startup-founders','leaders-talk-series-inspiring-women-the-global-stories-vietnamese-women',
+];
 ?>
 <main class="site-main page-events">
 
@@ -122,8 +126,9 @@ $event_imgs = [
 
       <div class="ev-grid">
         <?php foreach ($T['events'] as $i => $ev) :
-          $img = !empty($event_imgs[$i]) ? $media . $event_imgs[$i] : ''; ?>
-          <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="ev-card">
+          $img = !empty($event_imgs[$i]) ? $media . $event_imgs[$i] : '';
+          $ev_href = !empty($event_slugs[$i]) ? home_url('/su-kien/' . $event_slugs[$i] . '/') : tnl_url('contact'); ?>
+          <a href="<?php echo esc_url($ev_href); ?>" class="ev-card">
             <span class="ev-card__thumb<?php echo $img ? '' : ' ev-card__thumb--empty'; ?>">
               <?php if ($img) : ?>
                 <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($ev); ?>" loading="lazy">
@@ -141,7 +146,7 @@ $event_imgs = [
     <div class="container ev-community__inner">
       <h2 class="ev-community__title"><?php echo esc_html($T['comm_h']); ?></h2>
       <p class="ev-community__desc"><?php echo esc_html($T['comm_desc']); ?></p>
-      <a href="https://www.facebook.com/share/5AUg8xvJDnxr13ub" target="_blank" rel="noopener noreferrer" class="btn btn--outline ev-community__cta"><?php echo esc_html($T['comm_cta']); ?></a>
+      <a href="https://www.facebook.com/groups/eqleadershipvietnam" target="_blank" rel="noopener noreferrer" class="btn btn--outline ev-community__cta"><?php echo esc_html($T['comm_cta']); ?></a>
     </div>
   </section>
 
