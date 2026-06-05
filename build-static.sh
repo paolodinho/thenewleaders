@@ -18,12 +18,12 @@ done
 # Trang chi tiết sự kiện (CPT event, /su-kien/{slug}, đơn ngữ)
 event_slugs=( the-strategic-interview giao-tiep-hieu-qua empower-her-08-03-2026 bond-beyond-lanh-dao-doi-ngu-hr-trong-mua-dich-chuyen who-takes-care-of-the-people-who-lead-people eq-for-finance-tu-ly-tri-den-suc-anh-huong the-true-well-being-2 leading-with-eq-how-hr-can-future-proof-finance-teams manipulate-behavior-for-good-using-emotional-intelligence wine-and-why emotional-intelligence-for-leading-the-new-generations leading-after-layoffs thriving-in-vietnamese-leadership-culture the-true-well-being-1 persolkelly-coffee-and-connect-series-leading-effectively-with-emotional-intelligence guest-speaker-adapting-and-thriving-a-leadership-journey-in-a-dynamic-world-2 am-cham-communicating-with-impact-telling-your-own-story-1 transform-your-sales-approach-with-emotional-intelligence elevate-your-leadership-skills-through-emotional-intelligence master-the-art-of-leadership-enhance-skills-with-emotional-intelligence medisetter-enhancing-medical-services-through-emotionally-intelligent-communication-2 leaders-talk-series-leadership-storytelling-startup-founders leaders-talk-series-inspiring-women-the-global-stories-vietnamese-women )
 for s in "${event_slugs[@]}"; do
-  out="$REPO/docs/su-kien/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s "$B/su-kien/$s/" -o "$out"
+  out="$REPO/docs/su-kien/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s --cookie "tnl_lang=vi" "$B/su-kien/$s/" -o "$out"
 done
 # Bài blog (post, /blog/{slug}, đơn ngữ)
 blog_slugs=( khi-doi-ngu-im-lang doi-tu-duy-thay-ket-qua hieu-suat-doi-ngu-khong-den-tu-kpi-ma-den-tu-cam-xuc mua-bao-nhan-vian-xin-off-sep-eq-cao-se-noi-gi 5-bieu-hien-sep-eq-can-cai-thien khi-my-dam-phan-ho-khong-choi-co-vua-ma-la-poker team-restart-don-t-let-the-new-year-begin-with-stagnation )
 for s in "${blog_slugs[@]}"; do
-  out="$REPO/docs/blog/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s "$B/blog/$s/" -o "$out"
+  out="$REPO/docs/blog/$s/index.html"; mkdir -p "$(dirname "$out")"; curl -s --cookie "tnl_lang=vi" "$B/blog/$s/" -o "$out"
 done
 # assets
 mkdir -p "$REPO/docs/wp-content/themes/thenewleaders"
