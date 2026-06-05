@@ -982,20 +982,24 @@
 .partners__dots {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 48px;
+  gap: 2px;
+  margin-top: 40px;
 }
 .partners__dot {
   width: 9px;
   height: 9px;
   border-radius: 999px;
   background: var(--color-gray-light);
-  padding: 0;
+  /* vùng chạm lớn (≈39px) nhưng chấm vẫn nhỏ */
+  padding: 15px;
+  box-sizing: content-box;
+  background-clip: content-box;
   transition: width var(--transition), background var(--transition);
 }
 .partners__dot.is-active {
   width: 28px;
   background: var(--color-orange);
+  background-clip: content-box;
 }
 
 /* ============================================================
@@ -1145,7 +1149,7 @@
 .site-footer__h { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
 .site-footer__col a {
   display: block; font-size: 0.95rem; line-height: 1.5; color: rgba(255,255,255,0.62);
-  padding: 7px 0; transition: color var(--transition);
+  padding: 8px 0; transition: color var(--transition);
 }
 .site-footer__col a:hover { color: var(--color-orange); }
 .site-footer__bottom { background: #0d0d0d; padding: 22px 0; text-align: center; }
@@ -1157,7 +1161,7 @@
 }
 @media (max-width: 480px) {
   .site-footer__nav { grid-template-columns: 1fr 1fr; }
-  .site-footer__col a { padding: 9px 0; }
+  .site-footer__col a { padding: 12px 0; }
 }
 
 /* ============================================================
