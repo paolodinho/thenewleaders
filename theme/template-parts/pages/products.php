@@ -59,6 +59,15 @@ $prod_imgs = [
     '',
     $pmedia . 'calendar_be6d19839f.png',
 ];
+/* Link landing tương ứng (cùng thứ tự render) */
+$prod_links = [
+    tnl_url('products/heart-heart-hand'),
+    tnl_url('products/vision-craft'),
+    tnl_url('products/hlmays'),
+    tnl_url('products/lgad'),
+    tnl_url('products/the-story-of-empathy'),
+    tnl_url('products/the-eq-calendar'),
+];
 $pidx = 0;
 ?>
 <main class="site-main page-products">
@@ -88,7 +97,7 @@ $pidx = 0;
 
         <div class="prod-items">
           <?php foreach ($g['items'] as $it) :
-            $pimg = $prod_imgs[$pidx] ?? ''; $pidx++; ?>
+            $pimg = $prod_imgs[$pidx] ?? ''; $plink = $prod_links[$pidx] ?? tnl_url('contact'); $pidx++; ?>
             <article class="prod-item<?php echo $pimg ? ' prod-item--has-img' : ''; ?>">
               <?php if ($pimg) : ?>
                 <span class="prod-item__media"><img src="<?php echo esc_url($pimg); ?>" alt="<?php echo esc_attr($it['title'] ?? ''); ?>" loading="lazy"></span>
@@ -99,7 +108,7 @@ $pidx = 0;
               <?php foreach ($it['paras'] as $p) : ?>
                 <p class="prod-item__p"><?php echo esc_html($p); ?></p>
               <?php endforeach; ?>
-              <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="btn btn--primary prod-item__cta"><?php echo esc_html($it['cta']); ?></a>
+              <a href="<?php echo esc_url($plink); ?>" class="btn btn--primary prod-item__cta"><?php echo esc_html($it['cta']); ?></a>
             </article>
           <?php endforeach; ?>
         </div>

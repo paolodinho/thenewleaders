@@ -1,7 +1,7 @@
 <?php
 /** products/the-story-of-empathy — E-book "Chuyện về Thấu cảm" / "The Story of Empathy". Song ngữ EN/VI. */
 $vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
-$cta_url = tnl_url('contact');
+$cta_url = 'https://516814-d2.myshopify.com/cart/48250950090936:1?channel=buy_button';
 
 if ($vi) {
   $buy = 'Mua ngay';
@@ -102,7 +102,7 @@ if ($vi) {
       <p class="se-hero__eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
       <h1 class="se-hero__title"><?php echo esc_html($hero_title); ?></h1>
       <p class="se-hero__desc"><?php echo esc_html($hero_desc); ?></p>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
     </div>
   </section>
 
@@ -118,7 +118,7 @@ if ($vi) {
         <?php foreach ($reclaim_outro as $ro) : ?><p><?php echo esc_html($ro); ?></p><?php endforeach; ?>
         <p class="se-reclaim__cta-line"><?php echo esc_html($reclaim_cta_line); ?></p>
       </div>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
     </div>
   </section>
 
@@ -137,7 +137,7 @@ if ($vi) {
       <ul class="ec-list">
         <?php foreach ($forwho as $f) : ?><li><?php echo esc_html($f); ?></li><?php endforeach; ?>
       </ul>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary se-forwho__cta"><?php echo esc_html($buy); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary se-forwho__cta"><?php echo esc_html($buy); ?></a>
     </div>
   </section>
 
@@ -156,7 +156,7 @@ if ($vi) {
       <div class="se-close__notes">
         <?php foreach ($notes as $n) : ?><p><?php echo esc_html($n); ?></p><?php endforeach; ?>
       </div>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary"><?php echo esc_html($buy); ?></a>
     </div>
   </section>
 

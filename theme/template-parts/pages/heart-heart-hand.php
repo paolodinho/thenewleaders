@@ -2,7 +2,7 @@
 /** products/heart-heart-hand — EQ guidebook "Head, Heart, Hand". Verbatim từ live (EN/VI) */
 $vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
 $img = get_template_directory_uri() . '/assets/media/products/book_1_be02c24501.png';
-$cta_url = tnl_url('contact');
+$cta_url = 'https://516814-d2.myshopify.com/products/head-heart-hand-combo-3-b%E1%BB%99?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web';
 
 if ($vi) {
 $P = [
@@ -73,7 +73,7 @@ $col_mods = ['teal', 'green', 'orange'];
     <div class="container pd-hero__inner">
       <div class="pd-hero__text">
         <h1 class="pd-hero__title"><?php echo esc_html($P['tagline']); ?></h1>
-        <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary pd-hero__cta"><?php echo esc_html($P['buy']); ?></a>
+        <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary pd-hero__cta"><?php echo esc_html($P['buy']); ?></a>
       </div>
       <div class="pd-hero__media"><img src="<?php echo esc_url($img); ?>" alt="Head, Heart, Hand" loading="eager"></div>
     </div>
@@ -99,7 +99,7 @@ $col_mods = ['teal', 'green', 'orange'];
       <h2 class="pd-block__title"><?php echo esc_html($P['unlock_h']); ?></h2>
       <p class="pd-block__lead"><?php echo esc_html($P['unlock_lead']); ?></p>
       <ul class="ec-list"><?php foreach ($P['unlock'] as $u) : ?><li><?php echo esc_html($u); ?></li><?php endforeach; ?></ul>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
     </div>
   </section>
 
@@ -115,7 +115,7 @@ $col_mods = ['teal', 'green', 'orange'];
           </div>
         <?php endforeach; ?>
       </div>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
     </div>
   </section>
 
@@ -123,7 +123,7 @@ $col_mods = ['teal', 'green', 'orange'];
     <div class="container">
       <h2 class="pd-block__title"><?php echo esc_html($P['empower_h']); ?></h2>
       <div class="pd-empower"><?php foreach ($P['empower'] as $e) : ?><p><?php echo esc_html($e); ?></p><?php endforeach; ?></div>
-      <a href="<?php echo esc_url($cta_url); ?>" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
+      <a href="<?php echo esc_url($cta_url); ?>" target="_blank" rel="noopener" class="btn btn--primary pd-block__cta"><?php echo esc_html($P['buy']); ?></a>
     </div>
   </section>
 

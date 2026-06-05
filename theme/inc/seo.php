@@ -76,6 +76,18 @@ function tnl_seo_map() {
             'en' => ['EQ Videos with Ngan Tran', 'Watch leadership journey videos and one-minute EQ insights from Ngan Tran.'],
             'vi' => ['Video EQ cùng Ngân Trần', 'Xem các video hành trình lãnh đạo và mẹo EQ một phút cùng Ngân Trần.'],
         ],
+        'vision-craft' => [
+            'en' => ['Vision Craft — Visual EQ Leadership Deck', 'Elevate your EQ leadership with creative visuals across 12 core leadership topics — your daily desk companion.'],
+            'vi' => ['Vision Craft — Học lãnh đạo qua hình vẽ', 'Nâng tầm lãnh đạo EQ bằng hình ảnh sáng tạo trên 12 chủ đề lãnh đạo — người bạn đồng hành trên bàn làm việc mỗi ngày.'],
+        ],
+        'hlmays' => [
+            'en' => ['Hey, let me ask you something! — EQ Card Deck', 'An EQ card deck of questions to bring friends and colleagues closer — from Close to Closer to Closest.'],
+            'vi' => ['Hey, tớ hỏi nè! — Bộ bài giao tiếp EQ', 'Bộ bài câu hỏi EQ giúp bạn bè, đồng nghiệp hiểu và gần nhau hơn — từ Gần đến Thân đến Thương.'],
+        ],
+        'lgad' => [
+            'en' => ["Let's get another drink? — EQ Deck for Couples", 'An EQ card deck of 100 questions for couples to fall in love more deeply — or fall in love again.'],
+            'vi' => ['Một ly nữa nhé? — Bộ bài EQ cho cặp đôi', 'Bộ bài 100 câu hỏi EQ cho các cặp đôi để yêu thêm, hoặc yêu... lại.'],
+        ],
     ];
 }
 
