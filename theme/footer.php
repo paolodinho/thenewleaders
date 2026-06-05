@@ -11,53 +11,25 @@ $social = [
     ['TikTok',    'https://www.tiktok.com/@thenewleaders.asia',                '<path d="M16.5 5.5c.5 1 1.4 1.8 2.5 2v2.2c-1 0-2-.3-2.9-.8v4.7a4.7 4.7 0 1 1-4.7-4.7c.2 0 .4 0 .6.05v2.3a2.4 2.4 0 1 0 1.7 2.3V4.5h2.3c0 .35.05.68.15 1z"/>'],
 ];
 
-$svc = [
-    ['our-services',                    $ft('Tổng quan dịch vụ', 'All services')],
-    ['our-services/for-manager',        $ft('EQ cho Quản lý, Lãnh đạo', 'EQ for Managers & Leaders')],
-    ['our-services/for-team-member',    $ft('EQ cho Đội ngũ', 'EQ for Team Members')],
-    ['our-services/executive-coach',    $ft('Coaching 1:1', '1:1 Executive Coaching')],
-    ['our-services/individual-courses', $ft('Khoá học cá nhân', 'Individual Courses')],
-];
-$prod = [
-    ['products',                      $ft('Tổng quan sản phẩm', 'All products')],
-    ['products/heart-heart-hand',     $ft('Cẩm nang EQ', 'EQ Guidebook')],
-    ['products/the-story-of-empathy', $ft('Sách điện tử', 'E-book')],
-    ['products/the-eq-calendar',      'The EQ Calendar'],
-];
-$explore = [
-    ['resources',  $ft('Tài nguyên', 'Resources')],
-    ['events',     $ft('Sự kiện', 'Events')],
-    ['eq-quiz',    $ft('Trắc nghiệm EQ', 'EQ Quiz')],
-    ['careers',    $ft('Tuyển dụng', 'Careers')],
-    ['newsletter', $ft('Bản tin', 'Newsletter')],
-    ['contact',    $ft('Liên hệ', 'Contact')],
+// Footer = 1 hàng link top-level phẳng (liên hệ/social/ngôn ngữ đã có ở cta-section ngay trên).
+$links = [
+    ['our-services', $ft('Dịch vụ', 'Services')],
+    ['products',     $ft('Sản phẩm', 'Products')],
+    ['events',       $ft('Sự kiện', 'Events')],
+    ['resources',    $ft('Tài nguyên', 'Resources')],
+    ['eq-quiz',      $ft('Trắc nghiệm EQ', 'EQ Quiz')],
+    ['careers',      $ft('Tuyển dụng', 'Careers')],
+    ['contact',      $ft('Liên hệ', 'Contact')],
 ];
 ?>
 <footer class="site-footer">
   <div class="container site-footer__top">
-
-    <div class="site-footer__brand">
-      <a href="<?php echo esc_url(tnl_url('')); ?>" class="site-footer__logo" aria-label="The New Leaders">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/tnl-logo-white.svg'); ?>" alt="The New Leaders" width="150" height="42" loading="lazy">
-      </a>
-      <p class="site-footer__tagline"><?php echo esc_html($ft('Đào tạo Lãnh đạo & Giao tiếp bằng Trí tuệ Cảm xúc (EQ) theo cấu trúc từ Harvard & Oxford.', 'Emotional Intelligence (EQ) Leadership & Communication training based on Harvard & Oxford frameworks.')); ?></p>
-    </div>
-
-    <nav class="site-footer__nav" aria-label="<?php echo esc_attr($ft('Liên kết chân trang', 'Footer')); ?>">
-      <div class="site-footer__col">
-        <h3 class="site-footer__h"><?php echo esc_html($ft('Dịch vụ', 'Services')); ?></h3>
-        <?php foreach ($svc as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
-      </div>
-      <div class="site-footer__col">
-        <h3 class="site-footer__h"><?php echo esc_html($ft('Sản phẩm', 'Products')); ?></h3>
-        <?php foreach ($prod as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
-      </div>
-      <div class="site-footer__col">
-        <h3 class="site-footer__h"><?php echo esc_html($ft('Khám phá', 'Explore')); ?></h3>
-        <?php foreach ($explore as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
-      </div>
+    <a href="<?php echo esc_url(tnl_url('')); ?>" class="site-footer__logo" aria-label="The New Leaders">
+      <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/tnl-logo-white.svg'); ?>" alt="The New Leaders" width="150" height="42" loading="lazy">
+    </a>
+    <nav class="site-footer__links" aria-label="<?php echo esc_attr($ft('Liên kết chân trang', 'Footer')); ?>">
+      <?php foreach ($links as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
     </nav>
-
   </div>
 
   <div class="site-footer__bottom">
