@@ -30,6 +30,7 @@ $explore = [
     ['eq-quiz',    $ft('Trắc nghiệm EQ', 'EQ Quiz')],
     ['careers',    $ft('Tuyển dụng', 'Careers')],
     ['newsletter', $ft('Bản tin', 'Newsletter')],
+    ['contact',    $ft('Liên hệ', 'Contact')],
 ];
 ?>
 <footer class="site-footer">
@@ -37,16 +38,9 @@ $explore = [
 
     <div class="site-footer__brand">
       <a href="<?php echo esc_url(tnl_url('')); ?>" class="site-footer__logo" aria-label="The New Leaders">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/tnl-logo.svg'); ?>" alt="The New Leaders" width="150" height="42" loading="lazy">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/tnl-logo-white.svg'); ?>" alt="The New Leaders" width="150" height="42" loading="lazy">
       </a>
       <p class="site-footer__tagline"><?php echo esc_html($ft('Đào tạo Lãnh đạo & Giao tiếp bằng Trí tuệ Cảm xúc (EQ) theo cấu trúc từ Harvard & Oxford.', 'Emotional Intelligence (EQ) Leadership & Communication training based on Harvard & Oxford frameworks.')); ?></p>
-      <div class="site-footer__social">
-        <?php foreach ($social as $s) : ?>
-          <a href="<?php echo esc_url($s[1]); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr($s[0]); ?>">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><?php echo $s[2]; ?></svg>
-          </a>
-        <?php endforeach; ?>
-      </div>
     </div>
 
     <nav class="site-footer__nav" aria-label="<?php echo esc_attr($ft('Liên kết chân trang', 'Footer')); ?>">
@@ -61,12 +55,6 @@ $explore = [
       <div class="site-footer__col">
         <h3 class="site-footer__h"><?php echo esc_html($ft('Khám phá', 'Explore')); ?></h3>
         <?php foreach ($explore as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
-      </div>
-      <div class="site-footer__col">
-        <h3 class="site-footer__h"><?php echo esc_html($ft('Liên hệ', 'Contact')); ?></h3>
-        <a href="mailto:info@thenewleaders.asia">info@thenewleaders.asia</a>
-        <a href="tel:+84916663670">(84) 91 666 3670</a>
-        <a href="<?php echo esc_url(tnl_url('contact')); ?>"><?php echo esc_html($ft('Gửi liên hệ', 'Get in touch')); ?></a>
       </div>
     </nav>
 
