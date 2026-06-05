@@ -106,16 +106,26 @@ $blog_imgs = [
     <div class="container">
       <h2 class="res-block__title"><?php echo esc_html($T['blog_h']); ?></h2>
       <div class="res-blog">
-        <?php foreach ($T['blog'] as $i => $post) : ?>
-          <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="res-post">
-            <span class="res-post__thumb">
-              <?php if (!empty($blog_imgs[$i])) : ?>
-                <img src="<?php echo esc_url($blog_imgs[$i]); ?>" alt="<?php echo esc_attr($post); ?>" loading="lazy">
-              <?php endif; ?>
-            </span>
-            <span class="res-post__title"><?php echo esc_html($post); ?></span>
-          </a>
-        <?php endforeach; ?>
+        <?php
+        $blog_q = new WP_Query(['post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 9, 'orderby' => 'date', 'order' => 'DESC']);
+        if ($blog_q->have_posts()) :
+          while ($blog_q->have_posts()) : $blog_q->the_post(); ?>
+            <a href="<?php the_permalink(); ?>" class="res-post">
+              <span class="res-post__thumb">
+                <?php if (has_post_thumbnail()) : the_post_thumbnail('medium_large', ['alt' => esc_attr(get_the_title())]); endif; ?>
+              </span>
+              <span class="res-post__title"><?php the_title(); ?></span>
+            </a>
+          <?php endwhile;
+          wp_reset_postdata();
+        else :
+          foreach ($T['blog'] as $i => $post) : ?>
+            <a href="<?php echo esc_url(tnl_url('contact')); ?>" class="res-post">
+              <span class="res-post__thumb"><?php if (!empty($blog_imgs[$i])) : ?><img src="<?php echo esc_url($blog_imgs[$i]); ?>" alt="<?php echo esc_attr($post); ?>" loading="lazy"><?php endif; ?></span>
+              <span class="res-post__title"><?php echo esc_html($post); ?></span>
+            </a>
+          <?php endforeach;
+        endif; ?>
       </div>
     </div>
   </section>
