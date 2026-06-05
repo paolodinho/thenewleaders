@@ -24,9 +24,6 @@ $links = [
 ?>
 <footer class="site-footer">
   <div class="container site-footer__top">
-    <a href="<?php echo esc_url(tnl_url('')); ?>" class="site-footer__logo" aria-label="The New Leaders">
-      <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/tnl-logo-white.svg'); ?>" alt="The New Leaders" width="150" height="42" loading="lazy">
-    </a>
     <nav class="site-footer__links" aria-label="<?php echo esc_attr($ft('Liên kết chân trang', 'Footer')); ?>">
       <?php foreach ($links as $l) : ?><a href="<?php echo esc_url(tnl_url($l[0])); ?>"><?php echo esc_html($l[1]); ?></a><?php endforeach; ?>
     </nav>
