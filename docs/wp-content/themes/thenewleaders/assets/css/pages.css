@@ -989,3 +989,26 @@
 .tnl-form-msg.is-error { color: var(--color-feedback-error); }
 .newsletter__form .tnl-form-msg.is-success { color: #fff; }
 .newsletter__form .tnl-form-msg.is-error { color: #FFE0D8; }
+
+/* ============================================================
+   EVENT DETAIL — /su-kien/{slug}
+   ============================================================ */
+.page-event-single { padding-top: 96px; }
+.ev-single { padding: 24px 0 64px; }
+.ev-single__inner { max-width: 800px; }
+.ev-single__back { display: inline-block; font-weight: 600; font-size: 0.95rem; color: var(--color-orange); margin-bottom: 22px; }
+.ev-single__back:hover { text-decoration: underline; }
+.ev-single__title { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; color: var(--color-black); margin-bottom: 16px; text-wrap: balance; }
+.ev-single__meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 26px; font-size: 1rem; color: var(--color-gray-dark); }
+.ev-single__metaitem strong { color: var(--color-black); font-weight: 700; }
+.ev-single__fig { margin: 0 0 32px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-mid); }
+.ev-single__fig img { width: 100%; height: auto; display: block; }
+.ev-single__body { font-size: 1.08rem; line-height: 1.75; color: var(--color-gray-dark); }
+.ev-single__body h2 { font-size: 1.6rem; color: var(--color-black); margin: 32px 0 12px; line-height: 1.25; }
+.ev-single__body h3 { font-size: 1.3rem; color: var(--color-black); margin: 26px 0 10px; }
+.ev-single__body p { margin-bottom: 16px; }
+.ev-single__body ul { margin: 0 0 18px 1.2em; list-style: disc; }
+.ev-single__body li { margin-bottom: 8px; }
+.ev-single__body strong { color: var(--color-black); }
+.ev-single__body a { color: var(--color-orange); text-decoration: underline; }
+.ev-single__reg { margin-top: 28px; }
