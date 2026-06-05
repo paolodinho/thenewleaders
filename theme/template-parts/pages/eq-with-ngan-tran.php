@@ -3,8 +3,8 @@
 $vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
 $yt = 'https://youtube.com/@thenewleaders5553';
 
-$journey_h = 'Hành trình lãnh đạo';
-$insights_h = 'Watch our collection of one-minute EQ insights';
+$journey_h = $vi ? 'Hành trình lãnh đạo' : 'Leadership journey';
+$insights_h = $vi ? 'Xem bộ sưu tập video EQ một phút của chúng tôi' : 'Watch our collection of one-minute EQ insights';
 $tm_h = $vi ? 'Đánh giá của các nhà lãnh đạo về khoá học của chúng tôi' : 'Our leaders say about the experience';
 $watch = $vi ? 'Xem trên YouTube' : 'Watch on YouTube';
 

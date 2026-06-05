@@ -29,7 +29,7 @@ $video_url = get_template_directory_uri() . '/assets/media/video/tnl_motion_cd69
 <!-- Hero CTA — orange gradient section immediately after video -->
 <section class="hero-cta" id="hero-cta">
   <div class="hero-cta__inner">
-    <p class="hero-cta__tagline"><?php echo tnl_t('hero_tagline'); ?></p>
+    <h1 class="hero-cta__tagline"><?php echo tnl_t('hero_tagline'); ?></h1>
     <div class="hero-cta__btns">
       <a href="#what-we-do" class="hero-cta__btn"><?php echo tnl_t('hero_btn1'); ?></a>
       <a href="#what-we-do" class="hero-cta__btn hero-cta__btn--outline"><?php echo tnl_t('hero_btn2'); ?></a>
