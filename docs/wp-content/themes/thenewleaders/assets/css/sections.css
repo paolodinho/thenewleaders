@@ -1141,7 +1141,7 @@
   transition: background var(--transition), transform var(--transition);
 }
 .site-footer__social a:hover { background: var(--color-orange); transform: translateY(-2px); }
-.site-footer__nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.site-footer__nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .site-footer__h { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
 .site-footer__col a {
   display: block; font-size: 0.95rem; line-height: 1.5; color: rgba(255,255,255,0.62);
