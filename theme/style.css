@@ -14,13 +14,13 @@ Text Domain: thenewleaders
 /* ============================================================
    FONT FACE — Euclid Circular A (self-hosted)
    ============================================================ */
-/* Euclid Circular A — đúng font live dùng (Latin). Các glyph tiếng Việt Euclid không có
-   sẽ tự fallback sang 'Be Vietnam Pro' (nạp ở functions.php) -> giống hệt cơ chế của live, bền vững. */
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularA-Regular.woff2?v=3') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularA-Light.woff2?v=3') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularA-Medium.woff2?v=3') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularA-SemiBold.woff2?v=3') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularA-Bold.woff2?v=3') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+/* Euclid Circular A — bản EuclidCircularAVN (647 glyph) hỗ trợ ĐẦY ĐỦ tiếng Việt + Latin.
+   Dùng cho cả EN lẫn VI -> đồng nhất 1 font toàn site, không cần fallback Be Vietnam Pro. (2026-06-06) */
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Regular-v2.woff2?v=4') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Light-v2.woff2?v=4') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Medium-v2.woff2?v=4') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-SemiBold-v2.woff2?v=4') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Bold-v2.woff2?v=4') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 
 /* ============================================================
    CSS CUSTOM PROPERTIES
@@ -46,8 +46,8 @@ Text Domain: thenewleaders
   --color-tag-orange:   #FF4B1F;
 
   /* Typography */
-  --font-display:  'Euclid Circular A', 'Be Vietnam Pro', sans-serif;
-  --font-body:     'Euclid Circular A', 'Be Vietnam Pro', sans-serif;
+  --font-display:  'Euclid Circular A', sans-serif;
+  --font-body:     'Euclid Circular A', sans-serif;
 
   /* Spacing */
   --section-py:    96px;

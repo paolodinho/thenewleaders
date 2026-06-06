@@ -53,8 +53,7 @@ function tnl_enqueue() {
     $pages_ver    = file_exists($pages_path)    ? filemtime($pages_path)    : '1.1.0';
     $main_js_ver  = file_exists($main_js_path)  ? filemtime($main_js_path)  : '1.1.0';
 
-    // Be Vietnam Pro — fallback đầy đủ tiếng Việt cho các glyph Euclid không có (giống cơ chế live)
-    wp_enqueue_style('tnl-bevn', 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap', [], null);
+    // (2026-06-06) Bỏ Be Vietnam Pro — EuclidCircularAVN đã đủ glyph tiếng Việt, dùng 1 font toàn site.
 
     // Main stylesheet (includes @font-face for Euclid Circular A)
     wp_enqueue_style('tnl-style', get_stylesheet_uri(), [], $style_ver);
