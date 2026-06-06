@@ -513,9 +513,10 @@
 /* ============================================================
    TESTIMONIALS — orange bg, alternating layout
    ============================================================ */
+/* (2026-06-06 feedback khách) Nền tối đúng brand như web cũ, gom gọn dạng grid card */
 .testimonials {
-  background: var(--color-orange);
-  padding: 132px 0 112px;
+  background: var(--color-dark);
+  padding: 112px 0 112px;
   position: relative;
   overflow: hidden;
 }
@@ -524,92 +525,52 @@
   font-weight: 700;
   line-height: 1.0;
   color: #FFC9A1;
-  margin: 0 auto 72px;
+  margin: 0 auto 64px;
   letter-spacing: -0.02em;
-  max-width: 768px;
+  max-width: var(--container-max);
   padding-inline: var(--container-px);
   text-align: left;
-  position: relative;
 }
-.testimonials__list {
+.testimonials__grid {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-px);
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-/* Each testimonial row */
-.trow {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
-.trow--right {
-  grid-template-columns: auto 1fr;
-}
-/* Quote card — frosted-free tint block with accent + big quote mark */
-.trow__content {
-  position: relative;
+.tcard {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.10);
-  border-left: 5px solid #FFC9A1;
-  border-radius: 0 18px 18px 0;
-  padding: 36px 44px 36px 40px;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  padding: 28px;
+  transition: background 0.25s ease, transform 0.25s ease;
 }
-.trow--right .trow__content {
-  border-left: none;
-  border-right: 5px solid #FFC9A1;
-  border-radius: 18px 0 0 18px;
-  text-align: right;
-}
-/* Oversized decorative quote mark */
-.trow__content::before {
-  content: "\201C";
-  position: absolute;
-  top: 4px;
-  right: 28px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 6rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.18);
-  pointer-events: none;
-}
-.trow--right .trow__content::before { right: auto; left: 28px; }
-.trow__name {
-  display: block;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-white);
-  line-height: 1.3;
-}
-.trow__role {
-  display: block;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 18px;
-}
-.trow__quote {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--color-white);
+.tcard:hover { background: rgba(255, 255, 255, 0.10); transform: translateY(-3px); }
+.tcard__quote {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.7;
   margin: 0;
+  flex: 1;
 }
-.trow__photo { flex-shrink: 0; }
-.trow__img {
-  width: 116px;
-  height: 116px;
+.tcard__head { display: flex; align-items: center; gap: 14px; }
+.tcard__img {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  border: 4px solid rgba(255,255,255,0.85);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.85);
 }
+.tcard__meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tcard__name { font-size: 1rem; font-weight: 700; color: var(--color-white); line-height: 1.3; }
+.tcard__role { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); line-height: 1.4; }
 
 /* ============================================================
    ABOUT US — stacked numbered layout
@@ -663,11 +624,9 @@
   border-radius: 20px;
   transition: transform 0.35s cubic-bezier(.2,.7,.2,1), box-shadow 0.35s ease;
 }
-/* So le + nghiêng nhẹ cho mềm, bớt cứng (thẳng lại khi hover) */
-.about__item:nth-child(odd)  { transform: rotate(-0.9deg); }
-.about__item:nth-child(even) { transform: rotate(0.9deg); margin-left: auto; max-width: 90%; }
+/* (2026-06-06 feedback khách) Bỏ nghiêng, để thẳng thớm như web cũ */
 .about__item:hover {
-  transform: rotate(0) translateY(-3px);
+  transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 .about__item--teal   { background: #5AD3ED; }
@@ -777,10 +736,7 @@
   z-index: 1;
   text-align: left;
 }
-.why-us-item:nth-child(1) .why-us-item__title-box { transform: rotate(-1.6deg); }
-.why-us-item:nth-child(2) .why-us-item__title-box { transform: rotate(1.2deg); }
-.why-us-item:nth-child(3) .why-us-item__title-box { transform: rotate(-1deg); }
-.why-us-item:nth-child(4) .why-us-item__title-box { transform: rotate(1.6deg); }
+/* (2026-06-06 feedback khách) Bỏ nghiêng title-box cho thẳng */
 .why-us-item__title-box--teal   { background: #5AD3ED; }
 .why-us-item__title-box--green  { background: #AFE56B; }
 .why-us-item__title-box--yellow { background: #FFC75A; }
@@ -809,22 +765,37 @@
   color: var(--color-white);
   margin-bottom: 56px;
 }
-.values__grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: rgba(0,0,0,0.15);
-  border-radius: 12px;
+/* (2026-06-06) Carousel tự chạy ngang, dừng khi hover */
+.values__marquee {
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.values__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding-inline: 20px;
+  animation: values-scroll 36s linear infinite;
+}
+.values__marquee:hover .values__track { animation-play-state: paused; }
+@keyframes values-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .values__track { animation: none; flex-wrap: wrap; justify-content: center; }
 }
 .value-card {
-  background: rgba(255,255,255,0.08);
-  padding: 36px 28px;
-  transition: background var(--transition);
+  flex: 0 0 300px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 36px 32px;
+  transition: background var(--transition), transform var(--transition);
 }
-.value-card:hover { background: rgba(255,255,255,0.15); }
+.value-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-4px); }
 .value-card__title { color: var(--color-white); font-size: 1.875rem; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-.value-card__desc  { color: rgba(255,255,255,0.80); font-size: 1.125rem; line-height: 1.65; margin: 0; }
+.value-card__desc  { color: rgba(255,255,255,0.85); font-size: 1.125rem; line-height: 1.65; margin: 0; }
 
 /* ============================================================
    GROWING TOGETHER — light gray, horizontal scroll
@@ -1047,7 +1018,10 @@
 .newsletter__input:focus { outline: none; border-bottom-color: rgba(255,255,255,0.7); }
 .newsletter__submit {
   margin-top: 24px;
-  padding: 20px 52px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 40px;
   background: var(--color-white);
   color: var(--color-orange);
   border: none;
@@ -1060,6 +1034,8 @@
   transition: all var(--transition);
 }
 .newsletter__submit:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+.newsletter__arrow { transition: transform var(--transition); }
+.newsletter__submit:hover .newsletter__arrow { transform: translateX(4px); }
 
 /* ============================================================
    CTA / FOOTER SECTION — black, colored word boxes + get in touch
@@ -1180,7 +1156,6 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1200px) {
-  .values__grid { grid-template-columns: repeat(3, 1fr); }
   .partners__layout { grid-template-columns: 1fr; }
   .partners__slide { gap: 24px 32px; }
   .why-us-item__title-box { font-size: 2.5rem; }
@@ -1259,33 +1234,7 @@
 
   .testimonials { padding: 96px 0 80px; }
   .testimonials__title { font-size: clamp(2.5rem, 10vw, 4rem); max-width: 100%; margin-bottom: 48px; }
-  /* Mobile: 1 cột nhưng SO LE — ảnh + viền accent đổi bên trái/phải theo mục,
-     chữ luôn căn trái cho dễ đọc */
-  .trow, .trow--right { grid-template-columns: 1fr; gap: 16px; }
-  .trow__photo { order: 1; }
-  .trow__content { order: 2; }
-  .trow__img { width: 80px; height: 80px; }
-  .trow__content,
-  .trow--right .trow__content {
-    padding: 24px 24px 26px;
-    text-align: left;
-  }
-  /* mục lẻ: ảnh + accent BÊN TRÁI */
-  .trow .trow__photo { justify-self: start; }
-  .trow .trow__content {
-    border-left: 5px solid #FFC9A1; border-right: none;
-    border-radius: 0 18px 18px 0;
-  }
-  .trow .trow__content::before { right: 18px; left: auto; }
-  /* mục chẵn: ảnh + accent BÊN PHẢI */
-  .trow--right .trow__photo { justify-self: end; }
-  .trow--right .trow__content {
-    border-right: 5px solid #FFC9A1; border-left: none;
-    border-radius: 18px 0 0 18px;
-  }
-  .trow--right .trow__content::before { left: 18px; right: auto; }
-  .trow__content::before { font-size: 4.5rem; top: 0; }
-  .trow__quote { font-size: 1.1rem; }
+  .testimonials__grid { grid-template-columns: 1fr; gap: 16px; }
 
   /* Mọi nút .btn: cho wrap chữ + co padding/font để không tràn ngang trên mobile */
   .btn {
@@ -1408,7 +1357,7 @@
   .site-header.is-open .nav-mega__list a { color: rgba(255,255,255,0.85); padding: 12px 0; }
   .site-header.is-open .nav-mega__list a:hover { background: transparent; color: #fff; }
 
-  .values__grid { grid-template-columns: repeat(2, 1fr); }
+  .value-card { flex: 0 0 270px; padding: 28px 24px; }
   .partners__slide { grid-template-columns: repeat(2, 1fr); gap: 24px 20px; }
   .partner-logo { height: 76px; padding: 0 8px; }
   .partner-logo img { max-height: 64px; }
@@ -1431,9 +1380,9 @@
     padding: 16px 24px;
     font-size: 1.0625rem;
   }
-  .testimonials__list { gap: 48px; }
+  .testimonials__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }
 
 @media (max-width: 480px) {
-  .values__grid { grid-template-columns: 1fr; }
+  .value-card { flex: 0 0 240px; }
 }

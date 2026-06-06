@@ -419,7 +419,8 @@
 .ev-list { padding-top: 40px; }
 .ev-list__title { font-size: clamp(1.7rem, 3.2vw, 2.5rem); color: var(--color-orange); margin-bottom: 12px; }
 .ev-list__lead { font-size: 1.15rem; color: var(--color-gray-dark); margin-bottom: 40px; }
-.ev-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+/* (2026-06-06 feedback khách) 3 sự kiện/hàng cho dãn rộng dễ đọc */
+.ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .ev-card {
   display: flex; flex-direction: column;
   border: 1px solid var(--color-gray-light); border-radius: var(--radius-lg); overflow: hidden;
@@ -429,7 +430,7 @@
 .ev-card__thumb { aspect-ratio: 16/10; background: var(--color-off-white); overflow: hidden; display: block; }
 .ev-card__thumb--empty { background: linear-gradient(135deg, var(--color-off-white), var(--color-gray-light)); }
 .ev-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ev-card__title { padding: 18px 20px; font-size: 1rem; font-weight: 700; color: var(--color-black); line-height: 1.35; }
+.ev-card__title { padding: 20px 22px; font-size: 1.05rem; font-weight: 600; color: var(--color-gray-dark); line-height: 1.5; }
 
 .ev-community { padding-block: 0; }
 .ev-community__inner {
@@ -561,15 +562,16 @@
 .pg-curri { padding-block: 64px; }
 .pg-curri__title { font-size: clamp(1.7rem, 3.2vw, 2.5rem); color: var(--color-orange); margin-bottom: 18px; max-width: 920px; }
 .pg-curri__intro { font-size: 1.1rem; line-height: 1.7; color: var(--color-gray-dark); max-width: 880px; margin-bottom: 44px; }
-.pg-modules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.pg-module { display: grid; grid-template-columns: 52px 1fr; gap: 16px; padding: 26px; background: var(--color-off-white); border-radius: var(--radius-lg); align-items: start; }
-.pg-module__num { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; color: #fff; line-height: 1; border-radius: 50%; background: var(--color-orange); }
+/* (2026-06-06 feedback khách) Giãn khối 1 cột rộng rãi, bỏ kiểu liệt kê dày */
+.pg-modules { display: flex; flex-direction: column; gap: 24px; }
+.pg-module { display: grid; grid-template-columns: 64px 1fr; gap: 28px; padding: 40px 44px; background: var(--color-off-white); border-radius: var(--radius-lg); align-items: start; }
+.pg-module__num { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1; border-radius: 50%; background: var(--color-orange); }
 .pg-module__num--teal   { background: var(--color-tag-teal); }
 .pg-module__num--green  { background: var(--color-tag-green); }
 .pg-module__num--orange { background: var(--color-orange); }
 .pg-module__num--pink   { background: var(--color-tag-pink); }
-.pg-module__title { font-size: 1.3rem; font-weight: 700; color: var(--color-black); margin-bottom: 10px; }
-.pg-module__body p { font-size: 1rem; line-height: 1.65; color: var(--color-gray-dark); margin-bottom: 10px; }
+.pg-module__title { font-size: 1.45rem; font-weight: 700; color: var(--color-black); margin-bottom: 12px; }
+.pg-module__body p { font-size: 1.0625rem; line-height: 1.7; color: var(--color-gray-dark); margin-bottom: 10px; }
 .pg-module__list { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
 .pg-module__list li { position: relative; padding-left: 22px; font-size: 1rem; line-height: 1.6; color: var(--color-gray-dark); }
 .pg-module__list li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--color-orange); }

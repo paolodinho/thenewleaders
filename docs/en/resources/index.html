@@ -46,8 +46,8 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </style>
 
 <link rel='stylesheet' id='tnl-style-css' href='/thenewleaders/wp-content/themes/thenewleaders/style.css?ver=1780739863' media='all' />
-<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780628587' media='all' />
-<link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780631567' media='all' />
+<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780740578' media='all' />
+<link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780740673' media='all' />
 <link rel="https://api.w.org/" href="/thenewleaders/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="/thenewleaders/wp-json/wp/v2/pages/66" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/thenewleaders/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 7.0" />
 <link rel="canonical" href="/thenewleaders/resources/" />
@@ -491,7 +491,12 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
           <label class="newsletter__label" for="nl-email">Email:</label>
           <input type="email" id="nl-email" name="email" required class="newsletter__input">
         </div>
-        <button type="submit" class="newsletter__submit">Submit</button>
+        <button type="submit" class="newsletter__submit">
+          <span>Submit</span>
+          <svg class="newsletter__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </form>
     </div>
   </div>

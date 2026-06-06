@@ -11,14 +11,21 @@ $values = [
 <section class="values section" id="values">
   <div class="container">
     <h2 class="values__title"><?php echo tnl_t('values_title'); ?></h2>
+  </div>
 
-    <div class="values__grid">
-      <?php foreach ($values as $v) : ?>
-        <div class="value-card">
-          <h3 class="value-card__title"><?php echo esc_html($v['title']); ?></h3>
-          <p class="value-card__desc"><?php echo esc_html($v['desc']); ?></p>
-        </div>
-      <?php endforeach; ?>
+  <!-- (2026-06-06 feedback khách) Carousel tự chạy như web cũ -->
+  <div class="values__marquee" aria-label="Values">
+    <div class="values__track">
+      <?php
+      // Render 2 lượt để loop liền mạch
+      for ($pass = 0; $pass < 2; $pass++) :
+        foreach ($values as $v) : ?>
+          <div class="value-card" <?php echo $pass === 1 ? 'aria-hidden="true"' : ''; ?>>
+            <h3 class="value-card__title"><?php echo esc_html($v['title']); ?></h3>
+            <p class="value-card__desc"><?php echo esc_html($v['desc']); ?></p>
+          </div>
+        <?php endforeach;
+      endfor; ?>
     </div>
   </div>
 </section>
