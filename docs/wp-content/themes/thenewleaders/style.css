@@ -51,7 +51,7 @@ Text Domain: thenewleaders
   --font-body:     'Euclid Circular A', sans-serif;
 
   /* Spacing */
-  --section-py:    96px;
+  --section-py:    128px;
   --container-max: 1120px;
   --container-px:  24px;
 
@@ -80,6 +80,7 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: var(--font-body);
   font-size: 16px;
+  font-weight: 500;
   color: var(--color-black);
   background: var(--color-white);
   line-height: 1.65;

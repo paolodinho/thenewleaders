@@ -53,7 +53,7 @@ $tag_mods = ['teal', 'green', 'orange', 'pink'];
   </section>
 
   <!-- Body: skills + about | form -->
-  <section class="nl-body section">
+  <section class="nl-body">
     <div class="container nl-body__grid">
 
       <div class="nl-body__main">
@@ -77,7 +77,12 @@ $tag_mods = ['teal', 'green', 'orange', 'pink'];
             <label for="nl-email"><?php echo esc_html($T['email']); ?></label>
             <input type="email" id="nl-email" name="email">
           </div>
-          <button type="submit" class="btn btn--primary nl-form__submit"><?php echo esc_html($T['submit']); ?></button>
+          <button type="submit" class="btn btn--primary nl-form__submit">
+            <span><?php echo esc_html($T['submit']); ?></span>
+            <svg class="newsletter__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </form>
       </aside>
 
@@ -85,9 +90,9 @@ $tag_mods = ['teal', 'green', 'orange', 'pink'];
   </section>
 
   <!-- About The New Leaders -->
-  <section class="nl-about-sec section">
+  <section class="nl-about-sec">
     <div class="container">
-      <p class="nl-eyebrow"><?php echo esc_html($T['about_eyebrow']); ?></p>
+      <p class="nl-eyebrow-light"><?php echo esc_html($T['about_eyebrow']); ?></p>
       <h2 class="nl-about__brand"><?php echo esc_html($T['about_brand']); ?></h2>
       <div class="nl-about__cols">
         <?php foreach ($T['about_p'] as $p) : ?>
