@@ -5,7 +5,7 @@ $cards = [
     [ 'color' => '#5AD3ED', 'btn_dark' => false, 'title' => tnl_t('card1_title'), 'desc' => tnl_t('card1_desc'), 'link' => tnl_url('our-services/for-manager'),       'img' => $media . 'business.jpg',    'img_alt' => 'Business Programs' ],
     [ 'color' => '#AFE56B', 'btn_dark' => false, 'title' => tnl_t('card2_title'), 'desc' => tnl_t('card2_desc'), 'link' => tnl_url('our-services/individual-courses'), 'img' => $media . 'individuals.jpg', 'img_alt' => 'Individuals Programs' ],
     [ 'color' => '#FFC75A', 'btn_dark' => false, 'title' => tnl_t('card3_title'), 'desc' => tnl_t('card3_desc'), 'link' => tnl_url('products'),                       'img' => $media . 'creative.png',    'img_alt' => 'Creative Innovative Products' ],
-    [ 'color' => '#FF4B1F', 'btn_dark' => true,  'title' => tnl_t('card4_title'), 'desc' => tnl_t('card4_desc'), 'link' => tnl_url('events'),                         'img' => $media . 'supportive.jpg',  'img_alt' => 'Supportive Community' ],
+    [ 'color' => '#FF9B52', 'btn_dark' => false, 'title' => tnl_t('card4_title'), 'desc' => tnl_t('card4_desc'), 'link' => tnl_url('events'),                         'img' => $media . 'supportive.jpg',  'img_alt' => 'Supportive Community' ],
 ];
 ?>
 

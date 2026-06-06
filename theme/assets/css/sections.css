@@ -202,7 +202,7 @@
    HERO CTA — orange gradient section after video
    ============================================================ */
 .hero-cta {
-  background: linear-gradient(180deg, #FF7A3D 0%, #FF4B1F 100%);
+  background: linear-gradient(180deg, var(--color-orange-grad) 0%, var(--color-orange) 100%);
   padding: 80px 24px;
   display: flex;
   align-items: center;
@@ -299,7 +299,7 @@
 .wwh-kw--teal   { color: #5AD3ED; }
 .wwh-kw--green  { color: #AFE56B; }
 .wwh-kw--amber  { color: #FFC75A; }
-.wwh-kw--orange { color: #FF4B1F; }
+.wwh-kw--orange { color: var(--color-orange); }
 
 /* ============================================================
    WHAT WE DO — white, watermark title + alternating cards
@@ -632,7 +632,7 @@
 .about__item--teal   { background: #5AD3ED; }
 .about__item--green  { background: #AFE56B; }
 .about__item--yellow { background: #FFC75A; }
-.about__item--orange { background: #FF4B1F; }
+.about__item--orange { background: var(--color-orange); }
 .about__num {
   font-size: 2.75rem;
   font-weight: 800;
@@ -740,7 +740,7 @@
 .why-us-item__title-box--teal   { background: #5AD3ED; }
 .why-us-item__title-box--green  { background: #AFE56B; }
 .why-us-item__title-box--yellow { background: #FFC75A; }
-.why-us-item__title-box--orange { background: #FF4B1F; color: #fff; }
+.why-us-item__title-box--orange { background: var(--color-orange); color: #fff; }
 .why-us-item__desc {
   font-size: 1.25rem;
   color: rgba(255,255,255,0.8);
@@ -860,7 +860,7 @@
 .growing__item:nth-child(4n+1) .growing__item-title { border-top-color: #5AD3ED; }
 .growing__item:nth-child(4n+2) .growing__item-title { border-top-color: #AFE56B; }
 .growing__item:nth-child(4n+3) .growing__item-title { border-top-color: #FFC75A; }
-.growing__item:nth-child(4n)   .growing__item-title { border-top-color: #FF4B1F; }
+.growing__item:nth-child(4n)   .growing__item-title { border-top-color: var(--color-orange); }
 .growing__item-title::after {
   content: "→";
   position: absolute;

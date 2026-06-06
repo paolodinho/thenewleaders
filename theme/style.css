@@ -26,10 +26,11 @@ Text Domain: thenewleaders
    CSS CUSTOM PROPERTIES
    ============================================================ */
 :root {
-  /* Brand Colors — exact từ live site */
-  --color-orange:       #FF4B1F;
+  /* Brand Colors — exact từ Figma node 260-704 (2026-06-06) */
+  --color-orange:       #FF4F21;
   --color-orange-dark:  #E03A10;
   --color-orange-light: #FFEFEB;
+  --color-orange-grad:  #FF7121;  /* gradient end (CTA bg) */
   --color-black:        #232323;
   --color-dark:         #1D1D1D;
   --color-white:        #FFFFFF;
@@ -38,12 +39,12 @@ Text Domain: thenewleaders
   --color-gray:         #888888;
   --color-gray-dark:    #555555;
 
-  /* Tag Colors — từ live site */
+  /* Tag Colors — từ Figma node 260-704 */
   --color-tag-green:    #AFE56B;
   --color-tag-teal:     #5AD3ED;
   --color-tag-pink:     #FF7BBB;
   --color-tag-yellow:   #FFC75A;
-  --color-tag-orange:   #FF4B1F;
+  --color-tag-orange:   #FF9B52;
 
   /* Typography */
   --font-display:  'Euclid Circular A', sans-serif;
