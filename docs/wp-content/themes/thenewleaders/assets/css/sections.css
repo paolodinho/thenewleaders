@@ -513,64 +513,93 @@
 /* ============================================================
    TESTIMONIALS — orange bg, alternating layout
    ============================================================ */
-/* (2026-06-06 feedback khách) Nền tối đúng brand như web cũ, gom gọn dạng grid card */
+/* (2026-06-07 rebuild) Orange gradient, vertical list, alternating img position - khớp live site */
 .testimonials {
-  background: var(--color-dark);
-  padding: 140px 0 140px;
+  background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255, 113, 33, 0.92) 76.79%);
+  padding: 100px 24px;
   position: relative;
-  overflow: hidden;
+}
+.testimonials__inner {
+  max-width: 840px;
+  margin-inline: auto;
 }
 .testimonials__title {
-  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-size: clamp(2.8rem, 6vw, 6.5rem);
   font-weight: 700;
   line-height: 1.0;
   color: #FFC9A1;
-  margin: 0 auto 64px;
+  margin: 0 0 72px;
   letter-spacing: -0.02em;
-  max-width: var(--container-max);
-  padding-inline: var(--container-px);
   text-align: left;
 }
-.testimonials__grid {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-px);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.testimonials__list {
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
 }
+/* Card base */
 .tcard {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 16px;
-  padding: 28px;
-  transition: background 0.25s ease, transform 0.25s ease;
+  align-items: flex-start;
+  gap: 24px;
 }
-.tcard:hover { background: rgba(255, 255, 255, 0.10); transform: translateY(-3px); }
+/* Desktop: horizontal layout */
+@media (min-width: 768px) {
+  .tcard {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
+  /* img-right: body left, img right */
+  .tcard--img-right .tcard__img-wrap {
+    order: 2;
+    margin-left: 36px;
+    flex-shrink: 0;
+  }
+  .tcard--img-right .tcard__body { order: 1; }
+  /* img-left: img left, body right */
+  .tcard--img-left .tcard__img-wrap {
+    order: 1;
+    margin-right: 36px;
+    flex-shrink: 0;
+  }
+  .tcard--img-left .tcard__body { order: 2; }
+}
+.tcard__body { flex: 1; }
+.tcard__name {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.tcard__role {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
 .tcard__quote {
   font-size: 1rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.75;
   margin: 0;
-  flex: 1;
 }
-.tcard__head { display: flex; align-items: center; gap: 14px; }
+.tcard__img-wrap {
+  flex-shrink: 0;
+}
 .tcard__img {
-  width: 56px;
-  height: 56px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top center;
   display: block;
-  flex-shrink: 0;
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  border: 3px solid rgba(255, 255, 255, 0.75);
 }
-.tcard__meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.tcard__name { font-size: 1rem; font-weight: 700; color: var(--color-white); line-height: 1.3; }
-.tcard__role { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); line-height: 1.4; }
 
 /* ============================================================
    ABOUT US — stacked numbered layout
@@ -1292,9 +1321,11 @@
   .wwd-row__title::before { margin-bottom: 16px; }
   .wwd-row__desc { font-size: 1.125rem; max-width: 100%; }
 
-  .testimonials { padding: 96px 0 80px; }
-  .testimonials__title { font-size: clamp(2.5rem, 10vw, 4rem); max-width: 100%; margin-bottom: 48px; }
-  .testimonials__grid { grid-template-columns: 1fr; gap: 16px; }
+  .testimonials { padding: 80px 20px; }
+  .testimonials__title { font-size: clamp(2.2rem, 10vw, 3.5rem); margin-bottom: 48px; }
+  .testimonials__list { gap: 56px; }
+  .tcard { flex-direction: column; gap: 20px; }
+  .tcard__img { width: 88px; height: 88px; }
 
   /* Mọi nút .btn: cho wrap chữ + co padding/font để không tràn ngang trên mobile */
   .btn {
