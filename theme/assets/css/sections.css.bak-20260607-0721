@@ -816,15 +816,12 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.0;
-  color: rgba(0,0,0,0.09);
+  color: var(--color-black);
   margin-bottom: 12px;
 }
 .growing__desc { font-size: 1.25rem; color: var(--color-gray-dark); max-width: 560px; line-height: 1.6; }
 
-.growing__track-wrap {
-  position: relative;
-  overflow: hidden;
-}
+.growing__track-wrap { overflow: hidden; }
 .growing__track {
   display: flex;
   gap: 16px;
@@ -878,68 +875,27 @@
 .growing__item:hover .growing__item-title::after { opacity: 1; transform: translateX(0); }
 
 .growing__nav {
-  display: none; /* arrows moved to sides via absolute positioned siblings */
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  padding-bottom: 96px;
 }
-/* Side arrows — absolute positioned on either side of track-wrap */
-.growing__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
+.growing__nav-btn {
   width: 52px; height: 52px;
   border-radius: 50%;
-  border: 2px solid rgba(0,0,0,0.25);
-  background: rgba(255,255,255,0.9);
+  border: 2px solid var(--color-black);
+  background: transparent;
   font-size: 1.15rem;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all var(--transition);
-  backdrop-filter: blur(4px);
 }
-.growing__arrow--prev { left: 8px; }
-.growing__arrow--next { right: 8px; }
-.growing__arrow:hover { background: var(--color-orange); border-color: var(--color-orange); color: #fff; transform: translateY(-50%) scale(1.06); }
-/* Bottom padding for section */
-.growing__inner { padding-bottom: 96px; }
+.growing__nav-btn:hover { background: var(--color-orange); border-color: var(--color-orange); color: #fff; transform: scale(1.06); }
 
 /* ============================================================
    PARTNERS — title + description + full-color logo grid
    ============================================================ */
-.partners {
-  background: var(--color-white);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Decorative shapes */
-.partners__deco { pointer-events: none; }
-.partners__deco-blob {
-  position: absolute;
-  left: -80px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 320px;
-  height: 320px;
-  z-index: 0;
-}
-.partners__deco-tri-top {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 200px;
-  height: 380px;
-  z-index: 0;
-}
-.partners__deco-tri-btm {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 140px;
-  height: 200px;
-  z-index: 0;
-}
-.partners__intro,
-.partners__strip { position: relative; z-index: 1; }
+.partners { background: var(--color-white); }
 
 .partners__intro { padding: 96px 0 48px; }
 .partners__title {
@@ -1081,11 +1037,6 @@
 .newsletter__submit:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
 .newsletter__arrow { transition: transform var(--transition); }
 .newsletter__submit:hover .newsletter__arrow { transform: translateX(4px); }
-.newsletter__curly-arrow {
-  display: block;
-  margin-bottom: 16px;
-  opacity: 0.85;
-}
 
 /* ============================================================
    CTA / FOOTER SECTION — black, colored word boxes + get in touch
