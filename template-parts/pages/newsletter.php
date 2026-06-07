@@ -1,11 +1,8 @@
 <?php
-/** Trang Newsletter — verbatim từ live (EN/VI) */
+/** Trang Newsletter - layout khop live: skills blocks 2-col → about dark → form section */
 $vi = (function_exists('tnl_lang') && tnl_lang() === 'vi');
 
 $T = $vi ? [
-    'title'    => 'Nâng cao kỹ năng Lãnh đạo &amp; Giao tiếp của bạn chỉ với 5 phút mỗi tuần!',
-    'sub'      => 'Mở khóa bí quyết giao tiếp hiệu quả với các mẹo và chiến lược được hơn 250.000 CEO, nhà sáng lập và lãnh đạo sử dụng hàng ngày để vượt qua các rào cản và giải phóng tiềm năng bên trong mỗi cá nhân!',
-    'cta'      => 'Đăng ký ngay!',
     'tags_eyebrow' => 'Lãnh đạo EQ',
     'tags_intro'   => 'Bộ sưu tập các bí kíp về giao tiếp hữu ích:',
     'tags'     => ['Giao tiếp với các bên liên quan "khó tính"', 'Xây dựng lòng tin', 'Sự thấu cảm', 'Lắng nghe tích cực', 'Giải quyết xung đột', 'Trao quyền, uỷ thác', 'Các loại tư duy', 'Xây dựng tâm lý an toàn trong đội ngũ', 'Nhận xét khiến người khác muốn lắng nghe'],
@@ -21,9 +18,6 @@ $T = $vi ? [
     'email'    => 'Email của bạn:',
     'submit'   => 'Gửi',
 ] : [
-    'title'    => 'Elevate your Leadership &amp; Communication skills with just 5 minutes weekly!',
-    'sub'      => 'Unlock the secrets to effective communication with tips and strategies used daily by over 250,000 CEOs, founders, and leaders to break through barriers and unleash your inner potential!',
-    'cta'      => 'Subscribe now!',
     'tags_eyebrow' => 'Emotional Intelligence Leadership',
     'tags_intro'   => 'A collection of actionable skills tips & tricks:',
     'tags'     => ['Giving Feedback', 'Build psychological safety in team', 'Mindsets', 'Conflict resolution', 'Active listening', 'Build trust', 'Empathy', 'Delegation', 'Dealing with difficult people'],
@@ -39,57 +33,24 @@ $T = $vi ? [
     'submit'   => 'Submit',
 ];
 
-$tag_mods = ['teal', 'green', 'orange', 'pink'];
+$tag_mods = ['teal', 'green', 'yellow', 'tag-orange'];
 ?>
 <main class="site-main page-newsletter">
 
-  <!-- Hero -->
-  <section class="nl-hero section">
+  <!-- Section 1: Skills blocks — 2-column colored grid (khop live) -->
+  <section class="nl-skills section">
     <div class="container">
-      <h1 class="nl-hero__title"><?php echo $T['title']; ?></h1>
-      <p class="nl-hero__sub"><?php echo esc_html($T['sub']); ?></p>
-      <span class="nl-hero__cta"><?php echo esc_html($T['cta']); ?></span>
-    </div>
-  </section>
-
-  <!-- Body: skills + about | form -->
-  <section class="nl-body">
-    <div class="container nl-body__grid">
-
-      <div class="nl-body__main">
-        <p class="nl-eyebrow"><?php echo esc_html($T['tags_eyebrow']); ?></p>
-        <p class="nl-body__intro"><?php echo esc_html($T['tags_intro']); ?></p>
-        <div class="nl-tags">
-          <?php foreach ($T['tags'] as $i => $tag) : ?>
-            <span class="nl-tag nl-tag--<?php echo $tag_mods[$i % count($tag_mods)]; ?>"><?php echo esc_html($tag); ?></span>
-          <?php endforeach; ?>
-        </div>
+      <h2 class="nl-skills__heading"><?php echo esc_html($T['tags_eyebrow']); ?></h2>
+      <p class="nl-skills__intro"><?php echo esc_html($T['tags_intro']); ?></p>
+      <div class="nl-blocks">
+        <?php foreach ($T['tags'] as $i => $tag) : ?>
+          <div class="nl-block nl-block--<?php echo $tag_mods[$i % count($tag_mods)]; ?>"><?php echo esc_html($tag); ?></div>
+        <?php endforeach; ?>
       </div>
-
-      <aside class="nl-form-card">
-        <p class="nl-form-card__lead"><?php echo esc_html($T['form_lead']); ?></p>
-        <form class="nl-form tnl-ajax-form" method="post" action="#" data-form-type="Newsletter" novalidate>
-          <div class="nl-field">
-            <label for="nl-name"><?php echo esc_html($T['name']); ?></label>
-            <input type="text" id="nl-name" name="name">
-          </div>
-          <div class="nl-field">
-            <label for="nl-email"><?php echo esc_html($T['email']); ?></label>
-            <input type="email" id="nl-email" name="email">
-          </div>
-          <button type="submit" class="btn btn--primary nl-form__submit">
-            <span><?php echo esc_html($T['submit']); ?></span>
-            <svg class="newsletter__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
-      </aside>
-
     </div>
   </section>
 
-  <!-- About The New Leaders -->
+  <!-- Section 2: About The New Leaders (dark bg) -->
   <section class="nl-about-sec">
     <div class="container">
       <p class="nl-eyebrow-light"><?php echo esc_html($T['about_eyebrow']); ?></p>
@@ -99,6 +60,31 @@ $tag_mods = ['teal', 'green', 'orange', 'pink'];
           <p class="nl-about__p"><?php echo esc_html($p); ?></p>
         <?php endforeach; ?>
       </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Form (separate section, 2-col inputs on desktop) -->
+  <section class="nl-form-sec section">
+    <div class="container">
+      <p class="nl-form-sec__lead"><?php echo esc_html($T['form_lead']); ?></p>
+      <form class="nl-form nl-form--wide tnl-ajax-form" method="post" action="#" data-form-type="Newsletter" novalidate>
+        <div class="nl-form-sec__fields">
+          <div class="nl-field">
+            <label for="nl-name"><?php echo esc_html($T['name']); ?></label>
+            <input type="text" id="nl-name" name="name">
+          </div>
+          <div class="nl-field">
+            <label for="nl-email"><?php echo esc_html($T['email']); ?></label>
+            <input type="email" id="nl-email" name="email">
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary nl-form__submit">
+          <span><?php echo esc_html($T['submit']); ?></span>
+          <svg class="newsletter__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
     </div>
   </section>
 

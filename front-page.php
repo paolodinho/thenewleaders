@@ -6,6 +6,7 @@
 <?php get_template_part('template-parts/home/testimonials'); ?>
 <?php get_template_part('template-parts/home/about'); ?>
 <?php get_template_part('template-parts/home/why-us'); ?>
+<?php get_template_part('template-parts/home/video-section'); ?>
 <?php get_template_part('template-parts/home/values'); ?>
 <?php get_template_part('template-parts/home/growing'); ?>
 <?php get_template_part('template-parts/home/partners'); ?>

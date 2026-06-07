@@ -203,11 +203,10 @@
    ============================================================ */
 .hero-cta {
   background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255, 113, 33, 0.92) 76.79%);
-  padding: 160px 24px;
+  padding: 80px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 520px;
 }
 .hero-cta__inner {
   max-width: 680px;
@@ -260,46 +259,52 @@
    ============================================================ */
 .what-we-help {
   background: #000;
-  padding: 128px 0;
-  position: relative;
-  overflow: hidden;
+  padding: 64px 24px;
 }
-/* Watermark = block riêng phía trên, content indent bên dưới → 2 lớp tách bạch, đều rõ */
-.what-we-help__inner {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-px);
-}
-.what-we-help__bg-title {
-  display: block;
-  font-size: clamp(3.5rem, 8vw, 6rem);
+
+/* Large heading: dark on black = near-invisible watermark effect (matches live) */
+.wwh__title {
+  font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
-  color: rgba(255,255,255,0.22);
+  color: #1D1D1D;
   margin: 0;
-  pointer-events: none;
-  user-select: none;
 }
-.what-we-help__content {
-  margin-left: 0;
-  max-width: 720px;
-  padding-top: 28px;
+
+/* Body: max 900px centered, white text */
+.wwh__content {
+  max-width: 900px;
+  margin: 0 auto;
 }
-.what-we-help__content p {
-  color: rgba(255,255,255,0.85);
-  font-size: 1.25rem;
-  line-height: 1.75;
+.wwh__content p {
+  color: #fff;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.4;
   margin-bottom: 1.5rem;
 }
-.what-we-help__content p:last-child { margin-bottom: 0; }
+.wwh__content p:last-child { margin-bottom: 0; }
 
-/* Colored keywords */
+/* Colored keyword spans */
 .wwh-kw { font-weight: 600; }
 .wwh-kw--teal   { color: #5AD3ED; }
 .wwh-kw--green  { color: #AFE56B; }
 .wwh-kw--amber  { color: #FFC75A; }
 .wwh-kw--orange { color: var(--color-orange); }
+
+@media (min-width: 768px) {
+  .what-we-help { padding: 80px 80px; }
+  .wwh__title { font-size: clamp(3.75rem, 6vw, 4.5rem); }
+}
+@media (min-width: 1024px) {
+  .what-we-help { padding: 96px 112px; }
+  .wwh__title { font-size: 4.5rem; }
+  .wwh__content { position: relative; z-index: 10; margin-top: -20px; }
+}
+@media (min-width: 1280px) {
+  .what-we-help { padding: 144px 160px; }
+  .wwh__title { font-size: 6rem; }
+}
 
 /* ============================================================
    WHAT WE DO — white, watermark title + alternating cards
@@ -310,12 +315,12 @@
 /* Offer block: dải nền xám nhạt full-bleed, tách khỏi intro trắng phía trên */
 .what-we-do__offer {
   background: var(--color-off-white);
-  padding: 64px 0 80px;
+  padding: 64px 0 240px;
 }
 
 /* Header area — watermark block on top, content indented below */
 .what-we-do__header {
-  padding: 80px var(--container-px) 40px;
+  padding: 144px var(--container-px) 40px;
   max-width: var(--container-max);
   margin-inline: auto;
 }
@@ -411,7 +416,7 @@
 .wwd-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 420px;
+  min-height: 320px;
 }
 .wwd-row--reversed .wwd-row__text { order: 2; }
 .wwd-row--reversed .wwd-row__img  { order: 1; }
@@ -420,8 +425,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 56px 60px;
-  gap: 18px;
+  padding: 40px 52px;
+  gap: 16px;
   position: relative;
   overflow: hidden;
   counter-increment: wwd;
@@ -516,7 +521,7 @@
 /* (2026-06-07 rebuild) Orange gradient, vertical list, alternating img position - khớp live site */
 .testimonials {
   background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255, 113, 33, 0.92) 76.79%);
-  padding: 100px 24px;
+  padding: 144px 24px;
   position: relative;
 }
 .testimonials__inner {
@@ -532,10 +537,11 @@
   letter-spacing: -0.02em;
   text-align: left;
 }
+/* (2026-06-07 feedback) gom lại gọn hơn: live dùng space-y-20 = 80px */
 .testimonials__list {
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 80px;
 }
 /* Card base */
 .tcard {
@@ -602,16 +608,17 @@
 }
 
 /* ============================================================
-   ABOUT US — stacked numbered layout
+   ABOUT US — watermark numbers + alternating full-width cards
    ============================================================ */
 .about {
   background: var(--color-white);
-  padding: 128px 0 128px;
+  padding: 144px 0;
+  overflow: hidden;
 }
 .about__header {
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: 0 var(--container-px) 64px;
+  padding: 0 var(--container-px) 0;
 }
 .about__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
@@ -630,54 +637,76 @@
   margin-bottom: 0;
 }
 .about__ctas {
-  margin-top: 36px;
+  margin-top: 24px;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  gap: 20px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
-/* Numbered items: thẻ màu bo góc gọn, số + chữ cùng hàng, contained */
+/* Numbered items: watermark number floating above full-width colored card */
 .about__items {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 240px;
+  margin-top: 240px;
+  padding: 0 var(--container-px);
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: 0 var(--container-px) 8px;
+  margin-top: 240px;
 }
 .about__item {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 26px 36px;
-  border-radius: 20px;
-  transition: transform 0.35s cubic-bezier(.2,.7,.2,1), box-shadow 0.35s ease;
+  position: relative;
+  width: 83.333%;
+  padding: 24px 80px;
+  border-radius: 0;
 }
-/* (2026-06-06 feedback khách) Bỏ nghiêng, để thẳng thớm như web cũ */
-.about__item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+/* Odd items: left-aligned */
+.about__item:nth-child(odd) {
+  align-self: flex-start;
+  margin-left: 0;
+}
+/* Even items: right-aligned */
+.about__item--alt,
+.about__item:nth-child(even) {
+  margin-left: auto;
 }
 .about__item--teal   { background: #5AD3ED; }
 .about__item--green  { background: #AFE56B; }
 .about__item--yellow { background: #FFC75A; }
 .about__item--orange { background: #FF9B52; }
+/* Number wrapper: absolute positioned above the card */
+.about__num-wrap {
+  position: absolute;
+  top: -180px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.about__num-wrap--right {
+  right: -80px;
+}
+.about__num-wrap--left {
+  left: -16px;
+}
 .about__num {
-  font-size: 2.75rem;
-  font-weight: 800;
+  display: block;
+  font-size: clamp(120px, 16vw, 240px);
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(0,0,0,0.4);
-  flex-shrink: 0;
-  min-width: 86px;
+  -webkit-text-stroke: 2px currentColor;
 }
-.about__item--orange .about__num { -webkit-text-stroke-color: rgba(255,255,255,0.7); }
+.about__item--teal   .about__num { -webkit-text-stroke-color: #5AD3ED; }
+.about__item--green  .about__num { -webkit-text-stroke-color: #AFE56B; }
+.about__item--yellow .about__num { -webkit-text-stroke-color: #FFC75A; }
+.about__item--orange .about__num { -webkit-text-stroke-color: #FF9B52; }
 .about__point {
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--color-black);
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0;
 }
 .about__item--orange .about__point { color: var(--color-white); }
@@ -702,7 +731,7 @@
    ============================================================ */
 .why-us {
   background: #000;
-  padding: 128px 0;
+  padding: 144px 0;
 }
 .why-us__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
@@ -712,60 +741,32 @@
   color: rgba(255,255,255,0.15);
   margin-bottom: 12px;
 }
-.why-us__lead { font-size: 1.25rem; color: rgba(255,255,255,0.65); margin-bottom: 72px; }
+.why-us__lead { font-size: 1.25rem; color: rgba(255,255,255,0.65); margin-bottom: 96px; }
 .why-us__items {
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 112px;
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-px);
-  counter-reset: why;
 }
-/* Asymmetric, hand-placed items: alternating side + slight rotation + index number */
+/* Alternating items: 80% wide, even items align right */
 .why-us-item {
-  position: relative;
-  counter-increment: why;
-  max-width: 78%;
-  padding-top: 84px; /* chừa chỗ cho số nằm hẳn phía trên box */
+  max-width: 80%;
 }
 .why-us-item:nth-child(even) {
   margin-left: auto;
-  text-align: right;
 }
-/* Oversized outlined index number — sits fully ABOVE the box (không bị box che) */
-.why-us-item::before {
-  content: "0" counter(why);
-  position: absolute;
-  top: 0;
-  left: 2px;
-  font-size: 4.5rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(255,255,255,0.22);
-  z-index: 2;
-  pointer-events: none;
-}
-.why-us-item:nth-child(even)::before { left: auto; right: 2px; }
 
 .why-us-item__title-box {
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
-  padding: 18px 36px;
+  display: block;
+  padding: 0 0 0 18px;
   font-size: 3.125rem;
   font-weight: 700;
   color: #000;
-  line-height: 1.12;
+  line-height: 1.25;
   margin-bottom: 24px;
-  border-radius: 6px;
-  position: relative;
-  z-index: 1;
-  text-align: left;
 }
-/* (2026-06-06 feedback khách) Bỏ nghiêng title-box cho thẳng */
 .why-us-item__title-box--teal   { background: #5AD3ED; }
 .why-us-item__title-box--green  { background: #AFE56B; }
 .why-us-item__title-box--yellow { background: #FFC75A; }
@@ -773,7 +774,7 @@
 .why-us-item__desc {
   font-size: 1.25rem;
   color: rgba(255,255,255,0.8);
-  line-height: 1.7;
+  line-height: 1.4;
   max-width: 720px;
   text-align: left;
 }
@@ -785,7 +786,7 @@
 /* (2026-06-07 rebuild) Prev/next slider 2-col, khớp live site */
 .values {
   background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255, 113, 33, 0.92) 76.79%);
-  padding: var(--section-py) 0;
+  padding: 144px 0;
 }
 .values__inner {
   max-width: 1120px;
@@ -793,12 +794,12 @@
   padding-inline: var(--container-px);
 }
 .values__title {
-  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
-  color: #FFA564;
-  margin-bottom: 64px;
+  color: #303030;
+  margin-bottom: 56px;
 }
 /* Slider layout */
 .values__slider {
@@ -867,15 +868,16 @@
    ============================================================ */
 .growing {
   background: var(--color-off-white);
-  padding: var(--section-py) 0 0;
+  padding: 0;
   overflow: hidden;
 }
 .growing__inner {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--container-px);
+  padding-top: 144px;
 }
-.growing__header { margin-bottom: 48px; }
+.growing__header { margin-bottom: 80px; }
 .growing__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
   font-weight: 700;
@@ -1059,9 +1061,12 @@
    ============================================================ */
 .newsletter {
   background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255,113,33,0.92) 76.79%);
-  padding: 160px 0;
+  padding: 256px 0;
 }
-.newsletter__inner { max-width: 640px; }
+.newsletter__inner {
+  max-width: 640px;
+  position: relative; /* anchor for curly-arrow absolute positioning */
+}
 .newsletter__title {
   font-size: 1.25rem;
   font-weight: 400;
@@ -1119,16 +1124,16 @@
 .newsletter__arrow { transition: transform var(--transition); }
 .newsletter__submit:hover .newsletter__arrow { transform: translateX(4px); }
 .newsletter__header {
-  position: relative;
   margin-bottom: 48px;
 }
 .newsletter__title {
   margin-bottom: 0;
 }
+/* (2026-06-07) top: -1px → tip of arrow (at y=135) points at first input (~134px from inner top) */
 .newsletter__curly-arrow {
   position: absolute;
   right: -80px;
-  top: 40px;
+  top: -1px;
   width: 121px;
   height: 135px;
   pointer-events: none;
@@ -1231,9 +1236,109 @@
 }
 
 /* ============================================================
+   VIDEO SECTION — full-height video bg + overlay + play + CTAs
+   Matches live: calc(100vh - 100px), between why-us and values
+   ============================================================ */
+.video-section {
+  position: relative;
+  height: calc(100vh - 100px);
+  min-height: 500px;
+  overflow: hidden;
+}
+.video-section__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-section__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  padding: 40px 24px;
+  text-align: center;
+}
+/* Play button — circle with semi-transparent bg */
+.video-section__play {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(217, 217, 217, 0.5);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding-left: 6px; /* optical center for play triangle */
+}
+.video-section__play:hover {
+  background: rgba(217, 217, 217, 0.75);
+  transform: scale(1.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+.video-section__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-weight: 500;
+  color: #fff;
+  max-width: 640px;
+  line-height: 1.4;
+  margin: 0;
+}
+.video-section__btns {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video-section__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 44px;
+  border-radius: 100px;
+  border: 2px solid #fff;
+  background: #fff;
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  white-space: normal;
+  text-align: center;
+}
+.video-section__btn:hover {
+  background: transparent;
+  color: #fff;
+}
+.video-section__btn--outline {
+  background: transparent;
+  color: #fff;
+}
+.video-section__btn--outline:hover {
+  background: #fff;
+  color: #000;
+}
+@media (max-width: 640px) {
+  .video-section__btns { flex-direction: column; align-items: stretch; gap: 12px; }
+  .video-section__btn { padding: 16px 32px; font-size: 1rem; }
+}
+
+/* ============================================================
    TITLE WRAP — cân dòng tự động, tránh 1 từ đứng lẻ 1 dòng (EN+VI)
    ============================================================ */
-.what-we-help__bg-title,
+.wwh__title,
 .what-we-do__bg-title,
 .what-we-do__cards-title,
 .testimonials__title,
@@ -1244,6 +1349,7 @@
 .growing__title,
 .partners__title,
 .hero-cta__tagline,
+.video-section__title,
 .cta-section__heading,
 .newsletter__title {
   text-wrap: balance;
@@ -1252,14 +1358,14 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (min-width: 768px) {
+  .hero-cta { padding: 96px 48px; }
+}
+@media (min-width: 1024px) {
+  .hero-cta { padding: 128px 80px; }
+}
 @media (min-width: 1280px) {
-  .hero-cta {
-    padding: 200px 24px;
-    min-height: 640px;
-  }
-  .newsletter {
-    padding: 200px 0;
-  }
+  .hero-cta { padding: 256px 112px; }
 }
 
 @media (max-width: 1200px) {
@@ -1269,7 +1375,6 @@
 }
 
 @media (max-width: 1024px) {
-  .what-we-help__content { margin-left: 0; }
   .what-we-do__header-content { margin-left: 0; }
   .about__layout,
   .cta-section__layout { grid-template-columns: 1fr; gap: 48px; }
@@ -1286,22 +1391,15 @@
   /* Trang chủ: ẩn section 1 (video hero) trên mobile, giữ nguyên desktop */
   .hero { display: none; }
 
-  /* About: bỏ nghiêng/so le trên mobile cho gọn, full width */
+  /* About: full-width trên mobile, bỏ so le */
+  .about__items { gap: 80px; margin-top: 80px; padding: 0 16px; }
+  .about__item,
+  .about__item--alt,
   .about__item:nth-child(odd),
-  .about__item:nth-child(even) { transform: none; margin-left: 0; max-width: 100%; }
-
-  /* Watermark title: KHÔNG ẩn — hiện như tiêu đề thật ở mobile (đậm, rõ) */
-  .what-we-help__inner { display: block; min-height: 0; }
-  .what-we-help__bg-title {
-    position: static;
-    display: block;
-    font-size: clamp(2.5rem, 11vw, 3.5rem);
-    color: rgba(255,255,255,0.92);
-    margin-bottom: 28px;
-    white-space: normal;
-    top: auto; left: auto;
-  }
-  .what-we-help__content { margin-left: 0; max-width: 100%; padding-top: 0; }
+  .about__item:nth-child(even) { width: 100%; margin-left: 0; padding: 20px 24px; }
+  .about__num-wrap { top: -60px; }
+  .about__num-wrap--right { right: 0; }
+  .about__num-wrap--left { left: 0; }
 
   .what-we-do__header { display: block; padding: 56px 24px 24px; }
   .what-we-do__bg-title {
@@ -1384,28 +1482,16 @@
   .partners__title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
 
   .about__mission { font-size: 1.25rem; }
-  .about__item { gap: 18px; padding: 22px 22px; align-items: flex-start; }
-  .about__num { font-size: 2.25rem; min-width: 60px; }
+  .about__num { font-size: clamp(60px, 18vw, 100px); }
   .about__point { font-size: 1.0625rem; }
 
-  /* Why us title rõ hơn (desktop để mờ watermark, mobile cho đậm để thấy section mới) */
+  /* Why us mobile */
   .why-us__title { color: var(--color-orange); margin-bottom: 4px; }
   .why-us__lead { margin-bottom: 48px; }
-  .why-us__items { gap: 64px; }
-  .why-us-item { max-width: 100%; text-align: left; padding-top: 44px; }
-  .why-us-item:nth-child(even) { margin-left: 0; text-align: left; }
-  /* Số thứ tự: nằm GỌN trong lề (không tràn -8px ra ngoài bị cắt), đặt phía trên box */
-  .why-us-item::before,
-  .why-us-item:nth-child(even)::before {
-    top: 0; left: 0; right: auto;
-    font-size: 3rem;
-    -webkit-text-stroke: 2px rgba(255,255,255,0.28);
-  }
+  .why-us__items { gap: 56px; }
+  .why-us-item { max-width: 100%; }
+  .why-us-item:nth-child(even) { margin-left: 0; }
   .why-us-item__title-box { font-size: 1.75rem; }
-  .why-us-item:nth-child(1) .why-us-item__title-box,
-  .why-us-item:nth-child(2) .why-us-item__title-box,
-  .why-us-item:nth-child(3) .why-us-item__title-box,
-  .why-us-item:nth-child(4) .why-us-item__title-box { transform: none; }
   .why-us-item__desc { font-size: 1.1rem; }
   .why-us-item:nth-child(even) .why-us-item__desc { margin-left: 0; }
   /* Values slider mobile */

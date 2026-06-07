@@ -304,11 +304,31 @@
   // CHỐNG "MỒ CÔI" CHỮ — không để 1 từ vô nghĩa đứng riêng 1 dòng trên nút.
   // Giữ 2 từ cuối dính nhau bằng non-breaking space ( ).
   // ============================================================
-  document.querySelectorAll('.btn, .hero-cta__btn, .pg-hero__cta-btn').forEach(function (el) {
+  document.querySelectorAll('.btn, .hero-cta__btn, .video-section__btn, .pg-hero__cta-btn').forEach(function (el) {
     if (el.children.length) return; // bỏ qua nút có icon/element con
     var t = el.textContent.replace(/\s+/g, ' ').trim();
     var i = t.lastIndexOf(' ');
     if (i > 0) el.textContent = t.slice(0, i) + ' ' + t.slice(i + 1);
   });
+
+  // ============================================================
+  // VIDEO SECTION — play/pause toggle
+  // ============================================================
+  (function () {
+    var section = document.querySelector('.video-section');
+    if (!section) return;
+    var video = section.querySelector('.video-section__video');
+    var playBtn = section.querySelector('.video-section__play');
+    if (!video || !playBtn) return;
+    var playing = false;
+    video.pause();
+    var iconPlay = '<svg width="44" height="50" viewBox="0 0 44 50" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M42.5774 22.9379C43.9107 23.7077 43.9107 25.6322 42.5774 26.402L3.60955 48.9003C2.27622 49.6702 0.609556 48.7079 0.609556 47.1683L0.609558 2.17173C0.609558 0.632107 2.27623 -0.330193 3.60956 0.439707L42.5774 22.9379Z"/></svg>';
+    var iconPause = '<svg width="36" height="42" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>';
+    playBtn.addEventListener('click', function () {
+      if (!playing) { video.play(); playing = true; playBtn.innerHTML = iconPause; }
+      else { video.pause(); playing = false; playBtn.innerHTML = iconPlay; }
+    });
+  })();
+
 
 })();
