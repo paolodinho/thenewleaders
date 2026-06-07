@@ -68,22 +68,6 @@ $s3_logos = [
 
 <section class="partners" id="partners">
 
-  <!-- Decorative shapes (matches live site) -->
-  <div class="partners__deco" aria-hidden="true">
-    <!-- Peach circle blob - left center -->
-    <svg class="partners__deco-blob" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="170" cy="170" r="170" fill="#F5C7A0" fill-opacity="0.45"/>
-    </svg>
-    <!-- Teal triangle - top right -->
-    <svg class="partners__deco-tri-top" viewBox="0 0 260 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="260,0 260,480 0,480" fill="#B2E0E8" fill-opacity="0.55"/>
-    </svg>
-    <!-- Teal triangle - bottom right -->
-    <svg class="partners__deco-tri-btm" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="180,0 180,260 0,260" fill="#B2E0E8" fill-opacity="0.45"/>
-    </svg>
-  </div>
-
   <!-- Intro: title + description -->
   <div class="partners__intro">
     <div class="container">

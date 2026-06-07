@@ -3,11 +3,8 @@
     <div class="newsletter__inner">
       <div class="newsletter__header">
         <p class="newsletter__title"><?php echo tnl_t('nl_title'); ?></p>
-        <!-- Decorative hand-drawn lasso arrow (matches live site: oval loop + knot on left + tail going down-right) -->
-        <svg class="newsletter__curly-arrow" width="100" height="140" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M 12 34 C 10 14, 28 4, 48 4 C 68 4, 80 20, 78 36 C 76 52, 60 62, 42 58 C 24 54, 12 40, 14 34 C 14 44, 22 52, 32 48 C 50 42, 82 52, 86 72 C 88 88, 78 108, 68 122" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-          <path d="M 59 115 L 68 125 L 77 115" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
+        <!-- Decorative arrow — exact SVG from live site (thenewleaders.asia) -->
+        <img class="newsletter__curly-arrow" src="<?php echo get_template_directory_uri(); ?>/assets/media/newsletter-vector.svg" width="121" height="135" alt="" aria-hidden="true">
       </div>
       <form class="newsletter__form tnl-ajax-form" action="#" method="post" data-form-type="Newsletter (Home)">
 
