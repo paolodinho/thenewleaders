@@ -149,7 +149,7 @@ function tnl_nav_tree() {
                 ['items' => [
                     ['label' => 'Bài trắc nghiệm Trí tuệ cảm xúc', 'slug' => 'eq-quiz'],
                     ['label' => 'Tài nguyên', 'slug' => 'resources'],
-                    ['label' => 'EQ với Ngân Trần', 'slug' => 'eq-with-ngan-tran'],
+                    ['label' => 'Youtube The New Leaders', 'slug' => 'eq-with-ngan-tran'],
                 ]],
             ]],
             ['label' => 'Sự kiện', 'slug' => 'events', 'columns' => [
@@ -184,7 +184,7 @@ function tnl_nav_tree() {
             ['items' => [
                 ['label' => 'Emotional Intelligence Quiz', 'slug' => 'eq-quiz'],
                 ['label' => 'Resources', 'slug' => 'resources'],
-                ['label' => 'EQ with Ngan Tran', 'slug' => 'eq-with-ngan-tran'],
+                ['label' => 'Youtube The New Leaders', 'slug' => 'eq-with-ngan-tran'],
             ]],
         ]],
         ['label' => 'Events', 'slug' => 'events', 'columns' => [

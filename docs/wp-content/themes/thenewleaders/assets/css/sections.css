@@ -537,10 +537,11 @@
   letter-spacing: -0.02em;
   text-align: left;
 }
+/* (2026-06-07 feedback) gom lại gọn hơn: live dùng space-y-20 = 80px */
 .testimonials__list {
   display: flex;
   flex-direction: column;
-  gap: 134px;
+  gap: 80px;
 }
 /* Card base */
 .tcard {
@@ -1128,10 +1129,11 @@
 .newsletter__title {
   margin-bottom: 0;
 }
+/* (2026-06-07) top: -1px → tip of arrow (at y=135) points at first input (~134px from inner top) */
 .newsletter__curly-arrow {
   position: absolute;
   right: -80px;
-  top: 40px;
+  top: -1px;
   width: 121px;
   height: 135px;
   pointer-events: none;
