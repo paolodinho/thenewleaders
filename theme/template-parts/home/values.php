@@ -6,26 +6,36 @@ $values = [
     ['title' => tnl_t('val4_title'), 'desc' => tnl_t('val4_desc')],
     ['title' => tnl_t('val5_title'), 'desc' => tnl_t('val5_desc')],
 ];
+
+// Group into slides of 2 (khớp live site: 2 cột / slide)
+$slides = array_chunk($values, 2);
 ?>
 
-<section class="values section" id="values">
-  <div class="container">
-    <h2 class="values__title"><?php echo tnl_t('values_title'); ?></h2>
-  </div>
+<section class="values" id="values">
+  <div class="values__inner">
 
-  <!-- (2026-06-06 feedback khách) Carousel tự chạy như web cũ -->
-  <div class="values__marquee" aria-label="Values">
-    <div class="values__track">
-      <?php
-      // Render 2 lượt để loop liền mạch
-      for ($pass = 0; $pass < 2; $pass++) :
-        foreach ($values as $v) : ?>
-          <div class="value-card" <?php echo $pass === 1 ? 'aria-hidden="true"' : ''; ?>>
-            <h3 class="value-card__title"><?php echo esc_html($v['title']); ?></h3>
-            <p class="value-card__desc"><?php echo esc_html($v['desc']); ?></p>
-          </div>
-        <?php endforeach;
-      endfor; ?>
+    <h2 class="values__title"><?php echo tnl_t('values_title'); ?></h2>
+
+    <div class="values__slider">
+      <button class="values__arrow values__arrow--prev" id="valuesPrev" aria-label="Previous">&#8592;</button>
+
+      <div class="values__viewport">
+        <div class="values__track" id="valuesTrack">
+          <?php foreach ($slides as $slide) : ?>
+            <div class="values__slide">
+              <?php foreach ($slide as $v) : ?>
+                <div class="value-item">
+                  <strong class="value-item__title"><?php echo esc_html($v['title']); ?></strong>
+                  <p class="value-item__desc"><?php echo esc_html($v['desc']); ?></p>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <button class="values__arrow values__arrow--next" id="valuesNext" aria-label="Next">&#8594;</button>
     </div>
+
   </div>
 </section>

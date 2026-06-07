@@ -264,6 +264,43 @@
   });
 
   // ============================================================
+  // VALUES SLIDER — prev/next, 2 values/slide, khớp live site
+  // ============================================================
+  (function () {
+    const track = document.getElementById('valuesTrack');
+    const prevBtn = document.getElementById('valuesPrev');
+    const nextBtn = document.getElementById('valuesNext');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    const slides = track.querySelectorAll('.values__slide');
+    if (!slides.length) return;
+
+    let idx = 0;
+    const total = slides.length;
+
+    const go = (i) => {
+      idx = (i + total) % total;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    };
+
+    prevBtn.addEventListener('click', () => go(idx - 1));
+    nextBtn.addEventListener('click', () => go(idx + 1));
+
+    // Swipe trên mobile
+    let startX = 0;
+    const slider = track.closest('.values__slider');
+    if (slider) {
+      slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+      slider.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    }
+
+    go(0);
+  })();
+
+  // ============================================================
   // CHỐNG "MỒ CÔI" CHỮ — không để 1 từ vô nghĩa đứng riêng 1 dòng trên nút.
   // Giữ 2 từ cuối dính nhau bằng non-breaking space ( ).
   // ============================================================

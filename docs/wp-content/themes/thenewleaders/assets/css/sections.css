@@ -782,49 +782,85 @@
 /* ============================================================
    VALUES — orange section
    ============================================================ */
+/* (2026-06-07 rebuild) Prev/next slider 2-col, khớp live site */
 .values {
-  background: var(--color-orange);
+  background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255, 113, 33, 0.92) 76.79%);
   padding: var(--section-py) 0;
 }
+.values__inner {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
 .values__title {
-  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-size: clamp(2.8rem, 7vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
-  color: var(--color-white);
-  margin-bottom: 56px;
+  color: #FFC9A1;
+  margin-bottom: 64px;
 }
-/* (2026-06-06) Carousel tự chạy ngang, dừng khi hover */
-.values__marquee {
+/* Slider layout */
+.values__slider {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.values__viewport {
+  flex: 1;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 .values__track {
   display: flex;
-  gap: 20px;
-  width: max-content;
-  padding-inline: 20px;
-  animation: values-scroll 36s linear infinite;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.values__marquee:hover .values__track { animation-play-state: paused; }
-@keyframes values-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.values__slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 60px;
 }
-@media (prefers-reduced-motion: reduce) {
-  .values__track { animation: none; flex-wrap: wrap; justify-content: center; }
+/* Value item - clean text, no card */
+.value-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.value-card {
-  flex: 0 0 300px;
-  background: rgba(255,255,255,0.10);
-  border-radius: 16px;
-  padding: 36px 32px;
-  transition: background var(--transition), transform var(--transition);
+.value-item__title {
+  display: block;
+  font-size: clamp(1.4rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
 }
-.value-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-4px); }
-.value-card__title { color: var(--color-white); font-size: 1.875rem; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-.value-card__desc  { color: rgba(255,255,255,0.85); font-size: 1.125rem; line-height: 1.65; margin: 0; }
+.value-item__desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.65;
+  margin: 0;
+}
+/* Arrow buttons */
+.values__arrow {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  backdrop-filter: blur(4px);
+}
+.values__arrow:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: #fff;
+  transform: scale(1.06);
+}
 
 /* ============================================================
    GROWING TOGETHER — light gray, horizontal scroll
@@ -1390,7 +1426,10 @@
   .why-us-item:nth-child(4) .why-us-item__title-box { transform: none; }
   .why-us-item__desc { font-size: 1.1rem; }
   .why-us-item:nth-child(even) .why-us-item__desc { margin-left: 0; }
-  .value-card__title { font-size: 1.25rem; }
+  /* Values slider mobile */
+  .values__slide { grid-template-columns: 1fr; gap: 36px; }
+  .values__arrow { width: 42px; height: 42px; font-size: 1rem; }
+  .value-item__title { font-size: 1.3rem; }
 
   .site-header__inner { height: 64px; }
   .site-header__logo { margin-right: 0; }
@@ -1448,7 +1487,7 @@
   .site-header.is-open .nav-mega__list a { color: rgba(255,255,255,0.85); padding: 12px 0; }
   .site-header.is-open .nav-mega__list a:hover { background: transparent; color: #fff; }
 
-  .value-card { flex: 0 0 270px; padding: 28px 24px; }
+  /* values-card legacy removed */
   .partners__slide { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
   .partner-logo { height: 64px; padding: 0 4px; }
   .partner-logo img { max-height: 52px; }
