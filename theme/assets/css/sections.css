@@ -1062,7 +1062,10 @@
   background: linear-gradient(51.56deg, #FF4F21 21.87%, rgba(255,113,33,0.92) 76.79%);
   padding: 256px 0;
 }
-.newsletter__inner { max-width: 640px; }
+.newsletter__inner {
+  max-width: 640px;
+  position: relative; /* anchor for curly-arrow absolute positioning */
+}
 .newsletter__title {
   font-size: 1.25rem;
   font-weight: 400;
@@ -1120,7 +1123,6 @@
 .newsletter__arrow { transition: transform var(--transition); }
 .newsletter__submit:hover .newsletter__arrow { transform: translateX(4px); }
 .newsletter__header {
-  position: relative;
   margin-bottom: 48px;
 }
 .newsletter__title {

@@ -46,7 +46,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </style>
 
 <link rel='stylesheet' id='tnl-style-css' href='/thenewleaders/wp-content/themes/thenewleaders/style.css?ver=1780764988' media='all' />
-<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780803513' media='all' />
+<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780828481' media='all' />
 <link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780796513' media='all' />
 <link rel="https://api.w.org/" href="/thenewleaders/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="/thenewleaders/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/thenewleaders/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 7.0" />
@@ -186,27 +186,25 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <!-- Hero CTA — orange gradient section immediately after video -->
 <section class="hero-cta" id="hero-cta">
   <div class="hero-cta__inner">
-    <h1 class="hero-cta__tagline">Become inspiring leaders to lead the change</h1>
+    <p class="hero-cta__tagline">Become inspiring leaders to lead the change</p>
     <div class="hero-cta__btns">
-      <a href="#what-we-do" class="hero-cta__btn">Join Customized Leadership Program</a>
-      <a href="#what-we-do" class="hero-cta__btn hero-cta__btn--outline">Join Programs for Team members</a>
+      <a href="/our-services#business-programs" class="hero-cta__btn">Join Customized Leadership Program</a>
+      <a href="/our-services#individual-programs" class="hero-cta__btn hero-cta__btn--outline">Join Programs for Team members</a>
     </div>
   </div>
 </section>
 <section class="what-we-help" id="what-we-help">
-  <div class="what-we-help__inner">
 
-    <!-- Large watermark title — left background -->
-    <div class="what-we-help__bg-title" aria-hidden="true">What we<br>can help</div>
+  <!-- Large dark heading — near-invisible on black bg (matches live design) -->
+  <h2 class="wwh__title">What we<br>can help</h2>
 
-    <!-- Content — right column -->
-    <div class="what-we-help__content">
-      <p>Many leaders find it challenging in connecting people and inspiring them to take action. Using only rational arguments and statistic data to convince people rarely works.</p>
-      <p>We believe that if we want people to join us to adopt new ideas and embrace change, <span class="wwh-kw wwh-kw--teal">emotional intelligence</span> is a powerful tool to <span class="wwh-kw wwh-kw--green">connect</span> and <span class="wwh-kw wwh-kw--amber">inspire</span> people to <span class="wwh-kw wwh-kw--orange">take action</span>.</p>
-      <p>We will help you to develop these powerful skills.</p>
-    </div>
-
+  <!-- Body content — max 900px centered, white text -->
+  <div class="wwh__content">
+    <p>Many leaders find it challenging in connecting people and inspiring them to take action. Using only rational arguments and statistic data to convince people rarely works.</p>
+    <p>We believe that if we want people to join us to adopt new ideas and embrace change, <span class="wwh-kw wwh-kw--teal">emotional intelligence</span> is a powerful tool to <span class="wwh-kw wwh-kw--green">connect</span> and <span class="wwh-kw wwh-kw--amber">inspire</span> people to <span class="wwh-kw wwh-kw--orange">take action</span>.</p>
+    <p>We will help you to develop these powerful skills.</p>
   </div>
+
 </section>
 
 <section class="what-we-do" id="what-we-do">
@@ -369,27 +367,27 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
     </div>
   </div>
 
-  <!-- Numbered points: thẻ màu gọn, số + chữ cùng hàng -->
+  <!-- Numbered points: watermark number + full-width colored card, alternating -->
   <div class="about__items">
 
     <div class="about__item about__item--teal">
-      <span class="about__num">01</span>
+      <div class="about__num-wrap about__num-wrap--right"><span class="about__num">01</span></div>
+      <p class="about__point">In a world of rapid and constant disruption, we believe that training &amp; education should evolve too.</p>
+    </div>
+
+    <div class="about__item about__item--green about__item--alt">
+      <div class="about__num-wrap about__num-wrap--left"><span class="about__num">02</span></div>
       <p class="about__point">We constantly strive for improvement in everything we do, knowing that improvement is always possible.</p>
     </div>
 
-    <div class="about__item about__item--green">
-      <span class="about__num">02</span>
+    <div class="about__item about__item--yellow">
+      <div class="about__num-wrap about__num-wrap--right"><span class="about__num">03</span></div>
       <p class="about__point">We take an evidence-led approach to challenging convention and we are courageous enough to change the status quo.</p>
     </div>
 
-    <div class="about__item about__item--yellow">
-      <span class="about__num">03</span>
+    <div class="about__item about__item--orange about__item--alt">
+      <div class="about__num-wrap about__num-wrap--left"><span class="about__num">04</span></div>
       <p class="about__point">We are the drivers of change.</p>
-    </div>
-
-    <div class="about__item about__item--orange">
-      <span class="about__num">04</span>
-      <p class="about__point">We bring global leadership frameworks to Vietnamese leaders and organisations.</p>
     </div>
 
   </div>
@@ -424,6 +422,39 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
         <p class="why-us-item__desc">Long term follow-up &amp; coaching (varied per program) by our coach/trainers and technology/AI after the training workshop to support them to build and develop their EQ Communication skills in life and at work.</p>
       </div>
       </div>
+</section>
+<section class="video-section" id="video-section">
+
+  <!-- Background video -->
+  <video class="video-section__video"
+         muted loop playsinline
+         poster="https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com/workshop_4e15cbd0b3.jpg">
+    <source src="https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com/workshop_0710_efa5faf9ea.mp4" type="video/mp4">
+  </video>
+
+  <!-- Dark overlay + content -->
+  <div class="video-section__overlay">
+    <div class="video-section__content">
+
+      <!-- Play/pause button -->
+      <button class="video-section__play" aria-label="Play video">
+        <svg width="44" height="50" viewBox="0 0 44 50" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M42.5774 22.9379C43.9107 23.7077 43.9107 25.6322 42.5774 26.402L3.60955 48.9003C2.27622 49.6702 0.609556 48.7079 0.609556 47.1683L0.609558 2.17173C0.609558 0.632107 2.27623 -0.330193 3.60956 0.439707L42.5774 22.9379Z"/>
+        </svg>
+      </button>
+
+      <!-- Title -->
+      <p class="video-section__title">Our leaders say about the experience</p>
+
+      <!-- CTA buttons -->
+      <div class="video-section__btns">
+        <a href="/our-services#business-programs" class="video-section__btn">Join Customized Leadership Program</a>
+        <a href="/our-services#individual-programs" class="video-section__btn video-section__btn--outline">Join Programs for Team members</a>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <section class="values" id="values">
@@ -898,6 +929,6 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 var tnlData = {"ajaxUrl":"/thenewleaders/wp-admin/admin-ajax.php","nonce":"7be20bb8eb"};
 //# sourceURL=tnl-main-js-extra
 </script>
-<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780795591"></script>
+<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780823332"></script>
 </body>
 </html>

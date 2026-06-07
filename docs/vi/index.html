@@ -46,7 +46,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </style>
 
 <link rel='stylesheet' id='tnl-style-css' href='/thenewleaders/wp-content/themes/thenewleaders/style.css?ver=1780764988' media='all' />
-<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780803513' media='all' />
+<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780828481' media='all' />
 <link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780796513' media='all' />
 <link rel="https://api.w.org/" href="/thenewleaders/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="/thenewleaders/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/thenewleaders/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 7.0" />
@@ -186,27 +186,25 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <!-- Hero CTA — orange gradient section immediately after video -->
 <section class="hero-cta" id="hero-cta">
   <div class="hero-cta__inner">
-    <h1 class="hero-cta__tagline">Trở thành nhà lãnh đạo truyền cảm hứng ngay hôm nay!</h1>
+    <p class="hero-cta__tagline">Trở thành nhà lãnh đạo truyền cảm hứng ngay hôm nay!</p>
     <div class="hero-cta__btns">
-      <a href="#what-we-do" class="hero-cta__btn">Tham gia chương trình EQ cho lãnh đạo</a>
-      <a href="#what-we-do" class="hero-cta__btn hero-cta__btn--outline">Tham gia chương trình EQ cho đội ngũ</a>
+      <a href="/our-services#business-programs" class="hero-cta__btn">Tham gia chương trình EQ cho lãnh đạo</a>
+      <a href="/our-services#individual-programs" class="hero-cta__btn hero-cta__btn--outline">Tham gia chương trình EQ cho đội ngũ</a>
     </div>
   </div>
 </section>
 <section class="what-we-help" id="what-we-help">
-  <div class="what-we-help__inner">
 
-    <!-- Large watermark title — left background -->
-    <div class="what-we-help__bg-title" aria-hidden="true">Chúng tôi hỗ trợ<br>các nhà lãnh đạo</div>
+  <!-- Large dark heading — near-invisible on black bg (matches live design) -->
+  <h2 class="wwh__title">Chúng tôi hỗ trợ<br>các nhà lãnh đạo</h2>
 
-    <!-- Content — right column -->
-    <div class="what-we-help__content">
-      <p>Số liệu, lý lẽ, lập luận khô khan... kể cả có đúng về mặt logic, hiếm khi có thể hoàn toàn thuyết phục để đội ngũ cống hiến và tạo ra những sự đột phá. Kết nối, xây dựng niềm tin và truyền cảm hứng cho đội nhóm là thách thức đối với nhiều lãnh đạo của thời đại mới. Vậy phải làm khác đi như thế nào?</p>
-      <p>The New Leaders tin rằng <span class="wwh-kw wwh-kw--teal">Trí tuệ cảm xúc (EQ)</span> chính là một công cụ đắc lực để các nhà lãnh đạo có thể <span class="wwh-kw wwh-kw--green">kết nối</span>, <span class="wwh-kw wwh-kw--amber">truyền cảm hứng và tạo động lực</span> cho đội ngũ <span class="wwh-kw wwh-kw--orange">hành động</span> để đạt được mục tiêu với hiệu suất cao.</p>
-      <p>Hãy để The New Leaders giúp bạn phát triển những kỹ năng ưu việt này!</p>
-    </div>
-
+  <!-- Body content — max 900px centered, white text -->
+  <div class="wwh__content">
+    <p>Số liệu, lý lẽ, lập luận khô khan... kể cả có đúng về mặt logic, hiếm khi có thể hoàn toàn thuyết phục để đội ngũ cống hiến và tạo ra những sự đột phá. Kết nối, xây dựng niềm tin và truyền cảm hứng cho đội nhóm là thách thức đối với nhiều lãnh đạo của thời đại mới. Vậy phải làm khác đi như thế nào?</p>
+    <p>The New Leaders tin rằng <span class="wwh-kw wwh-kw--teal">Trí tuệ cảm xúc (EQ)</span> chính là một công cụ đắc lực để các nhà lãnh đạo có thể <span class="wwh-kw wwh-kw--green">kết nối</span>, <span class="wwh-kw wwh-kw--amber">truyền cảm hứng và tạo động lực</span> cho đội ngũ <span class="wwh-kw wwh-kw--orange">hành động</span> để đạt được mục tiêu với hiệu suất cao.</p>
+    <p>Hãy để The New Leaders giúp bạn phát triển những kỹ năng ưu việt này!</p>
   </div>
+
 </section>
 
 <section class="what-we-do" id="what-we-do">
@@ -369,27 +367,27 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
     </div>
   </div>
 
-  <!-- Numbered points: thẻ màu gọn, số + chữ cùng hàng -->
+  <!-- Numbered points: watermark number + full-width colored card, alternating -->
   <div class="about__items">
 
     <div class="about__item about__item--teal">
-      <span class="about__num">01</span>
+      <div class="about__num-wrap about__num-wrap--right"><span class="about__num">01</span></div>
+      <p class="about__point">Trong thế giới đầy sự thay đổi và đột phá, chúng tôi tin rằng đào tạo &amp; giáo dục cũng cần bắt kịp những xu hướng đột phá đó.</p>
+    </div>
+
+    <div class="about__item about__item--green about__item--alt">
+      <div class="about__num-wrap about__num-wrap--left"><span class="about__num">02</span></div>
       <p class="about__point">Chúng tôi không ngừng nỗ lực cải thiện và phát triển bởi chúng tôi tin rằng luôn có cách để làm tốt hơn nữa.</p>
     </div>
 
-    <div class="about__item about__item--green">
-      <span class="about__num">02</span>
+    <div class="about__item about__item--yellow">
+      <div class="about__num-wrap about__num-wrap--right"><span class="about__num">03</span></div>
       <p class="about__point">Chúng tôi tiếp cận vấn đề dựa trên những bằng chứng nghiên cứu và sẵn sàng để đón đầu những thay đổi.</p>
     </div>
 
-    <div class="about__item about__item--yellow">
-      <span class="about__num">03</span>
+    <div class="about__item about__item--orange about__item--alt">
+      <div class="about__num-wrap about__num-wrap--left"><span class="about__num">04</span></div>
       <p class="about__point">Chúng tôi đi đầu để thúc đẩy sự thay đổi.</p>
-    </div>
-
-    <div class="about__item about__item--orange">
-      <span class="about__num">04</span>
-      <p class="about__point">Chúng tôi mang các cấu trúc đào tạo lãnh đạo toàn cầu đến với các nhà lãnh đạo và tổ chức tại Việt Nam.</p>
     </div>
 
   </div>
@@ -424,6 +422,39 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
         <p class="why-us-item__desc">Chương trình dài hạn với các hoạt động thực hành liên tục và tham vấn cùng chuyên gia sau workshop đào tạo (tùy theo chương trình) nhằm xây dựng và phát triển kỹ năng giao tiếp bằng trí tuệ cảm xúc (EQ) trong cuộc sống và công việc.</p>
       </div>
       </div>
+</section>
+<section class="video-section" id="video-section">
+
+  <!-- Background video -->
+  <video class="video-section__video"
+         muted loop playsinline
+         poster="https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com/workshop_4e15cbd0b3.jpg">
+    <source src="https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com/workshop_0710_efa5faf9ea.mp4" type="video/mp4">
+  </video>
+
+  <!-- Dark overlay + content -->
+  <div class="video-section__overlay">
+    <div class="video-section__content">
+
+      <!-- Play/pause button -->
+      <button class="video-section__play" aria-label="Play video">
+        <svg width="44" height="50" viewBox="0 0 44 50" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M42.5774 22.9379C43.9107 23.7077 43.9107 25.6322 42.5774 26.402L3.60955 48.9003C2.27622 49.6702 0.609556 48.7079 0.609556 47.1683L0.609558 2.17173C0.609558 0.632107 2.27623 -0.330193 3.60956 0.439707L42.5774 22.9379Z"/>
+        </svg>
+      </button>
+
+      <!-- Title -->
+      <p class="video-section__title">Đánh giá của các nhà lãnh đạo về khoá học của chúng tôi</p>
+
+      <!-- CTA buttons -->
+      <div class="video-section__btns">
+        <a href="/our-services#business-programs" class="video-section__btn">Tham gia chương trình EQ cho lãnh đạo</a>
+        <a href="/our-services#individual-programs" class="video-section__btn video-section__btn--outline">Tham gia chương trình EQ cho đội ngũ</a>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 <section class="values" id="values">
@@ -898,6 +929,6 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 var tnlData = {"ajaxUrl":"/thenewleaders/wp-admin/admin-ajax.php","nonce":"7be20bb8eb"};
 //# sourceURL=tnl-main-js-extra
 </script>
-<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780795591"></script>
+<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780823332"></script>
 </body>
 </html>
