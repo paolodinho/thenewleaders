@@ -288,10 +288,10 @@ function tnl_strings() {
             // about
             'about_title'   => 'About us',
             'about_mission' => 'Our mission is to advance EQ Leadership &amp; Communication skills to a world-class standard for leaders and their team members.',
-            'about_p1' => 'We constantly strive for improvement in everything we do, knowing that improvement is always possible.',
-            'about_p2' => 'We take an evidence-led approach to challenging convention and we are courageous enough to change the status quo.',
-            'about_p3' => 'We are the drivers of change.',
-            'about_p4' => 'We bring global leadership frameworks to Vietnamese leaders and organisations.',
+            'about_p1' => 'In a world of rapid and constant disruption, we believe that training &amp; education should evolve too.',
+            'about_p2' => 'We constantly strive for improvement in everything we do, knowing that improvement is always possible.',
+            'about_p3' => 'We take an evidence-led approach to challenging convention and we are courageous enough to change the status quo.',
+            'about_p4' => 'We are the drivers of change.',
             // why us
             'whyus_title' => 'Why us?',
             'whyus_lead'  => 'We are distinguished from others because we provide:',
@@ -376,10 +376,10 @@ function tnl_strings() {
             // about
             'about_title'   => 'Về chúng tôi',
             'about_mission' => 'The New Leaders mang trong mình sứ mệnh hỗ trợ các nhà lãnh đạo và các thành viên trong đội ngũ của họ nâng cao kỹ năng lãnh đạo &amp; giao tiếp bằng Trí tuệ cảm xúc (EQ) để vươn tầm quốc tế',
-            'about_p1' => 'Chúng tôi không ngừng nỗ lực cải thiện và phát triển bởi chúng tôi tin rằng luôn có cách để làm tốt hơn nữa.',
-            'about_p2' => 'Chúng tôi tiếp cận vấn đề dựa trên những bằng chứng nghiên cứu và sẵn sàng để đón đầu những thay đổi.',
-            'about_p3' => 'Chúng tôi đi đầu để thúc đẩy sự thay đổi.',
-            'about_p4' => 'Chúng tôi mang các cấu trúc đào tạo lãnh đạo toàn cầu đến với các nhà lãnh đạo và tổ chức tại Việt Nam.',
+            'about_p1' => 'Trong thế giới đầy sự thay đổi và đột phá, chúng tôi tin rằng đào tạo &amp; giáo dục cũng cần bắt kịp những xu hướng đột phá đó.',
+            'about_p2' => 'Chúng tôi không ngừng nỗ lực cải thiện và phát triển bởi chúng tôi tin rằng luôn có cách để làm tốt hơn nữa.',
+            'about_p3' => 'Chúng tôi tiếp cận vấn đề dựa trên những bằng chứng nghiên cứu và sẵn sàng để đón đầu những thay đổi.',
+            'about_p4' => 'Chúng tôi đi đầu để thúc đẩy sự thay đổi.',
             // why us
             'whyus_title' => 'Điều khiến chúng tôi khác biệt?',
             'whyus_lead'  => 'Chúng tôi khác biệt bởi:',
