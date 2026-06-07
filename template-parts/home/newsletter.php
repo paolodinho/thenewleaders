@@ -1,8 +1,13 @@
 <section class="newsletter" id="newsletter">
   <div class="container">
     <div class="newsletter__inner">
-      <p class="newsletter__title"><?php echo tnl_t('nl_title'); ?></p>
+      <div class="newsletter__header">
+        <p class="newsletter__title"><?php echo tnl_t('nl_title'); ?></p>
+        <!-- Decorative arrow — exact SVG from live site (thenewleaders.asia) -->
+        <img class="newsletter__curly-arrow" src="<?php echo get_template_directory_uri(); ?>/assets/media/newsletter-vector.svg" width="121" height="135" alt="" aria-hidden="true">
+      </div>
       <form class="newsletter__form tnl-ajax-form" action="#" method="post" data-form-type="Newsletter (Home)">
+
         <div class="newsletter__row">
           <label class="newsletter__label" for="nl-name"><?php echo tnl_t('nl_name'); ?></label>
           <input type="text" id="nl-name" name="name" required class="newsletter__input">

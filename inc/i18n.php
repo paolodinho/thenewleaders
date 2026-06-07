@@ -130,6 +130,7 @@ function tnl_nav_tree() {
     $vi = (tnl_lang() === 'vi');
     if ($vi) {
         return [
+            ['label' => 'Trang chủ', 'slug' => ''],
             ['label' => 'Sản phẩm & Dịch vụ', 'slug' => 'our-services', 'columns' => [
                 ['heading' => ['label' => 'Chương trình đào tạo', 'slug' => 'our-services'], 'items' => [
                     ['label' => 'Dành cho quản lý', 'slug' => 'our-services/for-manager'],
@@ -164,6 +165,7 @@ function tnl_nav_tree() {
         ];
     }
     return [
+        ['label' => 'Home', 'slug' => ''],
         ['label' => 'Our Services & Products', 'slug' => 'our-services', 'columns' => [
             ['heading' => ['label' => 'Training programs', 'slug' => 'our-services'], 'items' => [
                 ['label' => 'For Leader/Manager', 'slug' => 'our-services/for-manager'],

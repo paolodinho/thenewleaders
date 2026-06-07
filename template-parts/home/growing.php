@@ -31,6 +31,8 @@ $use_wp = $posts_query->have_posts();
     </div>
 
     <div class="growing__track-wrap">
+      <button class="growing__arrow growing__arrow--prev" id="growingPrev" aria-label="Previous">&#8592;</button>
+      <button class="growing__arrow growing__arrow--next" id="growingNext" aria-label="Next">&#8594;</button>
       <div class="growing__track" id="growingTrack">
 
         <?php if ($use_wp) :
@@ -60,10 +62,7 @@ $use_wp = $posts_query->have_posts();
       </div><!-- .growing__track -->
     </div><!-- .growing__track-wrap -->
 
-    <div class="growing__nav">
-      <button class="growing__nav-btn" id="growingPrev" aria-label="Previous">&#8592;</button>
-      <button class="growing__nav-btn" id="growingNext" aria-label="Next">&#8594;</button>
-    </div>
+    <!-- Nav buttons are now inside .growing__track-wrap as .growing__arrow elements -->
 
   </div>
 </section>
