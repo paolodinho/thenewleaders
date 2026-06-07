@@ -1155,10 +1155,10 @@
 }
 .newsletter__curly-arrow {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 90px;
-  height: 115px;
+  right: 30px;
+  top: -15px;
+  width: 100px;
+  height: 140px;
   opacity: 0.9;
   pointer-events: none;
 }
