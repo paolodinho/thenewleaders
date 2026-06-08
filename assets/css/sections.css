@@ -307,51 +307,57 @@
 }
 
 /* ============================================================
-   WHAT WE DO — white, watermark title + alternating cards
+   WHAT WE DO — 2-col stacked cards (khớp live site layout)
+   Cấu trúc: H2 watermark → desc+pills → wwd-grid (2-col)
    ============================================================ */
 .what-we-do {
   background: var(--color-white);
-}
-/* Offer block: dải nền xám nhạt full-bleed, tách khỏi intro trắng phía trên */
-.what-we-do__offer {
-  background: var(--color-off-white);
-  padding: 64px 0 240px;
+  padding: 144px 0 240px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Header area — watermark block on top, content indented below */
-.what-we-do__header {
-  padding: 144px var(--container-px) 40px;
-  max-width: var(--container-max);
-  margin-inline: auto;
-}
+/* Watermark H2: lớn, màu nhạt, ở đầu section */
 .what-we-do__bg-title {
   display: block;
-  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: #FFEFEB;
-  margin: 0;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  max-width: var(--container-max);
   pointer-events: none;
   user-select: none;
 }
-.what-we-do__header-content {
-  margin-left: 0;
-  max-width: 760px;
-  padding-top: 24px;
+
+/* Content (desc + pills): overlap lên H2, z-index 10 */
+.what-we-do__content {
+  position: relative;
+  z-index: 10;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  margin-top: -80px; /* kéo lên overlap với H2 */
 }
+.what-we-do__content-inner {
+  margin-top: -240px; /* negative pull để overlay vị trí trong H2 */
+}
+
 .what-we-do__desc {
   color: var(--color-black);
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 32px;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 760px;
+  padding: 0 var(--container-px);
 }
-.what-we-do__desc strong { font-weight: 700; }
 .what-we-do__pills {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   align-items: flex-start;
+  padding: 0 var(--container-px);
 }
 .wwd-pill {
   display: inline-flex;
@@ -363,148 +369,94 @@
   color: #232323;
   line-height: 1.3;
 }
-/* Highlight-wipe is scroll-linked via JS (sets clip-path per scroll position).
-   No-JS: pills stay fully visible. */
 
-/* Cards section heading — contained, căn giữa trên nền section (không tràn mép) */
-.what-we-do__cards-head {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding: 0 var(--container-px) 32px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-.what-we-do__eyebrow {
-  display: inline-block;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-orange);
-  margin-bottom: 14px;
-}
-.what-we-do__cards-title {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.0;
-  color: var(--color-black);
-  margin: 0;
-}
-.what-we-do__cards-note {
-  font-size: 1.0625rem;
-  color: var(--color-gray-dark);
-  max-width: 320px;
-  line-height: 1.6;
-  margin: 0 0 6px;
-}
-
-/* Cards: alternating rows — contained, căn giữa, bo góc thành 1 khối gọn */
-.what-we-do__cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  counter-reset: wwd;
-  max-width: var(--container-max);
-  margin-inline: auto;
-  border-radius: 24px;
-  overflow: hidden;
-}
-.wwd-row {
+/* ── 2-col grid ── */
+.wwd-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 320px;
+  align-items: start;
+  gap: 0 96px;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 0 var(--container-px);
+  margin-top: 64px;
+  position: relative;
+  z-index: 1;
 }
-.wwd-row--reversed .wwd-row__text { order: 2; }
-.wwd-row--reversed .wwd-row__img  { order: 1; }
 
-.wwd-row__text {
+.wwd-col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 40px 52px;
+}
+
+/* Mỗi group: card + image xếp dọc */
+.wwd-group {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s ease;
+}
+
+/* Default (left col): card on top, img below */
+.wwd-group .wwd-group__card { order: 1; }
+.wwd-group .wwd-group__img  { order: 2; }
+
+/* Right col (img-top): image on top, card below */
+.wwd-group--img-top .wwd-group__img  { order: 1; }
+.wwd-group--img-top .wwd-group__card { order: 2; }
+
+/* Card inner content */
+.wwd-group__card {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  position: relative;
-  overflow: hidden;
-  counter-increment: wwd;
 }
-/* Oversized index number — artistic watermark */
-.wwd-row__text::before {
-  content: "0" counter(wwd);
-  position: absolute;
-  top: 28px;
-  right: 44px;
-  font-size: 8rem;
-  font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.04em;
-  color: rgba(0, 0, 0, 0.10);
-  pointer-events: none;
-}
-/* number stays top-right on both layouts so it never collides with the left-aligned text + accent */
-.wwd-row__title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--color-black);
-  line-height: 1.15;
-  margin: 0;
-  position: relative;
-}
-/* Short accent rule above title — structural hierarchy */
-.wwd-row__title::before {
-  content: "";
-  display: block;
-  width: 52px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.28);
-  margin-bottom: 20px;
-}
-.wwd-row__desc {
+
+.wwd-group__title {
   font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.wwd-group__body {
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--color-black);
   line-height: 1.6;
   margin: 0;
-  opacity: 0.85;
-  max-width: 440px;
 }
-.wwd-row__btn {
+
+.wwd-group__btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 14px 32px;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 32px;
   border-radius: 100px;
   background: var(--color-orange);
-  color: var(--color-white);
-  font-weight: 700;
+  color: rgba(248, 250, 252, 1);
   font-size: 1.25rem;
-  align-self: flex-start;
+  font-weight: 400;
   transition: all var(--transition);
-  margin-top: 8px;
-  justify-content: center;
-  position: relative;
+  align-self: flex-start;
+  white-space: nowrap;
 }
-.wwd-row__btn::after {
-  content: "→";
-  display: inline-block;
-  transition: transform 0.3s ease;
+.wwd-group__btn:hover {
+  background: var(--color-orange-dark);
+  transform: translateY(-2px);
 }
-.wwd-row:hover .wwd-row__btn::after { transform: translateX(5px); }
-.wwd-row__btn--dark {
-  background: var(--color-black);
-  color: var(--color-white);
-}
-.wwd-row__btn:hover { opacity: 0.88; transform: translateY(-2px); }
 
-.wwd-row__img {
-  overflow: hidden;
+/* Image: 16:9 aspect ratio */
+.wwd-group__img {
   position: relative;
-  min-height: 440px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-gray-light);
 }
-.wwd-row__img img {
+.wwd-group__img img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -513,7 +465,26 @@
   display: block;
   transition: transform 0.5s ease;
 }
-.wwd-row:hover .wwd-row__img img { transform: scale(1.03); }
+.wwd-group:hover .wwd-group__img img { transform: scale(1.03); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .what-we-do { padding: 56px 0 80px; }
+  .what-we-do__content { margin-top: -40px; }
+  .what-we-do__content-inner { margin-top: -80px; }
+  .what-we-do__desc { font-size: 1rem; }
+  .wwd-pill { font-size: 1.25rem; }
+  .wwd-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 32px;
+  }
+  .wwd-group { flex-direction: column; }
+  .wwd-group--img-top .wwd-group__img,
+  .wwd-group--img-top .wwd-group__card { order: unset; }
+  .wwd-group__card { padding: 32px 24px; }
+  .wwd-group__btn { padding: 16px 24px; font-size: 1rem; }
+}
 
 /* ============================================================
    TESTIMONIALS — orange bg, alternating layout
@@ -1340,7 +1311,6 @@
    ============================================================ */
 .wwh__title,
 .what-we-do__bg-title,
-.what-we-do__cards-title,
 .testimonials__title,
 .about__title,
 .why-us__title,
@@ -1375,13 +1345,10 @@
 }
 
 @media (max-width: 1024px) {
-  .what-we-do__header-content { margin-left: 0; }
   .about__layout,
   .cta-section__layout { grid-template-columns: 1fr; gap: 48px; }
   .site-footer__grid { grid-template-columns: 1fr 1fr; }
-  .wwd-row { min-height: 360px; }
-  .wwd-row__text { padding: 40px; }
-  .what-we-do__cards-head { padding: 56px 40px 48px; }
+  .wwd-grid { gap: 0 48px; }
 }
 
 @media (max-width: 768px) {
@@ -1400,42 +1367,6 @@
   .about__num-wrap { top: -60px; }
   .about__num-wrap--right { right: 0; }
   .about__num-wrap--left { left: 0; }
-
-  .what-we-do__header { display: block; padding: 56px 24px 24px; }
-  .what-we-do__bg-title {
-    color: var(--color-orange);
-    font-size: clamp(2.5rem, 11vw, 3.5rem);
-    margin-bottom: 24px;
-  }
-  .what-we-do__header-content { margin-left: 0; }
-  /* Pills: bỏ clip-path (JS scrub) ở mobile để không bị cắt chữ, cho xuống dòng full width */
-  .what-we-do__pills { flex-direction: column; align-items: stretch; }
-  .wwd-pill {
-    clip-path: none !important;
-    width: 100%;
-    font-size: 1.5rem;
-    padding: 8px 16px;
-  }
-
-  .what-we-do__cards-head {
-    padding: 44px 24px 28px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-  .what-we-do__cards-note { max-width: 100%; }
-  .what-we-do__cards { margin-inline: 12px; border-radius: 16px; }
-  .what-we-do__offer { padding: 40px 0 48px; }
-
-  .wwd-row { grid-template-columns: 1fr; min-height: auto; }
-  .wwd-row--reversed .wwd-row__text { order: 0; }
-  .wwd-row--reversed .wwd-row__img  { order: 0; }
-  .wwd-row__img { min-height: 260px; }
-  .wwd-row__text { padding: 36px 24px; }
-  .wwd-row__text::before { font-size: 4.5rem; top: 18px; right: 22px; }
-  .wwd-row__title { font-size: 1.5rem; }
-  .wwd-row__title::before { margin-bottom: 16px; }
-  .wwd-row__desc { font-size: 1.125rem; max-width: 100%; }
 
   .testimonials { padding: 80px 20px; }
   .testimonials__title { font-size: clamp(2.2rem, 10vw, 3.5rem); margin-bottom: 48px; }
