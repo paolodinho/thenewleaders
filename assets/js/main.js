@@ -79,16 +79,23 @@
   const prevBtn = document.getElementById('growingPrev');
   const nextBtn = document.getElementById('growingNext');
   if (track && prevBtn && nextBtn) {
-    const STEP = 376; // 360px card + 16px gap
     let offset = 0;
+
+    // STEP = 1 item width = 50% of wrap (dynamic, responsive)
+    const getStep = () => {
+      const first = track.querySelector('.growing__item');
+      return first ? first.offsetWidth : track.parentElement.offsetWidth / 2;
+    };
 
     const getMax = () => {
       const items = track.querySelectorAll('.growing__item');
-      return Math.max(0, items.length * STEP - track.parentElement.offsetWidth);
+      const step = getStep();
+      return Math.max(0, items.length * step - track.parentElement.offsetWidth);
     };
 
     const slide = (dir) => {
-      offset = Math.max(0, Math.min(offset + dir * STEP, getMax()));
+      const step = getStep();
+      offset = Math.max(0, Math.min(offset + dir * step, getMax()));
       track.style.transform = `translateX(-${offset}px)`;
     };
 
