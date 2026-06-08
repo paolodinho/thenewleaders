@@ -1131,11 +1131,11 @@
 .newsletter__title {
   margin-bottom: 0;
 }
-/* (2026-06-07) top: -1px → tip of arrow (at y=135) points at first input (~134px from inner top) */
+/* (2026-06-08) top:50px right:31px khớp live: arrow.y=inner.y+50=14615, arrow.x=inner.right-31-121=748 */
 .newsletter__curly-arrow {
   position: absolute;
-  right: -80px;
-  top: -1px;
+  right: 31px;
+  top: 50px;
   width: 121px;
   height: 135px;
   pointer-events: none;
