@@ -16,11 +16,11 @@ Text Domain: thenewleaders
    ============================================================ */
 /* Euclid Circular A — bản EuclidCircularAVN (647 glyph) hỗ trợ ĐẦY ĐỦ tiếng Việt + Latin.
    Dùng cho cả EN lẫn VI -> đồng nhất 1 font toàn site, không cần fallback Be Vietnam Pro. (2026-06-06) */
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Regular-v2.woff2?v=4') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Light-v2.woff2?v=4') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Medium-v2.woff2?v=4') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-SemiBold-v2.woff2?v=4') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Bold-v2.woff2?v=4') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Regular.woff2?v=5') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Light.woff2?v=5') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Medium.woff2?v=5') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-SemiBold.woff2?v=5') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Bold.woff2?v=5') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 
 /* ============================================================
    CSS CUSTOM PROPERTIES
