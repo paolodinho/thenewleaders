@@ -46,7 +46,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </style>
 
 <link rel='stylesheet' id='tnl-style-css' href='/thenewleaders/wp-content/themes/thenewleaders/style.css?ver=1780884984' media='all' />
-<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780884984' media='all' />
+<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780896698' media='all' />
 <link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780884984' media='all' />
 <link rel="https://api.w.org/" href="/thenewleaders/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="/thenewleaders/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/thenewleaders/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 7.0" />
@@ -209,89 +209,74 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 <section class="what-we-do" id="what-we-do">
 
-  <!-- Header: watermark title + description + pills -->
-  <div class="what-we-do__header">
-    <div class="what-we-do__bg-title" aria-hidden="true">What<br>we do</div>
-    <div class="what-we-do__header-content">
+  <!-- Watermark heading: overlapping layout (khớp live) -->
+  <h2 class="what-we-do__bg-title" aria-hidden="true">What<br>we do</h2>
+
+  <!-- Description + pills: positioned above/overlapping H2 -->
+  <div class="what-we-do__content">
+    <div class="what-we-do__content-inner">
       <p class="what-we-do__desc">Emotional Intelligence Leadership Training with frameworks from worldwide accredited leadership programs of <strong>Harvard Kennedy School and Oxford University.</strong></p>
       <div class="what-we-do__pills">
         <span class="wwd-pill" style="background:#5AD3ED">Practical.</span>
         <span class="wwd-pill" style="background:#AFE56B">People-centered.</span>
         <span class="wwd-pill" style="background:#FFC75A">Innovative.</span>
-        <span class="wwd-pill" style="background:#FF7C33">Enduring impact</span>
+        <span class="wwd-pill" style="background:#FF9B52">Enduring impact</span>
       </div>
     </div>
   </div>
 
-  <!-- Offer block: dải nền riêng để tách khỏi phần intro phía trên -->
-  <div class="what-we-do__offer">
+  <!-- 2-col grid: khớp live site layout -->
+  <div class="wwd-grid">
 
-  <!-- Cards section heading -->
-  <div class="what-we-do__cards-head">
-    <div class="what-we-do__cards-headline">
-      <span class="what-we-do__eyebrow">What we offer</span>
-      <h3 class="what-we-do__cards-title">Our Services & Products</h3>
-    </div>
-    <p class="what-we-do__cards-note">Four ways we partner with leaders and teams to create lasting impact.</p>
-  </div>
-
-  <!-- Cards: alternating text+image layout -->
-  <div class="what-we-do__cards">
-          <div class="wwd-row ">
-
-        <div class="wwd-row__text" style="background:#5AD3ED">
-          <h3 class="wwd-row__title">Business Programs:</h3>
-          <p class="wwd-row__desc">We customize EQ leadership &amp; communication training programs for business leaders and their team members.</p>
-          <a href="/thenewleaders/en/our-services/for-manager/" class="wwd-row__btn ">Learn more</a>
+    <!-- Left column: colored block TOP, image BOTTOM -->
+    <div class="wwd-col">
+              <div class="wwd-group">
+          <div class="wwd-group__card" style="background:#5AD3ED;padding-bottom:64px">
+            <p class="wwd-group__title">Business Programs:</p>
+            <p class="wwd-group__body">We customize EQ leadership &amp; communication training programs for business leaders and their team members.</p>
+            <a href="/thenewleaders/en/our-services/for-manager/" class="wwd-group__btn">Learn more</a>
+          </div>
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/business.jpg" alt="Business Programs" loading="lazy">
+          </div>
         </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/business.jpg" alt="Business Programs" loading="lazy">
+              <div class="wwd-group">
+          <div class="wwd-group__card" style="background:#FFC75A;padding-bottom:128px">
+            <p class="wwd-group__title">Creative innovative products:</p>
+            <p class="wwd-group__body">We create creative educational &amp; technology / AI products to support business and individual transformation.</p>
+            <a href="/thenewleaders/en/products/" class="wwd-group__btn">Learn more</a>
+          </div>
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/creative.png" alt="Creative Innovative Products" loading="lazy">
+          </div>
         </div>
+          </div>
 
-      </div>
-          <div class="wwd-row wwd-row--reversed">
-
-        <div class="wwd-row__text" style="background:#AFE56B">
-          <h3 class="wwd-row__title">Individuals programs:</h3>
-          <p class="wwd-row__desc">We support leaders to advance their communication skills to world-class standard.</p>
-          <a href="/thenewleaders/en/our-services/individual-courses/" class="wwd-row__btn ">Learn more</a>
+    <!-- Right column: image TOP, colored block BOTTOM (staggered offset) -->
+    <div class="wwd-col">
+              <div class="wwd-group wwd-group--img-top">
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/individuals.jpg" alt="Individuals Programs" loading="lazy">
+          </div>
+          <div class="wwd-group__card" style="background:#AFE56B;padding-top:224px">
+            <p class="wwd-group__title">Individuals programs:</p>
+            <p class="wwd-group__body">We support leaders to advance their communication skills to world-class standard.</p>
+            <a href="/thenewleaders/en/our-services/individual-courses/" class="wwd-group__btn">Learn more</a>
+          </div>
         </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/individuals.jpg" alt="Individuals Programs" loading="lazy">
+              <div class="wwd-group wwd-group--img-top">
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/supportive.jpg" alt="Supportive Community" loading="lazy">
+          </div>
+          <div class="wwd-group__card" style="background:#FF7C33;padding-top:128px">
+            <p class="wwd-group__title">Supportive community:</p>
+            <p class="wwd-group__body">We encourage leaders to share their expertise and inspire others to create supportive environment.</p>
+            <a href="/thenewleaders/en/events/" class="wwd-group__btn">Learn more</a>
+          </div>
         </div>
+          </div>
 
-      </div>
-          <div class="wwd-row ">
-
-        <div class="wwd-row__text" style="background:#FFC75A">
-          <h3 class="wwd-row__title">Creative innovative products:</h3>
-          <p class="wwd-row__desc">We create creative educational &amp; technology / AI products to support business and individual transformation.</p>
-          <a href="/thenewleaders/en/products/" class="wwd-row__btn ">Learn more</a>
-        </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/creative.png" alt="Creative Innovative Products" loading="lazy">
-        </div>
-
-      </div>
-          <div class="wwd-row wwd-row--reversed">
-
-        <div class="wwd-row__text" style="background:#FF7C33">
-          <h3 class="wwd-row__title">Supportive community:</h3>
-          <p class="wwd-row__desc">We encourage leaders to share their expertise and inspire others to create supportive environment.</p>
-          <a href="/thenewleaders/en/events/" class="wwd-row__btn ">Learn more</a>
-        </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/supportive.jpg" alt="Supportive Community" loading="lazy">
-        </div>
-
-      </div>
-      </div>
-
-  </div><!-- /.what-we-do__offer -->
+  </div><!-- /.wwd-grid -->
 
 </section>
 
@@ -468,31 +453,25 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
       <div class="values__viewport">
         <div class="values__track" id="valuesTrack">
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Leadership</strong>
-                  <p class="value-item__desc">We are leading in NEW leadership mindset.</p>
-                </div>
-                              <div class="value-item">
-                  <strong class="value-item__title">Respect</strong>
-                  <p class="value-item__desc">We respect people&#039;s stories, values and backgrounds.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Leadership</strong>
+              <p class="value-item__desc">We are leading in NEW leadership mindset.</p>
+            </div>
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Inclusiveness</strong>
-                  <p class="value-item__desc">We strive to offer skills to anyone who has potential to be great leaders for great purpose.</p>
-                </div>
-                              <div class="value-item">
-                  <strong class="value-item__title">Authenticity</strong>
-                  <p class="value-item__desc">What we do is based on our true values.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Respect</strong>
+              <p class="value-item__desc">We respect people&#039;s stories, values and backgrounds.</p>
+            </div>
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Optimism</strong>
-                  <p class="value-item__desc">We are optimistic about the better futures created by value-driven leaders.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Inclusiveness</strong>
+              <p class="value-item__desc">We strive to offer skills to anyone who has potential to be great leaders for great purpose.</p>
+            </div>
+                      <div class="values__slide">
+              <strong class="value-item__title">Authenticity</strong>
+              <p class="value-item__desc">What we do is based on our true values.</p>
+            </div>
+                      <div class="values__slide">
+              <strong class="value-item__title">Optimism</strong>
+              <p class="value-item__desc">We are optimistic about the better futures created by value-driven leaders.</p>
+            </div>
                   </div>
       </div>
 
@@ -503,115 +482,163 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </section>
 
 <section class="growing" id="growing">
-  <div class="growing__inner">
 
-    <div class="growing__header">
+  <!-- Block 1: header với gray bg -->
+  <div class="growing__header-block">
+    <div class="growing__header-inner">
       <h2 class="growing__title">Growing together</h2>
       <p class="growing__desc">A thriving online community of likeminded peers who'll help you get clear on your next move and provide the support you need to make it happen.</p>
     </div>
+  </div>
 
+  <!-- Block 2: carousel với gray bg, margin-top 80px (white gap) -->
+  <div class="growing__track-block">
     <div class="growing__track-wrap">
       <button class="growing__arrow growing__arrow--prev" id="growingPrev" aria-label="Previous">&#8592;</button>
       <button class="growing__arrow growing__arrow--next" id="growingNext" aria-label="Next">&#8594;</button>
       <div class="growing__track" id="growingTrack">
 
                     <a class="growing__item" href="/thenewleaders/su-kien/the-strategic-interview/">
-                              <div class="growing__item-img"><img width="768" height="431" src="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-300x168.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1024x574.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1536x861.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-2048x1148.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">The Strategic Interview: Seeing the Real Potential Behind the Professional Veneer</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="431" src="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-300x168.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1024x574.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1536x861.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-2048x1148.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">The Strategic Interview: Seeing the Real Potential Behind the Professional Veneer</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/giao-tiep-hieu-qua/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-2048x1153.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Communication Excellence for High-Performing Teams</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-2048x1153.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Communication Excellence for High-Performing Teams</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/empower-her-08-03-2026/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-2048x1152.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">EmpowerHER &#8211; Enriching Communication with Grace</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-2048x1152.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">EmpowerHER &#8211; Enriching Communication with Grace</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/bond-beyond-lanh-dao-doi-ngu-hr-trong-mua-dich-chuyen/">
-                              <div class="growing__item-img"><img width="768" height="402" src="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png 768w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-300x157.png 300w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1024x536.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1536x804.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-2048x1072.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">TopCV Insights #36: Bond &#038; Beyond: Lãnh đạo đội ngũ HR trong mùa dịch chuyển</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="402" src="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png 768w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-300x157.png 300w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1024x536.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1536x804.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-2048x1072.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">TopCV Insights #36: Bond &#038; Beyond: Lãnh đạo đội ngũ HR trong mùa dịch chuyển</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/who-takes-care-of-the-people-who-lead-people/">
-                            <p class="growing__item-title">Who takes care of the people who lead people?</p>
+              <div class="growing__item-inner">
+                                <p class="growing__item-title">Who takes care of the people who lead people?</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/eq-for-finance-tu-ly-tri-den-suc-anh-huong/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">EQ for Finance: Từ Lý Trí Đến Sức Ảnh Hưởng</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">EQ for Finance: Từ Lý Trí Đến Sức Ảnh Hưởng</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/the-true-well-being-2/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">The True Well-being</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">The True Well-being</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leading-with-eq-how-hr-can-future-proof-finance-teams/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Leading with EQ: How HR can future-proof Finance Teams?</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Leading with EQ: How HR can future-proof Finance Teams?</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/manipulate-behavior-for-good-using-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="768" height="425" src="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-300x166.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1024x566.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1536x850.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-2048x1133.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">How to &#8216;Manipulate&#8217; Behavior for Good Using Emotional Intelligence (EQ)</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="425" src="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-300x166.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1024x566.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1536x850.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-2048x1133.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">How to &#8216;Manipulate&#8217; Behavior for Good Using Emotional Intelligence (EQ)</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/wine-and-why/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Wine &#038; Why</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Wine &#038; Why</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/emotional-intelligence-for-leading-the-new-generations/">
-                              <div class="growing__item-img"><img width="768" height="443" src="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-300x173.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1024x591.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1536x887.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-2048x1183.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Emotional Intelligence Skills for Leading the New Generations</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="443" src="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-300x173.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1024x591.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1536x887.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-2048x1183.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Emotional Intelligence Skills for Leading the New Generations</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leading-after-layoffs/">
-                              <div class="growing__item-img"><img width="768" height="433" src="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1024x577.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1536x866.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Leading After Layoffs</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="433" src="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1024x577.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1536x866.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Leading After Layoffs</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/thriving-in-vietnamese-leadership-culture/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Event | Thriving in Vietnamese Leadership Culture</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Event | Thriving in Vietnamese Leadership Culture</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/the-true-well-being-1/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">The True Well-being</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">The True Well-being</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/persolkelly-coffee-and-connect-series-leading-effectively-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png 768w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-300x200.png 300w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1024x682.png 1024w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1536x1023.png 1536w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f.png 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">[The New Leaders x Persolkelly] #COFFEE&#038;CONNECT Series &#8211; Leading Effectively with Emotional Intelligence</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png 768w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-300x200.png 300w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1024x682.png 1024w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1536x1023.png 1536w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f.png 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">[The New Leaders x Persolkelly] #COFFEE&#038;CONNECT Series &#8211; Leading Effectively with Emotional Intelligence</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/guest-speaker-adapting-and-thriving-a-leadership-journey-in-a-dynamic-world-2/">
-                              <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-300x200.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-1024x683.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f.jpg 1079w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">[Guest Speaker] Adapting and Thriving: A Leadership Journey in a Dynamic World</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-300x200.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-1024x683.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f.jpg 1079w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">[Guest Speaker] Adapting and Thriving: A Leadership Journey in a Dynamic World</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/am-cham-communicating-with-impact-telling-your-own-story-1/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png 543w, /thenewleaders/wp-content/uploads/2026/06/3_dc949a0399-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[AmCham] Communicating with Impact: Telling your own Story</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png 543w, /thenewleaders/wp-content/uploads/2026/06/3_dc949a0399-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[AmCham] Communicating with Impact: Telling your own Story</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/transform-your-sales-approach-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="544" height="305" src="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png 544w, /thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b-300x168.png 300w" sizes="(max-width: 544px) 100vw, 544px" /></div>
-                            <p class="growing__item-title">[Workshop Training] &#8211; Transform Your Sales Approach with Emotional Intelligence</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="544" height="305" src="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png 544w, /thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b-300x168.png 300w" sizes="(max-width: 544px) 100vw, 544px" /></div>
+                                <p class="growing__item-title">[Workshop Training] &#8211; Transform Your Sales Approach with Emotional Intelligence</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/elevate-your-leadership-skills-through-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png 543w, /thenewleaders/wp-content/uploads/2026/06/10_d8995b9049-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Workshop Training] &#8211; Elevate your Leadership Skills through Emotional Intelligence</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png 543w, /thenewleaders/wp-content/uploads/2026/06/10_d8995b9049-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Workshop Training] &#8211; Elevate your Leadership Skills through Emotional Intelligence</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/master-the-art-of-leadership-enhance-skills-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png 543w, /thenewleaders/wp-content/uploads/2026/06/4_6f686d8002-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Workshop Training] &#8211; Master the Art of Leadership: Enhance Skills with Emotional Intelligence!</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png 543w, /thenewleaders/wp-content/uploads/2026/06/4_6f686d8002-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Workshop Training] &#8211; Master the Art of Leadership: Enhance Skills with Emotional Intelligence!</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/medisetter-enhancing-medical-services-through-emotionally-intelligent-communication-2/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png 543w, /thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Online &#8211; The New Leaders x Medisetter] Enhancing Medical Services through Emotionally Intelligent Communication</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png 543w, /thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Online &#8211; The New Leaders x Medisetter] Enhancing Medical Services through Emotionally Intelligent Communication</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leaders-talk-series-leadership-storytelling-startup-founders/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png 543w, /thenewleaders/wp-content/uploads/2026/06/7_8424e51c08-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Leaders Talk Series] &#8211; Leadership Storytelling for Startup Founders</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png 543w, /thenewleaders/wp-content/uploads/2026/06/7_8424e51c08-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Leaders Talk Series] &#8211; Leadership Storytelling for Startup Founders</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leaders-talk-series-inspiring-women-the-global-stories-vietnamese-women/">
-                            <p class="growing__item-title">[Leaders Talk Series] &#8211; Inspiring Women: The Global [Stories of Vietnamese Women]</p>
+              <div class="growing__item-inner">
+                                <p class="growing__item-title">[Leaders Talk Series] &#8211; Inspiring Women: The Global [Stories of Vietnamese Women]</p>
+              </div>
             </a>
           
       </div><!-- .growing__track -->
     </div><!-- .growing__track-wrap -->
+  </div><!-- .growing__track-block -->
 
-    <!-- Nav buttons are now inside .growing__track-wrap as .growing__arrow elements -->
-
-  </div>
 </section>
 
 <section class="partners" id="partners">
@@ -929,6 +956,6 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 var tnlData = {"ajaxUrl":"/thenewleaders/wp-admin/admin-ajax.php","nonce":"765124f341"};
 //# sourceURL=tnl-main-js-extra
 </script>
-<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780884984"></script>
+<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780892746"></script>
 </body>
 </html>

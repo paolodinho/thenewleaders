@@ -46,7 +46,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </style>
 
 <link rel='stylesheet' id='tnl-style-css' href='/thenewleaders/wp-content/themes/thenewleaders/style.css?ver=1780884984' media='all' />
-<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780884984' media='all' />
+<link rel='stylesheet' id='tnl-sections-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/sections.css?ver=1780896698' media='all' />
 <link rel='stylesheet' id='tnl-pages-css' href='/thenewleaders/wp-content/themes/thenewleaders/assets/css/pages.css?ver=1780884984' media='all' />
 <link rel="https://api.w.org/" href="/thenewleaders/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="/thenewleaders/wp-json/wp/v2/pages/5" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/thenewleaders/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 7.0" />
@@ -209,89 +209,74 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 <section class="what-we-do" id="what-we-do">
 
-  <!-- Header: watermark title + description + pills -->
-  <div class="what-we-do__header">
-    <div class="what-we-do__bg-title" aria-hidden="true">Chúng tôi sẽ<br>giúp bạn như thế nào?</div>
-    <div class="what-we-do__header-content">
+  <!-- Watermark heading: overlapping layout (khớp live) -->
+  <h2 class="what-we-do__bg-title" aria-hidden="true">Chúng tôi sẽ<br>giúp bạn như thế nào?</h2>
+
+  <!-- Description + pills: positioned above/overlapping H2 -->
+  <div class="what-we-do__content">
+    <div class="what-we-do__content-inner">
       <p class="what-we-do__desc">Mang đến chương trình đào tạo kỹ năng lãnh đạo bằng Trí tuệ cảm xúc (EQ) thiết kế dựa trên cấu trúc các chương trình đào tạo lãnh đạo danh tiếng thế giới từ <strong>trường Đại học Harvard và Đại học Oxford</strong> tới Việt Nam.</p>
       <div class="what-we-do__pills">
         <span class="wwd-pill" style="background:#5AD3ED">Thiết thực.</span>
         <span class="wwd-pill" style="background:#AFE56B">Lấy con người làm trung tâm.</span>
         <span class="wwd-pill" style="background:#FFC75A">Đổi mới.</span>
-        <span class="wwd-pill" style="background:#FF7C33">Tác động lâu dài.</span>
+        <span class="wwd-pill" style="background:#FF9B52">Tác động lâu dài.</span>
       </div>
     </div>
   </div>
 
-  <!-- Offer block: dải nền riêng để tách khỏi phần intro phía trên -->
-  <div class="what-we-do__offer">
+  <!-- 2-col grid: khớp live site layout -->
+  <div class="wwd-grid">
 
-  <!-- Cards section heading -->
-  <div class="what-we-do__cards-head">
-    <div class="what-we-do__cards-headline">
-      <span class="what-we-do__eyebrow">Chúng tôi cung cấp</span>
-      <h3 class="what-we-do__cards-title">Sản phẩm & Dịch vụ</h3>
-    </div>
-    <p class="what-we-do__cards-note">Bốn cách chúng tôi đồng hành cùng lãnh đạo và đội ngũ để tạo tác động lâu dài.</p>
-  </div>
-
-  <!-- Cards: alternating text+image layout -->
-  <div class="what-we-do__cards">
-          <div class="wwd-row ">
-
-        <div class="wwd-row__text" style="background:#5AD3ED">
-          <h3 class="wwd-row__title">Chương trình dành cho Doanh nghiệp:</h3>
-          <p class="wwd-row__desc">Chúng tôi thiết kế chương trình đào tạo kỹ năng giao tiếp và lãnh đạo bằng trí tuệ cảm xúc (EQ) chuyên biệt cho mỗi doanh nghiệp (cho quản lý và cho các thành viên trong đội ngũ).</p>
-          <a href="/thenewleaders/vi/our-services/for-manager/" class="wwd-row__btn ">Tìm hiểu thêm</a>
+    <!-- Left column: colored block TOP, image BOTTOM -->
+    <div class="wwd-col">
+              <div class="wwd-group">
+          <div class="wwd-group__card" style="background:#5AD3ED;padding-bottom:64px">
+            <p class="wwd-group__title">Chương trình dành cho Doanh nghiệp:</p>
+            <p class="wwd-group__body">Chúng tôi thiết kế chương trình đào tạo kỹ năng giao tiếp và lãnh đạo bằng trí tuệ cảm xúc (EQ) chuyên biệt cho mỗi doanh nghiệp (cho quản lý và cho các thành viên trong đội ngũ).</p>
+            <a href="/thenewleaders/vi/our-services/for-manager/" class="wwd-group__btn">Tìm hiểu thêm</a>
+          </div>
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/business.jpg" alt="Business Programs" loading="lazy">
+          </div>
         </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/business.jpg" alt="Business Programs" loading="lazy">
+              <div class="wwd-group">
+          <div class="wwd-group__card" style="background:#FFC75A;padding-bottom:128px">
+            <p class="wwd-group__title">Sản phẩm sáng tạo và đổi mới:</p>
+            <p class="wwd-group__body">Các sản phẩm giáo dục sáng tạo và các sản phẩm sử dụng công nghệ/Trí tuệ nhân tạo để thúc đẩy sự cải tiến trong doanh nghiệp và cho từng cá nhân.</p>
+            <a href="/thenewleaders/vi/products/" class="wwd-group__btn">Tìm hiểu thêm</a>
+          </div>
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/creative.png" alt="Creative Innovative Products" loading="lazy">
+          </div>
         </div>
+          </div>
 
-      </div>
-          <div class="wwd-row wwd-row--reversed">
-
-        <div class="wwd-row__text" style="background:#AFE56B">
-          <h3 class="wwd-row__title">Chương trình dành cho Cá nhân:</h3>
-          <p class="wwd-row__desc">Chúng tôi hỗ trợ các nhà lãnh đạo nâng cao kỹ năng giao tiếp theo tiêu chuẩn quốc tế.</p>
-          <a href="/thenewleaders/vi/our-services/individual-courses/" class="wwd-row__btn ">Tìm hiểu thêm</a>
+    <!-- Right column: image TOP, colored block BOTTOM (staggered offset) -->
+    <div class="wwd-col">
+              <div class="wwd-group wwd-group--img-top">
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/individuals.jpg" alt="Individuals Programs" loading="lazy">
+          </div>
+          <div class="wwd-group__card" style="background:#AFE56B;padding-top:224px">
+            <p class="wwd-group__title">Chương trình dành cho Cá nhân:</p>
+            <p class="wwd-group__body">Chúng tôi hỗ trợ các nhà lãnh đạo nâng cao kỹ năng giao tiếp theo tiêu chuẩn quốc tế.</p>
+            <a href="/thenewleaders/vi/our-services/individual-courses/" class="wwd-group__btn">Tìm hiểu thêm</a>
+          </div>
         </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/individuals.jpg" alt="Individuals Programs" loading="lazy">
+              <div class="wwd-group wwd-group--img-top">
+          <div class="wwd-group__img">
+            <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/supportive.jpg" alt="Supportive Community" loading="lazy">
+          </div>
+          <div class="wwd-group__card" style="background:#FF7C33;padding-top:128px">
+            <p class="wwd-group__title">Cộng đồng các nhà lãnh đạo tân tiến:</p>
+            <p class="wwd-group__body">Cộng đồng để các nhà lãnh đạo chia sẻ kiến thức chuyên môn và truyền cảm hứng cho mọi người xung quanh và cùng nhau thực hiện những thay đổi tích cực.</p>
+            <a href="/thenewleaders/vi/events/" class="wwd-group__btn">Tìm hiểu thêm</a>
+          </div>
         </div>
+          </div>
 
-      </div>
-          <div class="wwd-row ">
-
-        <div class="wwd-row__text" style="background:#FFC75A">
-          <h3 class="wwd-row__title">Sản phẩm sáng tạo và đổi mới:</h3>
-          <p class="wwd-row__desc">Các sản phẩm giáo dục sáng tạo và các sản phẩm sử dụng công nghệ/Trí tuệ nhân tạo để thúc đẩy sự cải tiến trong doanh nghiệp và cho từng cá nhân.</p>
-          <a href="/thenewleaders/vi/products/" class="wwd-row__btn ">Tìm hiểu thêm</a>
-        </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/creative.png" alt="Creative Innovative Products" loading="lazy">
-        </div>
-
-      </div>
-          <div class="wwd-row wwd-row--reversed">
-
-        <div class="wwd-row__text" style="background:#FF7C33">
-          <h3 class="wwd-row__title">Cộng đồng các nhà lãnh đạo tân tiến:</h3>
-          <p class="wwd-row__desc">Cộng đồng để các nhà lãnh đạo chia sẻ kiến thức chuyên môn và truyền cảm hứng cho mọi người xung quanh và cùng nhau thực hiện những thay đổi tích cực.</p>
-          <a href="/thenewleaders/vi/events/" class="wwd-row__btn ">Tìm hiểu thêm</a>
-        </div>
-
-        <div class="wwd-row__img">
-          <img src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/cards/supportive.jpg" alt="Supportive Community" loading="lazy">
-        </div>
-
-      </div>
-      </div>
-
-  </div><!-- /.what-we-do__offer -->
+  </div><!-- /.wwd-grid -->
 
 </section>
 
@@ -334,8 +319,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
               <article class="tcard tcard--img-left">
           <div class="tcard__body">
             <strong class="tcard__name">Barry Weisblatt</strong>
-            <p class="tcard__role">Giám đốc Nghiên cứu - VNDIRECT Securities Corporation</p>
-            <p class="tcard__quote">Ngân đã thực sự giúp tôi trở thành một nhà lãnh đạo tốt hơn. Cô ấy biết lắng nghe và dựa trên kiến thức cùng kinh nghiệm phong phú để đưa ra những lời khuyên sâu sắc, thiết thực, giúp tôi đối mặt với vấn đề và truyền cảm hứng cho đội ngũ phát triển.</p>
+            <p class="tcard__role">Giám đốc Nghiên cứu tại VNDIRECT Securities Corporation
+Nguyên giám đốc tại Equity Markets &amp; Securitization VinFast Global</p>
+            <p class="tcard__quote">Ngân đã thực sự giúp tôi trở thành một nhà lãnh đạo tốt hơn. Cô ấy biết lắng nghe và dựa trên kiến thức cũng như kinh nghiệm phong phú của bản thân để đưa ra những lời khuyên sâu sắc và thiết thực. Điều này giúp tôi đối mặt với các vấn đề và truyền cảm hứng cho nhóm hoạt động và phát triển một cách hiệu quả. Sau một thời gian ở vị trí dẫn đầu, chúng ta rất dễ để trở nên tự mãn trong cách làm việc. Chính vì vậy, Ngân đã giúp tôi có được góc nhìn mới và tiếp tục thăng tiến trong sự nghiệp.</p>
           </div>
           <div class="tcard__img-wrap">
             <img class="tcard__img" src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/testimonials/barry_2ae1594a47.png" alt="Barry Weisblatt" loading="lazy">
@@ -344,8 +330,8 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
               <article class="tcard tcard--img-right">
           <div class="tcard__body">
             <strong class="tcard__name">Peter Mayer</strong>
-            <p class="tcard__role">Cựu CEO Lodgis Hospitality Holdings, Cựu CEO Fusion Resorts &amp; Hotels, Cựu CEO Sofitel Legend Metropole Hà Nội, MBA Harvard</p>
-            <p class="tcard__quote">Điều tạo nên sự khác biệt giữa Quản lý và Nhà lãnh đạo thành công không phải là năng lực chuyên môn, mà là khả năng kết nối với con người. Tất nhiên, các CEO thường có tư duy chiến lược và kỹ năng tài chính xuất sắc, nhưng chính EQ nhạy bén mới dẫn dắt tổ chức của họ. Chương trình huấn luyện điều hành của The New Leaders phát triển và mài giũa năng lực thiết yếu này.</p>
+            <p class="tcard__role">Cựu CEO tại Tập đoàn khách sạn Lodgis, Cựu CEO Fusion Resorts &amp; Hotels, Cựu CEO Sofitel Legend Metropole Hanoi, Cựu Phó Chủ tịch Bất động sản J.P Morgan Châu Á, MBA Harvard</p>
+            <p class="tcard__quote">Điều tạo nên sự khác biệt giữa Quản lý và Nhà lãnh đạo thành công không phải là năng lực chuyên môn của họ mà là khả năng kết nối với mọi người. Hiển nhiên là các CEO thường có tư duy chiến lược và kỹ năng tài chính rất tốt. Nhưng chính kỹ năng EQ sắc bén của họ mới là yếu tố thúc đẩy đội ngũ của họ. Chương trình coaching cho lãnh đạo điều hành từ The New Leaders giúp phát triển và trau dồi khả năng thiết yếu này.</p>
           </div>
           <div class="tcard__img-wrap">
             <img class="tcard__img" src="/thenewleaders/wp-content/themes/thenewleaders/assets/media/testimonials/Peter_Mayer_a0d8b8ecd5.png" alt="Peter Mayer" loading="lazy">
@@ -468,31 +454,25 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
       <div class="values__viewport">
         <div class="values__track" id="valuesTrack">
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Lãnh đạo tiên phong</strong>
-                  <p class="value-item__desc">Chúng tôi dẫn đầu về tư duy lãnh đạo kiểu MỚI.</p>
-                </div>
-                              <div class="value-item">
-                  <strong class="value-item__title">Tôn trọng</strong>
-                  <p class="value-item__desc">Chúng tôi tôn trọng câu chuyện, giá trị và nền tảng của mỗi cá nhân.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Lãnh đạo tiên phong</strong>
+              <p class="value-item__desc">Chúng tôi dẫn đầu về tư duy lãnh đạo kiểu MỚI.</p>
+            </div>
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Tính toàn diện</strong>
-                  <p class="value-item__desc">Chúng tôi hỗ trợ phát triển kỹ năng cho bất kỳ ai đang hoặc có tiềm năng trở thành nhà lãnh đạo để thực hiện những mục tiêu tốt đẹp của họ.</p>
-                </div>
-                              <div class="value-item">
-                  <strong class="value-item__title">Tính xác thực</strong>
-                  <p class="value-item__desc">Những gì chúng tôi làm đều dựa trên giá trị đích thực của chúng tôi.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Tôn trọng</strong>
+              <p class="value-item__desc">Chúng tôi tôn trọng câu chuyện, giá trị và nền tảng của mỗi cá nhân.</p>
+            </div>
                       <div class="values__slide">
-                              <div class="value-item">
-                  <strong class="value-item__title">Sự tích cực</strong>
-                  <p class="value-item__desc">Chúng tôi tin tưởng lãnh đạo dựa trên giá trị sống sẽ tạo nên những thay đổi tích cực lâu dài.</p>
-                </div>
-                          </div>
+              <strong class="value-item__title">Tính toàn diện</strong>
+              <p class="value-item__desc">Chúng tôi hỗ trợ phát triển kỹ năng cho bất kỳ ai đang hoặc có tiềm năng trở thành nhà lãnh đạo để thực hiện những mục tiêu tốt đẹp của họ.</p>
+            </div>
+                      <div class="values__slide">
+              <strong class="value-item__title">Tính xác thực</strong>
+              <p class="value-item__desc">Những gì chúng tôi làm đều dựa trên giá trị đích thực của chúng tôi.</p>
+            </div>
+                      <div class="values__slide">
+              <strong class="value-item__title">Sự tích cực</strong>
+              <p class="value-item__desc">Chúng tôi tin tưởng lãnh đạo dựa trên giá trị sống sẽ tạo nên những thay đổi tích cực lâu dài.</p>
+            </div>
                   </div>
       </div>
 
@@ -503,115 +483,163 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </section>
 
 <section class="growing" id="growing">
-  <div class="growing__inner">
 
-    <div class="growing__header">
+  <!-- Block 1: header với gray bg -->
+  <div class="growing__header-block">
+    <div class="growing__header-inner">
       <h2 class="growing__title">Cùng nhau phát triển</h2>
       <p class="growing__desc">Cộng đồng trực tuyến quy tụ những người có cùng chí hướng, những người sẽ giúp bạn hiểu rõ bước đi tiếp theo của mình và cung cấp sự hỗ trợ mà bạn cần để đạt được mục tiêu.</p>
     </div>
+  </div>
 
+  <!-- Block 2: carousel với gray bg, margin-top 80px (white gap) -->
+  <div class="growing__track-block">
     <div class="growing__track-wrap">
       <button class="growing__arrow growing__arrow--prev" id="growingPrev" aria-label="Previous">&#8592;</button>
       <button class="growing__arrow growing__arrow--next" id="growingNext" aria-label="Next">&#8594;</button>
       <div class="growing__track" id="growingTrack">
 
                     <a class="growing__item" href="/thenewleaders/su-kien/the-strategic-interview/">
-                              <div class="growing__item-img"><img width="768" height="431" src="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-300x168.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1024x574.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1536x861.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-2048x1148.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Tư duy phỏng vấn dành cho lãnh đạo hiện đại</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="431" src="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="/thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-768x431.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-300x168.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1024x574.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-1536x861.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/banner1_cbb5d66449-1-2048x1148.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Tư duy phỏng vấn dành cho lãnh đạo hiện đại</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/giao-tiep-hieu-qua/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-2048x1153.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Giao tiếp hiệu quả để phát triển đội ngũ</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Artboard_2_copy_2a_abe44dc06d-1-2048x1153.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Giao tiếp hiệu quả để phát triển đội ngũ</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/empower-her-08-03-2026/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-2048x1152.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">EmpowerHER – Nâng tầm giao tiếp bằng sự tinh tế</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/banner_landinpage_ae5d94680e-1-2048x1152.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">EmpowerHER – Nâng tầm giao tiếp bằng sự tinh tế</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/bond-beyond-lanh-dao-doi-ngu-hr-trong-mua-dich-chuyen/">
-                              <div class="growing__item-img"><img width="768" height="402" src="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png 768w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-300x157.png 300w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1024x536.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1536x804.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-2048x1072.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">TopCV Insights #36: Bond &amp; Beyond: Lãnh đạo đội ngũ HR trong mùa dịch chuyển</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="402" src="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-768x402.png 768w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-300x157.png 300w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1024x536.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-1536x804.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Banner_FB_2400x1256_f7107b051b-1-2048x1072.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">TopCV Insights #36: Bond &amp; Beyond: Lãnh đạo đội ngũ HR trong mùa dịch chuyển</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/who-takes-care-of-the-people-who-lead-people/">
-                            <p class="growing__item-title">Ai chăm sóc cho những người đang dẫn dắt người khác?</p>
+              <div class="growing__item-inner">
+                                <p class="growing__item-title">Ai chăm sóc cho những người đang dẫn dắt người khác?</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/eq-for-finance-tu-ly-tri-den-suc-anh-huong/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">EQ for Finance: Từ Lý Trí Đến Sức Ảnh Hưởng</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_1_5865264f4c-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">EQ for Finance: Từ Lý Trí Đến Sức Ảnh Hưởng</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/the-true-well-being-2/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Hạnh phúc đích thực</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Brochure_WS_Women_23aed5f1dd-1.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Hạnh phúc đích thực</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leading-with-eq-how-hr-can-future-proof-finance-teams/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Lãnh đạo bằng EQ: HR giúp đội ngũ Tài chính sẵn sàng cho tương lai như thế nào?</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_EQ_KV_128d813ebd-1.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Lãnh đạo bằng EQ: HR giúp đội ngũ Tài chính sẵn sàng cho tương lai như thế nào?</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/manipulate-behavior-for-good-using-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="768" height="425" src="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-300x166.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1024x566.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1536x850.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-2048x1133.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">&quot;Dẫn dắt&quot; hành vi theo hướng tích cực bằng Trí tuệ Cảm xúc (EQ)</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="425" src="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-768x425.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-300x166.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1024x566.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-1536x850.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_33_bb28fa2e13-2048x1133.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">&quot;Dẫn dắt&quot; hành vi theo hướng tích cực bằng Trí tuệ Cảm xúc (EQ)</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/wine-and-why/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Wine &amp; Why</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-768x432.png 768w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-300x169.png 300w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1024x576.png 1024w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679-1536x864.png 1536w, /thenewleaders/wp-content/uploads/2026/06/WINE_and_WHY_4d5ae6c679.png 1920w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Wine &amp; Why</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/emotional-intelligence-for-leading-the-new-generations/">
-                              <div class="growing__item-img"><img width="768" height="443" src="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-300x173.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1024x591.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1536x887.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-2048x1183.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Kỹ năng Trí tuệ Cảm xúc để dẫn dắt thế hệ mới</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="443" src="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-768x443.png 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-300x173.png 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1024x591.png 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-1536x887.png 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_2_2x_7bbc9ee6bc-2048x1183.png 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Kỹ năng Trí tuệ Cảm xúc để dẫn dắt thế hệ mới</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leading-after-layoffs/">
-                              <div class="growing__item-img"><img width="768" height="433" src="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1024x577.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1536x866.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Lãnh đạo sau làn sóng cắt giảm nhân sự</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="433" src="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-768x433.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1024x577.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229-1536x866.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Asset_11_4x_100_a08694c229.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Lãnh đạo sau làn sóng cắt giảm nhân sự</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/thriving-in-vietnamese-leadership-culture/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Sự kiện | Phát triển trong văn hóa lãnh đạo Việt Nam</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/Scaling_beyond_border_2048_x_1152_px_d96d6082c5.jpg 2048w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Sự kiện | Phát triển trong văn hóa lãnh đạo Việt Nam</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/the-true-well-being-1/">
-                              <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">Hạnh phúc đích thực</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="432" src="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-768x432.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-300x169.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1024x576.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e-1536x864.jpg 1536w, /thenewleaders/wp-content/uploads/2026/06/The_True_well_being8_b8aa14061e.jpg 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">Hạnh phúc đích thực</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/persolkelly-coffee-and-connect-series-leading-effectively-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png 768w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-300x200.png 300w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1024x682.png 1024w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1536x1023.png 1536w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f.png 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">[The New Leaders x Persolkelly] Chuỗi #COFFEE&amp;CONNECT – Lãnh đạo hiệu quả bằng Trí tuệ Cảm xúc</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-768x512.png 768w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-300x200.png 300w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1024x682.png 1024w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f-1536x1023.png 1536w, /thenewleaders/wp-content/uploads/2026/06/1_0e10e7b99f.png 1600w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">[The New Leaders x Persolkelly] Chuỗi #COFFEE&amp;CONNECT – Lãnh đạo hiệu quả bằng Trí tuệ Cảm xúc</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/guest-speaker-adapting-and-thriving-a-leadership-journey-in-a-dynamic-world-2/">
-                              <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-300x200.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-1024x683.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f.jpg 1079w" sizes="(max-width: 768px) 100vw, 768px" /></div>
-                            <p class="growing__item-title">[Khách mời] Thích nghi và Phát triển: Hành trình lãnh đạo trong một thế giới biến động</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="768" height="512" src="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-768x512.jpg 768w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-300x200.jpg 300w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f-1024x683.jpg 1024w, /thenewleaders/wp-content/uploads/2026/06/Adapting_and_Thriving_A_Leadership_Journey_in_a_Dynamic_World_9b3e90917f.jpg 1079w" sizes="(max-width: 768px) 100vw, 768px" /></div>
+                                <p class="growing__item-title">[Khách mời] Thích nghi và Phát triển: Hành trình lãnh đạo trong một thế giới biến động</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/am-cham-communicating-with-impact-telling-your-own-story-1/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png 543w, /thenewleaders/wp-content/uploads/2026/06/3_dc949a0399-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[AmCham] Giao tiếp tạo ảnh hưởng: Kể câu chuyện của chính bạn</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/3_dc949a0399.png 543w, /thenewleaders/wp-content/uploads/2026/06/3_dc949a0399-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[AmCham] Giao tiếp tạo ảnh hưởng: Kể câu chuyện của chính bạn</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/transform-your-sales-approach-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="544" height="305" src="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png 544w, /thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b-300x168.png 300w" sizes="(max-width: 544px) 100vw, 544px" /></div>
-                            <p class="growing__item-title">[Workshop Training] - Bán hàng khách biệt nhờ Thông minh cảm xúc</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="544" height="305" src="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b.png 544w, /thenewleaders/wp-content/uploads/2026/06/8_4da40ea32b-300x168.png 300w" sizes="(max-width: 544px) 100vw, 544px" /></div>
+                                <p class="growing__item-title">[Workshop Training] - Bán hàng khách biệt nhờ Thông minh cảm xúc</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/elevate-your-leadership-skills-through-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png 543w, /thenewleaders/wp-content/uploads/2026/06/10_d8995b9049-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Workshop Training] - Học làm &quot;sếp&quot;: Trở nên tâm lý và hiệu quả nhờ EQ!</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/10_d8995b9049.png 543w, /thenewleaders/wp-content/uploads/2026/06/10_d8995b9049-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Workshop Training] - Học làm &quot;sếp&quot;: Trở nên tâm lý và hiệu quả nhờ EQ!</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/master-the-art-of-leadership-enhance-skills-with-emotional-intelligence/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png 543w, /thenewleaders/wp-content/uploads/2026/06/4_6f686d8002-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Workshop Training] - Lãnh đạo hiệu quả nhờ Thông minh cảm xúc</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/4_6f686d8002.png 543w, /thenewleaders/wp-content/uploads/2026/06/4_6f686d8002-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Workshop Training] - Lãnh đạo hiệu quả nhờ Thông minh cảm xúc</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/medisetter-enhancing-medical-services-through-emotionally-intelligent-communication-2/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png 543w, /thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Online – The New Leaders x Medisetter] Nâng cao dịch vụ y tế qua giao tiếp bằng Trí tuệ Cảm xúc</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99.png 543w, /thenewleaders/wp-content/uploads/2026/06/9_a5efb9fc99-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Online – The New Leaders x Medisetter] Nâng cao dịch vụ y tế qua giao tiếp bằng Trí tuệ Cảm xúc</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leaders-talk-series-leadership-storytelling-startup-founders/">
-                              <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png 543w, /thenewleaders/wp-content/uploads/2026/06/7_8424e51c08-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
-                            <p class="growing__item-title">[Leaders Talk Series] – Nghệ thuật kể chuyện lãnh đạo cho nhà sáng lập startup</p>
+              <div class="growing__item-inner">
+                                  <div class="growing__item-img"><img width="543" height="305" src="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png" class="attachment-medium_large size-medium_large wp-post-image" alt="" decoding="async" srcset="/thenewleaders/wp-content/uploads/2026/06/7_8424e51c08.png 543w, /thenewleaders/wp-content/uploads/2026/06/7_8424e51c08-300x169.png 300w" sizes="(max-width: 543px) 100vw, 543px" /></div>
+                                <p class="growing__item-title">[Leaders Talk Series] – Nghệ thuật kể chuyện lãnh đạo cho nhà sáng lập startup</p>
+              </div>
             </a>
                       <a class="growing__item" href="/thenewleaders/su-kien/leaders-talk-series-inspiring-women-the-global-stories-vietnamese-women/">
-                            <p class="growing__item-title">[Leaders Talk Series] - Inspiring Women: Câu chuyện của những người phụ nữ Việt Nam toàn cầu</p>
+              <div class="growing__item-inner">
+                                <p class="growing__item-title">[Leaders Talk Series] - Inspiring Women: Câu chuyện của những người phụ nữ Việt Nam toàn cầu</p>
+              </div>
             </a>
           
       </div><!-- .growing__track -->
     </div><!-- .growing__track-wrap -->
+  </div><!-- .growing__track-block -->
 
-    <!-- Nav buttons are now inside .growing__track-wrap as .growing__arrow elements -->
-
-  </div>
 </section>
 
 <section class="partners" id="partners">
@@ -929,6 +957,6 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 var tnlData = {"ajaxUrl":"/thenewleaders/wp-admin/admin-ajax.php","nonce":"765124f341"};
 //# sourceURL=tnl-main-js-extra
 </script>
-<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780884984"></script>
+<script id="tnl-main-js" src="/thenewleaders/wp-content/themes/thenewleaders/assets/js/main.js?ver=1780892746"></script>
 </body>
 </html>

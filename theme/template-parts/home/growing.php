@@ -23,13 +23,17 @@ $use_wp = $posts_query->have_posts();
 ?>
 
 <section class="growing" id="growing">
-  <div class="growing__inner">
 
-    <div class="growing__header">
+  <!-- Block 1: header với gray bg -->
+  <div class="growing__header-block">
+    <div class="growing__header-inner">
       <h2 class="growing__title"><?php echo tnl_t('growing_title'); ?></h2>
       <p class="growing__desc"><?php echo tnl_t('growing_desc'); ?></p>
     </div>
+  </div>
 
+  <!-- Block 2: carousel với gray bg, margin-top 80px (white gap) -->
+  <div class="growing__track-block">
     <div class="growing__track-wrap">
       <button class="growing__arrow growing__arrow--prev" id="growingPrev" aria-label="Previous">&#8592;</button>
       <button class="growing__arrow growing__arrow--next" id="growingNext" aria-label="Next">&#8594;</button>
@@ -40,10 +44,12 @@ $use_wp = $posts_query->have_posts();
             $ev_link = get_post_meta(get_the_ID(), '_tnl_event_link', true);
             if (!$ev_link) $ev_link = get_permalink(); ?>
             <a class="growing__item" href="<?php echo esc_url($ev_link); ?>">
-              <?php if (has_post_thumbnail()) : ?>
-                <div class="growing__item-img"><?php the_post_thumbnail('medium_large'); ?></div>
-              <?php endif; ?>
-              <p class="growing__item-title"><?php echo esc_html(function_exists('tnl_event_title') ? tnl_event_title() : get_the_title()); ?></p>
+              <div class="growing__item-inner">
+                <?php if (has_post_thumbnail()) : ?>
+                  <div class="growing__item-img"><?php the_post_thumbnail('medium_large'); ?></div>
+                <?php endif; ?>
+                <p class="growing__item-title"><?php echo esc_html(function_exists('tnl_event_title') ? tnl_event_title() : get_the_title()); ?></p>
+              </div>
             </a>
           <?php endwhile;
           wp_reset_postdata();
@@ -51,18 +57,18 @@ $use_wp = $posts_query->have_posts();
         else :
           foreach ($posts_fallback as $p) : ?>
             <a class="growing__item" href="<?php echo esc_url(tnl_url('resources')); ?>">
-              <div class="growing__item-img">
-                <img src="<?php echo esc_url($p['img']); ?>" alt="<?php echo esc_attr($p['title']); ?>" loading="lazy">
+              <div class="growing__item-inner">
+                <div class="growing__item-img">
+                  <img src="<?php echo esc_url($p['img']); ?>" alt="<?php echo esc_attr($p['title']); ?>" loading="lazy">
+                </div>
+                <p class="growing__item-title"><?php echo esc_html($p['title']); ?></p>
               </div>
-              <p class="growing__item-title"><?php echo esc_html($p['title']); ?></p>
             </a>
           <?php endforeach;
         endif; ?>
 
       </div><!-- .growing__track -->
     </div><!-- .growing__track-wrap -->
+  </div><!-- .growing__track-block -->
 
-    <!-- Nav buttons are now inside .growing__track-wrap as .growing__arrow elements -->
-
-  </div>
 </section>
