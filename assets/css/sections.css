@@ -962,26 +962,27 @@
 .partners__intro,
 .partners__strip { position: relative; z-index: 1; }
 
-.partners__intro { padding: 96px 0 48px; }
+.partners__intro { padding: 144px 0 64px; } /* top khớp live, bottom=64px (gap đến slider) */
 .partners__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.0;
   color: var(--color-orange);
-  margin-bottom: 24px;
+  margin-bottom: 64px; /* khớp live mb-16=64px */
 }
 .partners__desc {
   font-size: 1.25rem;
   color: var(--color-black);
-  max-width: 720px;
-  line-height: 1.6;
+  max-width: 900px; /* khớp live max-w-[900px] */
+  line-height: 1.25; /* leading-tight, khớp live */
+  margin-bottom: 0;
 }
 
 /* Logo carousel — full-color logos, 8 / trang (grid 4×2), giống live */
 .partners__strip {
-  background: var(--color-white);
-  padding: 24px 0 96px;
+  background: transparent; /* live dùng section bg, không có white strip */
+  padding: 0 0 144px; /* khớp live pb-36 xl:pb-36 */
 }
 .partners__carousel { position: relative; }
 .partners__viewport { overflow: hidden; }
@@ -995,7 +996,7 @@
   min-width: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px 48px;
+  gap: 48px; /* khớp live gap-12=48px (cả row và col) */
 }
 .partner-logo {
   display: flex;
@@ -1014,12 +1015,9 @@
 }
 .partner-logo__name { font-size: 1rem; font-weight: 700; color: var(--color-gray-dark); }
 
-/* Dots */
+/* Dots — ẩn (live không dùng dots) */
 .partners__dots {
-  display: flex;
-  justify-content: center;
-  gap: 2px;
-  margin-top: 40px;
+  display: none;
 }
 .partners__dot {
   width: 9px;
