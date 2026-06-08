@@ -317,7 +317,7 @@
   overflow: hidden;
 }
 
-/* Watermark H2: lớn, màu nhạt, ở đầu section */
+/* Watermark H2: lớn, màu nhạt, ở đầu section. px-40=160px khớp live xl:px-40 */
 .what-we-do__bg-title {
   display: block;
   font-size: clamp(3rem, 8vw, 6rem);
@@ -325,20 +325,21 @@
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: #FFEFEB;
-  margin: 0 auto;
-  padding: 0 var(--container-px);
-  max-width: var(--container-max);
+  margin: 0;
+  padding: 0 160px;
+  max-width: none;
   pointer-events: none;
   user-select: none;
 }
 
-/* Content (desc + pills): overlap lên H2, z-index 10 */
+/* Content (desc + pills): overlap lên H2, z-index 10. Full width, px-40=160px trên container */
 .what-we-do__content {
   position: relative;
   z-index: 10;
-  max-width: var(--container-max);
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   margin-top: -80px; /* kéo lên overlap với H2 */
+  padding-inline: 160px; /* cung cấp offset cho desc/pills bên trong */
 }
 .what-we-do__content-inner {
   margin-top: -240px; /* negative pull để overlay vị trí trong H2 */
@@ -351,14 +352,14 @@
   line-height: 1.25;
   margin-bottom: 0;
   max-width: 900px;
-  padding: 0 var(--container-px);
+  padding: 0; /* offset từ parent .what-we-do__content */
 }
 .what-we-do__pills {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: flex-start;
-  padding: 0 var(--container-px);
+  padding: 0; /* offset từ parent .what-we-do__content */
   margin-top: 64px; /* = live mt-16, thay cho desc margin-bottom */
 }
 .wwd-pill {
@@ -589,9 +590,9 @@
   overflow: hidden;
 }
 .about__header {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding: 0 var(--container-px) 0;
+  max-width: none;
+  margin-inline: 0;
+  padding: 0 160px 0; /* px-40=160px khớp live xl:px-40 */
 }
 .about__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
@@ -772,9 +773,9 @@
   padding: 144px 0;
 }
 .values__inner {
-  max-width: 1120px;
-  margin-inline: auto;
-  padding-inline: var(--container-px);
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 160px; /* px-40=160px khớp live xl:px-40 */
 }
 .values__title {
   font-size: clamp(3rem, 7vw, 6rem);
@@ -862,9 +863,9 @@
   margin-bottom: -80px; /* khớp live -mb-20 */
 }
 .growing__header-inner {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-px);
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 160px; /* px-40=160px khớp live xl:px-40 */
   padding-bottom: 0; /* was 96px — removed to match live */
 }
 /* Block 2: carousel (gray bg, mt-20 khớp live) */
@@ -984,6 +985,11 @@
 .partners__intro,
 .partners__strip { position: relative; z-index: 1; }
 
+/* Override .container bên trong partners: full width + px-40=160px, khớp live */
+.partners .container {
+  max-width: none;
+  padding-inline: 160px;
+}
 .partners__intro { padding: 144px 0 64px; } /* top khớp live, bottom=64px (gap đến slider) */
 .partners__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
