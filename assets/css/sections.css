@@ -775,23 +775,20 @@
 }
 /* Slider layout */
 .values__slider {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  position: relative; /* arrows absolute bên trong */
 }
 .values__viewport {
-  flex: 1;
   overflow: hidden;
+  width: 100%;
 }
 .values__track {
   display: flex;
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .values__slide {
-  flex: 0 0 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px 60px;
+  flex: 0 0 50%; /* 2 values visible at once, khớp live basis-1/2 */
+  display: block;
+  padding: 0 20px;
 }
 /* Value item - clean text, no card */
 .value-item {
@@ -801,38 +798,43 @@
 }
 .value-item__title {
   display: block;
-  font-size: clamp(1.4rem, 2.5vw, 1.875rem);
+  font-size: 1.875rem; /* text-3xl, khớp live */
   font-weight: 700;
   color: #fff;
-  line-height: 1.2;
+  line-height: 1.25; /* leading-tight */
 }
 .value-item__desc {
-  font-size: 1.25rem;
+  font-size: 1.25rem; /* text-xl */
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.65;
+  line-height: 1.25; /* leading-tight, khớp live */
   margin: 0;
 }
-/* Arrow buttons */
+/* Arrow buttons — absolute positioned, overlap viewport (khớp live: relative slider) */
 .values__arrow {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.55);
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  font-size: 1.15rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition);
   backdrop-filter: blur(4px);
+  z-index: 2;
 }
+.values__arrow--prev { left: 0; }
+.values__arrow--next { right: 0; }
 .values__arrow:hover {
   background: rgba(255, 255, 255, 0.28);
   border-color: #fff;
-  transform: scale(1.06);
+  transform: translateY(-50%) scale(1.06);
 }
 
 /* ============================================================

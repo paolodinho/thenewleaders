@@ -7,8 +7,7 @@ $values = [
     ['title' => tnl_t('val5_title'), 'desc' => tnl_t('val5_desc')],
 ];
 
-// Group into slides of 2 (khớp live site: 2 cột / slide)
-$slides = array_chunk($values, 2);
+// 1 value per slide, 2 visible at once via CSS flex 50%
 ?>
 
 <section class="values" id="values">
@@ -21,14 +20,10 @@ $slides = array_chunk($values, 2);
 
       <div class="values__viewport">
         <div class="values__track" id="valuesTrack">
-          <?php foreach ($slides as $slide) : ?>
+          <?php foreach ($values as $v) : ?>
             <div class="values__slide">
-              <?php foreach ($slide as $v) : ?>
-                <div class="value-item">
-                  <strong class="value-item__title"><?php echo esc_html($v['title']); ?></strong>
-                  <p class="value-item__desc"><?php echo esc_html($v['desc']); ?></p>
-                </div>
-              <?php endforeach; ?>
+              <strong class="value-item__title"><?php echo esc_html($v['title']); ?></strong>
+              <p class="value-item__desc"><?php echo esc_html($v['desc']); ?></p>
             </div>
           <?php endforeach; ?>
         </div>

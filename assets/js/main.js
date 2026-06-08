@@ -264,7 +264,7 @@
   });
 
   // ============================================================
-  // VALUES SLIDER — prev/next, 2 values/slide, khớp live site
+  // VALUES SLIDER — 1 value/slide, 2 visible at once (flex 50%), khớp live site
   // ============================================================
   (function () {
     const track = document.getElementById('valuesTrack');
@@ -280,7 +280,9 @@
 
     const go = (i) => {
       idx = (i + total) % total;
-      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      // Dùng px để move đúng 1 slide width (50% viewport)
+      const slideW = slides[0].offsetWidth;
+      track.style.transform = 'translateX(-' + (idx * slideW) + 'px)';
     };
 
     prevBtn.addEventListener('click', () => go(idx - 1));
