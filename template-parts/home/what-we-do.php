@@ -26,7 +26,7 @@ $right_cards = [ $cards[1], $cards[3] ];
         <span class="wwd-pill" style="background:#5AD3ED"><?php echo tnl_t('wwd_pill1'); ?></span>
         <span class="wwd-pill" style="background:#AFE56B"><?php echo tnl_t('wwd_pill2'); ?></span>
         <span class="wwd-pill" style="background:#FFC75A"><?php echo tnl_t('wwd_pill3'); ?></span>
-        <span class="wwd-pill" style="background:#FF7C33"><?php echo tnl_t('wwd_pill4'); ?></span>
+        <span class="wwd-pill" style="background:#FF9B52"><?php echo tnl_t('wwd_pill4'); ?></span>
       </div>
     </div>
   </div>
