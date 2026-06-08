@@ -599,14 +599,14 @@
   line-height: 1.0;
   letter-spacing: -0.03em;
   color: #FFA564;
-  margin-bottom: 24px;
+  margin-bottom: 64px; /* live: mb-16 */
 }
 .about__mission {
   font-size: 1.875rem;
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.25; /* live: leading-tight */
   color: var(--color-black);
-  max-width: 760px;
+  max-width: 900px;
   margin-bottom: 0;
 }
 .about__ctas {
@@ -623,10 +623,9 @@
   flex-wrap: wrap;
   gap: 240px;
   margin-top: 240px;
-  padding: 0 var(--container-px);
+  padding: 0; /* xóa padding để item rộng hơn, giống live */
   max-width: var(--container-max);
   margin-inline: auto;
-  margin-top: 240px;
 }
 .about__item {
   position: relative;
@@ -679,7 +678,7 @@
   font-size: 1.875rem;
   font-weight: 500;
   color: var(--color-black);
-  line-height: 1.5;
+  line-height: 1.25; /* live: leading-tight */
   margin: 0;
 }
 .about__item--orange .about__point { color: var(--color-white); }
