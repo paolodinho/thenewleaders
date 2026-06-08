@@ -498,7 +498,7 @@
   position: relative;
 }
 .testimonials__inner {
-  max-width: 840px;
+  max-width: 768px; /* khớp live max-w-3xl */
   margin-inline: auto;
 }
 .testimonials__title {
@@ -506,7 +506,7 @@
   font-weight: 700;
   line-height: 1.0;
   color: #FFC9A1;
-  margin: 0 0 72px;
+  margin: 0 0 80px; /* live: mb-20=80px */
   letter-spacing: -0.02em;
   text-align: left;
 }
@@ -548,23 +548,23 @@
 .tcard__body { flex: 1; }
 .tcard__name {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.25rem; /* 20px, khớp live text-xl */
   font-weight: 700;
   color: #fff;
-  margin-bottom: 4px;
-  line-height: 1.3;
+  margin-bottom: 0;
+  line-height: 1.4; /* 28px/line, khớp live */
 }
 .tcard__role {
-  font-size: 0.85rem;
+  font-size: 0.875rem; /* 14px, khớp live text-sm */
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
-  margin: 0 0 14px;
+  line-height: 1.4286; /* 20px/line */
+  margin: 0 0 8px; /* live: mt-2=8px on quote */
 }
 .tcard__quote {
-  font-size: 1rem;
+  font-size: 1.125rem; /* 18px, khớp live text-lg */
   font-weight: 400;
   color: rgba(255, 255, 255, 0.95);
-  line-height: 1.75;
+  line-height: 1.556; /* 28px/line, khớp live */
   margin: 0;
 }
 .tcard__img-wrap {
