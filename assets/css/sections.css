@@ -342,13 +342,14 @@
 }
 .what-we-do__content-inner {
   margin-top: -240px; /* negative pull để overlay vị trí trong H2 */
+  padding-top: 240px; /* cancel margin để desc xuất hiện đúng vị trí (giống live pt-[240px]) */
 }
 
 .what-we-do__desc {
   color: var(--color-black);
   font-size: 1.25rem;
-  line-height: 1.6;
-  margin-bottom: 24px;
+  line-height: 1.25;
+  margin-bottom: 0;
   max-width: 900px;
   padding: 0 var(--container-px);
 }
@@ -358,6 +359,7 @@
   gap: 12px;
   align-items: flex-start;
   padding: 0 var(--container-px);
+  margin-top: 64px; /* = live mt-16, thay cho desc margin-bottom */
 }
 .wwd-pill {
   display: inline-flex;
@@ -471,7 +473,7 @@
 @media (max-width: 768px) {
   .what-we-do { padding: 56px 0 80px; }
   .what-we-do__content { margin-top: -40px; }
-  .what-we-do__content-inner { margin-top: -80px; }
+  .what-we-do__content-inner { margin-top: -80px; padding-top: 80px; }
   .what-we-do__desc { font-size: 1rem; }
   .wwd-pill { font-size: 1.25rem; }
   .wwd-grid {
