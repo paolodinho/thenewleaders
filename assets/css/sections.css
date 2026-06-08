@@ -280,7 +280,7 @@
 .wwh__content p {
   color: #fff;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
-  line-height: 1.4;
+  line-height: 1.25; /* leading-tight, khớp live */
   margin-bottom: 1.5rem;
 }
 .wwh__content p:last-child { margin-bottom: 0; }
