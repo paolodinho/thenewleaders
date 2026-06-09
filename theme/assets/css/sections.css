@@ -481,8 +481,12 @@
 /* Responsive */
 @media (max-width: 768px) {
   .what-we-do { padding: 56px 0 80px; }
-  .what-we-do__content { margin-top: -40px; }
+  /* FIX mobile (2026-06-09): bg-title/content/grid còn padding-inline:160px desktop
+     -> watermark "What we do" + intro bị dồn nửa phải, chữ xổ dọc. Reset gutter 24px. */
+  .what-we-do__bg-title { padding: 0 24px; font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  .what-we-do__content { margin-top: -40px; padding-inline: 24px; }
   .what-we-do__content-inner { margin-top: -80px; padding-top: 80px; }
+  .wwd-grid { padding: 0 24px; }
   .what-we-do__desc { font-size: 1rem; }
   .wwd-pill { font-size: 1.25rem; }
   .wwd-grid {
@@ -1558,6 +1562,25 @@
     font-size: 1.0625rem;
   }
   .growing__item { flex: 0 0 100%; padding-left: 40px; } /* mobile: full width, pl-10 */
+
+  /* FIX mobile (2026-06-09): header/container các section dưới đây vẫn giữ
+     padding-inline:160px của desktop -> trên 390px content chỉ còn ~70px khiến
+     chữ xổ dọc thành cột dài. Reset gutter 24px + co padding dọc 144px->72px. */
+  .about            { padding: 72px 0; }
+  .about__header    { padding: 0 24px; }
+  .about__items     { padding: 0 24px; }
+  .why-us           { padding: 72px 0; }
+  .why-us .container { padding-inline: 24px; }
+  .why-us__items    { padding-inline: 24px; }
+  .values           { padding: 72px 0; }
+  .values__inner    { padding-inline: 24px; }
+  .growing__header-block { padding-top: 72px; }
+  .growing__header-inner { padding-inline: 24px; }
+  .growing__track-block  { padding-top: 72px; padding-bottom: 72px; }
+  .partners .container   { padding-inline: 24px; }
+  .partners__intro       { padding: 72px 0 40px; }
+  .partners__strip       { padding-bottom: 72px; }
+  .cta-section .container { padding-inline: 24px; }
 }
 
 @media (max-width: 480px) {
