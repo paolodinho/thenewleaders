@@ -412,14 +412,14 @@
 }
 
 /* Default (left col): card on top, img below.
-   Khớp live: ảnh tràn 80px sang TRÁI + trượt lên 48px chồng đáy card. */
+   Ảnh tràn/chồng = margin inline theo từng card (khớp live: -ml-20 -mt-12/-mt-32). */
 .wwd-group .wwd-group__card { order: 1; }
-.wwd-group .wwd-group__img  { order: 2; margin-top: -48px; margin-left: -80px; }
+.wwd-group .wwd-group__img  { order: 2; }
 
 /* Right col (img-top): image on top, card below.
-   Khớp live: ảnh tràn 80px sang PHẢI; card chồng lên ảnh đúng = padding-top
-   (margin-top:-pt set inline trong PHP) → nội dung bắt đầu ngay mép dưới ảnh. */
-.wwd-group--img-top .wwd-group__img  { order: 1; margin-top: 0; margin-left: 80px; }
+   Card chồng lên ảnh đúng = padding-top (margin-top:-pt inline) → nội dung bắt
+   đầu ngay mép dưới ảnh. Ảnh tràn phải = margin inline (ml-20/ml-24). */
+.wwd-group--img-top .wwd-group__img  { order: 1; }
 .wwd-group--img-top .wwd-group__card { order: 2; }
 
 /* Card inner content: thụt 48px 2 bên (khớp live: nội dung inset 48px) */
@@ -446,33 +446,41 @@
   margin: 0;
 }
 
+/* Nút khớp live: cao 48px, min-w 200px, viền cam; hover -> nền trong + chữ cam (outline) */
 .wwd-group__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 24px 32px;
+  min-width: 200px;
+  height: 48px;
+  line-height: 1;
+  padding: 0 32px;
   border-radius: 100px;
   background: var(--color-orange);
   color: rgba(248, 250, 252, 1);
+  border: 2px solid #FF4F21;
   font-size: 1.25rem;
   font-weight: 400;
-  transition: all var(--transition);
+  transition: background-color 0.15s cubic-bezier(0.4,0,0.2,1), color 0.15s cubic-bezier(0.4,0,0.2,1);
   align-self: flex-start;
   white-space: nowrap;
 }
 .wwd-group__btn:hover {
-  background: var(--color-orange-dark);
-  transform: translateY(-2px);
+  background: transparent;
+  color: #FF4F21;
 }
 
-/* Image: 16:9 aspect ratio */
+/* Image: 16:9 aspect ratio. Hover = ẢNH TRƯỢT (khớp live, không scale):
+   - cột trái: lên 8px / sang phải 12px
+   - cột phải: xuống 12px / sang trái 12px  (duration 0.5s) */
 .wwd-group__img {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
   background: var(--color-gray-light);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 .wwd-group__img img {
   position: absolute;
@@ -481,9 +489,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
 }
-.wwd-group:hover .wwd-group__img img { transform: scale(1.03); }
+.wwd-group:not(.wwd-group--img-top):hover .wwd-group__img { transform: translate(12px, -8px); }
+.wwd-group--img-top:hover .wwd-group__img { transform: translate(-12px, 12px); }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -507,7 +515,7 @@
   /* Mobile xếp dọc: huỷ tràn ngang + chồng (override inline pt/pb/margin từ PHP) */
   .wwd-group__card { padding: 32px 24px !important; margin-top: 0 !important; }
   .wwd-group__img  { margin-left: 0 !important; margin-top: 0 !important; }
-  .wwd-group__btn { padding: 16px 24px; font-size: 1rem; }
+  .wwd-group__btn { width: 100%; min-width: 0; height: auto; line-height: 1.3; padding: 16px 24px; font-size: 1.125rem; }
 }
 
 /* ============================================================
