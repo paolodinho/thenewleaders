@@ -6,10 +6,14 @@
   top: 0; left: 0; right: 0;
   z-index: 1000;
   background: var(--color-white);
-  transition: box-shadow var(--transition);
+  transition: transform 0.3s ease, box-shadow var(--transition);
 }
 .site-header.is-scrolled {
   box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+}
+/* Mobile: auto-hide khi cuộn xuống, hiện lại khi cuộn lên (kèm nút menu) */
+@media (max-width: 768px) {
+  .site-header.is-hidden { transform: translateY(-100%); }
 }
 /* Anchor trong trang (#card, #what-we-do...) không bị header che */
 [id] { scroll-margin-top: 56px; }
@@ -1198,6 +1202,13 @@
 }
 @media (min-width: 768px)  { .newsletter__curly-arrow { right: -40px; } }
 @media (min-width: 1024px) { .newsletter__curly-arrow { top: 40px; right: -80px; } }
+/* Mobile: text full-width nên KHÔNG đặt mũi tên đè góc trên-phải (che chữ).
+   Hạ xuống khoảng hở giữa lead text và form, thu nhỏ -> tail không chạm chữ,
+   vẫn trỏ xuống ô input. */
+@media (max-width: 768px) {
+  .newsletter__header { margin-bottom: 96px; }
+  .newsletter__curly-arrow { top: auto; bottom: -84px; right: 12px; width: 88px; }
+}
 
 /* ============================================================
    CTA / FOOTER SECTION — black, colored word boxes + get in touch
