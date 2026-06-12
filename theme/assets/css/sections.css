@@ -532,8 +532,8 @@
   position: relative;
 }
 .testimonials__inner {
-  max-width: none; /* full-width với 160px padding từ section */
-  margin-inline: 0;
+  max-width: 768px;       /* khớp live max-w-3xl: co gọn cột, căn giữa */
+  margin-inline: auto;
 }
 .testimonials__title {
   font-size: clamp(2.8rem, 6vw, 6.5rem);
@@ -605,8 +605,8 @@
   flex-shrink: 0;
 }
 .tcard__img {
-  width: 120px;
-  height: 120px;
+  width: 128px;  /* khớp live w-32 */
+  height: 128px;
   border-radius: 50%;
   object-fit: cover;
   object-position: top center;
@@ -692,13 +692,16 @@
 /* Number wrapper: absolute positioned above the card */
 .about__num-wrap {
   position: absolute;
-  top: -180px;
+  /* Neo ĐÁY số trùm vào box 60px (khớp live), KHÔNG dùng top cố định -> font co
+     theo viewport thì overlap vẫn luôn = 60px, không bị hở ở màn rộng/hẹp */
+  top: auto;
+  bottom: calc(100% - 60px);
   line-height: 1;
   pointer-events: none;
   user-select: none;
 }
 .about__num-wrap--right {
-  right: -80px;
+  right: -40px; /* khớp live md:-right-10: số thò phải ~40px (không phải 80) */
 }
 .about__num-wrap--left {
   left: -16px;
