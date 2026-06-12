@@ -43,6 +43,16 @@ function tnl_clone_render($slug) {
         wp_dequeue_style('tnl-style');
     }, 0);
 
+    // Dọn cruft wp_head (RSD/wlwmanifest/REST/shortlink/oembed/generator) cho gọn.
+    remove_action('wp_head', 'rsd_link');
+    remove_action('wp_head', 'wlwmanifest_link');
+    remove_action('wp_head', 'wp_generator');
+    remove_action('wp_head', 'wp_shortlink_wp_head');
+    remove_action('wp_head', 'rest_output_link_wp_head');
+    remove_action('wp_head', 'wp_oembed_add_discovery_links');
+    remove_action('wp_head', 'feed_links_extra', 3);
+    remove_action('wp_head', 'feed_links', 2);
+
     $css_v = filemtime($clone_path . '/css/live.css');
     $js_v  = filemtime($clone_path . '/js/clone.js');
     ?><!DOCTYPE html>
