@@ -1414,12 +1414,16 @@
   .hero { display: none; }
 
   /* About: full-width trên mobile, bỏ so le */
-  .about__items { gap: 80px; margin-top: 80px; padding: 0 16px; }
+  /* gap/margin-top đủ chứa chiều cao số (đặt trên card) + khoảng hở, để số
+     không bao giờ chạm card phía trên trên mọi bề rộng */
+  .about__items { gap: 120px; margin-top: 120px; padding: 0 16px; }
   .about__item,
   .about__item--alt,
   .about__item:nth-child(odd),
   .about__item:nth-child(even) { width: 100%; margin-left: 0; padding: 32px 24px; }
-  .about__num-wrap { top: -60px; }
+  /* Neo ĐÁY số vào mép TRÊN card + khoảng hở cố định → box không bao giờ đè lên
+     số dù số to/nhỏ theo viewport (clamp). KHÔNG dùng top âm cố định. */
+  .about__num-wrap { top: auto; bottom: calc(100% + 12px); }
   .about__num-wrap--right { right: 0; }
   .about__num-wrap--left { left: 0; }
 
@@ -1468,7 +1472,7 @@
   .partners__title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
 
   .about__mission { font-size: 1.25rem; }
-  .about__num { font-size: clamp(60px, 18vw, 100px); }
+  .about__num { font-size: clamp(56px, 15vw, 90px); }
   .about__point { font-size: 1.0625rem; }
 
   /* Why us mobile */
