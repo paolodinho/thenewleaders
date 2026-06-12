@@ -8,6 +8,7 @@ B="http://thenewleaders.local"
 slugs=( "" contact newsletter careers our-services products resources events eq-quiz \
   our-services/for-manager our-services/for-team-member our-services/executive-coach our-services/individual-courses \
   products/heart-heart-hand products/the-story-of-empathy products/the-eq-calendar \
+  products/seli-strategic-eq-leadership-index products/tet-gift-box \
   products/vision-craft products/hlmays products/lgad eq-with-ngan-tran )
 rm -rf "$REPO/docs"; mkdir -p "$REPO/docs"
 for l in en vi; do
