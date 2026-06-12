@@ -425,6 +425,8 @@
 /* Card inner content: thụt 48px 2 bên (khớp live: nội dung inset 48px).
    Hover: card trượt NGƯỢC chiều ảnh (khớp live) -> tách ra, không che chữ. */
 .wwd-group__card {
+  position: relative;
+  z-index: 1;            /* dưới ảnh: green không bao giờ đè lên ảnh */
   padding: 48px;
   display: flex;
   flex-direction: column;
@@ -480,6 +482,7 @@
    - cột phải: xuống 12px / sang trái 12px  (duration 0.5s) */
 .wwd-group__img {
   position: relative;
+  z-index: 2;            /* ẢNH LUÔN nổi trên card (kể cả khi card hover transform) */
   width: 100%;
   aspect-ratio: 16 / 9;
   background: var(--color-gray-light);
