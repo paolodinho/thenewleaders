@@ -3,6 +3,13 @@
  * Template trang con — route theo slug tới template-parts/pages/{slug}.php
  * Nếu không có part riêng → render tiêu đề + nội dung WP mặc định.
  */
+
+// CLONE MODE: nếu có markup clone từ live cho slug này -> render standalone (parity ~100%).
+$tnl_slug = get_post_field('post_name', get_queried_object_id());
+if (function_exists('tnl_clone_has') && tnl_clone_has($tnl_slug) && tnl_clone_render($tnl_slug)) {
+    return;
+}
+
 get_header();
 
 if (have_posts()) :
