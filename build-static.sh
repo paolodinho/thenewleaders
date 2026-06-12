@@ -43,8 +43,6 @@ if [ -d "$WPROOT/wp-content/uploads" ]; then
 fi
 # Trang chi tiết clone-mode (events/blog/courses) lấy nguyên từ live -> docs/{lang}/{type}/{slug}/
 python3 "$REPO/generate-detail.py" 2>/dev/null || true
-# Demo v2 (optimize layer) -> docs/v2/{lang}/...
-python3 "$REPO/build-v2.py" 2>/dev/null || true
 # rewrite host -> /thenewleaders ; remove WP head cruft
 find "$REPO/docs" -type f \( -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i '' \
   -e 's#http://thenewleaders\.local#/thenewleaders#g' -e 's#http:\\/\\/thenewleaders\.local#/thenewleaders#g'
