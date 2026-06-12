@@ -30,6 +30,8 @@ done
 mkdir -p "$REPO/docs/wp-content/themes/thenewleaders"
 cp "$THEME/style.css" "$REPO/docs/wp-content/themes/thenewleaders/"
 rsync -a --exclude 'backups' "$THEME/assets" "$REPO/docs/wp-content/themes/thenewleaders/"
+# clone/ (CSS+markup+fonts+images lấy từ live, dùng bởi front-page CLONE MODE)
+rsync -a "$THEME/clone" "$REPO/docs/wp-content/themes/thenewleaders/"
 mkdir -p "$REPO/docs/wp-includes/css/dist/block-library"
 cp "$WPROOT/wp-includes/css/classic-themes.min.css" "$REPO/docs/wp-includes/css/" 2>/dev/null || true
 cp "$WPROOT/wp-includes/css/dist/block-library/common.min.css" "$REPO/docs/wp-includes/css/dist/block-library/" 2>/dev/null || true
