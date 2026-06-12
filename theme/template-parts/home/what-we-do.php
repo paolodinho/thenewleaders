@@ -57,7 +57,7 @@ $right_cards = [ $cards[1], $cards[3] ];
           <div class="wwd-group__img">
             <img src="<?php echo esc_url( $card['img'] ); ?>" alt="<?php echo esc_attr( $card['img_alt'] ); ?>" loading="lazy">
           </div>
-          <div class="wwd-group__card" style="background:<?php echo esc_attr( $card['color'] ); ?><?php echo $card['pt'] ? ';padding-top:' . $card['pt'] . 'px' : ''; ?>">
+          <div class="wwd-group__card" style="background:<?php echo esc_attr( $card['color'] ); ?><?php echo $card['pt'] ? ';padding-top:' . $card['pt'] . 'px;margin-top:-' . $card['pt'] . 'px' : ''; ?>">
             <p class="wwd-group__title"><?php echo esc_html( $card['title'] ); ?></p>
             <p class="wwd-group__body"><?php echo esc_html( $card['desc'] ); ?></p>
             <a href="<?php echo esc_url( $card['link'] ); ?>" class="wwd-group__btn"><?php echo tnl_t('wwd_learn_more'); ?></a>

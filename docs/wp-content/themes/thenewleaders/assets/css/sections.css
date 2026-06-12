@@ -411,17 +411,20 @@
   transition: transform 0.5s ease;
 }
 
-/* Default (left col): card on top, img below */
+/* Default (left col): card on top, img below.
+   Khớp live: ảnh tràn 80px sang TRÁI + trượt lên 48px chồng đáy card. */
 .wwd-group .wwd-group__card { order: 1; }
-.wwd-group .wwd-group__img  { order: 2; margin-top: -16px; } /* img slides up 16px into card padding */
+.wwd-group .wwd-group__img  { order: 2; margin-top: -48px; margin-left: -80px; }
 
-/* Right col (img-top): image on top, card below */
-.wwd-group--img-top .wwd-group__img  { order: 1; margin-top: 0; } /* reset img margin-top from default */
-.wwd-group--img-top .wwd-group__card { order: 2; margin-top: -29px; } /* text slides up 29px into image */
+/* Right col (img-top): image on top, card below.
+   Khớp live: ảnh tràn 80px sang PHẢI; card chồng lên ảnh đúng = padding-top
+   (margin-top:-pt set inline trong PHP) → nội dung bắt đầu ngay mép dưới ảnh. */
+.wwd-group--img-top .wwd-group__img  { order: 1; margin-top: 0; margin-left: 80px; }
+.wwd-group--img-top .wwd-group__card { order: 2; }
 
-/* Card inner content: horizontal padding 0 (live dùng 0), chỉ giữ vertical */
+/* Card inner content: thụt 48px 2 bên (khớp live: nội dung inset 48px) */
 .wwd-group__card {
-  padding: 48px 0;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -501,7 +504,9 @@
   .wwd-group { flex-direction: column; }
   .wwd-group--img-top .wwd-group__img,
   .wwd-group--img-top .wwd-group__card { order: unset; }
-  .wwd-group__card { padding: 32px 24px; }
+  /* Mobile xếp dọc: huỷ tràn ngang + chồng (override inline pt/pb/margin từ PHP) */
+  .wwd-group__card { padding: 32px 24px !important; margin-top: 0 !important; }
+  .wwd-group__img  { margin-left: 0 !important; margin-top: 0 !important; }
   .wwd-group__btn { padding: 16px 24px; font-size: 1rem; }
 }
 
