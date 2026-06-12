@@ -3,11 +3,10 @@
     <div class="newsletter__inner">
       <div class="newsletter__header">
         <p class="newsletter__title"><?php echo tnl_t('nl_title'); ?></p>
+        <!-- Mũi tên trang trí: đặt trong khối lead (khớp live: absolute top/right theo md/lg) -->
+        <img class="newsletter__curly-arrow" src="<?php echo get_template_directory_uri(); ?>/assets/media/newsletter-vector.svg" width="121" height="135" alt="" aria-hidden="true">
       </div>
       <form class="newsletter__form tnl-ajax-form" action="#" method="post" data-form-type="Newsletter (Home)">
-        <!-- Mũi tên trang trí: neo TIP vào form (target) để trỏ đúng ô input mọi màn -->
-        <img class="newsletter__curly-arrow" src="<?php echo get_template_directory_uri(); ?>/assets/media/newsletter-vector.svg" width="121" height="135" alt="" aria-hidden="true">
-
         <div class="newsletter__row">
           <label class="newsletter__label" for="nl-name"><?php echo tnl_t('nl_name'); ?></label>
           <input type="text" id="nl-name" name="name" required class="newsletter__input">
