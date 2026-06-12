@@ -3,6 +3,14 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php
+  // Preload các weight font chính -> chữ hiện đúng EuclidCircularAVN ngay, hết nhấp
+  // nháy font hệ thống (FOUT) lúc tải. Khớp font live dùng.
+  $tnl_font = get_template_directory_uri() . '/assets/fonts/';
+  foreach (['EuclidCircularAVN-Regular', 'EuclidCircularAVN-Medium', 'EuclidCircularAVN-SemiBold', 'EuclidCircularAVN-Bold'] as $tnl_f) {
+    echo '<link rel="preload" href="' . esc_url($tnl_font . $tnl_f . '.woff2?v=5') . '" as="font" type="font/woff2" crossorigin>' . "\n";
+  }
+  ?>
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
