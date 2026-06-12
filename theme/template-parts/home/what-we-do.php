@@ -5,9 +5,9 @@ $media = get_template_directory_uri() . '/assets/media/cards/';
 // Right col (img-top, staggered): green [1] + orange [3]
 // img dùng ĐÚNG ảnh live S3; iml/imt = margin tràn ảnh khớp live (px)
 $cards = [
-    [ 'color' => '#5AD3ED', 'title' => tnl_t('card1_title'), 'desc' => tnl_t('card1_desc'), 'link' => tnl_url('our-services/for-manager'),       'img' => $media . 'live_business.png',    'img_alt' => 'Business Programs',            'pb' => 64,  'pt' => 0,   'iml' => -80, 'imt' => -48  ],
+    [ 'color' => '#5AD3ED', 'title' => tnl_t('card1_title'), 'desc' => tnl_t('card1_desc'), 'link' => tnl_url('our-services/for-manager'),       'img' => $media . 'live_business.png',    'img_alt' => 'Business Programs',            'pb' => 64,  'pt' => 0,   'iml' => -80, 'imt' => 0    ],
     [ 'color' => '#AFE56B', 'title' => tnl_t('card2_title'), 'desc' => tnl_t('card2_desc'), 'link' => tnl_url('our-services/individual-courses'), 'img' => $media . 'live_individuals.png', 'img_alt' => 'Individuals Programs',         'pb' => 0,   'pt' => 224, 'iml' => 80,  'imt' => 0,    'gp' => 50 ],
-    [ 'color' => '#FFC75A', 'title' => tnl_t('card3_title'), 'desc' => tnl_t('card3_desc'), 'link' => tnl_url('products'),                       'img' => $media . 'live_creative.png',    'img_alt' => 'Creative Innovative Products', 'pb' => 128, 'pt' => 0,   'iml' => -80, 'imt' => -128, 'gp' => 0  ],
+    [ 'color' => '#FFC75A', 'title' => tnl_t('card3_title'), 'desc' => tnl_t('card3_desc'), 'link' => tnl_url('products'),                       'img' => $media . 'live_creative.png',    'img_alt' => 'Creative Innovative Products', 'pb' => 128, 'pt' => 0,   'iml' => -80, 'imt' => -80,  'gp' => 0  ],
     [ 'color' => '#FF7C33', 'title' => tnl_t('card4_title'), 'desc' => tnl_t('card4_desc'), 'link' => tnl_url('events'),                         'img' => $media . 'live_community.jpg',  'img_alt' => 'Supportive Community',         'pb' => 0,   'pt' => 128, 'iml' => 96,  'imt' => 0,    'gp' => 82 ],
 ];
 $left_cards  = [ $cards[0], $cards[2] ];
