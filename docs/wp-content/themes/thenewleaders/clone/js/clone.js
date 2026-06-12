@@ -104,33 +104,63 @@
     rel = rel.replace(/^\/(vi|en)\//, '').replace(/^\//, '');
     return b.base + b.lang + '/' + rel;
   }
-  var DD = {
-    'Sản phẩm & Dịch vụ': { mega: true, cols: [
-      [ { t: 'Chương trình đào tạo', h: 'our-services', head: true },
-        { t: 'Doanh nghiệp', sub: true },
-        { t: 'Dành cho quản lý', h: 'our-services/for-manager' },
-        { t: 'Dành cho đội nhóm', h: 'our-services/for-team-member' } ],
-      [ { t: 'Cá nhân', sub: true },
-        { t: 'Coaching cho lãnh đạo', h: 'our-services/executive-coach' },
-        { t: 'Khóa cá nhân', h: 'our-services/individual-courses', arrow: true } ],
-      [ { t: 'Sản phẩm', h: 'products', head: true },
-        { t: 'SELI - Strategic EQ Leadership Index', h: 'products/seli-strategic-eq-leadership-index', badge: 'công cụ' },
-        { t: 'Cẩm nang EQ cho quản lý, lãnh đạo', h: 'products/heart-heart-hand' },
-        { t: 'Bộ bài giao tiếp EQ', h: 'products#card' },
-        { t: 'Sách điện tử', h: 'products/the-story-of-empathy' },
-        { t: 'The EQ Calendar', h: 'products/the-eq-calendar', badge: 'New 2026' } ]
-    ] },
-    'Đánh giá & Tài nguyên': { cols: [[
-      { t: 'Bài trắc nghiệm Trí tuệ cảm xúc', h: 'eq-quiz' },
-      { t: 'Tài nguyên', h: 'resources' },
-      { t: 'EQ với Ngân Trần', h: 'eq-with-ngan-tran' }
-    ]] },
-    'Sự kiện': { cols: [[
-      { t: 'Sự kiện đang diễn ra', h: 'events#upcoming-events' },
-      { t: 'Workshop', h: 'events#partner-events' },
-      { t: 'Sự kiện đã diễn ra', h: 'events#previous-events' }
-    ]] }
+  var DD_ALL = {
+    vi: {
+      'Sản phẩm & Dịch vụ': { mega: true, cols: [
+        [ { t: 'Chương trình đào tạo', h: 'our-services', head: true },
+          { t: 'Doanh nghiệp', sub: true },
+          { t: 'Dành cho quản lý', h: 'our-services/for-manager' },
+          { t: 'Dành cho đội nhóm', h: 'our-services/for-team-member' } ],
+        [ { t: 'Cá nhân', sub: true },
+          { t: 'Coaching cho lãnh đạo', h: 'our-services/executive-coach' },
+          { t: 'Khóa cá nhân', h: 'our-services/individual-courses', arrow: true } ],
+        [ { t: 'Sản phẩm', h: 'products', head: true },
+          { t: 'SELI - Strategic EQ Leadership Index', h: 'products/seli-strategic-eq-leadership-index', badge: 'công cụ' },
+          { t: 'Cẩm nang EQ cho quản lý, lãnh đạo', h: 'products/heart-heart-hand' },
+          { t: 'Bộ bài giao tiếp EQ', h: 'products#card' },
+          { t: 'Sách điện tử', h: 'products/the-story-of-empathy' },
+          { t: 'The EQ Calendar', h: 'products/the-eq-calendar', badge: 'New 2026' } ]
+      ] },
+      'Đánh giá & Tài nguyên': { cols: [[
+        { t: 'Bài trắc nghiệm Trí tuệ cảm xúc', h: 'eq-quiz' },
+        { t: 'Tài nguyên', h: 'resources' },
+        { t: 'EQ với Ngân Trần', h: 'eq-with-ngan-tran' }
+      ]] },
+      'Sự kiện': { cols: [[
+        { t: 'Sự kiện đang diễn ra', h: 'events#upcoming-events' },
+        { t: 'Workshop', h: 'events#partner-events' },
+        { t: 'Sự kiện đã diễn ra', h: 'events#previous-events' }
+      ]] }
+    },
+    en: {
+      'Our Services & Products': { mega: true, cols: [
+        [ { t: 'Training programs', h: 'our-services', head: true },
+          { t: 'Business', sub: true },
+          { t: 'For Leader/Manager', h: 'our-services/for-manager' },
+          { t: 'For Team member', h: 'our-services/for-team-member' } ],
+        [ { t: 'Individual', sub: true },
+          { t: 'Executive coach', h: 'our-services/executive-coach' },
+          { t: 'Individual courses', h: 'our-services/individual-courses', arrow: true } ],
+        [ { t: 'Our Products', h: 'products', head: true },
+          { t: 'Tet Gift Box', h: 'products/tet-gift-box', badge: 'New 2026' },
+          { t: 'The Emotional Intelligence (EQ) guidebook for Leaders, Managers', h: 'products/heart-heart-hand' },
+          { t: 'The Emotional Intelligence (EQ) Decks', h: 'products#card' },
+          { t: 'Ebook', h: 'products/the-story-of-empathy' },
+          { t: 'The EQ Calendar', h: 'products/the-eq-calendar', badge: 'New 2026' } ]
+      ] },
+      'Assessment & Resources': { cols: [[
+        { t: 'Emotional Intelligence Quiz', h: 'eq-quiz' },
+        { t: 'Resources', h: 'resources' },
+        { t: 'EQ with Ngan Tran', h: 'eq-with-ngan-tran' }
+      ]] },
+      'Events': { cols: [[
+        { t: 'Current Event', h: 'events#upcoming-events' },
+        { t: 'Workshop', h: 'events#partner-events' },
+        { t: 'Previous Event', h: 'events#previous-events' }
+      ]] }
+    }
   };
+  var DD = DD_ALL[navBase().lang] || DD_ALL.vi;
   function ddItem(it) {
     if (it.sub) return '<p class="font-bold !text-[#232323] mt-3 mb-1">' + it.t + '</p>';
     var badge = it.badge ? ' <span class="align-middle text-xs text-white bg-primary rounded-full px-2 py-0.5 ml-1">' + it.badge + '</span>' : '';
