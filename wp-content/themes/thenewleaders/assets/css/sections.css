@@ -638,7 +638,7 @@
   font-size: clamp(3rem, 7.5vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
-  letter-spacing: -0.03em;
+  letter-spacing: normal;
   color: #FFA564;
   margin-bottom: 64px; /* live: mb-16 */
 }
@@ -646,7 +646,7 @@
   font-size: 1.875rem;
   font-weight: 400;
   line-height: 1.25; /* live: leading-tight */
-  color: var(--color-black);
+  color: #020817; /* khớp live rgb(2,8,23) */
   max-width: 900px;
   margin-bottom: 64px; /* live: lg:mb-16 — collapse với mt-6 của ctas → gap=64px */
 }
@@ -824,7 +824,7 @@
   font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 700;
   line-height: 1.0;
-  letter-spacing: -0.03em;
+  letter-spacing: normal;
   color: rgb(255, 165, 100);
   margin-bottom: 56px;
 }
@@ -1040,7 +1040,7 @@
 .partners__title {
   font-size: clamp(3rem, 7.5vw, 6rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: normal;
   line-height: 1.0;
   color: var(--color-orange);
   margin-bottom: 64px; /* khớp live mb-16=64px */
@@ -1301,7 +1301,7 @@
 }
 .site-footer__links a:hover { color: var(--color-orange); }
 .site-footer__bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 14px 0; text-align: center; }
-.site-footer__bottom p { font-size: 1.25rem; color: rgb(151,151,151); margin: 0; } /* live: 20px, #979797 */
+.site-footer__bottom p { font-size: 1.25rem; line-height: 1.4; color: rgb(151,151,151); margin: 0; } /* live: 20px, #979797, lh28 */
 
 @media (max-width: 720px) {
   .site-footer__bottom p { font-size: 0.875rem; }
