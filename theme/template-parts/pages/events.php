@@ -82,7 +82,7 @@ $event_imgs = [
     'Artboard_2_copy_2a_abe44dc06d.png',
     'banner_landinpage_ae5d94680e.png',
     'Banner_FB_2400x1256_f7107b051b.png',
-    '', // Who takes care of the people who lead people?
+    'who-takes-care_16_9.jpg', // Who takes care of the people who lead people?
     'Brochure_WS_Women_1_5865264f4c.png',
     'Brochure_WS_Women_23aed5f1dd.png',
     'The_EQ_KV_128d813ebd.jpg',
