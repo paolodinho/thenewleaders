@@ -417,7 +417,8 @@
 .ev-list__title { font-size: clamp(1.7rem, 3.2vw, 2.5rem); color: var(--color-orange); margin-bottom: 12px; }
 .ev-list__lead { font-size: 1.15rem; color: var(--color-gray-dark); margin-bottom: 40px; }
 /* (2026-06-06 feedback khách) 3 sự kiện/hàng cho dãn rộng dễ đọc */
-.ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+/* (2026-06-12 feedback) dãn rộng thêm cho dễ đọc chữ */
+.ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 36px; }
 .ev-card {
   display: flex; flex-direction: column;
   border: 1px solid var(--color-gray-light); border-radius: var(--radius-lg); overflow: hidden;
@@ -428,7 +429,8 @@
 .ev-card__thumb--empty { background: linear-gradient(135deg, var(--color-off-white), var(--color-gray-light)); }
 .ev-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* (2026-06-07 feedback) màu chữ nhẹ hơn, padding rộng hơn dễ đọc */
-.ev-card__title { padding: 22px 24px; font-size: 1rem; font-weight: 500; color: var(--color-gray); line-height: 1.55; }
+/* (2026-06-12 feedback) chữ to hơn + padding rộng hơn cho dễ đọc */
+.ev-card__title { padding: 26px 28px; font-size: 1.05rem; font-weight: 500; color: var(--color-gray); line-height: 1.6; }
 
 .ev-community { padding-block: 0; }
 .ev-community__inner {
