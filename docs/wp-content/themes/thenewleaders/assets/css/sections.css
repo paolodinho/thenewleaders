@@ -1477,8 +1477,13 @@
   .testimonials { padding: 80px 20px; }
   .testimonials__title { font-size: clamp(2.2rem, 10vw, 3.5rem); margin-bottom: 48px; }
   .testimonials__list { gap: 56px; }
-  .tcard { flex-direction: column; gap: 20px; }
-  .tcard__img { width: 88px; height: 88px; }
+  /* Avatar SO LE như live: card lẻ (img-right) avatar lệch PHẢI, card chẵn
+     (img-left) lệch TRÁI -> zigzag P/T/P/T khớp thứ tự live. */
+  .tcard { flex-direction: column; align-items: stretch; gap: 20px; }
+  .tcard__img-wrap { width: 100%; }
+  .tcard__img { width: 112px; height: 112px; }
+  .tcard--img-right .tcard__img { margin-left: auto; margin-right: 0; }  /* lệch PHẢI */
+  .tcard--img-left  .tcard__img { margin-left: 0; margin-right: auto; }  /* lệch TRÁI */
 
   /* Mọi nút .btn: cho wrap chữ + co padding/font để không tràn ngang trên mobile */
   .btn {
