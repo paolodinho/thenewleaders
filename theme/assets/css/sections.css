@@ -422,13 +422,17 @@
 .wwd-group--img-top .wwd-group__img  { order: 1; }
 .wwd-group--img-top .wwd-group__card { order: 2; }
 
-/* Card inner content: thụt 48px 2 bên (khớp live: nội dung inset 48px) */
+/* Card inner content: thụt 48px 2 bên (khớp live: nội dung inset 48px).
+   Hover: card trượt NGƯỢC chiều ảnh (khớp live) -> tách ra, không che chữ. */
 .wwd-group__card {
   padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.wwd-group:not(.wwd-group--img-top):hover .wwd-group__card { transform: translate(-12px, 12px); }
+.wwd-group--img-top:hover .wwd-group__card { transform: translate(12px, -8px); }
 
 .wwd-group__title {
   font-size: 1.25rem;

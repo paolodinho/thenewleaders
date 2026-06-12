@@ -6,9 +6,9 @@ $media = get_template_directory_uri() . '/assets/media/cards/';
 // img dùng ĐÚNG ảnh live S3; iml/imt = margin tràn ảnh khớp live (px)
 $cards = [
     [ 'color' => '#5AD3ED', 'title' => tnl_t('card1_title'), 'desc' => tnl_t('card1_desc'), 'link' => tnl_url('our-services/for-manager'),       'img' => $media . 'live_business.png',    'img_alt' => 'Business Programs',            'pb' => 64,  'pt' => 0,   'iml' => -80, 'imt' => -48  ],
-    [ 'color' => '#AFE56B', 'title' => tnl_t('card2_title'), 'desc' => tnl_t('card2_desc'), 'link' => tnl_url('our-services/individual-courses'), 'img' => $media . 'live_individuals.png', 'img_alt' => 'Individuals Programs',         'pb' => 0,   'pt' => 224, 'iml' => 80,  'imt' => 0    ],
-    [ 'color' => '#FFC75A', 'title' => tnl_t('card3_title'), 'desc' => tnl_t('card3_desc'), 'link' => tnl_url('products'),                       'img' => $media . 'live_creative.png',    'img_alt' => 'Creative Innovative Products', 'pb' => 128, 'pt' => 0,   'iml' => -80, 'imt' => -128 ],
-    [ 'color' => '#FF7C33', 'title' => tnl_t('card4_title'), 'desc' => tnl_t('card4_desc'), 'link' => tnl_url('events'),                         'img' => $media . 'live_community.jpg',  'img_alt' => 'Supportive Community',         'pb' => 0,   'pt' => 128, 'iml' => 96,  'imt' => 0    ],
+    [ 'color' => '#AFE56B', 'title' => tnl_t('card2_title'), 'desc' => tnl_t('card2_desc'), 'link' => tnl_url('our-services/individual-courses'), 'img' => $media . 'live_individuals.png', 'img_alt' => 'Individuals Programs',         'pb' => 0,   'pt' => 224, 'iml' => 80,  'imt' => 0,    'gp' => 50 ],
+    [ 'color' => '#FFC75A', 'title' => tnl_t('card3_title'), 'desc' => tnl_t('card3_desc'), 'link' => tnl_url('products'),                       'img' => $media . 'live_creative.png',    'img_alt' => 'Creative Innovative Products', 'pb' => 128, 'pt' => 0,   'iml' => -80, 'imt' => -128, 'gp' => 0  ],
+    [ 'color' => '#FF7C33', 'title' => tnl_t('card4_title'), 'desc' => tnl_t('card4_desc'), 'link' => tnl_url('events'),                         'img' => $media . 'live_community.jpg',  'img_alt' => 'Supportive Community',         'pb' => 0,   'pt' => 128, 'iml' => 96,  'imt' => 0,    'gp' => 82 ],
 ];
 $left_cards  = [ $cards[0], $cards[2] ];
 $right_cards = [ $cards[1], $cards[3] ];
@@ -58,7 +58,7 @@ $right_cards = [ $cards[1], $cards[3] ];
           <div class="wwd-group__img" style="margin-left:<?php echo (int) $card['iml']; ?>px;margin-top:<?php echo (int) $card['imt']; ?>px">
             <img src="<?php echo esc_url( $card['img'] ); ?>" alt="<?php echo esc_attr( $card['img_alt'] ); ?>" loading="lazy">
           </div>
-          <div class="wwd-group__card" style="background:<?php echo esc_attr( $card['color'] ); ?><?php echo $card['pt'] ? ';padding-top:' . $card['pt'] . 'px;margin-top:-' . $card['pt'] . 'px' : ''; ?>">
+          <div class="wwd-group__card" style="background:<?php echo esc_attr( $card['color'] ); ?><?php echo $card['pt'] ? ';padding-top:' . ( $card['pt'] + (int) ( $card['gp'] ?? 0 ) ) . 'px;margin-top:-' . $card['pt'] . 'px' : ''; ?>">
             <p class="wwd-group__title"><?php echo esc_html( $card['title'] ); ?></p>
             <p class="wwd-group__body"><?php echo esc_html( $card['desc'] ); ?></p>
             <a href="<?php echo esc_url( $card['link'] ); ?>" class="wwd-group__btn"><?php echo tnl_t('wwd_learn_more'); ?></a>
