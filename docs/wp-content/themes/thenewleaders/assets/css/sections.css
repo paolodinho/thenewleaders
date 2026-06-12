@@ -352,6 +352,10 @@
 .what-we-do__content-inner {
   margin-top: -240px; /* negative pull để overlay vị trí trong H2 */
   padding-top: 240px; /* cancel margin để desc xuất hiện đúng vị trí (giống live pt-[240px]) */
+  /* Căn cột 900px GIỮA giống .wwh__content của section trên → desc "Mang đến..."
+     thẳng lề với đoạn lý lẽ ở trên, không lệch ra sát mép (khớp bản live). */
+  max-width: 900px;
+  margin-inline: auto;
 }
 
 .what-we-do__desc {
