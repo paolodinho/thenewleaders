@@ -1129,8 +1129,10 @@
   margin-top: 24px;
   display: inline-flex;
   align-items: center;
+  justify-content: center; /* chữ luôn ở giữa khi nút full-width (mobile) */
   gap: 10px;
-  padding: 32px 48px; /* khớp live py-8 px-12 */
+  /* Scale mượt theo màn: nhỏ lại trên mobile, đầy đặn trên desktop (live py-8 px-12) */
+  padding: clamp(16px, 2.2vw, 32px) clamp(32px, 4vw, 48px);
   background: var(--color-white);
   color: var(--color-orange);
   border: 2px solid var(--color-white); /* live: border-2 border-white */
@@ -1569,7 +1571,7 @@
   /* (2026-06-12) Mobile: row thành cột, mép trên form vẫn = hàng "Tên"
      nên neo theo form vẫn trỏ đúng; chỉ thu nhỏ + nhích vị trí cho gọn */
   .newsletter__curly-arrow { right: clamp(8px, 8%, 32px); bottom: calc(100% - 18px); width: clamp(64px, 22vw, 92px); }
-  .newsletter__submit { width: 100%; }
+  .newsletter__submit { width: 100%; padding: 18px 32px; font-size: 1.125rem; margin-top: 16px; }
 
   .cta-section__layout { gap: 48px; }
   .cta-word { font-size: clamp(2rem, 9vw, 3rem); }
