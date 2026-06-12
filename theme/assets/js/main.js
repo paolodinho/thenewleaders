@@ -292,21 +292,36 @@
       track.style.transform = 'translateX(-' + (idx * slideW) + 'px)';
     };
 
-    prevBtn.addEventListener('click', () => go(idx - 1));
-    nextBtn.addEventListener('click', () => go(idx + 1));
+    // Auto-play 3s, lặp vòng tròn (go đã modulo nên tự quay vòng)
+    const DELAY = 3000;
+    let timer = null;
+    const play = () => { if (!timer) timer = setInterval(() => go(idx + 1), DELAY); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    const restart = () => { stop(); play(); }; // thao tác tay -> reset đồng hồ, không nhảy ngay
+
+    prevBtn.addEventListener('click', () => { go(idx - 1); restart(); });
+    nextBtn.addEventListener('click', () => { go(idx + 1); restart(); });
 
     // Swipe trên mobile
     let startX = 0;
     const slider = track.closest('.values__slider');
     if (slider) {
-      slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+      slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
       slider.addEventListener('touchend', (e) => {
         const dx = e.changedTouches[0].clientX - startX;
         if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+        restart();
       }, { passive: true });
+      // Desktop: dừng khi rê chuột vào, chạy lại khi rời
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', play);
     }
 
+    // Tạm dừng khi tab ẩn (tiết kiệm + không "nhảy" khi quay lại)
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : play(); });
+
     go(0);
+    play();
   })();
 
   // ============================================================
