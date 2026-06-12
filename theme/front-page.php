@@ -45,6 +45,7 @@ add_action('wp_head', function () {
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <?php echo $markup; ?>
+<script src="<?php echo esc_url($clone_uri . '/js/clone.js?v=' . filemtime($clone_path . '/js/clone.js')); ?>"></script>
 <?php wp_footer(); ?>
 </body>
 </html>
