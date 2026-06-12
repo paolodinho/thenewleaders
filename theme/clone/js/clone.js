@@ -102,7 +102,30 @@
   function href(rel) {
     var b = navBase();
     rel = rel.replace(/^\/(vi|en)\//, '').replace(/^\//, '');
-    return b.base + b.lang + '/' + rel;
+    var hash = '', hi = rel.indexOf('#');
+    if (hi >= 0) { hash = rel.slice(hi); rel = rel.slice(0, hi); }
+    var u = b.base + b.lang + '/' + rel;
+    if (rel && !/\.[a-z0-9]+$/i.test(rel) && u.slice(-1) !== '/') u += '/';
+    return u + hash;
+  }
+  // URL của trang hiện tại ở ngôn ngữ khác (cho nút chuyển VI/EN)
+  function langUrl(lang) {
+    var nb = navBase(), p = location.pathname;
+    var rel = (p.indexOf(nb.base) === 0) ? p.slice(nb.base.length) : p.replace(/^\//, '');
+    rel = rel.replace(/^(vi|en)(\/|$)/, '');
+    rel = rel.replace(/^\//, '');
+    var u = nb.base + lang + '/' + rel;
+    if (rel && u.slice(-1) !== '/') u += '/';
+    return u + location.search + location.hash;
+  }
+  function wireLangSwitch() {
+    [].forEach.call(document.querySelectorAll('img[src*="en.svg"],img[src*="vi.svg"]'), function (img) {
+      var lang = /en\.svg/.test(img.getAttribute('src') || '') ? 'en' : 'vi';
+      var box = img.closest('div') || img.parentElement;
+      if (!box) return;
+      box.style.cursor = 'pointer';
+      box.addEventListener('click', function () { location.href = langUrl(lang); });
+    });
   }
   var DD_ALL = {
     vi: {
@@ -194,7 +217,7 @@
 
       function place() {
         if (cfg.mega) {
-          var hb = (header || li).getBoundingClientRect();
+          var hb = (header || document.body).getBoundingClientRect();
           panel.style.position = 'fixed';
           panel.style.left = '50%';
           panel.style.transform = 'translateX(-50%)';
@@ -222,11 +245,52 @@
     });
   }
 
+  // 6) INTERNAL LINK REWRITER — markup live dùng link kiểu live (/vi/x, /x, vi.html,
+  //    bare-relative) -> chuẩn hoá về base+lang đúng cho cả Local lẫn demo gh-pages.
+  function isAsset(p) {
+    return /\.(svg|png|jpe?g|webp|gif|ico|css|js|mp4|webm|pdf|woff2?|xml|json)(\?|#|$)/i.test(p)
+        || /\/(wp-content|wp-includes|wp-admin|wp-json|clone|_next)\//.test(p);
+  }
+  function wireInternalLinks() {
+    var nb = navBase();
+    var baseClean = nb.base.replace(/^\//, '').replace(/\/$/, ''); // 'thenewleaders' hoặc ''
+    [].forEach.call(document.querySelectorAll('a[href]'), function (a) {
+      var raw = a.getAttribute('href');
+      if (!raw || /^(#|mailto:|tel:|javascript:)/i.test(raw)) return;
+      // external/absolute http: chỉ xử lý nếu cùng origin
+      if (/^https?:\/\//i.test(raw)) {
+        try { var uu = new URL(raw); if (uu.origin !== location.origin) return; raw = uu.pathname + uu.search + uu.hash; }
+        catch (e) { return; }
+      }
+      if (isAsset(raw)) return;
+      // tách query/hash
+      var suffix = '', qi = raw.search(/[?#]/);
+      if (qi >= 0) { suffix = raw.slice(qi); raw = raw.slice(0, qi); }
+      if (!raw && suffix) return; // link chỉ có hash đã loại ở trên
+      var rel;
+      if (raw.charAt(0) === '/') {
+        rel = raw.replace(/^\//, '');
+      } else {
+        try { rel = new URL(raw, location.href).pathname.replace(/^\//, ''); } catch (e) { return; }
+      }
+      if (baseClean && rel.indexOf(baseClean + '/') === 0) rel = rel.slice(baseClean.length + 1);
+      // giữ lang đích nếu link tự khai báo (để nút chuyển VI/EN đúng)
+      var linkLang = nb.lang, m = rel.match(/^(vi|en)(\/|$)/);
+      if (m) { linkLang = m[1]; rel = rel.slice(m[0].length); }
+      rel = rel.replace(/\.html$/, '').replace(/^\//, '');
+      var newHref = nb.base + linkLang + '/' + rel;
+      if (rel && !/\.[a-z0-9]+$/i.test(rel) && newHref.slice(-1) !== '/') newHref += '/';
+      a.setAttribute('href', newHref + suffix);
+    });
+  }
+
   ready(function () {
     wireVideos();
     wireHeroButtons();
     wireHamburger();
     wireCarousels();
+    wireInternalLinks();
+    wireLangSwitch();
     wireDropdowns();
   });
 })();

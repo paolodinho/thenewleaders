@@ -41,6 +41,8 @@ if [ -d "$WPROOT/wp-content/uploads" ]; then
   mkdir -p "$REPO/docs/wp-content/uploads"
   rsync -a "$WPROOT/wp-content/uploads/" "$REPO/docs/wp-content/uploads/"
 fi
+# Trang chi tiết clone-mode (events/blog/courses) lấy nguyên từ live -> docs/{lang}/{type}/{slug}/
+python3 "$REPO/generate-detail.py" 2>/dev/null || true
 # rewrite host -> /thenewleaders ; remove WP head cruft
 find "$REPO/docs" -type f \( -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i '' \
   -e 's#http://thenewleaders\.local#/thenewleaders#g' -e 's#http:\\/\\/thenewleaders\.local#/thenewleaders#g'
