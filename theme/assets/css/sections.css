@@ -1149,13 +1149,17 @@
 .newsletter__title {
   margin-bottom: 0;
 }
-/* (2026-06-08) top:50px right:31px khớp live: arrow.y=inner.y+50=14615, arrow.x=inner.right-31-121=748 */
+/* (2026-06-12) Mũi tên trang trí trỏ ĐÚNG ô input trên MỌI màn:
+   neo TIP vào form (không neo góc container) → header reflow bao nhiêu dòng,
+   mũi tên vẫn dính theo form. Scale bằng clamp. Xem rule decorative-arrow.md.
+   SVG tip nằm ở đáy viewBox (~86% x, ~99% y). */
+.newsletter__form { position: relative; }
 .newsletter__curly-arrow {
   position: absolute;
-  right: 31px;
-  top: 50px;
-  width: 121px;
-  height: 135px;
+  bottom: calc(100% - 26px);            /* đáy SVG (≈tip) thả xuống ~26px qua mép trên form → đúng hàng "Tên" */
+  right: clamp(8px, 5%, 40px);          /* canh về phía phải, nơi tip chỉ xuống ô input */
+  width: clamp(76px, 13vw, 121px);      /* scale mượt theo viewport */
+  height: auto;
   pointer-events: none;
 }
 
@@ -1546,7 +1550,9 @@
   .newsletter__row { flex-direction: column; align-items: stretch; gap: 8px; }
   .newsletter__label { font-size: 1.5rem; }
   .newsletter__input { font-size: 1.5rem; max-width: 100%; }
-  .newsletter__curly-arrow { display: none; }
+  /* (2026-06-12) Mobile: row thành cột, mép trên form vẫn = hàng "Tên"
+     nên neo theo form vẫn trỏ đúng; chỉ thu nhỏ + nhích vị trí cho gọn */
+  .newsletter__curly-arrow { right: clamp(8px, 8%, 32px); bottom: calc(100% - 18px); width: clamp(64px, 22vw, 92px); }
   .newsletter__submit { width: 100%; }
 
   .cta-section__layout { gap: 48px; }
