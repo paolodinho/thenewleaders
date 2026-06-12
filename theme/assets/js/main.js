@@ -10,8 +10,23 @@
   // ============================================================
   const header = document.getElementById('site-header');
   if (header) {
-    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    let lastY = window.scrollY;
+    let ticking = false;
+    const onScroll = () => {
+      const y = window.scrollY;
+      header.classList.toggle('is-scrolled', y > 40);
+      // Auto-hide (mobile, CSS chỉ áp transform ở <=768): cuộn XUỐNG -> ẩn header,
+      // cuộn LÊN -> hiện lại (kèm nút menu) ngay. Không ẩn khi đang mở menu.
+      if (!header.classList.contains('is-open')) {
+        if (y > 80 && y > lastY + 4) header.classList.add('is-hidden');
+        else if (y < lastY - 4 || y <= 80) header.classList.remove('is-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
     onScroll();
   }
 
@@ -279,28 +294,40 @@
     const nextBtn = document.getElementById('valuesNext');
     if (!track || !prevBtn || !nextBtn) return;
 
-    const slides = track.querySelectorAll('.values__slide');
-    if (!slides.length) return;
+    const originals = Array.from(track.querySelectorAll('.values__slide'));
+    const real = originals.length;
+    if (!real) return;
 
-    let idx = 0;
-    const total = slides.length;
+    // LOOP VÔ HẠN LIỀN MẠCH: nhân bản slide -> [clone cuối][thật][clone đầu].
+    // Autoplay luôn tiến tới; khi chạm vùng clone thì SNAP về vị trí thật tương
+    // ứng (không transition) -> mắt không thấy "giật/nhảy ngược".
+    originals.forEach((s) => { const c = s.cloneNode(true); c.setAttribute('aria-hidden', 'true'); track.appendChild(c); });
+    originals.slice().reverse().forEach((s) => { const c = s.cloneNode(true); c.setAttribute('aria-hidden', 'true'); track.insertBefore(c, track.firstChild); });
 
-    const go = (i) => {
-      idx = (i + total) % total;
-      // Dùng px để move đúng 1 slide width (50% viewport)
-      const slideW = slides[0].offsetWidth;
-      track.style.transform = 'translateX(-' + (idx * slideW) + 'px)';
+    let idx = real; // bắt đầu ở slide thật đầu tiên (sau cụm clone đầu)
+    const slideW = () => track.querySelector('.values__slide').offsetWidth;
+    const setX = (animate) => {
+      track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.4,0,0.2,1)' : 'none';
+      track.style.transform = 'translateX(-' + (idx * slideW()) + 'px)';
     };
+    setX(false);
 
-    // Auto-play 3s, lặp vòng tròn (go đã modulo nên tự quay vòng)
+    // Snap về vùng thật sau khi transition xong (480ms > 450ms). Dùng timer thay
+    // transitionend vì transitionend không đáng tin trên track này.
+    const wrap = () => {
+      if (idx >= real * 2) { idx -= real; setX(false); }
+      else if (idx < real) { idx += real; setX(false); }
+    };
+    const go = (delta) => { idx += delta; setX(true); setTimeout(wrap, 480); };
+
     const DELAY = 3000;
     let timer = null;
-    const play = () => { if (!timer) timer = setInterval(() => go(idx + 1), DELAY); };
+    const play = () => { if (!timer) timer = setInterval(() => go(1), DELAY); };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-    const restart = () => { stop(); play(); }; // thao tác tay -> reset đồng hồ, không nhảy ngay
+    const restart = () => { stop(); play(); };
 
-    prevBtn.addEventListener('click', () => { go(idx - 1); restart(); });
-    nextBtn.addEventListener('click', () => { go(idx + 1); restart(); });
+    prevBtn.addEventListener('click', () => { go(-1); restart(); });
+    nextBtn.addEventListener('click', () => { go(1); restart(); });
 
     // Swipe trên mobile
     let startX = 0;
@@ -309,18 +336,16 @@
       slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
       slider.addEventListener('touchend', (e) => {
         const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
         restart();
       }, { passive: true });
-      // Desktop: dừng khi rê chuột vào, chạy lại khi rời
       slider.addEventListener('mouseenter', stop);
       slider.addEventListener('mouseleave', play);
     }
 
-    // Tạm dừng khi tab ẩn (tiết kiệm + không "nhảy" khi quay lại)
     document.addEventListener('visibilitychange', () => { document.hidden ? stop() : play(); });
+    window.addEventListener('resize', () => setX(false));
 
-    go(0);
     play();
   })();
 
