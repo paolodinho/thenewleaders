@@ -186,7 +186,7 @@
   var DD = DD_ALL[navBase().lang] || DD_ALL.vi;
   function ddItem(it) {
     if (it.sub) return '<p class="font-bold !text-[#232323] mt-3 mb-1">' + it.t + '</p>';
-    var badge = it.badge ? ' <span class="align-middle text-xs text-white bg-primary rounded-full px-2 py-0.5 ml-1">' + it.badge + '</span>' : '';
+    var badge = it.badge ? ' <span class="align-middle text-xs text-white bg-primary rounded-full px-2 py-0.5 ml-1 whitespace-nowrap">' + it.badge + '</span>' : '';
     var arrow = it.arrow ? ' <span aria-hidden="true">›</span>' : '';
     var cls = 'block py-1.5 hover:!text-primary !text-[#232323] ' + (it.head ? 'font-bold' : '');
     return '<a href="' + href(it.h) + '" class="' + cls + '">' + it.t + badge + arrow + '</a>';
