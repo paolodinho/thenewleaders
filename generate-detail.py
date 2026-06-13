@@ -30,7 +30,8 @@ for f in glob.glob(THEME+"/clone/parts/detail/*/*.html"):
     out=f"{DOCS}/{lang}/{type_}/{slug}/index.html"
     os.makedirs(os.path.dirname(out),exist_ok=True)
     optlink=('<link rel="stylesheet" href="%s/css/optimize.css?v=%s">'%(CLONE,optv)) if optv else ''
-    bodytag='<body class="tnl-opt">' if optv else '<body>'
+    optcls='tnl-opt'+(' tnl-opt-events' if type_=='events' else '')
+    bodytag=('<body class="%s">'%optcls) if optv else '<body>'
     doc=('<!DOCTYPE html><html lang="%s"><head><meta charset="utf-8">'
          '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
          '<title>%s</title>'
