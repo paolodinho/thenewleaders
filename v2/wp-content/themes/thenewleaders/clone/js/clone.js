@@ -215,7 +215,21 @@
       var panel = buildPanel(label, cfg);
       (header || document.body).appendChild(panel);
 
+      function isMobile() { return window.matchMedia('(max-width: 767px)').matches; }
+
       function place() {
+        if (isMobile()) {
+          // Mobile: xổ inline ngay dưới nút trong menu hamburger (không nổi, không tràn)
+          panel.style.position = 'static';
+          panel.style.left = ''; panel.style.top = ''; panel.style.transform = '';
+          panel.style.width = '100%';
+          panel.style.boxShadow = 'none'; panel.style.border = '0';
+          if (btn.nextElementSibling !== panel) btn.insertAdjacentElement('afterend', panel);
+          return;
+        }
+        // Desktop: panel nổi dưới header (đưa lại vào header nếu trước đó đã inline cho mobile)
+        if (panel.parentElement !== (header || document.body)) (header || document.body).appendChild(panel);
+        panel.style.boxShadow = ''; panel.style.border = '';
         if (cfg.mega) {
           var hb = (header || document.body).getBoundingClientRect();
           panel.style.position = 'fixed';
@@ -235,10 +249,10 @@
       function hide() { panel.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); open = false; }
       function lazyHide() { hideT = setTimeout(hide, 180); }
 
-      btn.addEventListener('mouseenter', show);
-      btn.addEventListener('mouseleave', lazyHide);
-      panel.addEventListener('mouseenter', function () { clearTimeout(hideT); });
-      panel.addEventListener('mouseleave', lazyHide);
+      btn.addEventListener('mouseenter', function () { if (!isMobile()) show(); });
+      btn.addEventListener('mouseleave', function () { if (!isMobile()) lazyHide(); });
+      panel.addEventListener('mouseenter', function () { if (!isMobile()) clearTimeout(hideT); });
+      panel.addEventListener('mouseleave', function () { if (!isMobile()) lazyHide(); });
       btn.addEventListener('click', function (e) { e.preventDefault(); open ? hide() : show(); });
       window.addEventListener('resize', function () { if (open) place(); });
       window.addEventListener('scroll', function () { if (open) place(); }, { passive: true });
