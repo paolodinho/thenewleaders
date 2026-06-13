@@ -111,3 +111,16 @@
   .tnl-opt.home [class*="xl:py-64"]{ padding-top:120px; padding-bottom:120px; }
   .tnl-opt.home [class*="gap-[240px]"]{ margin-top:120px; gap:64px; }
 }
+
+/* 2026-06-13 — Cards "cách tiếp cận": số outline 01-04 thu nhỏ + dời gọn về góc
+   thẻ, KHÔNG cắt ngang chữ (feedback "nhìn hơi mệt"). Giữ ý đồ trang trí. */
+.tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{
+  top: -46px; bottom:auto; width: 78px; height:auto; opacity:.8;
+}
+.tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 10px; left:auto; }
+.tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 10px; right:auto; }
+@media (min-width:768px){
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{ top:-60px; width:104px; }
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 20px; }
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 20px; }
+}
