@@ -39,3 +39,5 @@ find "$OUT" -name '*.html' -print0 | xargs -0 sed -i '' '/thenewleaders-v2\.loca
 # redirect gốc v2
 printf '<!doctype html><meta charset=utf-8><meta http-equiv=refresh content="0; url=/thenewleaders/v2/vi/"><a href="/thenewleaders/v2/vi/">The New Leaders v2</a>' > "$OUT/index.html"
 echo "v2 build done -> $OUT"
+
+python3 "$REPO/optimize-static.py" "$OUT"

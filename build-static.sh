@@ -53,3 +53,6 @@ find "$REPO/docs" -name '*.html' -print0 | xargs -0 sed -i '' -e '/thenewleaders
 # root redirect + nojekyll
 printf '<!doctype html><meta charset=utf-8><meta http-equiv=refresh content="0; url=/thenewleaders/vi/"><a href="/thenewleaders/vi/">The New Leaders</a>' > "$REPO/docs/index.html"
 touch "$REPO/docs/.nojekyll"
+
+# Tối ưu tải/Core Web Vitals: lazy ảnh + preconnect S3
+python3 "$REPO/optimize-static.py" "$REPO/docs"
