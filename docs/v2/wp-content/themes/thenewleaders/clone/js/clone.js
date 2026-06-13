@@ -7,14 +7,46 @@
     else document.addEventListener('DOMContentLoaded', fn);
   };
 
-  // 1) VIDEO: ép muted + autoplay + loop (autoPlay attr của React không luôn chạy)
+  // 1) VIDEO:
+  //    - Video có thuộc tính autoplay (hero nền) -> ép muted + autoplay + loop.
+  //    - Video KHÔNG có autoplay (vd testimonial, có poster + nút play) -> KHÔNG tự chạy,
+  //      giữ poster, chỉ chạy khi bấm nút play / click vào video (đúng như live).
   function wireVideos() {
     [].forEach.call(document.querySelectorAll('video'), function (v) {
-      v.muted = true; v.loop = (v.loop || v.hasAttribute('loop'));
       v.setAttribute('playsinline', '');
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {/* autoplay bị chặn -> bỏ qua */});
+      if (v.hasAttribute('autoplay') || v.autoplay) {
+        v.muted = true; v.loop = (v.loop || v.hasAttribute('loop'));
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {/* autoplay bị chặn -> bỏ qua */});
+      } else {
+        try { v.pause(); } catch (e) {}
+        wireClickToPlay(v);
+      }
     });
+  }
+
+  function wireClickToPlay(v) {
+    // overlay phủ (lớp đen + nút play) thường là sibling ngay sau <video>
+    var overlay = v.nextElementSibling;
+    if (!(overlay && /\babsolute\b/.test(overlay.className || ''))) {
+      overlay = (v.parentElement &&
+        [].slice.call(v.parentElement.children).filter(function (c) {
+          return c !== v && /\babsolute\b/.test(c.className || '') && c.querySelector('button,svg');
+        })[0]) || overlay;
+    }
+    var playBtn = overlay ? overlay.querySelector('button') : null;
+    var started = false;
+    function start(e) {
+      if (e) { e.preventDefault(); }
+      if (started) { v.paused ? v.play().catch(function(){}) : v.pause(); return; }
+      started = true;
+      v.muted = false; v.controls = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { v.muted = true; v.play().catch(function(){}); });
+      if (overlay) overlay.style.display = 'none';
+    }
+    if (playBtn) playBtn.addEventListener('click', start);
+    v.addEventListener('click', start);
   }
 
   // 2) HERO buttons: "Bật tiếng" toggle mute, "Đi tiếp" cuộn qua hero
