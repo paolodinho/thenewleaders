@@ -44,9 +44,12 @@ fi
 # Trang chi tiết clone-mode (events/blog/courses) lấy nguyên từ live -> docs/{lang}/{type}/{slug}/
 python3 "$REPO/generate-detail.py" 2>/dev/null || true
 # rewrite host -> /thenewleaders ; remove WP head cruft
+# (rewrite cả host v2 phòng khi WP siteurl resolve sang thenewleaders-v2.local -> tránh mixed-content vỡ CSS/JS trên Pages)
+# (build-v2.sh chạy SAU và rebuild docs/v2 nên rewrite ở đây không ảnh hưởng v2)
 find "$REPO/docs" -type f \( -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i '' \
+  -e 's#http://thenewleaders-v2\.local#/thenewleaders#g' -e 's#http:\\/\\/thenewleaders-v2\.local#/thenewleaders#g' \
   -e 's#http://thenewleaders\.local#/thenewleaders#g' -e 's#http:\\/\\/thenewleaders\.local#/thenewleaders#g'
-find "$REPO/docs" -name '*.html' -print0 | xargs -0 sed -i '' '/thenewleaders\.local/d'
+find "$REPO/docs" -name '*.html' -print0 | xargs -0 sed -i '' -e '/thenewleaders-v2\.local/d' -e '/thenewleaders\.local/d'
 # root redirect + nojekyll
 printf '<!doctype html><meta charset=utf-8><meta http-equiv=refresh content="0; url=/thenewleaders/vi/"><a href="/thenewleaders/vi/">The New Leaders</a>' > "$REPO/docs/index.html"
 touch "$REPO/docs/.nojekyll"
