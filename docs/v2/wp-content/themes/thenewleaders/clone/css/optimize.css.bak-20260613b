@@ -89,25 +89,3 @@
 @media (max-width: 768px) {
   [data-sentry-component="VideoBanner"] { display: none !important; }
 }
-
-/* 2026-06-13 — TỐI ƯU GỌN GÀNG TRANG CHỦ (pass 1: vertical rhythm).
-   Giữ nguyên nội dung/bố cục/màu; chỉ siết padding dọc section + gap cards,
-   căn theo từng breakpoint. KHÔNG đụng cặp watermark -mt-[240px]/pt-[240px]. */
-.tnl-opt.home [class*="xl:py-36"]{ padding-top:48px; padding-bottom:48px; }
-.tnl-opt.home [class*="xl:py-64"]{ padding-top:56px; padding-bottom:56px; }
-.tnl-opt.home [class*="gap-[240px]"]{ margin-top:56px; gap:28px; }
-@media (min-width:768px){
-  .tnl-opt.home [class*="xl:py-36"]{ padding-top:56px; padding-bottom:56px; }
-  .tnl-opt.home [class*="xl:py-64"]{ padding-top:64px; padding-bottom:64px; }
-  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:72px; gap:40px; }
-}
-@media (min-width:1024px){
-  .tnl-opt.home [class*="xl:py-36"]{ padding-top:64px; padding-bottom:64px; }
-  .tnl-opt.home [class*="xl:py-64"]{ padding-top:88px; padding-bottom:88px; }
-  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:96px; gap:56px; }
-}
-@media (min-width:1280px){
-  .tnl-opt.home [class*="xl:py-36"]{ padding-top:88px; padding-bottom:88px; }
-  .tnl-opt.home [class*="xl:py-64"]{ padding-top:120px; padding-bottom:120px; }
-  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:120px; gap:64px; }
-}
