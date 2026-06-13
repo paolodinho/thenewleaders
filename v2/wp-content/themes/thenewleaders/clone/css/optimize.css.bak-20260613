@@ -83,9 +83,3 @@
 .tnl-opt button[type="submit"]:hover {
   transform: translateY(-1px);
 }
-
-/* 2026-06-13 — Mobile: ẩn section 1 (hero video VideoBanner) trên di động.
-   Yêu cầu Hiếu: bản di động bỏ video hero. Desktop giữ nguyên. */
-@media (max-width: 768px) {
-  [data-sentry-component="VideoBanner"] { display: none !important; }
-}
