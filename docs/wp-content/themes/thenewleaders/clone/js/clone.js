@@ -298,6 +298,44 @@
     });
   }
 
+  // 7) PILL HIGHLIGHT WIPE — markup live dùng <div style="clip-path:inset(0 100% 0 0)">
+  //    (framer-motion reveal khi cuộn). React không hydrate -> ô kẹt ẩn/cắt chữ.
+  //    Tự reveal theo scroll bằng cùng công thức wipe có stagger.
+  function wirePillWipe() {
+    var pills = [].slice.call(document.querySelectorAll('[style*="clip-path"]'))
+      .filter(function (el) { return /clip-path\s*:\s*inset\(/i.test(el.getAttribute('style') || ''); });
+    if (!pills.length) return;
+    // gom theo container cha (mỗi nhóm có tiến trình cuộn riêng)
+    var groups = [];
+    pills.forEach(function (el) {
+      var wrap = el.parentElement;
+      var g = groups.filter(function (x) { return x.wrap === wrap; })[0];
+      if (!g) { g = { wrap: wrap, items: [] }; groups.push(g); }
+      g.items.push(el);
+    });
+    function makeUpdater(g) {
+      var STAGGER = 0.14, span = 1 - STAGGER * (g.items.length - 1);
+      return function () {
+        var rect = g.wrap.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var startY = vh * 0.88, endY = vh * 0.35;
+        var p = (startY - rect.top) / (startY - endY);
+        p = Math.max(0, Math.min(1, p));
+        for (var i = 0; i < g.items.length; i++) {
+          var pp = (p - i * STAGGER) / span;
+          pp = Math.max(0, Math.min(1, pp));
+          g.items[i].style.clipPath = 'inset(0 ' + ((1 - pp) * 100).toFixed(2) + '% 0 0)';
+        }
+      };
+    }
+    var updaters = groups.map(makeUpdater), ticking = false;
+    function runAll() { ticking = false; updaters.forEach(function (u) { u(); }); }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(runAll); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    runAll();
+  }
+
   ready(function () {
     wireVideos();
     wireHeroButtons();
@@ -306,5 +344,6 @@
     wireInternalLinks();
     wireLangSwitch();
     wireDropdowns();
+    wirePillWipe();
   });
 })();
