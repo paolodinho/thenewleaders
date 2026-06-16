@@ -5,8 +5,12 @@
 # - Preconnect + dns-prefetch tới host ảnh/video (S3 bucketeer) trong <head>.
 # Chạy: python3 optimize-static.py <thư-mục> [<thư-mục>...]
 import re, sys, os
+from urllib.parse import unquote
 
 S3 = "https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com"
+LIVE = "https://thenewleaders.asia"
+
+NEXT_IMG = re.compile(r'/_next/image\?url=([^&"\']+)[^"\']*', re.I)
 HEAD_BLOCK = (
     '<!--tnl-perf-->'
     '<link rel="preconnect" href="%s" crossorigin>'
@@ -15,7 +19,14 @@ HEAD_BLOCK = (
 RASTER = re.compile(r'\.(png|jpe?g|webp|gif)(\?|#|$)', re.I)
 IMG = re.compile(r'<img\b[^>]*>', re.I)
 
+def fix_next_image(m):
+    path = unquote(m.group(1))
+    return LIVE + path
+
 def process(html):
+    # 0) Fix /_next/image?url=... → live site direct URL
+    html = NEXT_IMG.sub(fix_next_image, html)
+
     # 1) head: preconnect (1 lần)
     if '<!--tnl-perf-->' not in html and '</head>' in html:
         html = html.replace('</head>', HEAD_BLOCK + '</head>', 1)
