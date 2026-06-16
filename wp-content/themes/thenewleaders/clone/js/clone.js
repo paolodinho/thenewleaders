@@ -7,46 +7,14 @@
     else document.addEventListener('DOMContentLoaded', fn);
   };
 
-  // 1) VIDEO:
-  //    - Video có thuộc tính autoplay (hero nền) -> ép muted + autoplay + loop.
-  //    - Video KHÔNG có autoplay (vd testimonial, có poster + nút play) -> KHÔNG tự chạy,
-  //      giữ poster, chỉ chạy khi bấm nút play / click vào video (đúng như live).
+  // 1) VIDEO: ép muted + autoplay + loop (autoPlay attr của React không luôn chạy)
   function wireVideos() {
     [].forEach.call(document.querySelectorAll('video'), function (v) {
+      v.muted = true; v.loop = (v.loop || v.hasAttribute('loop'));
       v.setAttribute('playsinline', '');
-      if (v.hasAttribute('autoplay') || v.autoplay) {
-        v.muted = true; v.loop = (v.loop || v.hasAttribute('loop'));
-        var p = v.play();
-        if (p && p.catch) p.catch(function () {/* autoplay bị chặn -> bỏ qua */});
-      } else {
-        try { v.pause(); } catch (e) {}
-        wireClickToPlay(v);
-      }
-    });
-  }
-
-  function wireClickToPlay(v) {
-    // overlay phủ (lớp đen + nút play) thường là sibling ngay sau <video>
-    var overlay = v.nextElementSibling;
-    if (!(overlay && /\babsolute\b/.test(overlay.className || ''))) {
-      overlay = (v.parentElement &&
-        [].slice.call(v.parentElement.children).filter(function (c) {
-          return c !== v && /\babsolute\b/.test(c.className || '') && c.querySelector('button,svg');
-        })[0]) || overlay;
-    }
-    var playBtn = overlay ? overlay.querySelector('button') : null;
-    var started = false;
-    function start(e) {
-      if (e) { e.preventDefault(); }
-      if (started) { v.paused ? v.play().catch(function(){}) : v.pause(); return; }
-      started = true;
-      v.muted = false; v.controls = true;
       var p = v.play();
-      if (p && p.catch) p.catch(function () { v.muted = true; v.play().catch(function(){}); });
-      if (overlay) overlay.style.display = 'none';
-    }
-    if (playBtn) playBtn.addEventListener('click', start);
-    v.addEventListener('click', start);
+      if (p && p.catch) p.catch(function () {/* autoplay bị chặn -> bỏ qua */});
+    });
   }
 
   // 2) HERO buttons: "Bật tiếng" toggle mute, "Đi tiếp" cuộn qua hero
@@ -218,7 +186,7 @@
   var DD = DD_ALL[navBase().lang] || DD_ALL.vi;
   function ddItem(it) {
     if (it.sub) return '<p class="font-bold !text-[#232323] mt-3 mb-1">' + it.t + '</p>';
-    var badge = it.badge ? ' <span class="align-middle text-xs text-white bg-primary rounded-full px-2 py-0.5 ml-1 whitespace-nowrap">' + it.badge + '</span>' : '';
+    var badge = it.badge ? ' <span class="align-middle text-xs text-white bg-primary rounded-full px-2 py-0.5 ml-1">' + it.badge + '</span>' : '';
     var arrow = it.arrow ? ' <span aria-hidden="true">›</span>' : '';
     var cls = 'block py-1.5 hover:!text-primary !text-[#232323] ' + (it.head ? 'font-bold' : '');
     return '<a href="' + href(it.h) + '" class="' + cls + '">' + it.t + badge + arrow + '</a>';
@@ -247,21 +215,7 @@
       var panel = buildPanel(label, cfg);
       (header || document.body).appendChild(panel);
 
-      function isMobile() { return window.matchMedia('(max-width: 767px)').matches; }
-
       function place() {
-        if (isMobile()) {
-          // Mobile: xổ inline ngay dưới nút trong menu hamburger (không nổi, không tràn)
-          panel.style.position = 'static';
-          panel.style.left = ''; panel.style.top = ''; panel.style.transform = '';
-          panel.style.width = '100%';
-          panel.style.boxShadow = 'none'; panel.style.border = '0';
-          if (btn.nextElementSibling !== panel) btn.insertAdjacentElement('afterend', panel);
-          return;
-        }
-        // Desktop: panel nổi dưới header (đưa lại vào header nếu trước đó đã inline cho mobile)
-        if (panel.parentElement !== (header || document.body)) (header || document.body).appendChild(panel);
-        panel.style.boxShadow = ''; panel.style.border = '';
         if (cfg.mega) {
           var hb = (header || document.body).getBoundingClientRect();
           panel.style.position = 'fixed';
@@ -281,10 +235,10 @@
       function hide() { panel.style.display = 'none'; btn.setAttribute('aria-expanded', 'false'); open = false; }
       function lazyHide() { hideT = setTimeout(hide, 180); }
 
-      btn.addEventListener('mouseenter', function () { if (!isMobile()) show(); });
-      btn.addEventListener('mouseleave', function () { if (!isMobile()) lazyHide(); });
-      panel.addEventListener('mouseenter', function () { if (!isMobile()) clearTimeout(hideT); });
-      panel.addEventListener('mouseleave', function () { if (!isMobile()) lazyHide(); });
+      btn.addEventListener('mouseenter', show);
+      btn.addEventListener('mouseleave', lazyHide);
+      panel.addEventListener('mouseenter', function () { clearTimeout(hideT); });
+      panel.addEventListener('mouseleave', lazyHide);
       btn.addEventListener('click', function (e) { e.preventDefault(); open ? hide() : show(); });
       window.addEventListener('resize', function () { if (open) place(); });
       window.addEventListener('scroll', function () { if (open) place(); }, { passive: true });
@@ -330,44 +284,6 @@
     });
   }
 
-  // 7) PILL HIGHLIGHT WIPE — markup live dùng <div style="clip-path:inset(0 100% 0 0)">
-  //    (framer-motion reveal khi cuộn). React không hydrate -> ô kẹt ẩn/cắt chữ.
-  //    Tự reveal theo scroll bằng cùng công thức wipe có stagger.
-  function wirePillWipe() {
-    var pills = [].slice.call(document.querySelectorAll('[style*="clip-path"]'))
-      .filter(function (el) { return /clip-path\s*:\s*inset\(/i.test(el.getAttribute('style') || ''); });
-    if (!pills.length) return;
-    // gom theo container cha (mỗi nhóm có tiến trình cuộn riêng)
-    var groups = [];
-    pills.forEach(function (el) {
-      var wrap = el.parentElement;
-      var g = groups.filter(function (x) { return x.wrap === wrap; })[0];
-      if (!g) { g = { wrap: wrap, items: [] }; groups.push(g); }
-      g.items.push(el);
-    });
-    function makeUpdater(g) {
-      var STAGGER = 0.14, span = 1 - STAGGER * (g.items.length - 1);
-      return function () {
-        var rect = g.wrap.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var startY = vh * 0.88, endY = vh * 0.35;
-        var p = (startY - rect.top) / (startY - endY);
-        p = Math.max(0, Math.min(1, p));
-        for (var i = 0; i < g.items.length; i++) {
-          var pp = (p - i * STAGGER) / span;
-          pp = Math.max(0, Math.min(1, pp));
-          g.items[i].style.clipPath = 'inset(0 ' + ((1 - pp) * 100).toFixed(2) + '% 0 0)';
-        }
-      };
-    }
-    var updaters = groups.map(makeUpdater), ticking = false;
-    function runAll() { ticking = false; updaters.forEach(function (u) { u(); }); }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(runAll); } }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    runAll();
-  }
-
   ready(function () {
     wireVideos();
     wireHeroButtons();
@@ -376,6 +292,5 @@
     wireInternalLinks();
     wireLangSwitch();
     wireDropdowns();
-    wirePillWipe();
   });
 })();
