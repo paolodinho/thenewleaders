@@ -65,7 +65,7 @@ function tnl_clone_render($slug) {
   <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>">
   <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class('max-w-[1600px] mx-auto'); ?>>
 <?php wp_body_open(); ?>
 <?php echo $markup; ?>
 <script src="<?php echo esc_url($clone_uri . '/js/clone.js?v=' . $js_v); ?>"></script>
