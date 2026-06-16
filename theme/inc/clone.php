@@ -54,6 +54,7 @@ function tnl_clone_render($slug) {
     remove_action('wp_head', 'feed_links', 2);
 
     $css_v = filemtime($clone_path . '/css/live.css');
+    $opt_v = file_exists($clone_path . '/css/optimize.css') ? filemtime($clone_path . '/css/optimize.css') : '1.0';
     $js_v  = filemtime($clone_path . '/js/clone.js');
     ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -61,6 +62,7 @@ function tnl_clone_render($slug) {
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/live.css?v=' . $css_v); ?>">
+  <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>">
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

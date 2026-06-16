@@ -1,0 +1,213 @@
+/*
+ * optimize.css — TNL v2 overrides (load AFTER live.css)
+ * Nguyên tắc: tôn trọng bố cục + brand; tối ưu UX/UI mọi thiết bị; gọn hơn.
+ * Client feedback: requests.json items 1-3 (video, font, spacing).
+ * 2026-06-16
+ */
+
+/* ============================================================
+   1. ẨN VIDEO SECTION TRÊN MOBILE
+   (Client feedback #1: "Bỏ hẳn section video này ở bản di động")
+   ============================================================ */
+@media (max-width: 767px) {
+  [data-sentry-component="VideoBanner"],
+  .h-screen.w-full.relative:has(video) {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   2. CHUẨN HOÁ CỠ CHỮ BODY TRÊN MOBILE
+   (Client feedback #2: "text-2xl = 24px trên mobile quá to, về 16px")
+   Chỉ touch text-2xl trong prose/section context, KHÔNG đụng heading/title.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Đoạn body dùng text-2xl trong section nội dung */
+  section .text-2xl:not(h1):not(h2):not(h3):not(.font-bold):not([class*="font-semibold"]):not([class*="font-medium"]) {
+    font-size: 1rem !important;       /* 16px */
+    line-height: 1.6 !important;
+  }
+
+  /* Cụ thể: đoạn "Mang đến chương trình..." what-we-do */
+  .text-2xl.mb-6.pt-\[240px\],
+  .text-2xl.mb-6 {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Mô tả card nhỏ, label section */
+  .text-xl:not(h1):not(h2):not(h3) {
+    font-size: 0.9375rem !important;  /* 15px */
+    line-height: 1.55 !important;
+  }
+}
+
+/* ============================================================
+   3. GIẢM SPACING 240PX → 64PX (desktop/tablet)
+   (Client feedback #3: "layout desktop xem mệt, khoảng cách quá lớn")
+   Giá trị mới: gap 64px, overlap trick 64px.
+   ============================================================ */
+
+/* About cards overlap + what-we-do overlap */
+.gap-\[240px\]          { gap: 4rem !important; }          /* 64px */
+.mt-\[240px\]           { margin-top: 4rem !important; }   /* 64px */
+.-mt-\[240px\]          { margin-top: -4rem !important; }  /* -64px */
+.pt-\[240px\]           { padding-top: 4rem !important; }  /* 64px */
+.\!pb-\[240px\]         { padding-bottom: 4rem !important; }/* 64px — override !important từ live */
+
+/* xl section padding: 144px → 88px (py-36), 256px → 120px (py-64) */
+@media (min-width: 1280px) {
+  .xl\:py-36  { padding-top: 5.5rem !important; padding-bottom: 5.5rem !important; }   /* ~88px */
+  .xl\:py-64  { padding-top: 7.5rem !important; padding-bottom: 7.5rem !important; }   /* 120px */
+  .xl\:px-72  { padding-left: 5rem !important; padding-right: 5rem !important; }        /* thêm thoáng */
+}
+
+/* lg section padding tương ứng */
+@media (min-width: 1024px) {
+  .lg\:py-32  { padding-top: 4rem !important; padding-bottom: 4rem !important; }       /* 64px → gọn hơn */
+}
+
+/* ============================================================
+   4. CẢI THIỆN READABILITY — LINE-HEIGHT & LETTER-SPACING
+   ============================================================ */
+
+/* Body text chung — thoáng hơn một chút */
+p, li, .text-base, .text-sm {
+  line-height: 1.65;
+}
+
+/* Heading tightened — display tight */
+h1, h2, h3, .text-4xl, .text-5xl, .text-6xl, .text-7xl {
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* ============================================================
+   5. MOBILE PADDING — bớt padding dọc section, thoáng hơn
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Section thường: py-16 (64px) → 40px */
+  .py-16 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+
+  /* Section nhấn: py-20 (80px) → 48px */
+  .py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+  /* Padding ngang: giữ px-6 (24px) — đủ rồi, không đụng */
+
+  /* CTA bottom: đang có !pb-14, giữ nguyên */
+}
+
+/* ============================================================
+   6. NAVBAR — đảm bảo 1 dòng mọi viewport (menu rule)
+   ============================================================ */
+.navbar ul,
+.navbar [class*="flex"] {
+  flex-wrap: nowrap;
+}
+
+/* Nav link không xuống dòng */
+.navbar a,
+.navbar button {
+  white-space: nowrap;
+}
+
+/* ============================================================
+   7. TABLET (768px–1023px) — cải thiện layout trung gian
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* md padding còn khá lớn, giảm nhẹ */
+  .md\:py-24 { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+  .md\:py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+  /* Ngang bớt hơn để thoáng */
+  .md\:px-28 { padding-left: 3rem !important; padding-right: 3rem !important; }
+  .md\:px-20 { padding-left: 2.5rem !important; padding-right: 2.5rem !important; }
+
+  /* Spacing 240px trên tablet */
+  .md\:gap-\[240px\]  { gap: 3rem !important; }
+  .md\:mt-\[240px\]   { margin-top: 3rem !important; }
+}
+
+/* ============================================================
+   8. FOCUS & INTERACTION STATES — accessibility
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #E87722;
+  outline-offset: 2px;
+}
+
+/* Hover nhẹ cho card có link */
+a[class*="card"],
+[class*="card"] a {
+  transition: opacity 0.2s ease;
+}
+a[class*="card"]:hover,
+[class*="card"] a:hover {
+  opacity: 0.92;
+}
+
+/* ============================================================
+   9. FORM & BUTTON — mobile cân đối
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Newsletter submit: không quá to trên mobile (rule wording.md) */
+  [type="submit"],
+  button[type="submit"] {
+    padding-top: clamp(14px, 3vw, 20px) !important;
+    padding-bottom: clamp(14px, 3vw, 20px) !important;
+    white-space: nowrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   10. IMAGE OPTIMIZATION — ngăn CLS
+   ============================================================ */
+img {
+  height: auto;
+}
+
+/* Partner logos — đồng đều hơn */
+[class*="partner"] img,
+[class*="logo"] img {
+  object-fit: contain;
+}
+
+/* ============================================================
+   11. TESTIMONIAL CAROUSEL — đọc dễ hơn
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Quote text lớn → thu gọn */
+  [class*="testimonial"] .text-xl,
+  [class*="testimonial"] .text-2xl {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* ============================================================
+   12. FOOTER — readability
+   ============================================================ */
+footer a:hover {
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+/* ============================================================
+   13. SMOOTH SCROLL — UX tổng thể
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   14. TEXT SELECTION — brand color
+   ============================================================ */
+::selection {
+  background: rgba(232, 119, 34, 0.25);
+  color: inherit;
+}
