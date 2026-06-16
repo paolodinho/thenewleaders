@@ -1,0 +1,121 @@
+/*
+ * optimize.css — TNL v2 overrides (load AFTER live.css)
+ * Nguyên tắc: tôn trọng bố cục + brand; tối ưu UX/UI mọi thiết bị; gọn hơn.
+ * KHÔNG đụng: 240px overlap trick, heading watermark, card layout.
+ * 2026-06-16
+ */
+
+/* ============================================================
+   1. ẨN VIDEO SECTION TRÊN MOBILE
+   (Client feedback #1)
+   ============================================================ */
+@media (max-width: 767px) {
+  [data-sentry-component="VideoBanner"],
+  .h-screen.w-full.relative:has(video) {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   2. FONT BODY MOBILE — giảm text-2xl (24px) → 16px
+   (Client feedback #2)
+   Chỉ nhắm đoạn mô tả trong what-we-do (có class mb-6), KHÔNG đụng watermark số lớn.
+   ============================================================ */
+@media (max-width: 767px) {
+  .text-2xl.mb-6 {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* ============================================================
+   3. GIẢM PADDING DESKTOP — xl section (Client feedback #3, phần an toàn)
+   CHỈ giảm outer padding dọc, KHÔNG đụng 240px overlap trick.
+   xl:py-36 (144px) → 88px | xl:py-64 (256px) → 120px
+   ============================================================ */
+@media (min-width: 1280px) {
+  .xl\:py-36 { padding-top: 5.5rem !important; padding-bottom: 5.5rem !important; }
+  .xl\:py-64 { padding-top: 7.5rem !important; padding-bottom: 7.5rem !important; }
+}
+
+/* ============================================================
+   4. NAVBAR — 1 dòng mọi viewport
+   ============================================================ */
+.navbar ul,
+.navbar [class*="flex"] {
+  flex-wrap: nowrap;
+}
+.navbar a,
+.navbar button {
+  white-space: nowrap;
+}
+
+/* ============================================================
+   5. FOCUS STATES — accessibility
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #E87722;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   6. IMAGE — tránh CLS
+   ============================================================ */
+img {
+  height: auto;
+}
+[class*="partner"] img,
+[class*="logo"] img {
+  object-fit: contain;
+}
+
+/* ============================================================
+   7. SMOOTH SCROLL + TEXT SELECTION
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+::selection {
+  background: rgba(232, 119, 34, 0.25);
+  color: inherit;
+}
+
+/* ============================================================
+   8. FOOTER HOVER
+   ============================================================ */
+footer a:hover {
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+/* ============================================================
+   9. NEWSLETTER — căn giữa trên mobile
+   ============================================================ */
+@media (max-width: 767px) {
+  .newsletter-section {
+    text-align: center !important;
+  }
+  .newsletter-section > div {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .newsletter-section img[alt="newsletter-vector"] {
+    display: none !important;
+  }
+  .newsletter-section form {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .newsletter-section form .flex.gap-4 {
+    justify-content: center !important;
+  }
+  .newsletter-section button[type="submit"],
+  .newsletter-section [type="submit"] {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+}
