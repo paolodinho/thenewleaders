@@ -8,7 +8,7 @@ import re, sys, os
 from urllib.parse import unquote
 
 S3 = "https://bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com"
-LIVE = "https://thenewleaders.asia"
+LIVE = "https://www.thenewleaders.asia"
 
 NEXT_IMG = re.compile(r'/_next/image\?url=([^&"\']+)[^"\']*', re.I)
 HEAD_BLOCK = (
