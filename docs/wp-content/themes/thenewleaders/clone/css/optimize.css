@@ -211,3 +211,43 @@ html {
   background: rgba(232, 119, 34, 0.25);
   color: inherit;
 }
+
+/* ============================================================
+   15. NEWSLETTER SECTION — căn giữa trên mobile
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Override text-left của live */
+  .newsletter-section {
+    text-align: center !important;
+  }
+
+  /* Căn giữa khối mô tả */
+  .newsletter-section > div {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Ẩn mũi tên trang trí (khó neo đúng khi centered) */
+  .newsletter-section img[alt="newsletter-vector"] {
+    display: none !important;
+  }
+
+  /* Form căn giữa */
+  .newsletter-section form {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Label + input: căn giữa row */
+  .newsletter-section form .flex.gap-4 {
+    justify-content: center !important;
+  }
+
+  /* Nút Gửi: căn giữa */
+  .newsletter-section button[type="submit"],
+  .newsletter-section [type="submit"] {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+}
