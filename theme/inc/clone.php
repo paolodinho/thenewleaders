@@ -23,11 +23,32 @@ function tnl_clone_has($slug) {
 
 /** Xuất toàn bộ trang clone-mode rồi exit. */
 function tnl_clone_render($slug) {
-    $clone_uri  = get_template_directory_uri() . '/clone';
-    $clone_path = get_template_directory() . '/clone';
     $file = tnl_clone_has($slug);
     if (!$file) return false;
+    return tnl_clone_output($file, $slug);
+}
 
+/**
+ * Render trang CHI TIẾT clone: clone/parts/detail/{type}/{slug}-{lang}.html (fallback vi).
+ * $lang truyền tường minh từ URL để không phụ thuộc cache tnl_lang().
+ */
+function tnl_clone_render_detail($type, $rawslug, $lang) {
+    $lang = ($lang === 'en') ? 'en' : 'vi';
+    $base = get_template_directory() . '/clone/parts/detail/' . $type . '/';
+    foreach (["$rawslug-$lang.html", "$rawslug-vi.html"] as $f) {
+        if (is_readable($base . $f) && filesize($base . $f) > 0) {
+            return tnl_clone_output($base . $f, $type);
+        }
+    }
+    return false;
+}
+
+/** Xuất tài liệu clone-mode standalone từ 1 file markup cụ thể rồi trả true. */
+function tnl_clone_output($file, $slug = '') {
+    if (!headers_sent()) { status_header(200); nocache_headers(); }
+    global $wp_query; if ($wp_query) { $wp_query->is_404 = false; }
+    $clone_uri  = get_template_directory_uri() . '/clone';
+    $clone_path = get_template_directory() . '/clone';
     $markup = file_get_contents($file);
     $s3host = 'bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com';
     $markup = str_replace(
@@ -76,3 +97,20 @@ function tnl_clone_render($slug) {
     <?php
     return true;
 }
+
+/**
+ * Route trang chi tiết clone (blog / courses / events / careers).
+ * WP không có page tương ứng nên các URL này vốn 404 -> tự bắt tại template_redirect,
+ * render markup clone/parts/detail/{type}/{slug}-{lang}.html rồi exit. Khớp cấu trúc URL live.
+ */
+add_action('template_redirect', function () {
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $path = urldecode((string) $path);
+    if (!preg_match('#^/(en|vi)/(blog|courses|events|careers)/(.+?)/?$#', $path, $m)) return;
+    $slug = $m[3];
+    if (strpos($slug, '/') !== false || strpos($slug, '..') !== false) return; // chống path traversal
+    $_GET['lang'] = $m[1]; // ép <html lang> + tnl_lang() theo prefix URL
+    if (function_exists('tnl_clone_render_detail') && tnl_clone_render_detail($m[2], $slug, $m[1])) {
+        exit;
+    }
+}, 1);
