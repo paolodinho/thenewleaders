@@ -51,9 +51,18 @@ function tnl_clone_output($file, $slug = '') {
     $clone_path = get_template_directory() . '/clone';
     $markup = file_get_contents($file);
     $s3host = 'bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com';
-    $markup = str_replace(
-        ['="images/',                    '../' . $s3host . '/'],
-        ['="' . $clone_uri . '/images/', 'https://' . $s3host . '/'],
+    $markup = str_replace('="images/', '="' . $clone_uri . '/images/', $markup);
+    // Ảnh S3: ưu tiên bản đã cache local (clone/s3/<file>) cho nhanh; thiếu thì fallback S3.
+    $s3dir = $clone_path . '/s3/';
+    $markup = preg_replace_callback(
+        '#\.\./' . preg_quote($s3host, '#') . '/([^\s"\'\\\\]+)#',
+        function ($m) use ($clone_uri, $s3host, $s3dir) {
+            $f = $m[1];
+            if ($f !== '' && is_readable($s3dir . rawurldecode($f))) {
+                return $clone_uri . '/s3/' . $f;
+            }
+            return 'https://' . $s3host . '/' . $f;
+        },
         $markup
     );
 
