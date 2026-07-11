@@ -54,18 +54,19 @@ function tnl_clone_render($slug) {
     remove_action('wp_head', 'feed_links', 2);
 
     $css_v = filemtime($clone_path . '/css/live.css');
-    $opt_v = file_exists($clone_path . '/css/optimize.css') ? filemtime($clone_path . '/css/optimize.css') : '1.0';
     $js_v  = filemtime($clone_path . '/js/clone.js');
+    $opt_path = $clone_path . '/css/optimize.css';
+    $opt_v = is_readable($opt_path) ? filemtime($opt_path) : 0;
     ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/live.css?v=' . $css_v); ?>">
-  <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>">
+  <?php if ($opt_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>"><?php endif; ?>
   <?php wp_head(); ?>
 </head>
-<body <?php body_class('max-w-[1600px] mx-auto'); ?>>
+<body class="tnl-opt<?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">
 <?php wp_body_open(); ?>
 <?php echo $markup; ?>
 <script src="<?php echo esc_url($clone_uri . '/js/clone.js?v=' . $js_v); ?>"></script>
