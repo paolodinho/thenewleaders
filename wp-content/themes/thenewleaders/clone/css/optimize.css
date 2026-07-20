@@ -221,3 +221,14 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
 .font-american-typewriter { font-family: 'Fz American Typewriter', 'Courier New', monospace; }
 .font-lexend { font-family: Lexend, Tahoma, sans-serif; }
 .font-ms-madi { font-family: 'Ms Madi', cursive; }
+
+/* ===== §11 WEIGHT chữ in đậm trong thân bài (2026-07-20, yêu cầu Henry Dinh) =====
+   Live để <strong>/<b> ở 700 (bold) — nét dày hơn hẳn chữ xung quanh (500).
+   Khách yêu cầu hạ về ~500 cho nét mảnh, đồng đều. Chỉ áp cho chữ nhấn trong
+   đoạn văn; KHÔNG đụng heading (h1-h6 giữ 700) và nút/CTA. */
+.tnl-opt strong, .tnl-opt b { font-weight: 500; }
+/* Heading giữ nguyên nét đậm gốc (không bị kéo về 500). */
+.tnl-opt h1 strong, .tnl-opt h2 strong, .tnl-opt h3 strong,
+.tnl-opt h4 strong, .tnl-opt h5 strong, .tnl-opt h6 strong,
+.tnl-opt h1 b, .tnl-opt h2 b, .tnl-opt h3 b,
+.tnl-opt h4 b, .tnl-opt h5 b, .tnl-opt h6 b { font-weight: inherit; }
