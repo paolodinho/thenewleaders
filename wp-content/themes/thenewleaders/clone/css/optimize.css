@@ -291,3 +291,74 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     font-size: 130px; line-height: 1 !important;
   }
 }
+
+/* ===== §13 FIGMA PARITY - các trang phụ (2026-07-20) =====
+   Nguồn: frame Figma our-services (11288:13067), products (11288:15741),
+   resources (11288:14316), events (11288:15065) @1728. Desktop >=1024. */
+@media (min-width: 1024px) {
+  /* Headline trang phụ (Our Products, Business Programs, Previous Events,
+     The EQ Calendar...): web lg:text-5xl 48px -> Figma 130 */
+  .tnl-opt h1[class~="font-bold"][class~="lg:text-5xl"]:not([class*="text-[50px]"]),
+  .tnl-opt h2[class~="font-bold"][class~="lg:text-5xl"]:not([class*="text-[50px]"]) {
+    font-size: 130px !important;
+    line-height: 1.2 !important;
+  }
+  /* Hero title (Enjoy the journey / EQ Leadership Events): markup có thêm
+     lg:text-[50px] - Figma để 50, không phải 130 */
+  /* H3 cùng class giữ 50 theo Figma (vd "Individual courses") */
+  .tnl-opt h3[class~="lg:text-5xl"] {
+    font-size: 50px !important;
+    line-height: 1.2 !important;
+  }
+  /* Pill màu Practical./People-centered... trang our-services + executive-coach:
+     Figma 80/101 w700 (trang chủ pill khác markup, giữ 50) */
+  .tnl-opt p[class~="font-bold"][class~="lg:text-5xl"][class*="bg-["] {
+    font-size: 80px;
+    line-height: 1.27 !important;
+    font-weight: 700;
+  }
+  /* Chip điều hướng trang Resources (Our Blog/The library/Supporting Tools):
+     Figma 35/42 w700 */
+  .tnl-opt p[class~="lg:text-xl"][class~="mt-4"][class~="font-bold"] {
+    font-size: 35px;
+    line-height: 1.2 !important;
+    font-weight: 700;
+  }
+  /* Tiêu đề card sự kiện (Events): Figma 30 w400 - bỏ bold mặc định của h3 */
+  .tnl-opt h3[class~="text-base"][class~="lg:text-xl"] {
+    font-weight: 400;
+  }
+  /* Khối "Join our Leaders' Community" (Events): Figma 40/48 w700 */
+  .tnl-opt p[class~="lg:text-4xl"] {
+    font-size: 40px;
+    line-height: 1.2 !important;
+    font-weight: 700;
+  }
+}
+
+/* §13b - lệch riêng từng trang (scope .tnl-page-<slug>, class do inc/clone.php sinh) */
+@media (min-width: 1024px) {
+  /* Resources: H2 "Unlock the power..." Figma 80/96 (các H2 khác giữ 130) */
+  /* H2 "Unlock the power..." là h2 đầu tiên ngay sau hero (section body > div thứ 2) */
+  .tnl-page-resources body > div h2, /* fallback không dùng */
+  .tnl-page-resources div[class~="py-16"]:nth-of-type(2) h2[class~="lg:text-5xl"] {
+    font-size: 80px !important;
+    line-height: 1.2 !important;
+  }
+  /* Resources: mô tả tool (25/30 w500) - KHÔNG font-bold; tên tool (35/42 w700) - có font-bold */
+  .tnl-page-resources p[class~="lg:text-xl"][class~="mt-4"][class~="text-center"]:not([class~="font-bold"]) {
+    font-size: 25px;
+    line-height: 1.2 !important;
+    font-weight: 500;
+  }
+  .tnl-page-resources p[class~="lg:text-xl"][class~="mt-4"][class~="text-center"][class~="font-bold"] {
+    font-size: 35px;
+    line-height: 1.2 !important;
+    font-weight: 700;
+  }
+  /* Products: sub-head "Redefine Leadership..." Figma 50/60 */
+  .tnl-page-products p[class~="lg:text-xl"][class~="text-black"] {
+    font-size: 50px;
+    line-height: 1.2 !important;
+  }
+}
