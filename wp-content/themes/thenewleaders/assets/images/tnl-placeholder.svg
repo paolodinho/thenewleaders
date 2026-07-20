@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="#F1EDEA"/>
+  <g fill="none" stroke="#C9C0B8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="360" y="405" width="280" height="200" rx="18"/>
+    <circle cx="500" cy="505" r="52"/>
+    <path d="M430 405l26-40h88l26 40"/>
+  </g>
+  <text x="500" y="700" font-family="Euclid Circular A, system-ui, sans-serif" font-size="42" font-weight="600" fill="#B4A99E" text-anchor="middle">Ảnh đang cập nhật</text>
+</svg>
