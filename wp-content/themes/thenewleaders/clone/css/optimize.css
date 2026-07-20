@@ -426,3 +426,17 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     line-height: 1.2 !important;
   }
 }
+
+/* §13f - Chuẩn hoá 2 landing (tet-gift-box, heart-heart-hand) về thang cỡ Figma
+   (2026-07-21). Figma quota chưa cho kéo spec chi tiết 2 frame này -> đưa các cỡ
+   lẻ (28/36/45/48/60) về nấc thang chuẩn đã chốt (30/40/50). */
+@media (min-width: 1024px) {
+  /* Tet gift box */
+  .tnl-page-tet-gift-box [class*="text-[28px]"] { font-size: 30px; line-height: 1.2 !important; }
+  .tnl-page-tet-gift-box [class*="text-[45px]"] { font-size: 50px; line-height: 1.2 !important; }
+  .tnl-page-tet-gift-box [class*="text-[60px]"] { font-size: 50px; line-height: 1.2 !important; }
+  /* Head Heart Hand */
+  .tnl-page-heart-heart-hand p[class~="text-4xl"] { font-size: 40px; font-weight: 700; } /* stats 57%... (markup font-bold bị §1 đè) */
+  .tnl-page-heart-heart-hand h3[class~="text-md"] { font-size: 30px; }        /* Bộ sưu tập 01 */
+  .tnl-page-heart-heart-hand h1[class~="xl:text-5xl"] { font-size: 50px !important; } /* hero title */
+}
