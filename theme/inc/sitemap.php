@@ -32,8 +32,27 @@ add_action('template_redirect', function () {
     foreach ($pages as $p) {
         if ($p->ID === $front_id) continue;
         if ($p->post_name === 'privacy-policy') continue;
+        // Loại trang MẪU của Landing Studio (template để nhân bản, không phải nội dung thật)
+        if (strpos($p->post_name, 'mau-') === 0 || strpos($p->post_title, 'MẪU') === 0) continue;
         $urls[] = ['path' => get_page_uri($p->ID), 'mod' => substr($p->post_modified_gmt, 0, 10), 'pri' => '0.8'];
     }
+
+    // Trang chi tiết clone (blog / events / courses / careers) - liệt kê theo file markup có sẵn
+    $detail_base = get_template_directory() . '/clone/parts/detail/';
+    foreach (['blog', 'events', 'courses', 'careers'] as $dtype) {
+        $dir = $detail_base . $dtype . '/';
+        if (!is_dir($dir)) continue;
+        $seen = [];
+        foreach (glob($dir . '*-vi.html') ?: [] as $file) {
+            $slug = preg_replace('/-vi\.html$/', '', basename($file));
+            if ($slug === '' || isset($seen[$slug])) continue;
+            $seen[$slug] = 1;
+            $urls[] = ['path' => $dtype . '/' . $slug, 'mod' => substr(gmdate('Y-m-d', @filemtime($file) ?: time()), 0, 10), 'pri' => '0.6'];
+        }
+    }
+
+    // Cho phép module khác thêm URL (vd bài viết blog WP) - xem inc/blog.php.
+    $urls = apply_filters('tnl_sitemap_extra_urls', $urls);
 
     header('Content-Type: application/xml; charset=UTF-8');
     echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

@@ -37,6 +37,41 @@ function tnl_clone_render_detail($type, $rawslug, $lang) {
     $base = get_template_directory() . '/clone/parts/detail/' . $type . '/';
     foreach (["$rawslug-$lang.html", "$rawslug-vi.html"] as $f) {
         if (is_readable($base . $f) && filesize($base . $f) > 0) {
+            // Đặt context trang chi tiết -> seo.php dùng để xuất title + Article/BreadcrumbList schema.
+            $html = file_get_contents($base . $f);
+            $title = '';
+            // Ưu tiên titles.json (map slug -> tiêu đề chuẩn); fallback H1 trong markup.
+            static $titles_map = null;
+            if ($titles_map === null) {
+                $tj = get_template_directory() . '/clone/parts/detail/titles.json';
+                $titles_map = is_readable($tj) ? (json_decode(file_get_contents($tj), true) ?: []) : [];
+            }
+            $tkey = $lang . '/' . $type . '/' . $rawslug;
+            if (!empty($titles_map[$tkey])) {
+                $title = trim(html_entity_decode($titles_map[$tkey], ENT_QUOTES, 'UTF-8'));
+            } elseif (preg_match('#<h1[^>]*>(.*?)</h1>#is', $html, $mh)) {
+                $title = trim(html_entity_decode(strip_tags($mh[1]), ENT_QUOTES, 'UTF-8'));
+            }
+            $desc = '';
+            if (preg_match_all('#<p[^>]*>(.*?)</p>#is', $html, $mp)) {
+                foreach ($mp[1] as $ptxt) {
+                    $t = trim(html_entity_decode(strip_tags($ptxt), ENT_QUOTES, 'UTF-8'));
+                    if (mb_strlen($t) >= 60) { $desc = mb_substr($t, 0, 160); break; }
+                }
+            }
+            $date = '';
+            if (preg_match('#\b(\d{1,2})/(\d{1,2})/(\d{4})\b#', $html, $md)) {
+                $date = sprintf('%04d-%02d-%02d', $md[3], $md[1], $md[2]); // live dùng MM/DD/YYYY
+            }
+            $GLOBALS['tnl_detail_ctx'] = array(
+                'type'  => $type,
+                'slug'  => $rawslug,
+                'lang'  => $lang,
+                'title' => $title,
+                'desc'  => $desc,
+                'date'  => $date,
+                'url'   => home_url('/' . $lang . '/' . $type . '/' . $rawslug . '/'),
+            );
             return tnl_clone_output($base . $f, $type);
         }
     }
@@ -45,26 +80,53 @@ function tnl_clone_render_detail($type, $rawslug, $lang) {
 
 /** Xuất tài liệu clone-mode standalone từ 1 file markup cụ thể rồi trả true. */
 function tnl_clone_output($file, $slug = '') {
+    return tnl_clone_emit(file_get_contents($file), $slug);
+}
+
+/** Xuất tài liệu clone-mode standalone từ một CHUỖI markup (dùng cho trang render động: blog WP...). */
+function tnl_clone_emit($markup, $slug = '') {
     if (!headers_sent()) { status_header(200); nocache_headers(); }
     global $wp_query; if ($wp_query) { $wp_query->is_404 = false; }
     $clone_uri  = get_template_directory_uri() . '/clone';
     $clone_path = get_template_directory() . '/clone';
-    $markup = file_get_contents($file);
     $s3host = 'bucketeer-4deb826f-734a-4fe9-b45f-0e12646315fb.s3.eu-west-1.amazonaws.com';
-    $markup = str_replace('="images/', '="' . $clone_uri . '/images/', $markup);
+    // Trỏ MỌI asset "images/..." về thư mục clone: bắt src, TỪNG candidate trong srcSet
+    // (dạng ", images/..."), cả url() nền (kể cả leading-slash "/images/" và entity &#x27;).
+    // Delimiter đứng trước path: = " ' ( , khoảng trắng hoặc entity quote; theo sau có thể có "/".
+    $markup = preg_replace(
+        '~([=,("\x27\s;])/?images/~',
+        '${1}' . $clone_uri . '/images/',
+        $markup
+    );
     // Ảnh S3: ưu tiên bản đã cache local (clone/s3/<file>) cho nhanh; thiếu thì fallback S3.
     $s3dir = $clone_path . '/s3/';
     $markup = preg_replace_callback(
-        '#\.\./' . preg_quote($s3host, '#') . '/([^\s"\'\\\\]+)#',
+        '#(?:\.\./|https://)' . preg_quote($s3host, '#') . '/([^\s"\'\\\\)]+)#',
         function ($m) use ($clone_uri, $s3host, $s3dir) {
-            $f = $m[1];
-            if ($f !== '' && is_readable($s3dir . rawurldecode($f))) {
-                return $clone_uri . '/s3/' . $f;
+            $token = $m[1];                          // có thể là key hoặc key?query(signed)
+            $key   = preg_replace('/\?.*$/', '', $token);
+            if ($key !== '' && is_readable($s3dir . rawurldecode($key))) {
+                return $clone_uri . '/s3/' . $key;   // phục vụ bản local theo tên object
             }
-            return 'https://' . $s3host . '/' . $f;
+            return 'https://' . $s3host . '/' . str_replace('&amp;', '&', $token); // fallback S3
         },
         $markup
     );
+
+    // Ảnh CDN ngoài (vietqr, builder.io) -> bản local đã cache (clone/ext/ + map.json).
+    $extmap = $clone_path . '/ext/map.json';
+    if (is_readable($extmap)) {
+        $map = json_decode(file_get_contents($extmap), true);
+        if (is_array($map) && $map) {
+            $pairs = [];
+            foreach ($map as $url => $name) {
+                if (is_readable($clone_path . '/ext/' . $name)) {
+                    $pairs[$url] = $clone_uri . '/ext/' . $name;
+                }
+            }
+            if ($pairs) $markup = strtr($markup, $pairs);
+        }
+    }
 
     // Bỏ theme styles để live.css render thuần.
     add_action('wp_head', function () {
@@ -98,7 +160,7 @@ function tnl_clone_output($file, $slug = '') {
 </head>
 <body class="tnl-opt<?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">
 <?php wp_body_open(); ?>
-<?php echo $markup; ?>
+<?php echo apply_filters('tnl_clone_markup', $markup, $slug, tnl_clone_lang()); ?>
 <script src="<?php echo esc_url($clone_uri . '/js/clone.js?v=' . $js_v); ?>"></script>
 <?php wp_footer(); ?>
 </body>
@@ -116,10 +178,33 @@ add_action('template_redirect', function () {
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
     $path = urldecode((string) $path);
     if (!preg_match('#^/(en|vi)/(blog|courses|events|careers)/(.+?)/?$#', $path, $m)) return;
-    $slug = $m[3];
+    $slug = trim($m[3]); // live có URL 'Head-Growth ' (dính space cuối)
     if (strpos($slug, '/') !== false || strpos($slug, '..') !== false) return; // chống path traversal
     $_GET['lang'] = $m[1]; // ép <html lang> + tnl_lang() theo prefix URL
     if (function_exists('tnl_clone_render_detail') && tnl_clone_render_detail($m[2], $slug, $m[1])) {
         exit;
     }
 }, 1);
+
+/**
+ * Credit đơn vị thiết kế: chèn 1 dòng ngay DƯỚI dòng © trong footer clone.
+ * Làm bằng filter (1 chỗ) thay vì sửa ~150 file clone/parts.
+ * Trang eq-assessment là page trần nhúng iframe (không có footer) -> tự bỏ qua.
+ */
+add_filter('tnl_clone_markup', function ($markup, $slug, $lang) {
+    $needle = '<div class="text-[#979797] text-base lg:text-xl mt-20 text-center">© <!-- -->2026<!-- --> The New Leaders. All rights reserved.</div>';
+    if (strpos($markup, $needle) === false) return $markup;
+
+    // Lấy lang thẳng từ URL: tnl_lang() dùng static cache, có thể stale trên route chi tiết.
+    $path = urldecode((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH));
+    if (preg_match('#^/(en|vi)(/|$)#', $path, $mm)) $lang = $mm[1];
+
+    $link = '<a href="https://digicomvn.com" target="_blank" rel="noopener" class="underline hover:text-white">digicomvn</a>';
+    // Digicom làm phần lập trình (design do bên khác cung cấp) -> "phát triển", KHÔNG dùng "thiết kế".
+    $text = ($lang === 'en')
+        ? 'Website developed by ' . $link . ' (Digito Combat Communication Services Company Limited).'
+        : 'Website được phát triển bởi ' . $link . ' (Công ty TNHH Dịch vụ Truyền thông Digito Combat).';
+
+    $credit = '<div class="text-[#979797] text-sm lg:text-base mt-3 text-center">' . $text . '</div>';
+    return str_replace($needle, $needle . $credit, $markup);
+}, 10, 3);

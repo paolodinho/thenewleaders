@@ -1,0 +1,122 @@
+<?php
+/**
+ * INLINE EDITOR - The New Leaders
+ * Sửa nội dung trang clone ngay trên trang (không cần đụng code):
+ *  - Editor đăng nhập -> bật "Sửa nội dung" -> mỗi ẢNH có nút Thay ảnh (kèm quy cách),
+ *    mỗi ĐOẠN CHỮ bấm vào sửa trực tiếp.
+ *  - Lưu dạng override theo từng URL -> áp cho cả khách xem (str_replace, an toàn markup).
+ */
+
+if (!defined('ABSPATH')) exit;
+
+/* Khoá lưu theo đường dẫn trang (duy nhất mỗi trang, cả /vi/ lẫn /en/). */
+function tnl_page_key() {
+    $p = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    $p = '/' . trim(urldecode((string) $p), '/');
+    return $p === '/' ? '/' : $p;
+}
+
+function tnl_overrides_all() {
+    $o = get_option('tnl_overrides', array());
+    return is_array($o) ? $o : array();
+}
+function tnl_get_overrides($key) {
+    $all = tnl_overrides_all();
+    return (isset($all[$key]) && is_array($all[$key])) ? $all[$key] : array();
+}
+
+/* Áp override vào markup clone (dùng str_replace -> không phá cấu trúc). */
+function tnl_apply_overrides($markup) {
+    $list = tnl_get_overrides(tnl_page_key());
+    if (!$list) return $markup;
+    foreach ($list as $ov) {
+        if (empty($ov['find']) || !isset($ov['replace'])) continue;
+        if (strpos($markup, $ov['find']) !== false) {
+            $markup = str_replace($ov['find'], $ov['replace'], $markup);
+        }
+    }
+    return $markup;
+}
+add_filter('tnl_clone_markup', 'tnl_apply_overrides', 20);
+
+/* Làm sạch HTML người sửa gửi lên (editor là nhân sự tin cậy, chỉ chặn script/handler). */
+function tnl_sanitize_fragment($html) {
+    $html = preg_replace('#<script\b[^>]*>.*?</script>#is', '', $html);
+    $html = preg_replace('#<iframe\b[^>]*>.*?</iframe>#is', '', $html);
+    $html = preg_replace('#\son\w+\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)#i', '', $html);
+    $html = preg_replace('#(href|src)\s*=\s*("|\')\s*javascript:[^"\']*(\2)#i', '$1=$2#$3', $html);
+    return $html;
+}
+
+/* ============================================================
+ * AJAX - lưu / xoá override
+ * ============================================================ */
+add_action('wp_ajax_tnl_save_override', function () {
+    if (!current_user_can('edit_pages')) wp_send_json_error(array('msg' => 'Không đủ quyền.'), 403);
+    check_ajax_referer('tnl_edit', 'nonce');
+
+    $key     = isset($_POST['pagekey']) ? sanitize_text_field(wp_unslash($_POST['pagekey'])) : '';
+    $type    = isset($_POST['type']) ? sanitize_key($_POST['type']) : 'text';
+    $find    = isset($_POST['find']) ? tnl_sanitize_fragment(wp_unslash($_POST['find'])) : '';
+    $replace = isset($_POST['replace']) ? tnl_sanitize_fragment(wp_unslash($_POST['replace'])) : '';
+
+    if ($key === '' || $find === '' || $find === $replace) {
+        wp_send_json_error(array('msg' => 'Không có thay đổi.'), 400);
+    }
+    $all  = tnl_overrides_all();
+    $list = isset($all[$key]) && is_array($all[$key]) ? $all[$key] : array();
+
+    // Sửa lại phần tử đã từng sửa: cập nhật entry cũ (replace hiện tại == find gửi lên).
+    $updated = false;
+    foreach ($list as &$ov) {
+        if (isset($ov['replace']) && $ov['replace'] === $find) { $ov['replace'] = $replace; $updated = true; break; }
+    }
+    unset($ov);
+    if (!$updated) $list[] = array('type' => $type, 'find' => $find, 'replace' => $replace);
+
+    $all[$key] = array_values($list);
+    update_option('tnl_overrides', $all, false);
+    wp_send_json_success(array('msg' => 'Đã lưu.'));
+});
+
+add_action('wp_ajax_tnl_reset_overrides', function () {
+    if (!current_user_can('edit_pages')) wp_send_json_error(array('msg' => 'Không đủ quyền.'), 403);
+    check_ajax_referer('tnl_edit', 'nonce');
+    $key = isset($_POST['pagekey']) ? sanitize_text_field(wp_unslash($_POST['pagekey'])) : '';
+    $all = tnl_overrides_all();
+    if (isset($all[$key])) { unset($all[$key]); update_option('tnl_overrides', $all, false); }
+    wp_send_json_success(array('msg' => 'Đã hoàn tác trang này.'));
+});
+
+/* ============================================================
+ * Nạp asset editor + biến JS (chỉ cho người có quyền sửa)
+ * ============================================================ */
+add_action('wp_enqueue_scripts', function () {
+    if (!current_user_can('edit_pages')) return;
+    $dir = get_template_directory();
+    $uri = get_template_directory_uri();
+    wp_enqueue_media();
+    wp_enqueue_style('tnl-inline-editor', $uri . '/assets/inline-editor.css', array(), @filemtime($dir . '/assets/inline-editor.css') ?: '1');
+    wp_enqueue_script('tnl-inline-editor', $uri . '/assets/inline-editor.js', array('jquery'), @filemtime($dir . '/assets/inline-editor.js') ?: '1', true);
+    wp_localize_script('tnl-inline-editor', 'tnlEdit', array(
+        'ajax'    => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('tnl_edit'),
+        'pagekey' => tnl_page_key(),
+        'active'  => isset($_GET['tnl_edit']) ? 1 : 0,
+    ));
+}, 20);
+
+/* Nút "Sửa nội dung" trên thanh admin (bật/tắt chế độ sửa). */
+add_action('admin_bar_menu', function ($bar) {
+    if (!current_user_can('edit_pages') || is_admin()) return;
+    $on  = isset($_GET['tnl_edit']);
+    $url = $on
+        ? remove_query_arg('tnl_edit')
+        : add_query_arg('tnl_edit', '1');
+    $bar->add_node(array(
+        'id'    => 'tnl-edit-toggle',
+        'title' => $on ? '✕ Thoát chế độ sửa' : '✎ Sửa nội dung',
+        'href'  => esc_url($url),
+        'meta'  => array('title' => 'Bật/tắt chỉnh sửa nội dung trực tiếp trên trang'),
+    ));
+}, 90);

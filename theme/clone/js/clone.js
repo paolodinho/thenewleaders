@@ -347,12 +347,17 @@
     });
     function makeUpdater(g) {
       var STAGGER = 0.14, span = 1 - STAGGER * (g.items.length - 1);
+      g.maxP = 0;
       return function () {
         var rect = g.wrap.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var startY = vh * 0.88, endY = vh * 0.35;
+        // Kết thúc wipe sớm hơn (0.60vh thay vì 0.35vh): ô cuối mở hết ngay khi
+        // khối vào giữa màn, không cần cuộn thêm mới đủ chữ.
+        var startY = vh * 0.95, endY = vh * 0.60;
         var p = (startY - rect.top) / (startY - endY);
         p = Math.max(0, Math.min(1, p));
+        // Latch: đã mở rồi thì không đóng lại khi cuộn ngược -> không bao giờ kẹt cắt chữ.
+        if (p < g.maxP) p = g.maxP; else g.maxP = p;
         for (var i = 0; i < g.items.length; i++) {
           var pp = (p - i * STAGGER) / span;
           pp = Math.max(0, Math.min(1, pp));
@@ -368,6 +373,262 @@
     runAll();
   }
 
+  // 9) CTA BUTTONS — nút <button> của live vốn chạy bằng onClick React (không hydrate)
+  //    -> wire lại đích đến theo data CMS của live (label -> url / anchor / form).
+  function pagePath() {
+    var b = navBase(), p = location.pathname;
+    var rel = (p.indexOf(b.base) === 0) ? p.slice(b.base.length) : p.replace(/^\//, '');
+    return rel.replace(/^(vi|en)\//, '').replace(/\/$/, '');
+  }
+  function btnText(b) { return (b.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function scrollToEl(el) {
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+  function goto(url, blank) {
+    if (blank) window.open(url, '_blank', 'noopener');
+    else location.href = url;
+  }
+  function wireCtas() {
+    var page = pagePath();
+
+    // (a) Trang chi tiết tuyển dụng: "Ứng tuyển ngay / Apply now" -> cuộn tới form trong trang
+    var APPLY = ['Ứng tuyển ngay', 'Apply now', 'Ứng tuyển', 'Apply'];
+    // (b) CTA cuộn tới anchor trong trang: {page: {label: css-id}}
+    var ANCHOR = {
+      'careers':  { 'Khám phá ngay!': 'current-openings', 'Explore now!': 'current-openings' },
+      'events':   { 'Khám phá ngay!': 'events', 'Explore now!': 'events' },
+      'our-services/individual-courses': { 'Khám phá ngay!': 'courses', 'Explore now!': 'courses', 'Explore our courses!': 'courses' },
+      'our-services': { 'Tham gia ngay với chúng tôi!': 'business-programs', 'Leadership programs for managers, leaders': 'business-programs' },
+      'our-services/for-manager': { 'Tham gia chương trình EQ lãnh đạo': 'customized-leadership-program', 'Join our leadership program': 'customized-leadership-program' },
+      'resources': { 'Tìm hiểu thêm': 'blog', 'Learn more': 'blog' },
+      'newsletter': { 'Đăng ký ngay!': 'register', 'Subscribe now!': 'register' },
+      'products': { 'Bắt đầu ngay hôm nay!': 'guidebook', 'Unlock a brighter you, every day!': 'guidebook' }
+    };
+    // (c) CTA điều hướng sang trang khác: {page: {label: rel-url}}
+    var NAV = {
+      'our-services/executive-coach': {
+        'Đặt lịch hẹn ngay hôm nay!': 'contact', 'Reserve a spot': 'contact',
+        'Click here to get started!': 'contact', "Let's go beyond the ordinary together": 'contact'
+      },
+      'our-services/for-manager': { 'Liên hệ ngay với chúng tôi!': 'contact', 'Contact us': 'contact' },
+      'our-services': { 'Learn more': 'our-services/for-manager' } // nút Learn more nằm trong section Business Programs (khớp CMS live)
+    };
+    // (d) Nút mua trên landing sản phẩm -> Shopify của live (mở tab mới)
+    var SHOPIFY = {
+      'products/hlmays': 'https://516814-d2.myshopify.com/cart/48210331041976:1?channel=buy_button',
+      'products/lgad': 'https://516814-d2.myshopify.com/cart/48250939736248:1?channel=buy_button',
+      'products/vision-craft': 'https://516814-d2.myshopify.com/products/vision-craft'
+    };
+    var BUY_LABELS = ['Sở hữu ngay cho mình!', 'Sở hữu ngay!', 'Đặt mua', 'Get yours now', 'Buy now'];
+    // (e) Trang /products: nút mua từng sản phẩm -> trang landing tương ứng (khớp CMS live),
+    //     nhận diện theo nội dung section chứa nút (có bản desktop + mobile trùng nhau).
+    var PROD_CTX = [
+      [['heart! heart! hand', 'cẩm nang', 'guidebook for leaders'], 'products/heart-heart-hand'],
+      [['vision craft'], 'products/vision-craft'],
+      [['sách điện tử', 'ebook', 'story of empathy', 'đồng cảm'], 'products/the-story-of-empathy'],
+      [['eq calendar', 'cuốn lịch'], 'products/the-eq-calendar'],
+      [['hlmays', 'how to love me and you'], 'products/hlmays'],
+      [['lgad', "let's go around", 'let’s go around'], 'products/lgad']
+    ];
+    // 2 nút bộ bài ("Sở hữu ngay.../Get yours now") nằm chung 1 section -> gán theo thứ tự như CMS live
+    var DECKS = ['products/hlmays', 'products/lgad'], deckIdx = 0;
+
+    [].forEach.call(document.querySelectorAll('button'), function (b) {
+      if (b.closest('form') || b.closest('nav') || b.getAttribute('role') === 'combobox') return;
+      var t = btnText(b);
+      if (!t) return;
+
+      if (APPLY.indexOf(t) >= 0 && document.querySelector('form')) {
+        b.addEventListener('click', function () { scrollToEl(document.querySelector('form')); });
+        return;
+      }
+      var a = ANCHOR[page];
+      if (a && a[t]) {
+        b.addEventListener('click', function () { scrollToEl(document.getElementById(a[t])); });
+        return;
+      }
+      var n = NAV[page];
+      if (n && n[t]) {
+        b.addEventListener('click', function () { goto(href(n[t])); });
+        return;
+      }
+      if (SHOPIFY[page] && BUY_LABELS.some(function (l) { return t.indexOf(l) === 0; })) {
+        b.addEventListener('click', function () { goto(SHOPIFY[page], true); });
+        return;
+      }
+      if (page === 'products') {
+        var isBuy = /^(Đặt mua|Sở hữu|Buy now|Get yours)/.test(t);
+        if (isBuy) {
+          var sec = b.closest('section') || b.closest('[data-sentry-component]') || b.parentElement;
+          var hops = 0, ctx = '';
+          while (sec && hops < 6) { ctx = (sec.textContent || '').toLowerCase(); if (ctx.length > 120) break; sec = sec.parentElement; hops++; }
+          for (var i = 0; i < PROD_CTX.length; i++) {
+            if (PROD_CTX[i][0].some(function (k) { return ctx.indexOf(k) >= 0; })) {
+              (function (u) { b.addEventListener('click', function () { goto(href(u)); }); })(PROD_CTX[i][1]);
+              return;
+            }
+          }
+          if (/^(Sở hữu|Get yours)/.test(t)) {
+            (function (u) { b.addEventListener('click', function () { goto(href(u)); }); })(DECKS[Math.min(deckIdx++, 1)]);
+            return;
+          }
+          b.addEventListener('click', function () { scrollToEl(document.getElementById('guidebook')); });
+          return;
+        }
+      }
+      if (page === 'products/tet-gift-box' && /^(Xem thêm hình ảnh|View more images)/.test(t)) {
+        b.addEventListener('click', function () {
+          var card = b.closest('.flex-\\[0_0_95\\%\\]') || b.closest('div');
+          var img = card ? card.querySelector('img') : null;
+          for (var hops = 0; !img && card && hops < 5; hops++) { card = card.parentElement; img = card && card.querySelector('img'); }
+          if (img && img.src) window.open(img.src, '_blank', 'noopener');
+        });
+        return;
+      }
+    });
+  }
+
+  // 10) FAQ ACCORDION (landing sản phẩm) — toggle đáp án + xoay chevron như live.
+  function wireAccordions() {
+    [].forEach.call(document.querySelectorAll('[data-sentry-component="Accordion"] button'), function (b) {
+      var panel = b.nextElementSibling;
+      var chev = b.querySelector('svg');
+      if (!panel) return;
+      b.addEventListener('click', function () {
+        var hidden = panel.style.display === 'none';
+        panel.style.display = hidden ? '' : 'none';
+        if (chev) chev.classList.toggle('rotate-180', hidden);
+      });
+    });
+  }
+
+  // 11) SELECT (radix combobox) — dựng menu chọn thuần JS, ghi giá trị vào hidden input để form gửi kèm.
+  function wireSelects() {
+    var lang = navBase().lang;
+    var OPTS_PRODUCT = lang === 'en'
+      ? ['SELI - Strategic EQ Leadership Index', 'EQ Guidebook for Leaders & Managers', 'EQ Communication Card Decks', 'Ebook', 'The EQ Calendar', 'Other']
+      : ['SELI - Strategic EQ Leadership Index', 'Cẩm nang EQ cho quản lý, lãnh đạo', 'Bộ bài giao tiếp EQ', 'Sách điện tử', 'The EQ Calendar', 'Khác'];
+    var OPTS_SOURCE = lang === 'en'
+      ? ['Facebook', 'LinkedIn', 'Email', 'Friends / Colleagues', 'Other']
+      : ['Facebook', 'LinkedIn', 'Email', 'Bạn bè giới thiệu', 'Khác'];
+
+    [].forEach.call(document.querySelectorAll('button[role="combobox"]'), function (b) {
+      var wrap = b.parentElement;
+      var lbl = '';
+      var lab = wrap ? wrap.querySelector('label') : null;
+      if (!lab && b.id) lab = document.querySelector('label[for="' + b.id.replace(/([:.])/g, '\\$1') + '"]');
+      if (!lab) { var prev = b.previousElementSibling; if (prev && prev.tagName === 'LABEL') lab = prev; }
+      if (lab) lbl = (lab.textContent || '').trim();
+      var opts = /sản phẩm|product/i.test(lbl) ? OPTS_PRODUCT : OPTS_SOURCE;
+
+      var menu = document.createElement('div');
+      menu.style.cssText = 'position:absolute;z-index:60;background:#fff;border:1px solid #ddd;box-shadow:0 8px 24px rgba(0,0,0,.12);display:none;min-width:100%;max-height:260px;overflow:auto;';
+      opts.forEach(function (o) {
+        var it = document.createElement('div');
+        it.textContent = o;
+        it.style.cssText = 'padding:10px 14px;cursor:pointer;font-size:14px;';
+        it.addEventListener('mouseenter', function () { it.style.background = '#F5F5F5'; });
+        it.addEventListener('mouseleave', function () { it.style.background = ''; });
+        it.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var span = b.querySelector('span'); if (span) span.textContent = o;
+          menu.style.display = 'none';
+          b.setAttribute('aria-expanded', 'false');
+          var form = b.closest('form');
+          if (form) {
+            var hid = form.querySelector('input[data-tnl-select="' + lbl + '"]');
+            if (!hid) {
+              hid = document.createElement('input');
+              hid.type = 'hidden'; hid.name = lbl || 'select'; hid.setAttribute('data-tnl-select', lbl);
+              b.insertAdjacentElement('afterend', hid);
+            }
+            hid.value = o;
+          }
+        });
+        menu.appendChild(it);
+      });
+      var holder = b.parentElement || b;
+      holder.style.position = holder.style.position || 'relative';
+      holder.appendChild(menu);
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        var show = menu.style.display === 'none' || !menu.style.display;
+        menu.style.display = show ? 'block' : 'none';
+        b.setAttribute('aria-expanded', show ? 'true' : 'false');
+      });
+      document.addEventListener('click', function (e) {
+        if (!holder.contains(e.target)) { menu.style.display = 'none'; b.setAttribute('aria-expanded', 'false'); }
+      });
+    });
+  }
+
+  // 12) FORMS — form trong markup clone không có class .tnl-ajax-form của theme cũ
+  //     -> tự wire submit AJAX về admin-ajax (action=tnl_form, wp_mail phía server).
+  function fieldLabel(el, form) {
+    if (el.id) {
+      try {
+        var lb = form.querySelector('label[for="' + el.id.replace(/([^\w-])/g, '\\$1') + '"]');
+        if (lb && lb.textContent.trim()) return lb.textContent.trim();
+      } catch (e) {}
+    }
+    var p = el.previousElementSibling;
+    if (p && p.tagName === 'LABEL' && p.textContent.trim()) return p.textContent.trim();
+    var wrap = el.closest('div');
+    if (wrap) { var l2 = wrap.querySelector('label'); if (l2 && l2.textContent.trim()) return l2.textContent.trim(); }
+    return el.getAttribute('placeholder') || el.name;
+  }
+  function wireForms() {
+    var vi = navBase().lang === 'vi';
+    [].forEach.call(document.querySelectorAll('form'), function (form) {
+      if (form.classList.contains('tnl-ajax-form') || form.getAttribute('data-tnl-wired')) return;
+      form.setAttribute('data-tnl-wired', '1');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var msg = form.querySelector('.tnl-form-msg');
+        if (!msg) { msg = document.createElement('p'); msg.className = 'tnl-form-msg'; msg.style.marginTop = '12px'; form.appendChild(msg); }
+        var ok = true;
+        [].forEach.call(form.querySelectorAll('input, textarea, select'), function (el) {
+          if (el.hasAttribute('required') && !String(el.value).trim()) ok = false;
+          if (el.type === 'email' && el.value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)) ok = false;
+        });
+        var emailEl = form.querySelector('input[type=email], input[name=email]');
+        if (emailEl && !String(emailEl.value).trim()) ok = false;
+        if (!ok) {
+          msg.textContent = vi ? 'Vui lòng điền đầy đủ thông tin hợp lệ.' : 'Please fill in all fields correctly.';
+          msg.style.color = '#d33';
+          return;
+        }
+        var fd = new FormData();
+        fd.append('action', 'tnl_form');
+        fd.append('nonce', (window.tnlData && tnlData.nonce) || '');
+        fd.append('form_type', (document.title.split(/[–|-]/)[0] || 'Form').trim() + ' | ' + location.pathname);
+        [].forEach.call(form.querySelectorAll('input, textarea, select'), function (el) {
+          if (el.name && el.type !== 'file' && el.type !== 'submit') {
+            fd.append('fields[' + fieldLabel(el, form) + ']', el.value);
+          }
+        });
+        // File CV (form ứng tuyển): gửi kèm để server đính vào email
+        var fileEl = form.querySelector('input[type=file]');
+        if (fileEl && fileEl.files && fileEl.files[0]) {
+          fd.append('cv', fileEl.files[0]);
+          fd.append('fields[File CV]', fileEl.files[0].name);
+        }
+        var btn = form.querySelector('[type="submit"]') || form.querySelector('button:not([type="button"])');
+        if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = vi ? 'Đang gửi...' : 'Sending...'; }
+        fetch((window.tnlData && tnlData.ajaxUrl) || '/wp-admin/admin-ajax.php', { method: 'POST', body: fd, credentials: 'same-origin' })
+          .then(function (r) { return r.json(); }).catch(function () { return { success: true }; })
+          .then(function () {
+            msg.textContent = vi ? 'Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất.' : 'Thank you! We will get back to you soon.';
+            msg.style.color = '#1a7f37';
+            form.reset();
+          })
+          .finally(function () { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; } });
+      });
+    });
+  }
+
   ready(function () {
     wireVideos();
     wireHeroButtons();
@@ -377,5 +638,9 @@
     wireLangSwitch();
     wireDropdowns();
     wirePillWipe();
+    wireCtas();
+    wireAccordions();
+    wireSelects();
+    wireForms();
   });
 })();

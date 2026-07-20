@@ -16,11 +16,19 @@ Text Domain: thenewleaders
    ============================================================ */
 /* Euclid Circular A — bản EuclidCircularAVN (647 glyph) hỗ trợ ĐẦY ĐỦ tiếng Việt + Latin.
    Dùng cho cả EN lẫn VI -> đồng nhất 1 font toàn site, không cần fallback Be Vietnam Pro. (2026-06-06) */
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Regular.woff2?v=5') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Light.woff2?v=5') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Medium.woff2?v=5') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-SemiBold.woff2?v=5') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Euclid Circular A'; src: url('assets/fonts/EuclidCircularAVN-Bold.woff2?v=5') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-Regular.woff2?v=5') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-Light.woff2?v=5') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-Medium.woff2?v=5') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-SemiBold.woff2?v=5') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-Bold.woff2?v=5') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* Bản nghiêng (2026-07-20) — trước đây thiếu -> trình duyệt nghiêng "giả lập" (skew), nét xấu.
+   File từ clone/fonts, 648 glyph, đủ tiếng Việt. */
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-RegularItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-RegularItalic.woff?v=5') format('woff'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-LightItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-LightItalic.woff?v=5') format('woff'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-MediumItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-MediumItalic.woff?v=5') format('woff'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-SemiBoldItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-SemiBoldItalic.woff?v=5') format('woff'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-BoldItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-BoldItalic.woff?v=5') format('woff'); font-weight: 700; font-style: italic; font-display: swap; }
 
 /* ============================================================
    CSS CUSTOM PROPERTIES
@@ -47,8 +55,8 @@ Text Domain: thenewleaders
   --color-tag-orange:   #FF9B52;
 
   /* Typography */
-  --font-display:  'Euclid Circular A', sans-serif;
-  --font-body:     'Euclid Circular A', sans-serif;
+  --font-display:  'EuclidCircularAVN', 'Euclid Circular A', sans-serif;
+  --font-body:     'EuclidCircularAVN', 'Euclid Circular A', sans-serif;
 
   /* Spacing */
   --section-py:    128px;

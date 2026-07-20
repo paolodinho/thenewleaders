@@ -1,0 +1,60 @@
+/* ============================================================
+   INLINE EDITOR - chỉ hiện khi bật chế độ sửa (body.tnl-editing)
+   ============================================================ */
+
+/* Thanh công cụ dưới màn hình */
+.tnl-editbar {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 20px; z-index: 99998;
+  background: #1D1D1D; color: #fff; border-radius: 999px; padding: 10px 12px 10px 20px;
+  display: flex; align-items: center; gap: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  font: 500 14px/1.2 system-ui, sans-serif;
+}
+.tnl-editbar__dot { width: 9px; height: 9px; border-radius: 50%; background: #FF4F21; box-shadow: 0 0 0 4px rgba(255,79,33,.25); }
+.tnl-editbar b { color: #fff; }
+.tnl-editbar__hint { color: rgba(255,255,255,.6); font-size: 13px; }
+.tnl-editbar button {
+  border: 0; border-radius: 999px; padding: 9px 16px; font: 600 13px/1 system-ui; cursor: pointer;
+}
+.tnl-editbar .tnl-eb-reset { background: transparent; color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.25); }
+.tnl-editbar .tnl-eb-reset:hover { color: #fff; border-color: #fff; }
+.tnl-editbar .tnl-eb-done { background: #FF4F21; color: #fff; }
+.tnl-editbar .tnl-eb-done:hover { background: #E03A10; }
+
+/* Toast lưu */
+.tnl-toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 78px; z-index: 99999;
+  background: #1a7f37; color: #fff; padding: 10px 18px; border-radius: 10px; font: 600 14px system-ui;
+  opacity: 0; transition: opacity .2s, transform .2s; pointer-events: none;
+}
+.tnl-toast.show { opacity: 1; }
+.tnl-toast.err { background: #d63638; }
+
+/* ẢNH có thể thay: viền + nút khi hover */
+body.tnl-editing .tnl-editable-img { position: relative; outline: 2px dashed rgba(255,79,33,.5); outline-offset: 2px; cursor: pointer; }
+body.tnl-editing .tnl-editable-img:hover { outline: 2px solid #FF4F21; }
+/* Nút thay ảnh + quy cách: 1 phần tử nổi dùng chung, định vị theo viewport */
+.tnl-img-btn {
+  position: fixed; z-index: 99997;
+  background: #FF4F21; color: #fff; border: 0; border-radius: 8px; padding: 7px 12px;
+  font: 600 13px/1 system-ui; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  opacity: 0; visibility: hidden; transition: opacity .12s;
+}
+.tnl-img-btn.show { opacity: 1; visibility: visible; }
+.tnl-img-btn:hover { background: #E03A10; }
+.tnl-img-spec {
+  position: fixed; z-index: 99996;
+  background: #1D1D1D; color: #fff; padding: 8px 11px; border-radius: 8px;
+  font: 500 12px/1.4 system-ui; white-space: nowrap; box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s;
+}
+.tnl-img-spec.show { opacity: 1; visibility: visible; }
+.tnl-img-spec b { color: #FF9B52; }
+
+/* CHỮ có thể sửa */
+body.tnl-editing .tnl-editable-text { outline: 1px dashed rgba(255,79,33,.45); outline-offset: 3px; cursor: text; border-radius: 3px; transition: outline-color .12s; }
+body.tnl-editing .tnl-editable-text:hover { outline-color: #FF4F21; }
+body.tnl-editing .tnl-editable-text[contenteditable="true"] { outline: 2px solid #FF4F21; background: rgba(255,79,33,.06); }
+
+/* nhãn nhỏ "sửa" khi hover chữ */
+body.tnl-editing .tnl-editable-text { position: relative; }

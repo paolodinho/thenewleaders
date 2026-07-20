@@ -8,18 +8,25 @@
 
 /* ===== §1 TYPOGRAPHY ===== */
 
-/* Nét body "đầm" hơn (feedback) — giữ Euclid, KHÔNG đụng heading */
+/* Body weight 400 theo ĐÚNG Figma (style "30 body TNL website" w400; đo 104 text
+   node trang chủ Figma 2026-07-20: body đều w400, đậm 700 chỉ ở heading).
+   Bỏ mức 500 của feedback cũ "đầm hơn" - khách chốt lại theo vibe Figma mảnh. */
 .tnl-opt p,
 .tnl-opt li,
 .tnl-opt blockquote {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Line-height body thoáng (chuẩn 1.55-1.65). Sửa chỗ 1.25 quá chật.
    live dùng !leading-* (important) nên cần !important để thắng. */
 .tnl-opt p,
 .tnl-opt li {
-  line-height: 1.6 !important;
+  line-height: 1.2 !important; /* Figma: body 30/36, card 20/24.2 - đều ~1.2 */
+}
+/* Bài viết dài (prose) giữ line-height thoáng cho dễ đọc */
+.tnl-opt .prose p,
+.tnl-opt .prose li {
+  line-height: 1.65 !important;
 }
 
 /* Measure 60-72 ký tự: cap đoạn quá rộng (đo thực tế có chỗ 85-90ch).
@@ -46,7 +53,7 @@
 /* ===== §3 TRANG SỰ KIỆN: chữ "nhẹ hơn" (feedback) =====
    Chữ đen/tối trên thẻ sự kiện -> #3A3A3A (vẫn đạt contrast WCAG AA).
    Chỉ áp vùng sự kiện (body.tnl-opt-events), không đụng chữ trắng trên nền tối. */
-.tnl-opt-events p,
+.tnl-opt-events p:not(.text-white):not([class*="text-white"]),
 .tnl-opt-events .text-black,
 .tnl-opt-events [class*="text-[#101"],
 .tnl-opt-events [class*="text-[#000"],
@@ -84,10 +91,11 @@
   transform: translateY(-1px);
 }
 
-/* 2026-06-13 — Mobile: ẩn section 1 (hero video VideoBanner) trên di động.
-   Yêu cầu Hiếu: bản di động bỏ video hero. Desktop giữ nguyên. */
+/* 2026-07-14 — Mobile: KHÔI PHỤC hero video (VideoBanner) như bản desktop.
+   Yêu cầu Hiếu 2026-07-14: "khôi phục section hero như bản desktop".
+   (Đảo lại quyết định 2026-06-13 từng ẩn video hero trên di động.) */
 @media (max-width: 768px) {
-  [data-sentry-component="VideoBanner"] { display: none !important; }
+  [data-sentry-component="VideoBanner"] { display: block !important; }
 }
 
 /* 2026-06-13 — TỐI ƯU GỌN GÀNG TRANG CHỦ (pass 1: vertical rhythm).
@@ -123,4 +131,163 @@
   .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{ top:-60px; width:104px; }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 20px; }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 20px; }
+}
+
+/* ===== §6 FOOTER - khớp live (2026-07-13) =====
+   Tinh chỉnh body-text ở §1/§2 (lh 1.6, weight 500, p+p margin) KHÔNG áp cho footer:
+   footer gồm nhãn màu (Kết nối./Truyền cảm hứng./...) + thông tin liên hệ,
+   live để hộp màu sát nhau (gap-3), chữ weight 400, leading-tight. */
+.tnl-opt [class*="bg-[#101010]"] p {
+  font-weight: 400;
+  max-inline-size: none;
+  line-height: 1.4 !important;   /* contact block: khớp lh mặc định của live */
+}
+.tnl-opt [class*="bg-[#101010]"] p + p { margin-top: 0; }
+.tnl-opt [class*="bg-[#101010]"] [class*="gap-3"] > p {
+  line-height: 1.25 !important;  /* nhãn màu: !leading-tight như live */
+}
+
+/* ===== §7 BLOG / EVENT DETAIL - dàn trang bài viết (2026-07-14) =====
+   Bug gốc: nội dung CMS dùng xuống-dòng-đơn (\n) trong 1 thẻ <p> để tách ý,
+   HTML nuốt \n -> nhiều ý dính thành 1 khối chữ liền, đọc rất mệt.
+   Fix: honor xuống dòng của tác giả (pre-line) + nhịp đoạn đều + ảnh/tiêu đề cân. */
+.tnl-opt .prose p,
+.tnl-opt .prose li {
+  white-space: pre-line;              /* tôn trọng \n tác giả -> mỗi ý 1 dòng */
+}
+.tnl-opt .prose p {
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+  line-height: 1.75;                  /* nhịp đọc thoáng, đồng đều mọi đoạn */
+}
+.tnl-opt .prose > :first-child { margin-top: 0; }
+/* Cỡ chữ thân bài đồng nhất (chống "to bé không đều") */
+.tnl-opt .prose p,
+.tnl-opt .prose li {
+  font-size: 1.0625rem;               /* 17px - đồng nhất toàn thân bài */
+  line-height: 1.75 !important;       /* thắng §1 (.tnl-opt p lh 1.6 !important) */
+}
+@media (min-width:1024px){
+  .tnl-opt .prose p,
+  .tnl-opt .prose li { font-size: 1.125rem; }  /* 18px desktop */
+}
+/* Danh sách: thụt & giãn đều */
+.tnl-opt .prose ul,
+.tnl-opt .prose ol { margin: 1.1em 0; padding-inline-start: 1.4em; }
+.tnl-opt .prose li { margin: .4em 0; }
+/* Heading trong bài: thang cỡ nhất quán, có khoảng thở phía trên */
+.tnl-opt .prose h2 { font-size: 1.6rem; line-height: 1.25; margin: 1.8em 0 .6em; font-weight: 700; }
+.tnl-opt .prose h3 { font-size: 1.3rem; line-height: 1.3;  margin: 1.5em 0 .5em; font-weight: 700; }
+.tnl-opt .prose h2:first-child,
+.tnl-opt .prose h3:first-child { margin-top: 0; }
+/* Ảnh trong bài: không tràn, bo nhẹ, canh giữa, có khoảng cách trên/dưới */
+.tnl-opt .prose img {
+  max-width: 100%; height: auto; display: block;
+  margin: 1.6em auto; border-radius: 8px;
+}
+/* Đoạn chỉ chứa 1 ảnh: bỏ pre-line kẻo tạo dòng trống thừa quanh ảnh */
+.tnl-opt .prose p:has(> img:only-child) { white-space: normal; margin: 1.6em 0; }
+
+/* ===== §8 HERO LANDING SẢN PHẨM - chữ trắng đọc được trên nền bận (2026-07-14) =====
+   Bug: h1 hero (text-white) nằm trên ảnh nền nhiều hoạ tiết/thẻ sáng -> chìm chữ,
+   không đọc được (vd /products/heart-heart-hand). Fix: viền tối nhiều lớp cho chữ
+   luôn tách nền, KHÔNG đổi bố cục/màu. An toàn cho mọi hero chữ trắng (chỉ tăng rõ). */
+/* CHỈ áp cho hero CHỮ TRẮNG (có ancestor .text-white, vd heart-heart-hand) —
+   KHÔNG đụng hero chữ tối như executive-coach (text-nero) kẻo tạo bóng mờ xấu. */
+.tnl-opt [data-sentry-component="HeroSection"] .text-white h1,
+.tnl-opt [data-sentry-component="HeroSection"] h1.text-white {
+  text-shadow: 0 1px 2px rgba(0,0,0,.9),
+               0 2px 10px rgba(0,0,0,.72),
+               0 0 22px rgba(0,0,0,.55);
+}
+
+/* ===== §9 AVATAR TESTIMONIAL KHÔNG CÓ ẢNH - tránh "ảnh lỗi" (2026-07-14) =====
+   Bug: live render <img> KHÔNG có src cho người chưa gửi ảnh (vd Hai Tran - MediGroup
+   Vietnam ở /for-team-member). Trình duyệt hiện chữ alt trần trong ô 128px -> trông
+   như ảnh vỡ + đè chữ. Fix: biến ô rỗng thành vòng tròn màu brand + silhouette người,
+   ẩn chữ alt. Áp mọi avatar rỗng toàn site (5 trang EN dính cùng lỗi). KHÔNG bịa ảnh thật. */
+.tnl-opt img.rounded-full:not([src]),
+.tnl-opt img.rounded-full[src=""] {
+  background: #FF7C33 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.6-9 6v1h18v-1c0-3.4-4-6-9-6Z'/%3E%3C/svg%3E") center/58% no-repeat;
+  font-size: 0;          /* ẩn chữ alt tràn ra */
+  color: transparent;
+  object-fit: cover;
+}
+
+/* ===== §10 FONT — ép EuclidCircularAVN toàn site (2026-07-20) =====
+   Lỗi: live.css đặt html{font-family:Euclid Circular A} (bản 553 glyph,
+   THIẾU ư/ơ/ấ/ồ/ệ...). Quy tắc .lang-vi{EuclidCircularAVN} của live không
+   bao giờ khớp vì markup clone không có class lang-vi/lang-en -> mọi chữ có
+   dấu tiếng Việt rơi về font hệ thống -> chữ lệch nét, không "đầm" như khách yêu cầu.
+   Fix: dùng bản AVN (647 glyph, đủ tiếng Việt) làm font chính cả VI lẫn EN.
+   Giữ nguyên font trang trí: Fz American Typewriter, Ms Madi, Lexend. */
+html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
+/* live.css đặt trực tiếp trên .lang-en/.lang-vi + html; chỉ cần đè gốc là đủ
+   vì mọi element khác kế thừa. Font trang trí giữ nguyên (khớp live). */
+.lang-en, .lang-vi { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
+.font-american-typewriter { font-family: 'Fz American Typewriter', 'Courier New', monospace; }
+.font-lexend { font-family: Lexend, Tahoma, sans-serif; }
+.font-ms-madi { font-family: 'Ms Madi', cursive; }
+
+/* ===== §11 WEIGHT chữ in đậm trong thân bài (2026-07-20, yêu cầu Henry Dinh) =====
+   Live để <strong>/<b> ở 700 (bold) — nét dày hơn hẳn chữ xung quanh (500).
+   Khách yêu cầu hạ về ~500 cho nét mảnh, đồng đều. Chỉ áp cho chữ nhấn trong
+   đoạn văn; KHÔNG đụng heading (h1-h6 giữ 700) và nút/CTA. */
+.tnl-opt strong, .tnl-opt b { font-weight: 500; } /* body 400 -> 500 thành nhấn nhẹ, khớp Figma (Figma không bold trong đoạn văn) */
+/* Heading giữ nguyên nét đậm gốc (không bị kéo về 500). */
+.tnl-opt h1 strong, .tnl-opt h2 strong, .tnl-opt h3 strong,
+.tnl-opt h4 strong, .tnl-opt h5 strong, .tnl-opt h6 strong,
+.tnl-opt h1 b, .tnl-opt h2 b, .tnl-opt h3 b,
+.tnl-opt h4 b, .tnl-opt h5 b, .tnl-opt h6 b { font-weight: inherit; }
+
+
+/* ===== §12 FIGMA PARITY - cỡ chữ đúng thiết kế (2026-07-20, "làm giống Figma") =====
+   Nguồn: đo 104 text node frame Home 1 (12591:1653) @1728px qua Figma REST API.
+   Chỉ áp desktop >=1024 (Figma là bản desktop); mobile giữ scale cũ. */
+@media (min-width: 1024px) {
+  /* Body đoạn văn: Figma 30/36 (web cũ 20/32). Nhận diện = có cả text-base + lg:text-xl
+     (card title dùng text-2xl+lg:text-xl nên không dính). */
+  .tnl-opt [class~="text-base"][class~="lg:text-xl"],
+  .tnl-opt [class~="text-base"][class~="lg:text-xl"] p {
+    font-size: 30px;
+  }
+  /* Sub-head / hero sub / Practical. / values label: Figma 50 (web cũ 30) */
+  .tnl-opt [class~="lg:text-3xl"] {
+    font-size: 50px;
+  }
+  /* Practical. pill: Figma line-height 75/50 = 1.5 */
+  .tnl-opt .py-1.w-fit p[class~="lg:text-3xl"] {
+    line-height: 1.5 !important;
+  }
+  /* Testimonial: tên+chức vụ Figma 30 w700 lh38; quote Figma 20/25.4 (web 18) */
+  .tnl-opt .space-y-20 h3[class~="text-xl"] {
+    font-size: 30px; line-height: 1.27; font-weight: 700;
+  }
+  .tnl-opt .space-y-20 p[class~="text-sm"] {
+    font-size: 30px; line-height: 1.27 !important; font-weight: 700;
+  }
+  .tnl-opt .space-y-20 [class~="text-lg"],
+  .tnl-opt .space-y-20 [class~="text-lg"] p {
+    font-size: 20px; line-height: 1.27 !important;
+  }
+  /* Values label (Inclusiveness/Optimism...): Figma override w700 50px */
+  .tnl-opt [class~="lg:text-3xl"][class~="font-bold"] {
+    font-weight: 700;
+  }
+  /* Footer nhãn Connect./Inspire./Lead./Pioneer.: Figma 50/75 (web 48/60) */
+  .tnl-opt [class~="lg:text-5xl"],
+  .tnl-opt [class*="bg-[#101010]"] p[class~="lg:text-5xl"] {
+    font-size: 50px; line-height: 1.5 !important;
+  }
+  /* Footer đen + card what-we-do giữ cỡ Figma 20 - khôi phục nếu lỡ dính rule body */
+  .tnl-opt [class*="bg-[#101010]"] [class~="lg:text-xl"],
+  .tnl-opt [class*="bg-[#101010]"] [class~="lg:text-xl"] p {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1280px) {
+  /* Watermark/section headline: Figma 130/130 (web xl:text-8xl 96px) */
+  .tnl-opt [class~="xl:text-8xl"] {
+    font-size: 130px; line-height: 1 !important;
+  }
 }

@@ -1,0 +1,1279 @@
+{
+ "contact": {
+  "label": "Liên hệ",
+  "sections": [
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "eq-quiz": {
+  "label": "EQ Quiz",
+  "sections": [
+   {
+    "label": "Free Emotional Intelligence Quiz from Harvard Business Review",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "executive-coach": {
+  "label": "Coaching cho lãnh đạo",
+  "sections": [
+   {
+    "label": "Elevate Your Leadership Excellence with Expert Coaching",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Let’s work together!",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec2_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Identify your blind spots in your current leadership",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Let s work together!",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Who should join my leadership coaching?",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "What people are saying",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Ngan Tran s credentials",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Let Ngan support you in her areas of expertise",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec8_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec9_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "hlmays": {
+  "label": "HLMAYS",
+  "sections": [
+   {
+    "label": "Emotional Intelligence questions bring you closer to me!",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Hey, let me ask you something! is for...",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Hey, let me ask you something!",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Learn more about EQ in the way you communicate!",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Hear it from our customers...",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "individual-courses": {
+  "label": "Khoá cá nhân",
+  "sections": [
+   {
+    "label": "Individual Program",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why us?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Worldwide recognized-quality Leadership Programs",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "World-class Working Standard Vision",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Practical Training Program Design",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Long-term program to make real impacts",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec6_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "What people are saying",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "lgad": {
+  "label": "LGAD",
+  "sections": [
+   {
+    "label": "Emotional Intelligence questions to fall more madly in love or fall in love… again.",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Another round, shall we?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Let s get another drink? is for:",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Learn more about EQ in the way you communicate!",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Why do couples love to play Let s get another drink? ?",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "newsletter": {
+  "label": "Bản tin",
+  "sections": [
+   {
+    "label": "Elevate your Leadership Communication skills with just 5 minutes weekly!",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec1_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Emotional Intelligence Leadership",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec2_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "our-services": {
+  "label": "Dịch vụ & Sản phẩm",
+  "sections": [
+   {
+    "label": "Business Programs",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec1_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Individual Programs",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Our leaders say about the experience",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "products": {
+  "label": "Sản phẩm",
+  "sections": [
+   {
+    "label": "Our Products",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec1_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "The Emotional Intelligence (EQ) guidebook for Leaders, Managers",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "The Emotional Intelligence (EQ) Decks",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Ebook",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "The EQ Calendar",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec7_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "seli-strategic-eq-leadership-index": {
+  "label": "SELI Index",
+  "sections": [
+   {
+    "label": "TYPES OF SELI REPORT",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "tet-gift-box": {
+  "label": "Hộp quà Tết",
+  "sections": [
+   {
+    "label": "Tết Gift Box 2026",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Who is this Tết Gift Box meant for?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec2_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "What's inside the gift box",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "A range of choices",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "the-eq-calendar": {
+  "label": "The EQ Calendar",
+  "sections": [
+   {
+    "label": "Who this calendar is for",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "the-story-of-empathy": {
+  "label": "The Story of Empathy",
+  "sections": [
+   {
+    "label": "This book is for…",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Who are we?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "for-manager": {
+  "label": "Dành cho Quản lý",
+  "sections": [
+   {
+    "label": "Why EQ leadership training?",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "What impact we could help your business?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "37.2%",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "57%",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "50%",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Our leaders say about the experience",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why us?",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec7_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Worldwide recognized-quality Leadership Programs",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec8_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "World-class Working Standard Vision",
+    "fields": {
+     "sec9_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec9_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Practical Training Program Design",
+    "fields": {
+     "sec10_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec10_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Long-term program to make real impacts",
+    "fields": {
+     "sec11_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec11_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec12_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "eq-with-ngan-tran": {
+  "label": "EQ cùng Ngân Trần",
+  "sections": [
+   {
+    "label": "Our leaders say about the experience",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "for-team-member": {
+  "label": "Dành cho Đội nhóm",
+  "sections": [
+   {
+    "label": "Why EQ Communication for your teams?",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "70%",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec2_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "45%",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "86%",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec4_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "What impact we could help your business?",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Unlock Peak Business Performance",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec6_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Revolutionize Your Team s Performance",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec7_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "EQ Communication programs for team members",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Our leaders say about the experience",
+    "fields": {
+     "sec9_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why us?",
+    "fields": {
+     "sec10_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Worldwide recognized-quality Leadership Programs",
+    "fields": {
+     "sec11_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec11_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "World-class Working Standard Vision",
+    "fields": {
+     "sec12_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec12_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Practical Training Program Design",
+    "fields": {
+     "sec13_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec13_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Long-term program to make real impacts",
+    "fields": {
+     "sec14_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec14_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec15_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "heart-heart-hand": {
+  "label": "Heart to Heart & Hand",
+  "sections": [
+   {
+    "label": "Elevate your leadership with the EQ model from the world’s top universities!",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why is Emotional Intelligence leadership so important for leaders?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Unlock your leadership potential with Head, Heart, Hand !",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec5_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ },
+ "vision-craft": {
+  "label": "Vision Craft",
+  "sections": [
+   {
+    "label": "Aspiring visuals to elevate your Emotional Intelligence (EQ) Leadership",
+    "fields": {
+     "sec1_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why visuals not text?",
+    "fields": {
+     "sec2_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Why make Vision Craft your go-to ally?",
+    "fields": {
+     "sec3_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec3_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Who Will Love This Buddy the Most?",
+    "fields": {
+     "sec4_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Let our visuals tell you the stories of EQ Leadership through 12 core topics",
+    "fields": {
+     "sec5_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "Maximize Your Vision Craft Experience",
+    "fields": {
+     "sec6_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec6_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Hear it from",
+    "fields": {
+     "sec7_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   },
+   {
+    "label": "our partners",
+    "fields": {
+     "sec8_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     },
+     "sec8_body": {
+      "label": "Nội dung",
+      "type": "textarea"
+     }
+    }
+   },
+   {
+    "label": "Get in touch",
+    "fields": {
+     "sec9_title": {
+      "label": "Tiêu đề",
+      "type": "text"
+     }
+    }
+   }
+  ]
+ }
+}

@@ -20,6 +20,30 @@ require get_template_directory() . '/inc/events.php';
 // CLONE MODE renderer (markup+CSS lấy nguyên từ live)
 require get_template_directory() . '/inc/clone.php';
 
+require get_template_directory() . '/inc/blog.php';
+
+// WP Admin branding - login + quản trị mang nhận diện The New Leaders
+require get_template_directory() . '/inc/admin-branding.php';
+
+// Landing builder - trình tạo landing page sự kiện (patterns + form thu lead)
+require get_template_directory() . '/inc/landing-builder.php';
+
+// Landing templates - bộ trang mẫu dựng sẵn (Sản phẩm / Chương trình / Đánh giá) để Duplicate
+require get_template_directory() . '/inc/landing-templates.php';
+
+// Landing Studio - trinh tao landing keo-tha don gian (khong plugin)
+require get_template_directory() . '/inc/landing-studio.php';
+
+// Landing Elementor - bộ template landing kéo-thả bằng Elementor (gu live qua landing.css)
+require get_template_directory() . '/inc/landing-elementor.php';
+
+// Inline editor - ĐÃ TẮT (2026-07-12): gây rối. Nội dung sửa trong trình soạn admin.
+// Bật lại khi cần: bỏ comment dòng dưới.
+// require get_template_directory() . '/inc/inline-editor.php';
+
+// Content editor - màn hình field sửa nội dung trang clone (giữ giao diện)
+require get_template_directory() . '/inc/content-editor.php';
+
 // ============================================================
 // THEME SETUP
 // ============================================================
@@ -191,7 +215,15 @@ function tnl_handle_form() {
     $to      = get_option('tnl_contact_email', '') ?: 'info@thenewleaders.asia';
     $subject = '[The New Leaders] ' . $type;
     $body    = "Form: {$type}\nNgày: " . current_time('Y-m-d H:i') . "\n\n" . implode("\n", $lines);
-    wp_mail($to, $subject, $body);
+    $attachments = array();
+    if ( ! empty($_FILES['cv']['tmp_name']) && is_uploaded_file($_FILES['cv']['tmp_name']) && empty($_FILES['cv']['error']) ) {
+        $up   = wp_upload_dir();
+        $safe = sanitize_file_name($_FILES['cv']['name']);
+        $dest = trailingslashit($up['basedir']) . 'tnl-cv-' . time() . '-' . $safe;
+        if ( @move_uploaded_file($_FILES['cv']['tmp_name'], $dest) ) { $attachments[] = $dest; }
+    }
+    wp_mail($to, $subject, $body, '', $attachments);
+    if ( $attachments ) { foreach ($attachments as $a) { @unlink($a); } }
     // Luôn trả thành công để UX mượt (trên Local có thể không gửi được mail; production sẽ gửi)
     wp_send_json_success();
 }

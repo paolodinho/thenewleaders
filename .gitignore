@@ -2,3 +2,9 @@
 node_modules/
 *.log
 theme/backups/
+
+# Video >100MB - GitHub chặn push, giữ file local, không vào git
+theme/clone/s3/vi_video_2_*.mp4
+theme/clone/s3/video_2_*.mp4
+docs/wp-content/themes/thenewleaders/clone/s3/vi_video_2_*.mp4
+docs/wp-content/themes/thenewleaders/clone/s3/video_2_*.mp4

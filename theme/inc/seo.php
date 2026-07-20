@@ -100,11 +100,37 @@ function tnl_seo_current() {
     $map = tnl_seo_map();
     $entry = $map[$slug] ?? $map[''];
     $row = $entry[$lang] ?? $entry['en'];
+    $title = $row[0];
+    $desc  = $row[1];
+    $url   = function_exists('tnl_lang_url') ? tnl_lang_url($lang) : home_url('/');
+    // Trang chi tiet clone (blog/events/courses/careers): dung tieu de bai viet that
+    if (!empty($GLOBALS['tnl_detail_ctx']) && !empty($GLOBALS['tnl_detail_ctx']['title'])) {
+        $d = $GLOBALS['tnl_detail_ctx'];
+        return [
+            'lang'  => $d['lang'],
+            'title' => $d['title'],
+            'desc'  => $d['desc'] !== '' ? $d['desc'] : $row[1],
+            'url'   => $d['url'],
+            'image' => get_template_directory_uri() . '/assets/media/og-default.png',
+        ];
+    }
+    // Override theo meta tung trang (Landing Studio / trang moi ngoai map)
+    if (is_page() && !is_front_page()) {
+        $pid = get_queried_object_id();
+        $mt  = get_post_meta($pid, '_tnl_seo_title', true);
+        $md  = get_post_meta($pid, '_tnl_seo_desc', true);
+        $custom = !isset($map[$slug]); // trang khong co trong map -> dung permalink + tieu de trang
+        if ($mt || $md || $custom) {
+            $title = $mt !== '' ? $mt : get_the_title($pid);
+            if ($md !== '') $desc = $md;
+            $url = get_permalink($pid);
+        }
+    }
     return [
         'lang'  => $lang,
-        'title' => $row[0],
-        'desc'  => $row[1],
-        'url'   => function_exists('tnl_lang_url') ? tnl_lang_url($lang) : home_url('/'),
+        'title' => $title,
+        'desc'  => $desc,
+        'url'   => $url,
         'image' => get_template_directory_uri() . '/assets/media/og-default.png',
     ];
 }
@@ -119,6 +145,7 @@ add_filter('document_title_parts', function ($parts) {
 });
 
 /* Meta + OG + Twitter + canonical + hreflang */
+remove_action('wp_head', 'rel_canonical'); // WP core in canonical thiếu prefix /vi /en -> trùng/lệch với canonical của theme
 add_action('wp_head', function () {
     $s = tnl_seo_current();
     $en = function_exists('tnl_lang_url') ? tnl_lang_url('en') : home_url('/en/');
@@ -126,6 +153,9 @@ add_action('wp_head', function () {
     $locale = $s['lang'] === 'vi' ? 'vi_VN' : 'en_US';
     $e = fn($v) => esc_attr($v);
     echo "\n<!-- TNL SEO -->\n";
+    // Google Search Console verification: khách dán mã (chuỗi trong content=) vào option tnl_gsc_verification.
+    $gsc = get_option('tnl_gsc_verification', '');
+    if ($gsc !== '') echo '<meta name="google-site-verification" content="' . $e($gsc) . '">' . "\n";
     echo '<meta name="description" content="' . $e($s['desc']) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url($s['url']) . '">' . "\n";
     echo '<link rel="alternate" hreflang="en" href="' . esc_url($en) . '">' . "\n";
@@ -163,6 +193,43 @@ add_action('wp_head', function () {
             ],
         ];
         echo '<script type="application/ld+json">' . wp_json_encode($org, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+    } elseif (!empty($GLOBALS['tnl_detail_ctx']) && !empty($GLOBALS['tnl_detail_ctx']['title'])) {
+        // Trang chi tiet clone -> Article + BreadcrumbList
+        $d = $GLOBALS['tnl_detail_ctx'];
+        $lang = $d['lang'];
+        $article = [
+            '@context'      => 'https://schema.org',
+            '@type'         => 'Article',
+            'headline'      => $d['title'],
+            'inLanguage'    => $lang,
+            'mainEntityOfPage' => $d['url'],
+            'url'           => $d['url'],
+            'image'         => get_template_directory_uri() . '/assets/media/og-default.png',
+            'author'        => ['@type' => 'Organization', 'name' => 'The New Leaders'],
+            'publisher'     => [
+                '@type' => 'Organization',
+                'name'  => 'The New Leaders',
+                'logo'  => ['@type' => 'ImageObject', 'url' => get_template_directory_uri() . '/assets/images/tnl-logo.svg'],
+            ],
+        ];
+        if ($d['desc'] !== '') $article['description'] = $d['desc'];
+        if ($d['date'] !== '') { $article['datePublished'] = $d['date']; $article['dateModified'] = $d['date']; }
+        echo '<script type="application/ld+json">' . wp_json_encode($article, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+        // BreadcrumbList: Home > [section] > bai viet
+        $sectionNames = [
+            'blog'    => ['vi' => 'Tài nguyên', 'en' => 'Resources'],
+            'events'  => ['vi' => 'Sự kiện', 'en' => 'Events'],
+            'courses' => ['vi' => 'Khoá học', 'en' => 'Courses'],
+            'careers' => ['vi' => 'Tuyển dụng', 'en' => 'Careers'],
+        ];
+        $sectSlug = ($d['type'] === 'blog') ? 'resources' : $d['type'];
+        $sectName = $sectionNames[$d['type']][$lang] ?? ucfirst($d['type']);
+        $bc = ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => [
+            ['@type' => 'ListItem', 'position' => 1, 'name' => ($lang === 'vi' ? 'Trang chủ' : 'Home'), 'item' => home_url('/' . $lang . '/')],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => $sectName, 'item' => home_url('/' . $lang . '/' . $sectSlug . '/')],
+            ['@type' => 'ListItem', 'position' => 3, 'name' => $d['title'], 'item' => $d['url']],
+        ]];
+        echo '<script type="application/ld+json">' . wp_json_encode($bc, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
     } elseif (is_page()) {
         // BreadcrumbList cho trang con (Home > [section] > current)
         $lang = $s['lang'];
