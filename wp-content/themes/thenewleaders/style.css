@@ -22,6 +22,14 @@ Text Domain: thenewleaders
 @font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-SemiBold.woff2?v=5') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
 @font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-Bold.woff2?v=5') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 
+/* Bản nghiêng (2026-07-20) — trước đây thiếu -> trình duyệt nghiêng "giả lập" (skew), nét xấu.
+   File từ clone/fonts, 648 glyph, đủ tiếng Việt. */
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-RegularItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-RegularItalic.woff?v=5') format('woff'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-LightItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-LightItalic.woff?v=5') format('woff'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-MediumItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-MediumItalic.woff?v=5') format('woff'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-SemiBoldItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-SemiBoldItalic.woff?v=5') format('woff'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'EuclidCircularAVN'; src: url('assets/fonts/EuclidCircularAVN-BoldItalic.woff2?v=5') format('woff2'), url('assets/fonts/EuclidCircularAVN-BoldItalic.woff?v=5') format('woff'); font-weight: 700; font-style: italic; font-display: swap; }
+
 /* ============================================================
    CSS CUSTOM PROPERTIES
    ============================================================ */
