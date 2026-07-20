@@ -158,7 +158,7 @@ function tnl_clone_emit($markup, $slug = '') {
   <?php if ($opt_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>"><?php endif; ?>
   <?php wp_head(); ?>
 </head>
-<body class="tnl-opt<?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">
+<body class="tnl-opt tnl-page-<?php echo esc_attr($slug); ?><?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">
 <?php wp_body_open(); ?>
 <?php echo apply_filters('tnl_clone_markup', $markup, $slug, tnl_clone_lang()); ?>
 <script src="<?php echo esc_url($clone_uri . '/js/clone.js?v=' . $js_v); ?>"></script>
