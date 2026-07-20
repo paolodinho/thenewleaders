@@ -8,11 +8,13 @@
 
 /* ===== §1 TYPOGRAPHY ===== */
 
-/* Nét body "đầm" hơn (feedback) — giữ Euclid, KHÔNG đụng heading */
+/* Body weight 400 theo ĐÚNG Figma (style "30 body TNL website" w400; đo 104 text
+   node trang chủ Figma 2026-07-20: body đều w400, đậm 700 chỉ ở heading).
+   Bỏ mức 500 của feedback cũ "đầm hơn" - khách chốt lại theo vibe Figma mảnh. */
 .tnl-opt p,
 .tnl-opt li,
 .tnl-opt blockquote {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Line-height body thoáng (chuẩn 1.55-1.65). Sửa chỗ 1.25 quá chật.
@@ -226,7 +228,7 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
    Live để <strong>/<b> ở 700 (bold) — nét dày hơn hẳn chữ xung quanh (500).
    Khách yêu cầu hạ về ~500 cho nét mảnh, đồng đều. Chỉ áp cho chữ nhấn trong
    đoạn văn; KHÔNG đụng heading (h1-h6 giữ 700) và nút/CTA. */
-.tnl-opt strong, .tnl-opt b { font-weight: 500; }
+.tnl-opt strong, .tnl-opt b { font-weight: 500; } /* body 400 -> 500 thành nhấn nhẹ, khớp Figma (Figma không bold trong đoạn văn) */
 /* Heading giữ nguyên nét đậm gốc (không bị kéo về 500). */
 .tnl-opt h1 strong, .tnl-opt h2 strong, .tnl-opt h3 strong,
 .tnl-opt h4 strong, .tnl-opt h5 strong, .tnl-opt h6 strong,
