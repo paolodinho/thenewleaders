@@ -362,3 +362,67 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     line-height: 1.2 !important;
   }
 }
+
+/* §13c - Contact theo Figma frame 11288:14164 (2026-07-20, qua Figma MCP) */
+@media (min-width: 1024px) {
+  /* Headline "Send us your message...": Figma 180px (web lg:text-9xl 128px) */
+  .tnl-page-contact [class~="lg:text-9xl"] {
+    font-size: clamp(110px, 10.4vw, 180px) !important; /* 180 @1728, co theo màn nhỏ */
+    line-height: 1 !important;
+  }
+  /* Nhãn form (Your Name/Email/...): Figma 30/1.2 (web text-lg 18px) */
+  .tnl-page-contact label[class~="text-lg"] {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+  /* Nút Submit: Figma Bold 700 */
+  .tnl-page-contact button[type="submit"],
+  .tnl-page-contact form button {
+    font-weight: 700;
+  }
+}
+
+/* §13d - Newsletter theo Figma frame 11288:14956 (2026-07-20, qua Figma MCP) */
+@media (min-width: 1024px) {
+  /* Sub hero "Unlock the secrets...": Figma 30/1.2 (web md:text-xl 20) */
+  .tnl-page-newsletter p[class~="md:text-xl"][class~="text-white"] {
+    font-size: 30px;
+    line-height: 1.2 !important;
+  }
+  /* H2 "Emotional Intelligence Leadership": Figma 70/1.2 (không phải 130) */
+  .tnl-page-newsletter h2[class~="font-bold"][class~="lg:text-5xl"][class*="lg:!text-7xl"] {
+    font-size: 70px !important;
+    line-height: 1.2 !important;
+  }
+  /* Khối "Join over 250,000...": Figma 48 Bold */
+  .tnl-page-newsletter [class~="font-bold"][class~="lg:text-xl"] p {
+    font-size: 48px;
+    line-height: 1.1 !important;
+    font-weight: 700;
+  }
+  /* Nhãn form: Figma 30/1.2 (đồng bộ contact) */
+  .tnl-page-newsletter label[class~="text-lg"] {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+  /* Nút Subscribe/Submit: Figma Bold */
+  .tnl-page-newsletter form button, .tnl-page-newsletter button[type="submit"] {
+    font-weight: 700;
+  }
+}
+
+/* §13e - EQ quiz theo Figma frame 11288:14618 (2026-07-20) */
+@media (min-width: 1024px) {
+  /* 5 ô khía cạnh EQ (Emotional Self-awareness...): Figma 40 Bold */
+  .tnl-page-eq-quiz p[class~="lg:text-xl"][class~="font-bold"] {
+    font-size: 40px;
+    line-height: 1.2 !important;
+    font-weight: 700;
+  }
+  /* Đoạn giới thiệu nghiêng cuối trang: Figma 25/1.2 (web 18) */
+  .tnl-page-eq-quiz em, .tnl-page-eq-quiz i,
+  .tnl-page-eq-quiz p[class~="italic"] {
+    font-size: 25px;
+    line-height: 1.2 !important;
+  }
+}
