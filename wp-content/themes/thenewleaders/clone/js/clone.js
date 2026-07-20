@@ -347,12 +347,17 @@
     });
     function makeUpdater(g) {
       var STAGGER = 0.14, span = 1 - STAGGER * (g.items.length - 1);
+      g.maxP = 0;
       return function () {
         var rect = g.wrap.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var startY = vh * 0.88, endY = vh * 0.35;
+        // Kết thúc wipe sớm hơn (0.60vh thay vì 0.35vh): ô cuối mở hết ngay khi
+        // khối vào giữa màn, không cần cuộn thêm mới đủ chữ.
+        var startY = vh * 0.95, endY = vh * 0.60;
         var p = (startY - rect.top) / (startY - endY);
         p = Math.max(0, Math.min(1, p));
+        // Latch: đã mở rồi thì không đóng lại khi cuộn ngược -> không bao giờ kẹt cắt chữ.
+        if (p < g.maxP) p = g.maxP; else g.maxP = p;
         for (var i = 0; i < g.items.length; i++) {
           var pp = (p - i * STAGGER) / span;
           pp = Math.max(0, Math.min(1, pp));
