@@ -88,6 +88,29 @@ function tnl_blog_render_post($post, $lang) {
         '{{CONTENT}}' => $content,
     ));
 
+    // Related articles ĐỘNG: 4 bài khác mới nhất + ảnh bìa thật (thay 4 card tĩnh hardcode
+    // trong shell - vốn giống hệt mọi bài & thiếu ảnh). 2026-07-21.
+    $rel_posts = get_posts(array('post_type' => 'post', 'post_status' => 'publish',
+        'numberposts' => 4, 'exclude' => array($post->ID), 'orderby' => 'date', 'order' => 'DESC'));
+    if ($rel_posts) {
+        $rel_cols = array('#5AD3ED', '#FB5015', '#F5C242', '#8BC34A');
+        $related  = '';
+        foreach ($rel_posts as $ri => $rp) {
+            $rurl = '/' . $lang . '/blog/' . $rp->post_name . '/';
+            $rtit = esc_html(get_the_title($rp));
+            $rcov = has_post_thumbnail($rp) ? get_the_post_thumbnail_url($rp, 'medium')
+                                            : get_post_meta($rp->ID, '_tnl_cover', true);
+            $media = $rcov
+                ? '<img loading="lazy" decoding="async" alt="' . $rtit . '" src="' . esc_url($rcov) . '" class="mb-5 rounded-lg"/>'
+                : '<div class="mb-5 rounded-lg" style="width:100%;aspect-ratio:16/10;background:' . $rel_cols[$ri % 4] . '"></div>';
+            $related .= '<article class="max-w-xs"><a href="' . $rurl . '">' . $media . '</a>'
+                      . '<h2 class="mb-2 text-xl font-bold leading-tight text-nero-900"><a href="' . $rurl . '">' . $rtit . '</a></h2></article>';
+        }
+        $html = preg_replace(
+            '#(<div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">).*?(</div>)#s',
+            '$1' . $related . '$2', $html, 1);
+    }
+
     // Context cho seo.php -> Article + BreadcrumbList schema.
     $desc = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($post->post_content)));
     $GLOBALS['tnl_detail_ctx'] = array(

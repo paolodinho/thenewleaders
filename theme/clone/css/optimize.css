@@ -648,3 +648,31 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     margin-right: auto;
   }
 }
+
+/* ===== §20 BLOG ARTICLE - dàn lại đúng vibe brand (2026-07-21) =====
+   Bài blog đang dàn kiểu văn bản thuần nhạt: tiêu đề nhỏ, thân bài chữ nhỏ, heading mục
+   mờ, Related articles chữ trần. Nâng cấp: tiêu đề to/đậm punchy, nhịp đọc thoáng, heading
+   mục rõ, Related = card ảnh bo góc (ảnh động lấy từ bài, §blog.php). Scope .tnl-page-blog. */
+.tnl-page-blog article h1 {
+  font-size: clamp(34px, 4vw, 54px) !important; line-height: 1.08 !important;
+  font-weight: 700 !important; letter-spacing: -.015em; margin-bottom: 1.1rem !important;
+}
+.tnl-page-blog article .inline-flex.items-center img { width: 44px !important; height: 44px !important; }
+.tnl-page-blog article.max-w-2xl { max-width: 760px !important; }
+.tnl-page-blog article figure img { border-radius: 14px; }
+.tnl-page-blog .prose p { font-size: 19px !important; line-height: 1.75 !important; margin: 0 0 1.15em !important; color: #1a1a1a; }
+.tnl-page-blog .prose ul { margin: .4em 0 1.2em !important; }
+.tnl-page-blog .prose li { font-size: 19px !important; line-height: 1.7 !important; margin-bottom: .5em !important; }
+.tnl-page-blog .prose h2, .tnl-page-blog .prose h3, .tnl-page-blog .prose h4 {
+  font-size: clamp(22px, 2.2vw, 30px) !important; font-weight: 700 !important;
+  line-height: 1.2 !important; margin: 1.9em 0 .6em !important; letter-spacing: -.01em; color: #111;
+}
+/* Related articles = card có ảnh đúng vibe */
+.tnl-page-blog h2.mb-8 { font-size: clamp(26px, 3vw, 40px) !important; font-weight: 700 !important; letter-spacing: -.015em; margin-bottom: 2rem !important; }
+.tnl-page-blog [class*="sm:grid-cols-2"] article { max-width: none !important; transition: transform .25s ease; }
+.tnl-page-blog [class*="sm:grid-cols-2"] article img {
+  width: 100% !important; height: auto !important; aspect-ratio: 16/10; object-fit: cover;
+  border-radius: 14px !important; margin-bottom: 1rem !important; background: #EFEFEF;
+}
+.tnl-page-blog [class*="sm:grid-cols-2"] article h2 { font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; }
+.tnl-page-blog [class*="sm:grid-cols-2"] article:hover { transform: translateY(-4px); }
