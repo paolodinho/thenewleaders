@@ -247,7 +247,8 @@
       var panel = buildPanel(label, cfg);
       (header || document.body).appendChild(panel);
 
-      function isMobile() { return window.matchMedia('(max-width: 767px)').matches; }
+      /* 1279: khớp §14 optimize.css - 768-1279 dùng hamburger nên dropdown xổ inline trong drawer */
+      function isMobile() { return window.matchMedia('(max-width: 1279px)').matches; }
 
       function place() {
         if (isMobile()) {
