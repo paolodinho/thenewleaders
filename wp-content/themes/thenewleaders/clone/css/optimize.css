@@ -574,12 +574,35 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-opt.home h2[style*="background-color"],
   .tnl-opt.home h3[style*="background-color"] {
     width: fit-content;
-    max-width: min(92%, 900px);
+    max-width: min(92%, 850px);  /* 850: "Practical." (814) giữ 1 dòng; "World-class" (887)
+                                    wrap 2 dòng đúng Figma; nhãn dài vẫn 2 dòng */
     padding-right: 18px;   /* cân với pl-[18px], nền ôm đều 2 bên */
   }
   /* B) Thẻ giá trị "In a world.../We constantly strive..." (div bg-[#...] bọc <p>):
      cap ~1004px thay vì basis-5/6 (~1161) -> khớp box Figma 1003, giữ căn trái/phải xen kẽ */
   .tnl-opt.home section[class*="gap-[240px]"] > div[class*="bg-["] {
     max-width: 1004px;
+  }
+}
+
+/* ===== §17 FIGMA PARITY - dàn text đúng bề rộng Figma (2026-07-21) =====
+   Khách chỉ ra: tiêu đề "Our leaders say about the experience" + testimonial bị bó
+   max-w-3xl (768px) -> vỡ 4 dòng hẹp; Figma rộng ~1601px (tiêu đề 2 dòng, quote trải rộng).
+   Nới riêng section testimonial (nền gradient 51.56deg) về full bề rộng đã padding như Figma. */
+@media (min-width: 1024px) {
+  /* Section testimonial "Our leaders say" (nền gradient 51.56deg) - HOME + our-services */
+  .tnl-opt [style*="linear-gradient(51.56deg"] .flex.justify-center > .max-w-3xl {
+    max-width: 1408px;   /* = frame Figma 1728 - padding xl:px-40 (2x160) */
+    width: 100%;
+  }
+  /* Hero subtitle our-services "Leverage your EQ..." Figma 2 dòng/1227px;
+     live bó max-w-[1024px] -> 3 dòng. Nới 1280 cho 2 dòng như Figma. */
+  .tnl-page-our-services [class*="max-w-[1024px]"] {
+    max-width: 1280px;
+  }
+  /* "Become inspiring leaders to lead the change": markup có max-w-[640px] (Figma ~593,
+     2 dòng) nhưng §1 max-inline-size:34em đè -> 1 dòng. Ép lại 640 (thắng §1). */
+  .tnl-opt.home p[class*="max-w-[640px]"] {
+    max-width: 640px; max-inline-size: 640px; margin-left: auto; margin-right: auto;
   }
 }
