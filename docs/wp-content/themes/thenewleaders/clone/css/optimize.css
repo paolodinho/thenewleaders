@@ -610,3 +610,13 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     max-width: 640px; max-inline-size: 640px; margin-left: auto; margin-right: auto;
   }
 }
+
+/* ===== §18 FIGMA - nhãn card Business Programs to đúng Figma (2026-07-21) =====
+   Khách chốt "giữ live, chỉnh style". Figma: heading card ~40px bold, body 30px;
+   live để nhãn 20px (nhỏ hơn body) -> ngược nhịp. Bump 40px (khớp Figma, đồng bộ với
+   "Executive 1-1 Coach" cùng loại). Scope our-services. */
+@media (min-width: 1024px) {
+  .tnl-page-our-services p[class~="text-2xl"][class~="lg:text-xl"][class~="font-bold"] {
+    font-size: 40px; line-height: 1.15 !important;
+  }
+}
