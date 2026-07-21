@@ -127,12 +127,16 @@
   .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 20px; }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 20px; }
 }
-/* 2026-07-21 — DESKTOP khớp HỆT Figma (khách chốt "giống hệt Figma"): số outline
-   to (Figma fontSize 300, cao ~1.3x ô), viền XÁM #B5B5B5, đè ~70px lên mép trên ô.
+/* 2026-07-21 — DESKTOP khớp HỆT Figma: số outline to (fontSize 300), viền XÁM #B5B5B5,
+   NẰM TRÊN ô, đáy số chỉ CHẠM NHẸ mép trên ô (~15px), KHÔNG đè xuống chữ.
+   Bug cũ: top cố định -196px + số phóng to theo màn (cao 272px @1728) -> đáy tụt 76px
+   phủ vào text. Fix: buộc top CO THEO width (h≈0.8*width) để overlap luôn = ~15px mọi màn.
    Đảo lại bản thu nhỏ 2026-06-13 CHỈ ở desktop; mobile/tablet giữ bản gọn đã chốt. */
 @media (min-width:1024px){
   .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{
-    top:-196px; width:clamp(260px,20vw,340px); opacity:1;   /* overlap ~76px như Figma */
+    width:clamp(260px,20vw,340px); opacity:1;
+    /* top = 15px(overlap) - h ; h ≈ 0.8*width -> đáy số kề mép trên ô, không chạm chữ */
+    top:calc(15px - 0.8 * clamp(260px,20vw,340px));
   }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"] > svg{
     stroke:#B5B5B5 !important;
@@ -375,6 +379,15 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-page-products p[class~="lg:text-xl"][class~="text-black"] {
     font-size: 50px;
     line-height: 1.2 !important;
+  }
+  /* Executive-coach là LANDING page riêng (slug our-services/executive-coach),
+     KHÔNG thuộc bộ frame §13 (our-services/products/resources/events). Figma để
+     mọi heading ở thang GỐC lg:text-5xl = 48px (heading gọn 4 dòng vừa 1 màn),
+     nhưng §13 lỡ thổi lên 130px -> quá to. Trả lại 48px cho toàn trang này. */
+  .tnl-opt.tnl-page-executive-coach h1[class~="font-bold"][class~="lg:text-5xl"],
+  .tnl-opt.tnl-page-executive-coach h2[class~="font-bold"][class~="lg:text-5xl"] {
+    font-size: 48px !important;
+    line-height: 1.1 !important;
   }
 }
 
