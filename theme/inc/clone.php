@@ -149,6 +149,8 @@ function tnl_clone_emit($markup, $slug = '') {
     $js_v  = filemtime($clone_path . '/js/clone.js');
     $opt_path = $clone_path . '/css/optimize.css';
     $opt_v = is_readable($opt_path) ? filemtime($opt_path) : 0;
+    $fi_path = $clone_path . '/css/fonts-inline.css';
+    $fi_v = is_readable($fi_path) ? filemtime($fi_path) : 0;
     ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -156,6 +158,7 @@ function tnl_clone_emit($markup, $slug = '') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/live.css?v=' . $css_v); ?>">
   <?php if ($opt_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>"><?php endif; ?>
+  <?php if ($fi_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/fonts-inline.css?v=' . $fi_v); ?>"><?php endif; ?>
   <?php wp_head(); ?>
 </head>
 <body class="tnl-opt tnl-page-<?php echo esc_attr($slug); ?><?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">

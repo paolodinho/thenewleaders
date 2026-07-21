@@ -97,6 +97,15 @@ function tnl_enqueue() {
         ['tnl-sections'], $pages_ver
     );
 
+    // Font nhúng base64 (vượt proxy/firewall chặn .woff2) - nạp SAU cùng để thắng bản file
+    $fi_path = $theme_dir . '/clone/css/fonts-inline.css';
+    if (file_exists($fi_path)) {
+        wp_enqueue_style('tnl-fonts-inline',
+            $theme_uri . '/clone/css/fonts-inline.css',
+            ['tnl-pages'], filemtime($fi_path)
+        );
+    }
+
     // Main JS
     wp_enqueue_script('tnl-main',
         $theme_uri . '/assets/js/main.js',
