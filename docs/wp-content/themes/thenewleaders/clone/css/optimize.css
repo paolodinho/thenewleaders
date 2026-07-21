@@ -11,10 +11,11 @@
 /* Body weight 400 theo ĐÚNG Figma (style "30 body TNL website" w400; đo 104 text
    node trang chủ Figma 2026-07-20: body đều w400, đậm 700 chỉ ở heading).
    Bỏ mức 500 của feedback cũ "đầm hơn" - khách chốt lại theo vibe Figma mảnh. */
-.tnl-opt p,
-.tnl-opt li,
+.tnl-opt p:not([class*="font-bold"]):not([class*="font-semibold"]),
+.tnl-opt li:not([class*="font-bold"]):not([class*="font-semibold"]),
 .tnl-opt blockquote {
-  font-weight: 400;
+  font-weight: 400;   /* body w400 theo Figma; CHỪA p.font-bold/semibold (nhãn, tiêu đề card,
+                         stats...) - trước đây §1 đè nhầm làm mất đậm, phải hack từng chỗ */
 }
 
 /* Line-height body thoáng (chuẩn 1.55-1.65). Sửa chỗ 1.25 quá chật.
