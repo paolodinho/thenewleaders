@@ -590,10 +590,13 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
    max-w-3xl (768px) -> vỡ 4 dòng hẹp; Figma rộng ~1601px (tiêu đề 2 dòng, quote trải rộng).
    Nới riêng section testimonial (nền gradient 51.56deg) về full bề rộng đã padding như Figma. */
 @media (min-width: 1024px) {
-  /* Section testimonial "Our leaders say" (nền gradient 51.56deg) - HOME + our-services */
-  .tnl-opt [style*="linear-gradient(51.56deg"] .flex.justify-center > .max-w-3xl {
-    max-width: 1408px;   /* = frame Figma 1728 - padding xl:px-40 (2x160) */
-    width: 100%;
+  /* Section testimonial "Our leaders say" (nền gradient 51.56deg) - HOME + our-services.
+     Figma: danh sách testimonial là CỘT CĂN GIỮA hẹp (~768) với ảnh xen kẽ; RIÊNG tiêu đề
+     rộng ~2 dòng. -> GIỮ container 768 căn giữa; chỉ cho H2 phá khung rộng ra, vẫn căn giữa. */
+  .tnl-opt [style*="linear-gradient(51.56deg"] .flex.justify-center > .max-w-3xl > h2 {
+    width: min(1400px, calc(100vw - 200px));  /* 2 dòng như Figma ("Our leaders say about"/"the experience") */
+    margin-left: calc((768px - min(1400px, calc(100vw - 200px))) / 2);
+    margin-right: calc((768px - min(1400px, calc(100vw - 200px))) / 2);
   }
   /* Hero subtitle our-services "Leverage your EQ..." Figma 2 dòng/1227px;
      live bó max-w-[1024px] -> 3 dòng. Nới 1280 cho 2 dòng như Figma. */
