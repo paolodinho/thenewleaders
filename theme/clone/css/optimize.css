@@ -676,3 +676,43 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
 }
 .tnl-page-blog [class*="sm:grid-cols-2"] article h2 { font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; }
 .tnl-page-blog [class*="sm:grid-cols-2"] article:hover { transform: translateY(-4px); }
+
+/* ===== §21 CAREERS (trang tuyển dụng) - dàn lại đúng vibe brand (2026-07-21) =====
+   Trang job detail dùng CÙNG cấu trúc bài blog (article.max-w-2xl + .prose + Related card)
+   nên áp cùng thang chữ §20, thêm polish riêng cho tuyển dụng: khối meta (trạng thái/loại
+   hình/địa điểm) rõ ràng, nút Apply thoáng, "Other opportunities" = card ảnh bo góc + hover.
+   Scope .tnl-page-careers. KHÔNG đụng h1 CTA cuối trang (nằm ngoài <article>). */
+.tnl-page-careers article h1 {
+  font-size: clamp(30px, 3.6vw, 48px) !important; line-height: 1.1 !important;
+  font-weight: 700 !important; letter-spacing: -.015em; margin-bottom: 1rem !important;
+}
+.tnl-page-careers article.max-w-2xl { max-width: 760px !important; }
+/* Khối meta job: trạng thái / full-time / địa điểm - hàng ngang gọn, dấu chấm ngăn cách */
+.tnl-page-careers article > ul.space-y-2 {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin: .25rem 0 1.75rem !important;
+}
+.tnl-page-careers article > ul.space-y-2 > li { font-size: 16px !important; }
+.tnl-page-careers article > ul.space-y-2 > li:not(:first-child) { position: relative; padding-left: 1.35rem; }
+.tnl-page-careers article > ul.space-y-2 > li:not(:first-child)::before {
+  content: ""; position: absolute; left: 0; top: 50%; width: 5px; height: 5px;
+  border-radius: 50%; background: #C9C9C9; transform: translateY(-50%);
+}
+/* Nút Apply: giữ pill cam, cho lệch trái như thiết kế trang, khoảng thở dưới */
+.tnl-page-careers article .flex.justify-center.mb-8 { justify-content: flex-start !important; margin-bottom: 2.25rem !important; }
+/* Thân mô tả công việc */
+.tnl-page-careers .prose p { font-size: 19px !important; line-height: 1.75 !important; margin: 0 0 1.15em !important; color: #1a1a1a; }
+.tnl-page-careers .prose ul, .tnl-page-careers .prose ol { margin: .4em 0 1.3em !important; padding-left: 1.3em; }
+.tnl-page-careers .prose li { font-size: 19px !important; line-height: 1.7 !important; margin-bottom: .5em !important; }
+.tnl-page-careers .prose h2, .tnl-page-careers .prose h3, .tnl-page-careers .prose h4 {
+  font-size: clamp(21px, 2.1vw, 28px) !important; font-weight: 700 !important;
+  line-height: 1.2 !important; margin: 1.9em 0 .55em !important; letter-spacing: -.01em; color: #111;
+}
+/* "Other opportunities" = card ảnh bo góc + hover, khớp vibe Related blog */
+.tnl-page-careers h2.mb-8 { font-size: clamp(26px, 3vw, 40px) !important; font-weight: 700 !important; letter-spacing: -.015em; margin-bottom: 2rem !important; }
+.tnl-page-careers [class*="sm:grid-cols-2"] article { max-width: none !important; transition: transform .25s ease; }
+.tnl-page-careers [class*="sm:grid-cols-2"] article img {
+  width: 100% !important; height: auto !important; aspect-ratio: 16/10; object-fit: cover;
+  border-radius: 14px !important; margin-bottom: 1rem !important; background: #EFEFEF;
+}
+.tnl-page-careers [class*="sm:grid-cols-2"] article h2 { font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; }
+.tnl-page-careers [class*="sm:grid-cols-2"] article:hover { transform: translateY(-4px); }
