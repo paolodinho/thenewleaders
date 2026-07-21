@@ -107,12 +107,14 @@
 @media (min-width:1024px){
   .tnl-opt.home [class*="xl:py-36"]{ padding-top:64px; padding-bottom:64px; }
   .tnl-opt.home [class*="xl:py-64"]{ padding-top:88px; padding-bottom:88px; }
-  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:96px; gap:56px; }
+  /* Khe cards phải ĐỦ CHỨA số outline to (Figma gốc gap-[240px]): số cao ~208-272px
+     nằm trong khe trắng trên mỗi card, KHÔNG tràn lên card trước. 2026-07-21. */
+  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:170px; gap:230px; }
 }
 @media (min-width:1280px){
   .tnl-opt.home [class*="xl:py-36"]{ padding-top:88px; padding-bottom:88px; }
   .tnl-opt.home [class*="xl:py-64"]{ padding-top:120px; padding-bottom:120px; }
-  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:120px; gap:64px; }
+  .tnl-opt.home [class*="gap-[240px]"]{ margin-top:200px; gap:280px; }
 }
 
 /* 2026-06-13 — Cards "cách tiếp cận": số outline 01-04 thu nhỏ + dời gọn về góc
