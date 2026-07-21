@@ -635,3 +635,16 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     font-size: 40px; line-height: 1.15 !important;
   }
 }
+
+/* ===== §19 FIX - card Business Programs: ảnh đè heading/nút ở màn RỘNG (2026-07-21) =====
+   Bug: ảnh card aspect-16/9 cao dần theo bề rộng grid, nhưng offset chồng (top:-160px /
+   margin âm) cố định -> viewport >~1620px ảnh phình cao đè heading (card cam) & nút Learn
+   more (card xanh). Fix: cap max-width grid card + căn giữa -> card ngừng phình ở màn rộng,
+   ảnh giữ tỉ lệ, không crop, không đè. (grid có md:pt-24 = chữ ký layout ảnh-chồng.) */
+@media (min-width: 1400px) {
+  .tnl-page-our-services div[class*="grid-cols-1"][class*="md:pt-24"] {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
