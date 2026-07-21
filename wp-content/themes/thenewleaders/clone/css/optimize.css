@@ -251,9 +251,11 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-opt [class~="text-base"][class~="lg:text-xl"] p {
     font-size: 30px;
   }
-  /* Sub-head / hero sub / Practical. / values label: Figma 50 (web cũ 30) */
+  /* Sub-head / hero sub / Practical. / values label: Figma 50 @1728 (web cũ 30).
+     Dùng clamp scale theo viewport: 50px cứng làm item curriculum OS con
+     (-ml-16, EN dài) tràn phải ở 1024-1366; 2.9vw đạt 50px tại ~1724px. */
   .tnl-opt [class~="lg:text-3xl"] {
-    font-size: 50px;
+    font-size: clamp(30px, 2.9vw, 50px);
   }
   /* Practical. pill: Figma line-height 75/50 = 1.5 */
   .tnl-opt .py-1.w-fit p[class~="lg:text-3xl"] {
@@ -274,10 +276,11 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-opt [class~="lg:text-3xl"][class~="font-bold"] {
     font-weight: 700;
   }
-  /* Footer nhãn Connect./Inspire./Lead./Pioneer.: Figma 50/75 (web 48/60) */
+  /* Footer nhãn Connect./Inspire./Lead./Pioneer.: Figma 50/75 @1728 (web 48/60).
+     clamp: 50 cứng làm heading pill OS con ("Enduring impact.") tràn nhẹ @1024. */
   .tnl-opt [class~="lg:text-5xl"],
   .tnl-opt [class*="bg-[#101010]"] p[class~="lg:text-5xl"] {
-    font-size: 50px; line-height: 1.5 !important;
+    font-size: clamp(40px, 2.9vw, 50px); line-height: 1.5 !important;
   }
   /* Footer đen + card what-we-do giữ cỡ Figma 20 - khôi phục nếu lỡ dính rule body */
   .tnl-opt [class*="bg-[#101010]"] [class~="lg:text-xl"],
@@ -313,7 +316,7 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   /* Pill màu Practical./People-centered... trang our-services + executive-coach:
      Figma 80/101 w700 (trang chủ pill khác markup, giữ 50) */
   .tnl-opt p[class~="font-bold"][class~="lg:text-5xl"][class*="bg-["] {
-    font-size: 80px;
+    font-size: clamp(48px, 4.63vw, 80px); /* 80 @1728; 80 cứng tràn nhẹ @1024 */
     line-height: 1.27 !important;
     font-weight: 700;
   }
@@ -439,4 +442,41 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-page-heart-heart-hand p[class~="text-4xl"] { font-size: 40px; font-weight: 700; } /* stats 57%... (markup font-bold bị §1 đè) */
   .tnl-page-heart-heart-hand h3[class~="text-md"] { font-size: 30px; }        /* Bộ sưu tập 01 */
   .tnl-page-heart-heart-hand h1[class~="xl:text-5xl"] { font-size: 50px !important; } /* hero title */
+}
+
+/* ===== §14 MENU 1 DÒNG (2026-07-21, rule menu-single-line) =====
+   Đo thực tế: 768-1279px desktop nav vỡ 2-3 dòng ("Trang chủ", EN "Our Services
+   & Products" 3 dòng). Từ 1280 trở lên mọi item 1 dòng cả VI/EN.
+   -> 768-1279: dùng hamburger như mobile; desktop nav chỉ hiện từ 1280. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-toggle"] { display: inline-flex; }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"] { width: 100%; }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"].hidden { display: none; }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"]:not(.hidden) { display: block; }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"] ul {
+    flex-direction: column; margin-top: 1rem;
+  }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"] ul > * { margin-left: 0 !important; }
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"] ul a,
+  .tnl-opt nav.navbar [data-testid="flowbite-navbar-collapse"] ul button > span {
+    padding: 0.5rem 1rem 0.5rem 0.75rem; white-space: nowrap;
+  }
+}
+/* Desktop nav (>=1280): item không bao giờ wrap */
+@media (min-width: 1280px) {
+  .tnl-opt nav.navbar ul a,
+  .tnl-opt nav.navbar ul button > span { white-space: nowrap; }
+}
+
+/* §14b - Pill curriculum trang OS con (bg màu, class -ml-16 + lg:pl-32):
+   cấu trúc live gốc vốn tràn phải ở 1024-1365 (pill bắt đầu ~72% bề ngang,
+   padding trái 128px). Cap bề rộng theo viewport + thu padding để chữ wrap
+   trong màn hình, hết thanh cuộn ngang. Từ 1366 trở lên đủ chỗ, giữ nguyên. */
+@media (min-width: 1024px) and (max-width: 1365.98px) {
+  .tnl-opt [class~="lg:text-3xl"][class*="-ml-16"] {
+    padding-left: 1.5rem;
+    max-width: calc(100vw - 800px);
+    font-size: 22px;          /* fs lớn hơn thì từ dài (Understanding) tràn khỏi nền pill */
+    overflow-wrap: break-word;
+  }
 }
