@@ -121,10 +121,23 @@
 }
 .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 10px; left:auto; }
 .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 10px; right:auto; }
-@media (min-width:768px){
+@media (min-width:768px) and (max-width:1023.98px){
   .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{ top:-60px; width:104px; }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right: 20px; }
   .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left: 20px; }
+}
+/* 2026-07-21 — DESKTOP khớp HỆT Figma (khách chốt "giống hệt Figma"): số outline
+   to (Figma fontSize 300, cao ~1.3x ô), viền XÁM #B5B5B5, đè ~70px lên mép trên ô.
+   Đảo lại bản thu nhỏ 2026-06-13 CHỈ ở desktop; mobile/tablet giữ bản gọn đã chốt. */
+@media (min-width:1024px){
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"]{
+    top:-196px; width:clamp(260px,20vw,340px); opacity:1;   /* overlap ~76px như Figma */
+  }
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-top-[180px]"] > svg{
+    stroke:#B5B5B5 !important;
+  }
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-right-20"]{ right:24px; }
+  .tnl-opt.home [class*="gap-[240px]"] [class*="-left-4"]{ left:24px; }
 }
 
 /* ===== §6 FOOTER - khớp live (2026-07-13) =====
