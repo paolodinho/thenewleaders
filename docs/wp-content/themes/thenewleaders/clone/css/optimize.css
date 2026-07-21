@@ -563,3 +563,23 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
 /* §15.11 - Home: màu đen Figma cho khối Why us + Values (markup để màu mặc định #232323) */
 .tnl-opt.home h1[class*="lg:text-[50px]"][style*="background-color"] { color: #000; } /* 4 card Why us */
 .tnl-opt.home p[class~="lg:text-3xl"][class~="!leading-tight"]:not([class*="text-white"]) { color: #050505; } /* values */
+
+/* ===== §16 FIGMA PARITY - bề rộng Ô MÀU trang chủ (2026-07-21, overlay diff) =====
+   Phát hiện qua chồng ảnh Figma vs live: ô màu live KÉO GIÃN gần full, Figma ÔM SÁT chữ.
+   Đo Figma: nhãn Why-us box 782-929px (text 505-811 + padding); thẻ giá trị box 1003px
+   (text 838 + px-20). Chỉ desktop >=1024; mobile giữ nguyên (full-width dễ đọc trên mobile). */
+@media (min-width: 1024px) {
+  /* A) Nhãn Why-us (h1/h2/h3 có inline background-color): ôm chữ, wrap ~2 dòng như Figma */
+  .tnl-opt.home h1[style*="background-color"],
+  .tnl-opt.home h2[style*="background-color"],
+  .tnl-opt.home h3[style*="background-color"] {
+    width: fit-content;
+    max-width: min(92%, 900px);
+    padding-right: 18px;   /* cân với pl-[18px], nền ôm đều 2 bên */
+  }
+  /* B) Thẻ giá trị "In a world.../We constantly strive..." (div bg-[#...] bọc <p>):
+     cap ~1004px thay vì basis-5/6 (~1161) -> khớp box Figma 1003, giữ căn trái/phải xen kẽ */
+  .tnl-opt.home section[class*="gap-[240px]"] > div[class*="bg-["] {
+    max-width: 1004px;
+  }
+}
