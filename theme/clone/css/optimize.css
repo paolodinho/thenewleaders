@@ -50,16 +50,10 @@
   margin-top: 0.85em;
 }
 
-/* ===== §3 TRANG SỰ KIỆN: chữ "nhẹ hơn" (feedback) =====
-   Chữ đen/tối trên thẻ sự kiện -> #3A3A3A (vẫn đạt contrast WCAG AA).
-   Chỉ áp vùng sự kiện (body.tnl-opt-events), không đụng chữ trắng trên nền tối. */
-.tnl-opt-events p:not(.text-white):not([class*="text-white"]),
-.tnl-opt-events .text-black,
-.tnl-opt-events [class*="text-[#101"],
-.tnl-opt-events [class*="text-[#000"],
-.tnl-opt-events [class*="text-[#1D1D1D"] {
-  color: #3A3A3A !important;
-}
+/* ===== §3 (ĐÃ GỠ 2026-07-21) TRANG SỰ KIỆN chữ "nhẹ hơn" #3A3A3A =====
+   Gỡ vì ngược Figma: khách chốt "giống hệt Figma" - Figma Events dùng đen #000
+   (heading, tên sự kiện) và TRẮNG cho khối "Join our Leaders' Community"
+   (rule cũ từng nhuộm nhầm chữ trắng thành #3A3A3A). */
 
 /* ===== §5 INTERACTION STATES ===== */
 /* transition mượt cho link/nút (150-250ms) */
@@ -277,10 +271,14 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     font-weight: 700;
   }
   /* Footer nhãn Connect./Inspire./Lead./Pioneer.: Figma 50/75 @1728 (web 48/60).
-     clamp: 50 cứng làm heading pill OS con ("Enduring impact.") tràn nhẹ @1024. */
-  .tnl-opt [class~="lg:text-5xl"],
-  .tnl-opt [class*="bg-[#101010]"] p[class~="lg:text-5xl"] {
-    font-size: clamp(40px, 2.9vw, 50px); line-height: 1.5 !important;
+     clamp: 50 cứng làm heading pill OS con ("Enduring impact.") tràn nhẹ @1024.
+     lh 1.5 CHỈ cho footer (đo Figma: hero events lh 1.0, hero resources 1.2 -
+     áp 1.5 đại trà làm lệch các hero đó). */
+  .tnl-opt [class~="lg:text-5xl"] {
+    font-size: clamp(40px, 2.9vw, 50px);
+  }
+  .tnl-opt [class*="bg-[#101010]"] [class~="lg:text-5xl"] {
+    line-height: 1.5 !important;
   }
   /* Footer đen + card what-we-do giữ cỡ Figma 20 - khôi phục nếu lỡ dính rule body */
   .tnl-opt [class*="bg-[#101010]"] [class~="lg:text-xl"],
@@ -304,7 +302,7 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
   .tnl-opt h1[class~="font-bold"][class~="lg:text-5xl"]:not([class*="text-[50px]"]),
   .tnl-opt h2[class~="font-bold"][class~="lg:text-5xl"]:not([class*="text-[50px]"]) {
     font-size: 130px !important;
-    line-height: 1.2 !important;
+    line-height: 1.2 !important; /* Figma: products/resources/events lh 156 = 1.2 */
   }
   /* Hero title (Enjoy the journey / EQ Leadership Events): markup có thêm
      lg:text-[50px] - Figma để 50, không phải 130 */
@@ -480,3 +478,75 @@ html, body { font-family: EuclidCircularAVN, 'Euclid Circular A', sans-serif; }
     overflow-wrap: break-word;
   }
 }
+
+/* ===== §15 FIGMA DEEP PARITY - weight / màu / line-height (2026-07-21) =====
+   Nguồn: so 224 text node từ 5 frame Figma (home full + our-services + products
+   + resources + events, cache REST 20-21/07) với live @1728 - 63 điểm lệch.
+   Khách chốt: giống hệt Figma về font, đậm nhạt, màu. */
+
+/* 15.1 Chữ đen: Figma dùng đen thuần (#000/#050505/#070707/#0D0D0D), web #232323.
+   Trừ nav header (Figma nav giữ #232323). */
+.tnl-opt [class*="text-[#232323]"]:not(nav *) { color: #000 !important; }
+
+/* 15.2 Màu cam brand: Figma thống nhất #FF4B1F; web có chỗ lệch #FF5F36
+   (heading "Our Products"). */
+.tnl-opt .text-primary { color: #FF4B1F !important; }
+/* KHÔNG remap text-[#FF5F36]: Figma dùng đúng #FF5F36 cho chip/heading phụ (Ebook...) */
+
+/* 15.3 Nút/CTA font-semibold: Figma không dùng weight 600 - CTA đều 700
+   (Submit, Get yours now, Explore now!, Join us now!, Buy now...). */
+.tnl-opt a[class~="font-semibold"],
+.tnl-opt button[class~="font-semibold"] { font-weight: 700; }
+/* Riêng "Learn more" đen trang Our Services (!bg-black): Figma 400 */
+.tnl-opt a[class*="!bg-black"][class~="font-semibold"] { font-weight: 400; }
+
+@media (min-width: 1024px) {
+  /* 15.4 Nút "Learn more" (pill rounded, font-normal + bản !bg-black): Figma 18/22.8 */
+  .tnl-opt a[class*="rounded-[100px]"][class~="font-normal"],
+  .tnl-opt a[class*="!bg-black"][class~="font-semibold"] {
+    font-size: 18px; line-height: 1.27 !important;
+  }
+  /* 15.5 Label form newsletter (Name:/Email:): Figma 30/36 (bị rule lg:text-3xl kéo lên 50) */
+  .tnl-opt label[class~="lg:text-3xl"] {
+    font-size: 30px; line-height: 36px !important;
+  }
+  /* 15.6 Hero Events "EQ Leadership Events": Figma lh 50/50 = 1.0 */
+  .tnl-page-events h1[class*="lg:text-[50px]"] { line-height: 1 !important; }
+  /* 15.7 Resources "Keep scrolling for more!": Figma 30/36 (web 20) */
+  .tnl-page-resources button[class~="text-white"][class~="md:text-xl"] {
+    font-size: 30px; line-height: 36px !important;
+  }
+}
+@media (min-width: 1280px) {
+  /* 15.8 Nav desktop: Figma 20/24 (web 18/28) */
+  .tnl-opt nav.navbar ul a,
+  .tnl-opt nav.navbar ul button > span {
+    font-size: 20px !important; line-height: 1.2 !important;
+  }
+  /* 15.9 "Why us?" (h1 text-[#303030], duy nhất trên home): Figma 200/200 (web 130) */
+  .tnl-opt h1[class*="text-[#303030]"][class~="xl:text-8xl"] {
+    font-size: clamp(130px, 11.6vw, 200px); line-height: 1 !important;
+  }
+}
+
+/* §15.10 - lệch màu/lh theo TỪNG trang (Figma dùng giá trị khác nhau mỗi trang,
+   đo lại 2026-07-21 vòng 2) */
+@media (min-width: 1024px) {
+  /* Our Services: headline 130 lh 1.0 (các trang khác 1.2); "Individual courses" đen #000 */
+  .tnl-opt.tnl-page-our-services h2[class~="font-bold"][class~="lg:text-5xl"] { line-height: 1 !important; } /* specificity phải >= rule §13 */
+  .tnl-page-our-services h3[class*="!text-4xl"] { color: #000; }
+}
+/* Products: Figma GIỮ #232323 (không như các trang khác) - hoàn tác 15.1 cho trang này */
+.tnl-page-products [class*="text-[#232323]"]:not(nav *) { color: #232323 !important; }
+/* Events: heading + tên sự kiện + mô tả đen #000 (markup để màu mặc định #232323) */
+.tnl-page-events h2[class~="font-bold"] { color: #000; }
+.tnl-page-events h3 { color: #000; }
+.tnl-page-events p[class~="lg:text-xl"][class~="!leading-tight"]:not([class*="text-white"]) { color: #000; } /* chừa hero sub trắng */
+/* Resources: đúng mã màu Figma từng nhóm */
+.tnl-page-resources h2[class~="font-bold"][class~="lg:text-5xl"] { color: #0D0D0D; }
+.tnl-page-resources p[class~="lg:text-xl"][class~="mt-4"] { color: #080808; }
+.tnl-page-resources p[class~="lg:text-xl"][class~="mt-4"][class~="font-bold"]:not([class~="text-center"]) { color: #070707; }
+
+/* §15.11 - Home: màu đen Figma cho khối Why us + Values (markup để màu mặc định #232323) */
+.tnl-opt.home h1[class*="lg:text-[50px]"][style*="background-color"] { color: #000; } /* 4 card Why us */
+.tnl-opt.home p[class~="lg:text-3xl"][class~="!leading-tight"]:not([class*="text-white"]) { color: #050505; } /* values */
