@@ -37,6 +37,23 @@ add_action('template_redirect', function () {
     exit;
 }, 0);
 
+/**
+ * URL bài viết thiếu prefix ngôn ngữ (/blog/{slug}/) -> 301 về /{lang}/blog/{slug}/.
+ * Trước đây URL này vẫn mở được nhưng render bằng header/footer cũ + title trang chủ,
+ * và nút đổi ngôn ngữ trên đó trỏ tới /{lang}/{slug}/ (404).
+ */
+add_action('template_redirect', function () {
+    $path = urldecode((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH));
+    if (!preg_match('#^/blog/(.+?)/?$#', $path, $m)) return;
+    $slug = trim($m[1]);
+    if ($slug === '' || strpos($slug, '/') !== false) return;
+    $lang = (isset($_COOKIE['tnl_lang']) && $_COOKIE['tnl_lang'] === 'en') ? 'en' : 'vi';
+    $post = tnl_blog_find_post($slug);
+    $target = $post ? $post->post_name : $slug;
+    wp_redirect(home_url('/' . $lang . '/blog/' . rawurlencode($target) . '/'), 301);
+    exit;
+}, 0);
+
 /** Render 1 bài WP qua shell blog-shell-{lang}.html. */
 function tnl_blog_render_post($post, $lang) {
     $lang = ($lang === 'en') ? 'en' : 'vi';

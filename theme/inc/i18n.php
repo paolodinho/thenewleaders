@@ -78,6 +78,12 @@ function tnl_lang() {
 /* URL chuyển ngôn ngữ: giữ nguyên trang hiện tại, chỉ đổi prefix /en/ /vi/ */
 function tnl_lang_url($target) {
     $path = '';
+    // Trang chi tiết clone (careers/events/courses/blog) không phải page WP -> lấy từ context route,
+    // nếu không thì hreflang/alternate của mọi trang chi tiết đều trỏ sai về trang chủ.
+    if (!empty($GLOBALS['tnl_detail_ctx']['type']) && !empty($GLOBALS['tnl_detail_ctx']['slug'])) {
+        $c = $GLOBALS['tnl_detail_ctx'];
+        return esc_url(home_url('/' . $target . '/' . $c['type'] . '/' . rawurlencode($c['slug']) . '/'));
+    }
     if (!is_front_page() && (is_page() || is_singular())) {
         $obj = get_queried_object();
         if ($obj && !empty($obj->ID)) {

@@ -177,6 +177,51 @@ function tnl_clone_emit($markup, $slug = '') {
  * WP không có page tương ứng nên các URL này vốn 404 -> tự bắt tại template_redirect,
  * render markup clone/parts/detail/{type}/{slug}-{lang}.html rồi exit. Khớp cấu trúc URL live.
  */
+/** Alias slug cũ/sai -> slug chuẩn (URL đã lan ra ngoài, phải 301 chứ không 404). */
+function tnl_detail_aliases() {
+    return array(
+        'careers/business-development'          => 'business-development-manager',
+    );
+}
+
+/** Danh sách slug chuẩn có file markup, theo type. */
+function tnl_detail_slugs($type) {
+    static $cache = array();
+    if (isset($cache[$type])) return $cache[$type];
+    $dir = get_template_directory() . '/clone/parts/detail/' . $type . '/';
+    $out = array();
+    foreach (glob($dir . '*.html') ?: array() as $f) {
+        $out[preg_replace('/-(vi|en)$/', '', basename($f, '.html'))] = true;
+    }
+    return $cache[$type] = array_keys($out);
+}
+
+/**
+ * Tìm slug chuẩn cho một slug người dùng gõ/click: khớp tuyệt đối -> alias -> không phân biệt
+ * hoa thường/dấu gạch. Trả [type, slug] (type có thể khác type gõ vào: link cũ trỏ sai nhóm).
+ */
+function tnl_detail_resolve($type, $slug) {
+    $types = array($type, 'careers', 'events', 'courses', 'blog');
+    $norm  = function ($s) { return trim(strtolower(preg_replace('/[^a-z0-9]+/i', '-', trim($s))), '-'); };
+    $alias = tnl_detail_aliases();
+    foreach (array_unique($types) as $t) {
+        $slugs = tnl_detail_slugs($t);
+        if (in_array($slug, $slugs, true)) return array($t, $slug);
+        $key = $t . '/' . strtolower($slug);
+        if (isset($alias[$key]) && in_array($alias[$key], $slugs, true)) return array($t, $alias[$key]);
+        foreach ($slugs as $cand) {
+            if ($norm($cand) === $norm($slug)) return array($t, $cand);
+        }
+    }
+    return array(null, null);
+}
+
+/**
+ * Route trang chi tiết clone (blog / courses / events / careers).
+ * WP không có page tương ứng nên các URL này vốn 404 -> tự bắt tại template_redirect,
+ * render markup clone/parts/detail/{type}/{slug}-{lang}.html rồi exit. Khớp cấu trúc URL live.
+ * URL lệch hoa/thường, sai nhóm hoặc dùng slug cũ -> 301 về URL chuẩn (không để 404).
+ */
 add_action('template_redirect', function () {
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
     $path = urldecode((string) $path);
@@ -184,10 +229,43 @@ add_action('template_redirect', function () {
     $slug = trim($m[3]); // live có URL 'Head-Growth ' (dính space cuối)
     if (strpos($slug, '/') !== false || strpos($slug, '..') !== false) return; // chống path traversal
     $_GET['lang'] = $m[1]; // ép <html lang> + tnl_lang() theo prefix URL
-    if (function_exists('tnl_clone_render_detail') && tnl_clone_render_detail($m[2], $slug, $m[1])) {
+
+    list($type, $canon) = tnl_detail_resolve($m[2], $slug);
+    if (!$type) return; // không có trang thật -> để WP trả 404 (404.php)
+
+    if ($type !== $m[2] || $canon !== $m[3]) {
+        wp_redirect(home_url('/' . $m[1] . '/' . $type . '/' . rawurlencode($canon) . '/'), 301);
         exit;
     }
+    if (tnl_clone_render_detail($type, $canon, $m[1])) exit;
 }, 1);
+
+/**
+ * URL chi tiết thiếu prefix ngôn ngữ (/careers/x, /events/x...) -> 301 về /{lang}/... theo
+ * ngôn ngữ đang chọn. Trước đây các URL này luôn rơi về bản tiếng Việt.
+ */
+add_action('template_redirect', function () {
+    $path = urldecode((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH));
+    if (!preg_match('#^/(courses|events|careers)/(.+?)/?$#', $path, $m)) return;
+    $slug = trim($m[2]);
+    if ($slug === '' || strpos($slug, '/') !== false || strpos($slug, '..') !== false) return;
+    $lang = (isset($_COOKIE['tnl_lang']) && $_COOKIE['tnl_lang'] === 'en') ? 'en' : 'vi';
+    list($type, $canon) = tnl_detail_resolve($m[1], $slug);
+    if (!$type) return;
+    wp_redirect(home_url('/' . $lang . '/' . $type . '/' . rawurlencode($canon) . '/'), 301);
+    exit;
+}, 1);
+
+/**
+ * Link nội bộ trong markup clone thiếu prefix ngôn ngữ (/careers/..., /events/...) -> thêm
+ * /{lang}/ theo trang đang xem. Trước đây bản EN click sang lại rơi về trang tiếng Việt.
+ */
+add_filter('tnl_clone_markup', function ($markup, $slug, $lang) {
+    $path = urldecode((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH));
+    if (preg_match('#^/(en|vi)(/|$)#', $path, $mm)) $lang = $mm[1];
+    $roots = 'blog|courses|events|careers|our-services|products|resources|contact|newsletter|eq-quiz';
+    return preg_replace('#href="/(?!en/|vi/)(' . $roots . ')(/|"|\?)#', 'href="/' . $lang . '/$1$2', $markup);
+}, 9, 3);
 
 /**
  * Credit đơn vị thiết kế: chèn 1 dòng ngay DƯỚI dòng © trong footer clone.
