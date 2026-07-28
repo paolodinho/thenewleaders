@@ -550,6 +550,106 @@ function tnl_secx_2col($hl, $title, $left, $right) {
     return tnl_wrap_secx(tnl_hl_h($hl, $title) . '<!-- wp:columns {"className":"tnl-2col"} --><div class="wp-block-columns tnl-2col"><!-- wp:column --><div class="wp-block-column"><!-- wp:paragraph --><p>' . $left . '</p><!-- /wp:paragraph --></div><!-- /wp:column --><!-- wp:column --><div class="wp-block-column"><!-- wp:paragraph --><p>' . $right . '</p><!-- /wp:paragraph --></div><!-- /wp:column --></div><!-- /wp:columns -->');
 }
 
+/* ============================================================
+ * SECTION BUILDERS V3 (2026-07-28) - mở rộng thư viện Landing Studio
+ * ============================================================ */
+
+/* Đội ngũ / giảng viên - tái dùng CSS .tnl-spk có sẵn (dải "SPEAKERS") */
+function tnl_secx_team($hl, $title, $rows) {
+    $cols = '';
+    foreach ($rows as $r) {
+        $cols .= '<!-- wp:column --><div class="wp-block-column"><!-- wp:html --><div class="tnl-spk">'
+            . '<div class="tnl-spk__img"><img src="' . esc_url($r[2]) . '" alt="' . esc_attr($r[0]) . '"></div>'
+            . '<h3>' . $r[0] . '</h3><p class="tnl-spk__role">' . $r[1] . '</p></div><!-- /wp:html --></div><!-- /wp:column -->';
+    }
+    return tnl_wrap_secx(tnl_hl_h($hl, $title) . '<!-- wp:columns {"className":"tnl-speakers__grid"} --><div class="wp-block-columns tnl-speakers__grid">' . $cols . '</div><!-- /wp:columns -->');
+}
+
+/* Dải logo đối tác / khách hàng - tái dùng CSS .tnl-sponsors có sẵn */
+function tnl_secx_logos($title, $imgs) {
+    $cols = '';
+    foreach ($imgs as $img) {
+        $cols .= '<!-- wp:column {"width":"1"} --><div class="wp-block-column" style="flex-basis:1%"><!-- wp:image {"className":"is-style-default"} --><figure class="wp-block-image"><img src="' . esc_url($img) . '" alt="Đối tác"/></figure><!-- /wp:image --></div><!-- /wp:column -->';
+    }
+    return '<!-- wp:group {"tagName":"section","className":"tnl-sec tnl-sponsors","layout":{"type":"constrained"}} --><section class="wp-block-group tnl-sec tnl-sponsors">'
+        . '<!-- wp:paragraph {"align":"center","className":"tnl-sponsors__ttl"} --><p class="has-text-align-center tnl-sponsors__ttl">' . $title . '</p><!-- /wp:paragraph -->'
+        . '<!-- wp:columns {"className":"tnl-sponsors__row","verticalAlignment":"center"} --><div class="wp-block-columns tnl-sponsors__row are-vertically-aligned-center">' . $cols . '</div><!-- /wp:columns -->'
+        . '</section><!-- /wp:group -->';
+}
+
+/* Timeline / lộ trình - tái dùng CSS .tnl-tl__item có sẵn (dải "AGENDA") */
+function tnl_secx_timeline($hl, $title, $rows) {
+    $items = '';
+    foreach ($rows as $r) {
+        $items .= '<div class="tnl-tl__item"><p class="tnl-tl__time">' . $r[0] . '</p><div class="tnl-tl__body"><h3>' . $r[1] . '</h3><p>' . $r[2] . '</p></div></div>';
+    }
+    return tnl_wrap_secx(tnl_hl_h($hl, $title) . '<!-- wp:html --><div class="tnl-timeline">' . $items . '</div><!-- /wp:html -->');
+}
+
+/* Danh sách ưu điểm (tick) + ảnh - tái dùng CSS .tnl-checklist/.tnl-about có sẵn */
+function tnl_secx_checklist($hl, $title, $img, $points, $rev = false) {
+    $li = '';
+    foreach ($points as $p) $li .= '<li>' . $p . '</li>';
+    $imgcol = '<!-- wp:column {"width":"45%","className":"tnl-about__img"} --><div class="wp-block-column tnl-about__img" style="flex-basis:45%"><!-- wp:image --><figure class="wp-block-image"><img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '"/></figure><!-- /wp:image --></div><!-- /wp:column -->';
+    $txtcol = '<!-- wp:column {"width":"55%"} --><div class="wp-block-column" style="flex-basis:55%">'
+        . tnl_hl_h($hl, $title)
+        . '<!-- wp:html --><ul class="tnl-checklist">' . $li . '</ul><!-- /wp:html -->'
+        . '</div><!-- /wp:column -->';
+    $order = $rev ? ($txtcol . $imgcol) : ($imgcol . $txtcol);
+    return '<!-- wp:group {"tagName":"section","className":"tnl-secx","layout":{"type":"constrained"}} --><section class="wp-block-group tnl-secx">'
+        . '<!-- wp:columns {"verticalAlignment":"center","className":"tnl-about__grid"} --><div class="wp-block-columns are-vertically-aligned-center tnl-about__grid">' . $order . '</div><!-- /wp:columns -->'
+        . '</section><!-- /wp:group -->';
+}
+
+/* Lưới ảnh (gallery) */
+function tnl_secx_gallery($hl, $title, $imgs) {
+    $cols = '';
+    foreach ($imgs as $img) $cols .= '<!-- wp:image {"className":"tnl-gallery__item"} --><figure class="wp-block-image tnl-gallery__item"><img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '"/></figure><!-- /wp:image -->';
+    return tnl_wrap_secx(tnl_hl_h($hl, $title) . '<!-- wp:html --><div class="tnl-gallery__grid">' . $cols . '</div><!-- /wp:html -->');
+}
+
+/* Bảng so sánh gói (2-4 cột giá) */
+function tnl_secx_compare($title, $rows) {
+    $cards = '';
+    foreach ($rows as $r) {
+        list($name, $price, $feat, $hl) = $r;
+        $li = '';
+        foreach (preg_split('/\r\n|\r|\n/', trim($feat)) as $line) {
+            $line = trim($line);
+            if ($line !== '') $li .= '<li>' . $line . '</li>';
+        }
+        $cls = 'tnl-compare__card' . ($hl ? ' tnl-compare__card--hl' : '');
+        $cards .= '<div class="' . $cls . '"><p class="tnl-compare__name">' . $name . '</p><p class="tnl-compare__price">' . $price . '</p><ul class="tnl-compare__list">' . $li . '</ul></div>';
+    }
+    return tnl_wrap_secx(tnl_hl_h('cyan', $title) . '<!-- wp:html --><div class="tnl-compare__grid">' . $cards . '</div><!-- /wp:html -->');
+}
+
+/* Bản đồ / địa điểm (nhúng Google Maps) */
+function tnl_secx_map($title, $address, $embed_url) {
+    $src = $embed_url ? esc_url($embed_url) : 'https://www.google.com/maps?q=' . rawurlencode(wp_strip_all_tags($address)) . '&output=embed';
+    return tnl_wrap_secx(tnl_hl_h('cyan', $title)
+        . '<!-- wp:html --><div class="tnl-map"><iframe src="' . $src . '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>'
+        . ($address ? '<p class="tnl-map__addr">📍 ' . $address . '</p>' : '') . '</div><!-- /wp:html -->');
+}
+
+/* Đoạn văn tự do - linh hoạt cho nội dung không khớp khối có sẵn */
+function tnl_secx_richtext($title, $body, $gray = false) {
+    $paras = '';
+    foreach (preg_split('/\r\n|\r|\n/', trim($body)) as $line) {
+        $line = trim($line);
+        if ($line !== '') $paras .= '<p>' . $line . '</p>';
+    }
+    $h = $title ? tnl_hl_h('cyan', $title) : '';
+    return tnl_wrap_secx($h . '<!-- wp:html --><div class="tnl-richtext">' . $paras . '</div><!-- /wp:html -->', $gray);
+}
+
+/* Khoảng cách / đường kẻ phân tách */
+function tnl_secx_spacer($size, $line) {
+    $px = $size === 'lg' ? 96 : ($size === 'sm' ? 24 : 56);
+    $style = 'height:' . $px . 'px' . ($line ? ';border-top:1px solid #ECECEC' : '');
+    return '<!-- wp:html --><div style="' . $style . '"></div><!-- /wp:html -->';
+}
+
 /* Danh sách section rời cho thư viện */
 function tnl_section_library() {
     $S = array();

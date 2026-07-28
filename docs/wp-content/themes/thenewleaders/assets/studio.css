@@ -123,7 +123,7 @@
 .pv-center { align-items: center; }
 .pv i, .pv u { display: block; text-decoration: none; font-style: normal; }
 .pv-b { height: 6px; border-radius: 3px; background: #c9c9c9; }
-.pv-40{width:40%}.pv-45{width:45%}.pv-50{width:50%}.pv-55{width:55%}.pv-60{width:60%}.pv-65{width:65%}.pv-70{width:70%}.pv-75{width:75%}.pv-80{width:80%}
+.pv-30{width:30%}.pv-40{width:40%}.pv-45{width:45%}.pv-50{width:50%}.pv-55{width:55%}.pv-60{width:60%}.pv-65{width:65%}.pv-70{width:70%}.pv-75{width:75%}.pv-80{width:80%}
 .pv-w { background: rgba(255,255,255,.95); } .pv-w2 { background: rgba(255,255,255,.6); height: 5px; }
 .pv-dkb { background: rgba(0,0,0,.55); } .pv-dkb2 { background: rgba(0,0,0,.3); height: 5px; }
 .pv-hero { background: linear-gradient(52deg, #FF4F21, #FF7121); }

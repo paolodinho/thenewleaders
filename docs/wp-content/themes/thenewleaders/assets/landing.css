@@ -76,7 +76,7 @@
 }
 
 /* ---------- AGENDA ---------- */
-.tnl-landing .tnl-timeline { max-width: 760px; border-left: 2px solid var(--tnl-line); padding-left: 0; }
+.tnl-landing .tnl-timeline { max-width: 760px; margin: 0 auto; border-left: 2px solid var(--tnl-line); padding-left: 0; }
 .tnl-landing .tnl-tl__item { display: flex; gap: 20px; padding: 0 0 26px 26px; position: relative; align-items: flex-start; }
 .tnl-landing .tnl-tl__item:before {
   content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px;
@@ -328,6 +328,39 @@
 .tnl-landing .tnl-2col { gap:40px; }
 .tnl-landing .tnl-2col p { font-size:18px; line-height:1.7; color:#3a3a3a; }
 @media (max-width:781px){ .tnl-landing .tnl-steps__grid, .tnl-landing .tnl-2col { flex-wrap:wrap; } }
+
+/* ============================================================
+   SECTION BUILDERS V3 (2026-07-28) - khối mới trong Landing Studio
+   ============================================================ */
+/* Lưới ảnh */
+.tnl-landing .tnl-gallery__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.tnl-landing .tnl-gallery__item { margin: 0; }
+.tnl-landing .tnl-gallery__item img, .tnl-landing .tnl-gallery__grid img { width: 100%; height: 220px; object-fit: cover; border-radius: 14px; display: block; }
+
+/* Bảng so sánh gói */
+.tnl-landing .tnl-compare__grid { display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch; justify-content: center; }
+.tnl-landing .tnl-compare__card { flex: 1 1 240px; max-width: 320px; background: #fff; border: 1px solid var(--tnl-line); border-radius: 18px; padding: 28px 24px; text-align: center; }
+.tnl-landing .tnl-compare__card--hl { border-color: var(--tnl-orange); box-shadow: 0 12px 34px rgba(255,79,33,.16); transform: translateY(-6px); }
+.tnl-landing .tnl-compare__name { font-weight: 700; font-size: 19px; margin: 0 0 6px; }
+.tnl-landing .tnl-compare__price { color: var(--tnl-orange); font-size: clamp(26px, 4vw, 36px); font-weight: 700; margin: 0 0 18px; }
+.tnl-landing .tnl-compare__list { list-style: none; margin: 0; padding: 0; text-align: left; }
+.tnl-landing .tnl-compare__list li { position: relative; padding-left: 26px; margin-bottom: 10px; font-size: 15px; color: #444; }
+.tnl-landing .tnl-compare__list li:before { content: "✓"; position: absolute; left: 0; color: var(--tnl-orange); font-weight: 700; }
+
+/* Bản đồ */
+.tnl-landing .tnl-map { max-width: 900px; margin: 0 auto; }
+.tnl-landing .tnl-map iframe { width: 100%; height: 400px; border: 0; border-radius: 16px; display: block; }
+.tnl-landing .tnl-map__addr { margin: 14px 0 0; text-align: center; color: #555; font-size: 15px; }
+
+/* Đoạn văn tự do */
+.tnl-landing .tnl-richtext { max-width: 780px; margin: 0 auto; }
+.tnl-landing .tnl-richtext p { font-size: 18px; line-height: 1.75; color: #3a3a3a; margin: 0 0 16px; }
+.tnl-landing .tnl-richtext p:last-child { margin-bottom: 0; }
+
+@media (max-width: 781px) {
+  .tnl-landing .tnl-compare__grid { flex-direction: column; align-items: center; }
+  .tnl-landing .tnl-compare__card--hl { transform: none; }
+}
 
 /* ============================================================
  * ELEMENTOR LANDING - gu live cho trang dựng bằng Elementor

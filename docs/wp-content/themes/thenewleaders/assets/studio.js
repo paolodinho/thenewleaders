@@ -341,7 +341,16 @@
       countdown: '<div class="pv pv-dark pv-center"><span class="pv-cd"><u></u><u></u><u></u><u></u></span></div>',
       regform:   '<div class="pv pv-center"><span class="pv-form"><i class="pv-inp"></i><i class="pv-inp"></i><i class="pv-pill pv-pill-o" style="width:70%"></i></span></div>',
       band:      '<div class="pv pv-dark pv-center"><i class="pv-b pv-w pv-60"></i><i class="pv-pill"></i></div>',
-      contact:   '<div class="pv pv-orangebg pv-center"><i class="pv-b pv-w pv-50"></i><i class="pv-b pv-w2 pv-65"></i><i class="pv-pill"></i></div>'
+      contact:   '<div class="pv pv-orangebg pv-center"><i class="pv-b pv-w pv-50"></i><i class="pv-b pv-w2 pv-65"></i><i class="pv-pill"></i></div>',
+      team:      '<div class="pv pv-row"><span class="pv-stp"><u class="pv-ava"></u><i class="pv-b pv-70"></i></span><span class="pv-stp"><u class="pv-ava"></u><i class="pv-b pv-70"></i></span><span class="pv-stp"><u class="pv-ava"></u><i class="pv-b pv-70"></i></span></div>',
+      logos:     '<div class="pv pv-row"><i class="pv-b pv-30"></i><i class="pv-b pv-30"></i><i class="pv-b pv-30"></i><i class="pv-b pv-30"></i></div>',
+      timeline:  '<div class="pv"><span class="pv-trow"><u class="pv-ava pv-ava-s"></u><i class="pv-b pv-70"></i></span><span class="pv-trow"><u class="pv-ava pv-ava-s"></u><i class="pv-b pv-60"></i></span></div>',
+      checklist: '<div class="pv pv-split"><span class="pv-half pv-imgbg"></span><span class="pv-half"><i class="pv-b pv-70"></i><i class="pv-b pv-60"></i><i class="pv-b pv-65"></i></span></div>',
+      gallery:   '<div class="pv pv-row"><span class="pv-half pv-imgbg" style="flex:1"></span><span class="pv-half pv-imgbg" style="flex:1"></span><span class="pv-half pv-imgbg" style="flex:1"></span></div>',
+      compare:   '<div class="pv pv-row"><span class="pv-price" style="width:auto"><i class="pv-b pv-60"></i><b class="pv-orange">$</b></span><span class="pv-price" style="width:auto"><i class="pv-b pv-60"></i><b class="pv-orange">$</b></span></div>',
+      map:       '<div class="pv"><span class="pv-half pv-imgbg" style="width:80%;height:70%"></span></div>',
+      richtext:  '<div class="pv"><i class="pv-b pv-80"></i><i class="pv-b pv-70"></i><i class="pv-b pv-75"></i></div>',
+      spacer:    '<div class="pv pv-center"><i class="pv-b pv-w2 pv-40" style="background:#ddd"></i></div>'
     };
     return M[type] || '<div class="pv"></div>';
   }

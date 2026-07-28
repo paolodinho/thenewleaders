@@ -276,6 +276,110 @@ function tnl_studio_schema() {
                 'sub'   => array('textarea', 'Mô tả', 'Để lại thông tin hoặc liên hệ trực tiếp - The New Leaders sẽ đồng hành cùng bạn.'),
             ),
         ),
+        'team' => array(
+            'label' => 'Đội ngũ / giảng viên (ảnh tròn)', 'group' => 'Uy tín',
+            'fields' => array(
+                'color' => array('select', 'Màu nền tiêu đề', 'cyan', $colors),
+                'title' => array('text', 'Tiêu đề mục', 'Đội ngũ của chúng tôi'),
+            ),
+            'items' => array(
+                'label'  => 'Thành viên',
+                'fields' => array(
+                    'name' => array('text', 'Họ tên', 'Họ và tên'),
+                    'role' => array('text', 'Chức danh', 'Chức danh'),
+                    'img'  => array('image', 'Ảnh chân dung', ''),
+                ),
+                'default' => 3,
+            ),
+        ),
+        'logos' => array(
+            'label' => 'Dải logo đối tác / khách hàng', 'group' => 'Uy tín',
+            'fields' => array('title' => array('text', 'Tiêu đề nhỏ', 'ĐỐI TÁC CỦA CHÚNG TÔI')),
+            'items'  => array(
+                'label'  => 'Logo',
+                'fields' => array('img' => array('image', 'Ảnh logo', '')),
+                'default' => 5,
+            ),
+        ),
+        'timeline' => array(
+            'label' => 'Lộ trình / dòng thời gian', 'group' => 'Nội dung',
+            'fields' => array(
+                'color' => array('select', 'Màu nền tiêu đề', 'orange', $colors),
+                'title' => array('text', 'Tiêu đề mục', 'Lộ trình của bạn'),
+            ),
+            'items' => array(
+                'label'  => 'Mốc',
+                'fields' => array(
+                    'time'  => array('text', 'Nhãn thời gian / bước', 'Bước 1'),
+                    'title' => array('text', 'Tiêu đề mốc', 'Tên mốc'),
+                    'desc'  => array('textarea', 'Mô tả', 'Mô tả ngắn mốc này.'),
+                ),
+                'default' => 3,
+            ),
+        ),
+        'checklist' => array(
+            'label' => 'Ảnh + danh sách ưu điểm (tick)', 'group' => 'Nội dung',
+            'fields' => array(
+                'color' => array('select', 'Màu nền tiêu đề', 'green', $colors),
+                'title' => array('text', 'Tiêu đề', 'Vì sao chọn chúng tôi'),
+                'rev'   => array('check', 'Đảo bên (ảnh phải - chữ trái)', ''),
+                'img'   => array('image', 'Ảnh', ''),
+            ),
+            'items' => array(
+                'label'  => 'Ý',
+                'fields' => array('text' => array('text', 'Nội dung ý', 'Một ưu điểm ngắn gọn')),
+                'default' => 4,
+            ),
+        ),
+        'gallery' => array(
+            'label' => 'Lưới ảnh (gallery)', 'group' => 'Nội dung',
+            'fields' => array(
+                'color' => array('select', 'Màu nền tiêu đề', 'yellow', $colors),
+                'title' => array('text', 'Tiêu đề mục', 'Hình ảnh hoạt động'),
+            ),
+            'items' => array(
+                'label'  => 'Ảnh',
+                'fields' => array('img' => array('image', 'Ảnh', '')),
+                'default' => 4,
+            ),
+        ),
+        'compare' => array(
+            'label' => 'Bảng so sánh gói', 'group' => 'Bán hàng',
+            'fields' => array('title' => array('text', 'Tiêu đề mục', 'Chọn gói phù hợp với bạn')),
+            'items'  => array(
+                'label'  => 'Gói',
+                'fields' => array(
+                    'name'  => array('text', 'Tên gói', 'Gói Cơ bản'),
+                    'price' => array('text', 'Giá', '1.200.000đ'),
+                    'feat'  => array('textarea', 'Quyền lợi (mỗi dòng 1 ý)', "Quyền lợi 1\nQuyền lợi 2\nQuyền lợi 3"),
+                    'hl'    => array('check', 'Làm nổi bật gói này', ''),
+                ),
+                'default' => 2,
+            ),
+        ),
+        'map' => array(
+            'label' => 'Bản đồ / địa điểm', 'group' => 'Sự kiện',
+            'fields' => array(
+                'title'   => array('text', 'Tiêu đề mục', 'Địa điểm tổ chức'),
+                'address' => array('text', 'Địa chỉ hiển thị', 'Số nhà, đường, quận, thành phố'),
+                'embed'   => array('text', 'Link nhúng Google Maps (tuỳ chọn)', ''),
+            ),
+        ),
+        'richtext' => array(
+            'label' => 'Đoạn văn tự do (linh hoạt)', 'group' => 'Nội dung',
+            'fields' => array(
+                'title' => array('text', 'Tiêu đề (để trống nếu không cần)', ''),
+                'body'  => array('textarea', 'Nội dung (mỗi dòng là 1 đoạn)', 'Viết nội dung tự do ở đây - mỗi dòng xuống hàng sẽ thành 1 đoạn văn riêng.'),
+                'gray'  => array('check', 'Nền xám', ''),
+            ),
+        ),
+        'spacer' => array(
+            'label' => 'Khoảng cách / đường kẻ', 'group' => 'Bố cục',
+            'fields' => array(
+                'size' => array('select', 'Độ cao', 'md', array('sm' => 'Nhỏ', 'md' => 'Vừa', 'lg' => 'Lớn')),
+                'line' => array('check', 'Có đường kẻ ngăn cách', ''),
+            ),
+        ),
     );
 }
 
@@ -411,6 +515,47 @@ function tnl_studio_hints() {
             'title' => array('VD: "Liên hệ với chúng tôi"', 50),
             'sub'   => array('1-2 câu mời liên hệ', 160),
         ),
+        'team' => array(
+            'title'      => array('VD: "Đội ngũ của chúng tôi"', 50),
+            'items.name' => array('Họ và tên đầy đủ', 40),
+            'items.role' => array('VD: "Trưởng phòng Đào tạo"', 40),
+            'items.img'  => $img_portrait,
+        ),
+        'logos' => array(
+            'title'     => array('Nhãn nhỏ VIẾT HOA phía trên dải logo', 40),
+            'items.img' => array('Logo nền trong suốt (PNG), cao khoảng 120px', 0),
+        ),
+        'timeline' => array(
+            'title'       => array('VD: "Lộ trình 6 tháng"', 50),
+            'items.time'  => array('VD: "Tháng 1", "Bước 1", "09:00"', 20),
+            'items.title' => array('Tên mốc, ngắn gọn', 50),
+            'items.desc'  => array('1-2 câu mô tả mốc này', 160),
+        ),
+        'checklist' => array(
+            'title'      => array('Tiêu đề mục', 50),
+            'items.text' => array('1 ưu điểm mỗi dòng, ngắn gọn', 90),
+            'img'        => $img_43,
+        ),
+        'gallery' => array(
+            'title'     => array('Tiêu đề mục', 50),
+            'items.img' => array('Ảnh vuông/ngang đồng đều, hệ thống tự cắt cho khớp lưới', 0),
+        ),
+        'compare' => array(
+            'title'       => array('VD: "Chọn gói phù hợp với bạn"', 60),
+            'items.name'  => array('Tên gói', 30),
+            'items.price' => array('Giá gói - số to nổi bật', 20),
+            'items.feat'  => array('Mỗi dòng 1 quyền lợi, xuống dòng để thêm ý mới', 300),
+        ),
+        'map' => array(
+            'title'   => array('Tiêu đề mục', 50),
+            'address' => array('Địa chỉ đầy đủ, hiển thị dưới bản đồ', 120),
+            'embed'   => array('Google Maps > Chia sẻ > Nhúng bản đồ > copy link trong src="...". Để trống hệ thống tự tìm theo địa chỉ.', 0),
+        ),
+        'richtext' => array(
+            'title' => array('Để trống nếu đoạn văn không cần tiêu đề riêng', 50),
+            'body'  => array('Viết tự do, xuống dòng (Enter) để tách đoạn văn mới', 900),
+        ),
+        'spacer' => array(),
     );
 }
 
@@ -591,6 +736,30 @@ function tnl_studio_render_section($type, $fields, $items) {
             return tnl_secx_band($CHK('dark'), $F('title'), $F('sub'), $F('btn'));
         case 'contact':
             return tnl_sec_contact($F('title'), $F('sub'));
+        case 'team':
+            $it = array(); foreach ($rows as $r) $it[] = array($r['name'], $r['role'], $r['img']);
+            return tnl_secx_team(sanitize_key($F('color')), $F('title'), $it);
+        case 'logos':
+            $it = array(); foreach ($rows as $r) $it[] = $r['img'];
+            return tnl_secx_logos($F('title'), $it);
+        case 'timeline':
+            $it = array(); foreach ($rows as $r) $it[] = array($r['time'], $r['title'], $r['desc']);
+            return tnl_secx_timeline(sanitize_key($F('color')), $F('title'), $it);
+        case 'checklist':
+            $it = array(); foreach ($rows as $r) $it[] = $r['text'];
+            return tnl_secx_checklist(sanitize_key($F('color')), $F('title'), $IMG('img'), $it, $CHK('rev'));
+        case 'gallery':
+            $it = array(); foreach ($rows as $r) $it[] = $r['img'];
+            return tnl_secx_gallery(sanitize_key($F('color')), $F('title'), $it);
+        case 'compare':
+            $it = array(); foreach ($rows as $r) $it[] = array($r['name'], $r['price'], $r['feat'], !empty($r['hl']));
+            return tnl_secx_compare($F('title'), $it);
+        case 'map':
+            return tnl_secx_map($F('title'), $F('address'), esc_url_raw($fields['embed'] ?? ''));
+        case 'richtext':
+            return tnl_secx_richtext($F('title'), $F('body'), $CHK('gray'));
+        case 'spacer':
+            return tnl_secx_spacer(sanitize_key($F('size')), $CHK('line'));
     }
     return '';
 }
