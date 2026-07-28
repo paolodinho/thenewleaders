@@ -380,6 +380,19 @@ function tnl_studio_schema() {
                 'line' => array('check', 'Có đường kẻ ngăn cách', ''),
             ),
         ),
+        'contact_hero' => array(
+            'label' => 'Khối gốc: Tiêu đề "Kết nối với..." (giữ nguyên thiết kế)', 'group' => 'Khối gốc - Contact',
+            'fields' => array(
+                'w1' => array('text', 'Từ 1', 'Kết '), 'c1' => array('select', 'Màu từ 1', 'cyan', $colors),
+                'w2' => array('text', 'Từ 2', 'nối '), 'c2' => array('select', 'Màu từ 2', 'green', $colors),
+                'w3' => array('text', 'Từ 3', 'với'), 'c3' => array('select', 'Màu từ 3', 'yellow', $colors),
+                'brand' => array('text', 'Dòng chữ dưới', 'The New Leaders'),
+            ),
+        ),
+        'contact_form' => array(
+            'label' => 'Khối gốc: Form liên hệ 6 trường (giữ nguyên thiết kế)', 'group' => 'Khối gốc - Contact',
+            'fields' => array(),
+        ),
     );
 }
 
@@ -556,6 +569,12 @@ function tnl_studio_hints() {
             'body'  => array('Viết tự do, xuống dòng (Enter) để tách đoạn văn mới', 900),
         ),
         'spacer' => array(),
+        'contact_hero' => array(
+            'w1' => array('Từ đầu tiên (kèm dấu cách nếu cần)', 12),
+            'w2' => array('Từ thứ hai (kèm dấu cách nếu cần)', 12),
+            'w3' => array('Từ thứ ba', 12),
+            'brand' => array('Dòng chữ nhỏ màu xám dưới tiêu đề', 40),
+        ),
     );
 }
 
@@ -760,6 +779,10 @@ function tnl_studio_render_section($type, $fields, $items) {
             return tnl_secx_richtext($F('title'), $F('body'), $CHK('gray'));
         case 'spacer':
             return tnl_secx_spacer(sanitize_key($F('size')), $CHK('line'));
+        case 'contact_hero':
+            return tnl_native_contact_hero($F('w1'), sanitize_key($fields['c1'] ?? 'cyan'), $F('w2'), sanitize_key($fields['c2'] ?? 'green'), $F('w3'), sanitize_key($fields['c3'] ?? 'yellow'), $F('brand'));
+        case 'contact_form':
+            return tnl_native_contact_form();
     }
     return '';
 }

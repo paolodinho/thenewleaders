@@ -350,7 +350,9 @@
       compare:   '<div class="pv pv-row"><span class="pv-price" style="width:auto"><i class="pv-b pv-60"></i><b class="pv-orange">$</b></span><span class="pv-price" style="width:auto"><i class="pv-b pv-60"></i><b class="pv-orange">$</b></span></div>',
       map:       '<div class="pv"><span class="pv-half pv-imgbg" style="width:80%;height:70%"></span></div>',
       richtext:  '<div class="pv"><i class="pv-b pv-80"></i><i class="pv-b pv-70"></i><i class="pv-b pv-75"></i></div>',
-      spacer:    '<div class="pv pv-center"><i class="pv-b pv-w2 pv-40" style="background:#ddd"></i></div>'
+      spacer:    '<div class="pv pv-center"><i class="pv-b pv-w2 pv-40" style="background:#ddd"></i></div>',
+      contact_hero: '<div class="pv"><i class="pv-b pv-80" style="background:#5AD3ED"></i></div>',
+      contact_form: '<div class="pv pv-center"><span class="pv-form"><i class="pv-inp"></i><i class="pv-inp"></i><i class="pv-pill pv-pill-o" style="width:50%"></i></span></div>'
     };
     return M[type] || '<div class="pv"></div>';
   }
