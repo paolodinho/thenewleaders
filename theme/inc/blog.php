@@ -96,7 +96,29 @@ function tnl_blog_render_post($post, $lang) {
         }
     }
 
-    $content = apply_filters('the_content', $post->post_content);
+    // Bài viết dựng bằng Landing Studio (_tnl_studio_data): nạp landing.css + bọc .tnl-landing
+    // để 31 khối Studio (hero/panel/card/testimonial...) hiển thị đúng gu, giống trang landing.
+    $is_studio = (bool) get_post_meta($post->ID, '_tnl_studio_data', true);
+    $post_content = $post->post_content;
+    if ($is_studio && isset($_GET['tnl_preview']) && current_user_can('edit_posts')) {
+        // Xem trước bản nháp CHƯA lưu (Landing Studio gọi ajax tnl_studio_preview trước khi Lưu).
+        $raw_prev = get_transient('tnl_studio_prev_' . $post->ID);
+        if ($raw_prev) {
+            $dec_prev = json_decode($raw_prev, true);
+            if (is_array($dec_prev) && isset($dec_prev['sections']) && function_exists('tnl_studio_compose')) {
+                $post_content = tnl_studio_compose($dec_prev['sections']);
+            }
+        }
+    }
+    if ($is_studio) {
+        $dir = get_template_directory();
+        $uri = get_template_directory_uri();
+        add_action('wp_head', function () use ($dir, $uri) {
+            echo '<link rel="stylesheet" href="' . esc_url($uri . '/assets/landing.css?v=' . (@filemtime($dir . '/assets/landing.css') ?: '1')) . '">';
+        }, 5);
+    }
+    $content = apply_filters('the_content', $post_content);
+    if ($is_studio) $content = '<div class="tnl-landing">' . $content . '</div>';
 
     $html = strtr($tpl, array(
         '{{TITLE}}'   => esc_html($title),

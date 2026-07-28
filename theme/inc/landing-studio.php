@@ -819,6 +819,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
         if ($p) {
             $post_info = array(
                 'id' => $p->ID, 'title' => $p->post_title, 'status' => $p->post_status,
+                'type'    => $p->post_type,
                 'preview' => add_query_arg('preview', 'true', get_permalink($p)),
                 'permalink' => get_permalink($p),
                 'slug'      => $p->post_name,
@@ -853,20 +854,25 @@ function tnl_studio_screen() {
     $post_id = isset($_GET['post']) ? absint($_GET['post']) : 0;
     if ($post_id) { tnl_studio_screen_editor($post_id); return; }
     // ---- Man hinh danh sach ----
-    $pages = get_posts(array(
-        'post_type' => 'page', 'post_status' => array('publish', 'draft'),
+    $items = get_posts(array(
+        'post_type' => array('page', 'post'), 'post_status' => array('publish', 'draft'),
         'meta_key' => '_tnl_studio_data', 'numberposts' => 50, 'orderby' => 'modified', 'order' => 'DESC',
     ));
     ?>
     <div class="wrap tnl-studio-list">
         <h1>Landing Studio</h1>
-        <p class="tnls-lead">Tạo landing page bằng cách ghép các khối có sẵn - chọn mẫu, sửa chữ, đổi ảnh, kéo đổi thứ tự. Không thể làm vỡ giao diện.</p>
-        <h2>Tạo landing mới từ mẫu</h2>
+        <p class="tnls-lead">Dựng trang hoặc bài viết bằng cách ghép các khối có sẵn - chọn mẫu, sửa chữ, đổi ảnh, kéo đổi thứ tự. Không thể làm vỡ giao diện.</p>
+        <h2>Tạo mới từ mẫu</h2>
+        <div class="tnls-type-toggle">
+            <label><input type="radio" name="tnls-type-choice" value="page" checked> Trang (page)</label>
+            <label><input type="radio" name="tnls-type-choice" value="post"> Bài viết (blog)</label>
+        </div>
         <div class="tnls-presets">
             <?php foreach (tnl_studio_presets() as $key => $p) : ?>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="tnls-preset-card">
                 <input type="hidden" name="action" value="tnl_studio_create">
                 <input type="hidden" name="preset" value="<?php echo esc_attr($key); ?>">
+                <input type="hidden" name="type" class="tnls-type-input" value="page">
                 <?php wp_nonce_field('tnl_studio_create'); ?>
                 <span class="tnls-preset-name"><?php echo esc_html($p['label']); ?></span>
                 <span class="tnls-preset-count"><?php echo count($p['sections']); ?> khối</span>
@@ -874,14 +880,22 @@ function tnl_studio_screen() {
             </form>
             <?php endforeach; ?>
         </div>
-        <h2>Landing đã tạo</h2>
-        <?php if (!$pages) : ?><p>Chưa có landing nào. Tạo mới từ mẫu phía trên.</p><?php else : ?>
+        <script>
+        document.querySelectorAll('input[name="tnls-type-choice"]').forEach(function (r) {
+            r.addEventListener('change', function () {
+                document.querySelectorAll('.tnls-type-input').forEach(function (i) { i.value = r.value; });
+            });
+        });
+        </script>
+        <h2>Đã tạo</h2>
+        <?php if (!$items) : ?><p>Chưa có trang/bài viết nào. Tạo mới từ mẫu phía trên.</p><?php else : ?>
         <table class="widefat striped tnls-table">
-            <thead><tr><th>Tên trang</th><th>Trạng thái</th><th>Sửa lần cuối</th><th></th></tr></thead>
+            <thead><tr><th>Tên</th><th>Loại</th><th>Trạng thái</th><th>Sửa lần cuối</th><th></th></tr></thead>
             <tbody>
-            <?php foreach ($pages as $p) : ?>
+            <?php foreach ($items as $p) : ?>
                 <tr>
                     <td><strong><?php echo esc_html($p->post_title); ?></strong></td>
+                    <td><?php echo $p->post_type === 'post' ? 'Bài viết' : 'Trang'; ?></td>
                     <td><?php echo $p->post_status === 'publish' ? '<span class="tnls-live">Đang chạy</span>' : '<span class="tnls-draft">Nháp</span>'; ?></td>
                     <td><?php echo esc_html(get_the_modified_date('d/m/Y H:i', $p)); ?></td>
                     <td>
@@ -941,7 +955,7 @@ function tnl_studio_screen_editor($post_id) {
                     <small class="tnls-fhint">Chữ thường không dấu, nối bằng gạch ngang. VD: <code>uu-dai-thang-8</code></small>
                     <div class="tnls-slugrow"><em id="tnls-url-prefix"></em><input type="text" id="tnls-slug"></div>
                 </label>
-                <label class="tnls-field">
+                <label class="tnls-field" id="tnls-parent-field"<?php echo ($p->post_type !== 'page') ? ' hidden' : ''; ?>>
                     <span>Nằm dưới trang nào (trang cha)</span>
                     <small class="tnls-fhint">Chọn nếu muốn URL dạng <code>/trang-cha/trang-nay/</code>. Để trống = nằm ở gốc website.</small>
                     <select id="tnls-parent"><option value="0">- Nằm ở gốc website -</option></select>
@@ -978,6 +992,7 @@ add_action('admin_post_tnl_studio_create', function () {
     $presets = tnl_studio_presets();
     $key = isset($_POST['preset']) ? sanitize_key($_POST['preset']) : 'blank';
     if (!isset($presets[$key])) $key = 'blank';
+    $type = (isset($_POST['type']) && $_POST['type'] === 'post') ? 'post' : 'page';
     // Bo section day du: preset chi ghi de field khac default
     $sections = array();
     foreach ($presets[$key]['sections'] as $ps) {
@@ -986,13 +1001,13 @@ add_action('admin_post_tnl_studio_create', function () {
         if (!empty($ps['fields'])) foreach ($ps['fields'] as $k => $v) $s['fields'][$k] = $v;
         $sections[] = $s;
     }
-    $title = 'Landing ' . $presets[$key]['label'] . ' ' . date_i18n('d/m');
+    $title = ($type === 'post' ? 'Bài viết ' : 'Landing ') . $presets[$key]['label'] . ' ' . date_i18n('d/m');
     $id = wp_insert_post(array(
-        'post_type' => 'page', 'post_status' => 'draft', 'post_title' => $title,
+        'post_type' => $type, 'post_status' => 'draft', 'post_title' => $title,
         'post_content' => tnl_studio_compose($sections),
     ));
-    if (!$id || is_wp_error($id)) wp_die('Tạo trang thất bại.');
-    update_post_meta($id, '_wp_page_template', 'page-templates/landing.php');
+    if (!$id || is_wp_error($id)) wp_die('Tạo thất bại.');
+    if ($type === 'page') update_post_meta($id, '_wp_page_template', 'page-templates/landing.php');
     update_post_meta($id, '_tnl_studio_data', wp_slash(wp_json_encode(array('sections' => $sections), JSON_UNESCAPED_UNICODE)));
     wp_safe_redirect(admin_url('admin.php?page=tnl-studio&post=' . $id));
     exit;
@@ -1003,7 +1018,7 @@ add_action('wp_ajax_tnl_studio_save', function () {
     check_ajax_referer('tnl_studio', 'nonce');
     $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
     $p = $post_id ? get_post($post_id) : null;
-    if (!$p || $p->post_type !== 'page') wp_send_json_error('Không tìm thấy trang.');
+    if (!$p || !in_array($p->post_type, array('page', 'post'), true)) wp_send_json_error('Không tìm thấy trang.');
 
     $raw = isset($_POST['data']) ? wp_unslash($_POST['data']) : '';
     $dec = json_decode($raw, true);
@@ -1014,14 +1029,14 @@ add_action('wp_ajax_tnl_studio_save', function () {
 
     $content = tnl_studio_compose($dec['sections']);
     $upd = array('ID' => $post_id, 'post_title' => $title, 'post_content' => $content, 'post_status' => $status);
-    // Duong dan + trang cha (tuy chon)
+    // Duong dan + trang cha (tuy chon - trang cha chi ap dung post_type=page)
     if (isset($_POST['slug'])) {
         $slug = sanitize_title(wp_unslash($_POST['slug']));
         if ($slug !== '') $upd['post_name'] = $slug;
     }
-    if (isset($_POST['parent'])) $upd['post_parent'] = absint($_POST['parent']);
+    if ($p->post_type === 'page' && isset($_POST['parent'])) $upd['post_parent'] = absint($_POST['parent']);
     wp_update_post($upd);
-    update_post_meta($post_id, '_wp_page_template', 'page-templates/landing.php');
+    if ($p->post_type === 'page') update_post_meta($post_id, '_wp_page_template', 'page-templates/landing.php');
     update_post_meta($post_id, '_tnl_studio_data', wp_slash(wp_json_encode(array('sections' => $dec['sections']), JSON_UNESCAPED_UNICODE)));
     // SEO tung trang
     if (isset($_POST['seo_title'])) update_post_meta($post_id, '_tnl_seo_title', sanitize_text_field(wp_unslash($_POST['seo_title'])));
@@ -1062,10 +1077,12 @@ add_filter('the_content', function ($content) {
     return tnl_studio_compose($dec['sections']);
 }, 0);
 
-/* Trang studio duoc mo tu Pages: them row action */
-add_filter('page_row_actions', function ($actions, $post) {
-    if ($post->post_type === 'page' && get_post_meta($post->ID, '_tnl_studio_data', true) && current_user_can('edit_pages')) {
+/* Trang/bai viet dung Studio: them row action trong danh sach Pages/Posts */
+function tnl_studio_row_action($actions, $post) {
+    if (in_array($post->post_type, array('page', 'post'), true) && get_post_meta($post->ID, '_tnl_studio_data', true) && current_user_can('edit_pages')) {
         $actions['tnl_studio'] = '<a href="' . esc_url(admin_url('admin.php?page=tnl-studio&post=' . $post->ID)) . '">Mở Landing Studio</a>';
     }
     return $actions;
-}, 10, 2);
+}
+add_filter('page_row_actions', 'tnl_studio_row_action', 10, 2);
+add_filter('post_row_actions', 'tnl_studio_row_action', 10, 2);
