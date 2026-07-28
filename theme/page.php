@@ -4,6 +4,14 @@
  * Nếu không có part riêng → render tiêu đề + nội dung WP mặc định.
  */
 
+// LANDING STUDIO (page-shell): trang đã chuyển sang kéo-thả Studio -> ưu tiên render
+// nội dung Studio (giữ nav/footer THẬT của trang clone gốc cùng slug). Chạy TRƯỚC clone mode.
+$tnl_qo = get_queried_object();
+if ($tnl_qo && get_post_meta($tnl_qo->ID, '_tnl_studio_data', true) && function_exists('tnl_studio_render_clone_page')
+    && tnl_studio_render_clone_page($tnl_qo)) {
+    return;
+}
+
 // CLONE MODE: nếu có markup clone từ live cho slug này -> render standalone (parity ~100%).
 $tnl_slug = get_post_field('post_name', get_queried_object_id());
 if (function_exists('tnl_clone_has') && tnl_clone_has($tnl_slug) && tnl_clone_render($tnl_slug)) {

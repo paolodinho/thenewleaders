@@ -887,6 +887,36 @@ function tnl_studio_screen() {
             });
         });
         </script>
+        <?php
+        $adoptable = get_posts(array(
+            'post_type' => 'page', 'post_status' => array('publish', 'draft'), 'numberposts' => 200,
+            'orderby' => 'title', 'order' => 'ASC',
+            'meta_query' => array(array('key' => '_tnl_studio_data', 'compare' => 'NOT EXISTS')),
+        ));
+        $adoptable = array_values(array_filter($adoptable, function ($pg) {
+            return function_exists('tnl_clone_has') && tnl_clone_has($pg->post_name);
+        }));
+        ?>
+        <?php if ($adoptable) : ?>
+        <h2>Chuyển trang có sẵn sang kéo-thả</h2>
+        <p class="tnls-lead">Trang đang chạy theo thiết kế cố định (khớp Figma) - chuyển sang đây để kéo-thả được, nhưng phải dựng lại nội dung bằng các khối (không tự copy nội dung cũ). <b>Trang sẽ đổi giao diện NGAY khi bấm "Chuyển"</b> nếu trang đang publish - chỉ làm khi đã sẵn sàng dựng lại nội dung.</p>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="tnls-adopt-form">
+            <input type="hidden" name="action" value="tnl_studio_adopt">
+            <?php wp_nonce_field('tnl_studio_adopt'); ?>
+            <select name="post_id">
+                <?php foreach ($adoptable as $pg) : ?>
+                <option value="<?php echo esc_attr($pg->ID); ?>"><?php echo esc_html($pg->post_title . ' (/' . $pg->post_name . '/)'); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <select name="preset">
+                <option value="blank">Bắt đầu trống</option>
+                <?php foreach (tnl_studio_presets() as $key => $p) : if ($key === 'blank') continue; ?>
+                <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($p['label']); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" class="button button-primary" onclick="return confirm('Trang này sẽ đổi sang giao diện Landing Studio ngay lập tức nếu đang publish. Tiếp tục?');">Chuyển sang Landing Studio</button>
+        </form>
+        <?php endif; ?>
         <h2>Đã tạo</h2>
         <?php if (!$items) : ?><p>Chưa có trang/bài viết nào. Tạo mới từ mẫu phía trên.</p><?php else : ?>
         <table class="widefat striped tnls-table">
@@ -1013,6 +1043,32 @@ add_action('admin_post_tnl_studio_create', function () {
     exit;
 });
 
+/* "Adopt" 1 trang CLONE MODE co san sang Landing Studio: giu nguyen ID/slug (khong tao trang moi),
+ * chi gan _tnl_studio_data + xoa _wp_page_template (de page.php dung page-shell). KHONG dung post_content. */
+add_action('admin_post_tnl_studio_adopt', function () {
+    if (!current_user_can('edit_pages')) wp_die('Không đủ quyền.');
+    check_admin_referer('tnl_studio_adopt');
+    $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
+    $p = $post_id ? get_post($post_id) : null;
+    if (!$p || $p->post_type !== 'page') wp_die('Không tìm thấy trang.');
+    if (get_post_meta($post_id, '_tnl_studio_data', true)) wp_die('Trang này đã dùng Landing Studio rồi.');
+
+    $presets = tnl_studio_presets();
+    $key = isset($_POST['preset']) ? sanitize_key($_POST['preset']) : 'blank';
+    if (!isset($presets[$key])) $key = 'blank';
+    $sections = array();
+    foreach ($presets[$key]['sections'] as $ps) {
+        $s = tnl_studio_default_section($ps['type']);
+        if (!$s) continue;
+        if (!empty($ps['fields'])) foreach ($ps['fields'] as $k => $v) $s['fields'][$k] = $v;
+        $sections[] = $s;
+    }
+    delete_post_meta($post_id, '_wp_page_template');
+    update_post_meta($post_id, '_tnl_studio_data', wp_slash(wp_json_encode(array('sections' => $sections), JSON_UNESCAPED_UNICODE)));
+    wp_safe_redirect(admin_url('admin.php?page=tnl-studio&post=' . $post_id));
+    exit;
+});
+
 add_action('wp_ajax_tnl_studio_save', function () {
     if (!current_user_can('edit_pages')) wp_send_json_error('Không đủ quyền.');
     check_ajax_referer('tnl_studio', 'nonce');
@@ -1036,7 +1092,17 @@ add_action('wp_ajax_tnl_studio_save', function () {
     }
     if ($p->post_type === 'page' && isset($_POST['parent'])) $upd['post_parent'] = absint($_POST['parent']);
     wp_update_post($upd);
-    if ($p->post_type === 'page') update_post_meta($post_id, '_wp_page_template', 'page-templates/landing.php');
+    if ($p->post_type === 'page') {
+        // Trang trung slug 1 file clone co san ("adopt" trang chinh) -> dung PAGE-SHELL
+        // (giu nguyen nav/footer that cua trang do qua page.php), KHONG dung template landing.php
+        // (header/footer rieng, chi hop voi trang landing hoan toan moi).
+        $final_slug = isset($upd['post_name']) ? $upd['post_name'] : $p->post_name;
+        if (function_exists('tnl_clone_has') && tnl_clone_has($final_slug)) {
+            delete_post_meta($post_id, '_wp_page_template');
+        } else {
+            update_post_meta($post_id, '_wp_page_template', 'page-templates/landing.php');
+        }
+    }
     update_post_meta($post_id, '_tnl_studio_data', wp_slash(wp_json_encode(array('sections' => $dec['sections']), JSON_UNESCAPED_UNICODE)));
     // SEO tung trang
     if (isset($_POST['seo_title'])) update_post_meta($post_id, '_tnl_seo_title', sanitize_text_field(wp_unslash($_POST['seo_title'])));
@@ -1086,3 +1152,68 @@ function tnl_studio_row_action($actions, $post) {
 }
 add_filter('page_row_actions', 'tnl_studio_row_action', 10, 2);
 add_filter('post_row_actions', 'tnl_studio_row_action', 10, 2);
+
+/* ============================================================
+ * 6. "PAGE-SHELL" - Landing Studio cho các trang CLONE MODE có sẵn
+ *    (contact/newsletter/careers...) - giữ NGUYÊN header/footer/nav
+ *    thật của từng trang (không dùng page-templates/landing.php +
+ *    header.php cũ), lấy trực tiếp từ chính file clone của trang đó.
+ * ============================================================ */
+
+/* Tách nav (+ style nprogress) và "chân trang" (footer, có thể kèm dải
+ * đăng ký newsletter) từ 1 file clone gốc. Trả null nếu không tách được. */
+function tnl_studio_page_shell($slug, $lang) {
+    $file = function_exists('tnl_clone_has') ? tnl_clone_has($slug) : false;
+    if (!$file) return null;
+    $html = file_get_contents($file);
+    if (!preg_match('/^(<nav\b.*?<\/nav>)(<style>.*?<\/style>)?/s', $html, $m)) return null;
+    $head = $m[0];
+    $rest = substr($html, strlen($head));
+    // Diem bat dau "chan trang": uu tien dai CTA newsletter (id=newsletter-section) neu co,
+    // fallback footer nen toi bg-[#101010] (xuat hien dung 1 lan, moi trang deu co).
+    $foot_at = false;
+    if (preg_match('/<div[^>]*\bid="newsletter-section"[^>]*>/', $rest, $mf, PREG_OFFSET_CAPTURE)) {
+        $foot_at = $mf[0][1];
+    } elseif (preg_match('/<div[^>]*\bbg-\[#101010\][^"]*"[^>]*>/', $rest, $mf, PREG_OFFSET_CAPTURE)) {
+        $foot_at = $mf[0][1];
+    }
+    if ($foot_at === false) return null;
+    return array('head' => $head, 'foot' => substr($rest, $foot_at));
+}
+
+/* Render 1 WP Page (post_type=page) đã dùng Landing Studio NHƯNG slug trùng 1 trang
+ * clone-mode có sẵn -> ghép: nav+footer THẬT của trang đó + nội dung Studio ở giữa. */
+function tnl_studio_render_clone_page($post) {
+    $slug = $post->post_name;
+    $lang = function_exists('tnl_clone_lang') ? tnl_clone_lang() : 'vi';
+    $shell = tnl_studio_page_shell($slug, $lang);
+    if (!$shell) return false;
+
+    $sections_json = get_post_meta($post->ID, '_tnl_studio_data', true);
+    $sections = array();
+    if (isset($_GET['tnl_preview']) && current_user_can('edit_pages')) {
+        $raw_prev = get_transient('tnl_studio_prev_' . $post->ID);
+        if ($raw_prev) {
+            $dec = json_decode($raw_prev, true);
+            if (is_array($dec) && isset($dec['sections'])) $sections = $dec['sections'];
+        }
+    }
+    if (!$sections) {
+        $dec = json_decode($sections_json, true);
+        if (is_array($dec) && isset($dec['sections'])) $sections = $dec['sections'];
+    }
+    $body = tnl_studio_compose($sections);
+    $body = apply_filters('the_content', $body);
+
+    $dir = get_template_directory();
+    $uri = get_template_directory_uri();
+    add_action('wp_head', function () use ($dir, $uri) {
+        echo '<link rel="stylesheet" href="' . esc_url($uri . '/assets/landing.css?v=' . (@filemtime($dir . '/assets/landing.css') ?: '1')) . '">';
+    }, 5);
+
+    $html = $shell['head'] . '<div class="tnl-landing">' . $body . '</div>' . $shell['foot'];
+    // Slug rieng cho body class ("studio-<slug>") de KHONG dinh CSS scope rieng cua trang goc
+    // (vd .tnl-page-careers) - tranh xung dot voi khoi Landing Studio dung class khac.
+    if (function_exists('tnl_clone_emit')) return tnl_clone_emit($html, 'studio-' . $slug);
+    echo $html; return true;
+}
