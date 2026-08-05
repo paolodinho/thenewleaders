@@ -36,7 +36,7 @@
 
   function inChrome(el) {
     return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast')
-      || el.closest('.tnl-addblock-btn') || el.closest('.tnl-delblock-btn') || el.closest('.tnl-blockpicker')
+      || el.closest('.tnl-addblock-btn') || el.closest('.tnl-sectool') || el.closest('.tnl-blockpicker')
       || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn');
   }
 
@@ -208,7 +208,7 @@
   /* ---------- THÊM KHỐI: nút nổi ở cạnh dưới mỗi khối lớn (data-sentry-component gốc React
    * đánh dấu ranh giới khối/section thật - dùng lại làm điểm neo chèn, an toàn hơn tự đoán). ---------- */
   var SECTION_SEL = '[data-sentry-component="Padding"], [data-sentry-component="Section"]';
-  var addCtl, delCtl, curSection, addHideTimer;
+  var addCtl, secTool, upBtn, downBtn, delBtn, curSection, addHideTimer;
   function ensureAddCtl() {
     if (addCtl) return;
     addCtl = document.createElement('button');
@@ -221,12 +221,18 @@
       if (curSection) openBlockPicker(curSection);
     });
 
-    delCtl = document.createElement('button');
-    delCtl.type = 'button'; delCtl.className = 'tnl-delblock-btn'; delCtl.textContent = '🗑 Xoá khối';
-    body.appendChild(delCtl);
-    delCtl.addEventListener('mouseenter', function () { clearTimeout(addHideTimer); });
-    delCtl.addEventListener('mouseleave', scheduleAddHide);
-    delCtl.addEventListener('click', function (e) {
+    // Cụm nút góc trên-phải khối: đổi vị trí lên/xuống + xoá.
+    secTool = document.createElement('div'); secTool.className = 'tnl-sectool';
+    upBtn = document.createElement('button'); upBtn.type = 'button'; upBtn.className = 'tnl-sectool__btn'; upBtn.title = 'Đưa khối lên trên'; upBtn.textContent = '↑';
+    downBtn = document.createElement('button'); downBtn.type = 'button'; downBtn.className = 'tnl-sectool__btn'; downBtn.title = 'Đưa khối xuống dưới'; downBtn.textContent = '↓';
+    delBtn = document.createElement('button'); delBtn.type = 'button'; delBtn.className = 'tnl-sectool__btn tnl-sectool__del'; delBtn.title = 'Xoá khối'; delBtn.textContent = '🗑';
+    secTool.appendChild(upBtn); secTool.appendChild(downBtn); secTool.appendChild(delBtn);
+    body.appendChild(secTool);
+    secTool.addEventListener('mouseenter', function () { clearTimeout(addHideTimer); });
+    secTool.addEventListener('mouseleave', scheduleAddHide);
+    upBtn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (curSection) moveSection(curSection, -1); });
+    downBtn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (curSection) moveSection(curSection, 1); });
+    delBtn.addEventListener('click', function (e) {
       e.preventDefault(); e.stopPropagation();
       if (!curSection) return;
       if (!confirm('Xoá hẳn khối này khỏi trang?')) return;
@@ -234,7 +240,7 @@
       var before = sec.outerHTML;
       save('delete', before, '', function () {
         sec.remove();
-        addCtl.classList.remove('show'); delCtl.classList.remove('show');
+        addCtl.classList.remove('show'); secTool.classList.remove('show');
         curSection = null;
       });
     });
@@ -246,15 +252,15 @@
     var left = Math.max(8, r.left + r.width / 2 - 60);
     addCtl.style.top = top + 'px'; addCtl.style.left = left + 'px';
     addCtl.classList.add('show');
-    var dtop = Math.min(Math.max(r.top + 8, 8), window.innerHeight - 40);
-    var dleft = Math.min(Math.max(r.right - 108, 8), window.innerWidth - 116);
-    delCtl.style.top = dtop + 'px'; delCtl.style.left = dleft + 'px';
-    delCtl.classList.add('show');
+    var ttop = Math.min(Math.max(r.top + 8, 8), window.innerHeight - 40);
+    var tleft = Math.min(Math.max(r.right - 132, 8), window.innerWidth - 140);
+    secTool.style.top = ttop + 'px'; secTool.style.left = tleft + 'px';
+    secTool.classList.add('show');
   }
   function scheduleAddHide() {
     addHideTimer = setTimeout(function () {
       if (addCtl) addCtl.classList.remove('show');
-      if (delCtl) delCtl.classList.remove('show');
+      if (secTool) secTool.classList.remove('show');
     }, 300);
   }
   /* Chỉ lấy khối NGOÀI CÙNG (không lồng trong 1 khối khác cũng khớp SECTION_SEL) -
@@ -268,6 +274,40 @@
     }
     return true;
   }
+  /* Tìm khối liền kề (cùng cấp) theo hướng dir (-1 = lên/trước, 1 = xuống/sau) để đổi chỗ. */
+  function findAdjSection(sec, dir) {
+    var el = dir < 0 ? sec.previousElementSibling : sec.nextElementSibling;
+    while (el) {
+      if (el.matches && el.matches(SECTION_SEL) && isTopLevelSection(el)) return el;
+      el = dir < 0 ? el.previousElementSibling : el.nextElementSibling;
+    }
+    return null;
+  }
+  /* Đổi chỗ 2 khối liền kề: lấy đúng đoạn HTML gốc (kể cả khoảng trắng ở giữa) từ
+   * innerHTML của cha để "find" khớp chính xác với markup thật trên server - không đoán,
+   * không tự ráp lại (an toàn hơn khi trang là HTML tĩnh nhiều lớp phức tạp). */
+  function moveSection(sec, dir) {
+    var other = findAdjSection(sec, dir);
+    if (!other) { toast('Không còn khối để đổi chỗ theo hướng này', true); return; }
+    var a = dir < 0 ? other : sec;
+    var b = dir < 0 ? sec : other;
+    var parent = a.parentElement;
+    var pHTML = parent.innerHTML;
+    var aHTML = a.outerHTML, bHTML = b.outerHTML;
+    var aIdx = pHTML.indexOf(aHTML);
+    if (aIdx === -1) { toast('Không xác định được vị trí khối', true); return; }
+    var afterA = aIdx + aHTML.length;
+    var bIdx = pHTML.indexOf(bHTML, afterA);
+    if (bIdx === -1) { toast('Không xác định được vị trí khối', true); return; }
+    var gap = pHTML.substring(afterA, bIdx);
+    var oldSpan = pHTML.substring(aIdx, bIdx + bHTML.length);
+    var newSpan = bHTML + gap + aHTML;
+    save('reorder', oldSpan, newSpan, function () {
+      if (dir < 0) parent.insertBefore(sec, other); else parent.insertBefore(other, sec);
+      scheduleAddHide();
+      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
   function setupSectionInsert() {
     document.querySelectorAll(SECTION_SEL).forEach(function (sec) {
       if (inChrome(sec) || sec.dataset.tnlSecIns || !isTopLevelSection(sec)) return;
@@ -276,6 +316,55 @@
       sec.addEventListener('mouseleave', scheduleAddHide);
     });
   }
+
+  /* ---------- MINH HOẠ (wireframe) cho từng loại khối - để chọn mà không cần đoán ----------
+   * Không chụp ảnh thật (không có), thay bằng sơ đồ bố cục thu nhỏ: đủ để nhận ra dạng khối
+   * (2 cột ảnh-chữ, 3 thẻ, bảng giá...) trước khi bấm chèn. */
+  var GLYPH_KIND = {
+    hero: 'hero', herodark: 'herodark', intro: 'colorhead', richtext: 'colorhead',
+    panel: 'split', feat: 'split', twocol: 'split', band: 'band', contact: 'band',
+    cards3: 'cards3', prog: 'cards4', cred: 'darkstat', reports: 'tagcards',
+    steps: 'steps', timeline: 'timeline', pricing: 'price', compare: 'compare',
+    bigtesti: 'avatarbig', testi3: 'quotecards', team: 'team', quote: 'quote',
+    video: 'video', faq: 'faq', infocards: 'checkimg', checklist: 'checklist',
+    countdown: 'countdown', regform: 'form', logos: 'logos', gallery: 'gallery',
+    map: 'map', spacer: 'spacer'
+  };
+  var C_OR = '#FF4F21', C_DK = '#1D1D1D', C_LN = '#D8D3CE', C_BG = '#F1EDEA';
+  function svgWrap(inner) {
+    return '<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="0" y="0" width="120" height="72" rx="6" fill="#fff" stroke="#EAE6E1"/>' + inner + '</svg>';
+  }
+  var GLYPHS = {
+    hero: svgWrap('<rect x="6" y="6" width="108" height="60" rx="4" fill="' + C_BG + '"/><rect x="30" y="26" width="60" height="8" rx="2" fill="' + C_DK + '"/><rect x="40" y="38" width="40" height="5" rx="2" fill="#B4A99E"/><rect x="45" y="48" width="30" height="9" rx="4.5" fill="' + C_OR + '"/>'),
+    herodark: svgWrap('<rect x="6" y="6" width="108" height="60" rx="4" fill="' + C_DK + '"/><rect x="30" y="20" width="60" height="8" rx="2" fill="#fff"/><rect x="40" y="32" width="40" height="5" rx="2" fill="#999"/><rect x="46" y="42" width="28" height="9" rx="4.5" fill="' + C_OR + '"/><rect x="30" y="56" width="60" height="6" rx="2" fill="#3a3a3a"/>'),
+    colorhead: svgWrap('<rect x="10" y="12" width="70" height="9" rx="2" fill="' + C_OR + '"/><rect x="10" y="30" width="100" height="5" rx="2" fill="#ddd"/><rect x="10" y="40" width="100" height="5" rx="2" fill="#ddd"/><rect x="10" y="50" width="70" height="5" rx="2" fill="#ddd"/>'),
+    split: svgWrap('<rect x="6" y="10" width="50" height="52" rx="4" fill="' + C_OR + '"/><rect x="16" y="24" width="30" height="6" rx="2" fill="#fff"/><rect x="16" y="34" width="30" height="4" rx="2" fill="rgba(255,255,255,.7)"/><rect x="64" y="10" width="50" height="52" rx="4" fill="' + C_BG + '"/>'),
+    band: svgWrap('<rect x="6" y="18" width="108" height="36" rx="6" fill="' + C_OR + '"/><rect x="24" y="30" width="72" height="7" rx="2" fill="#fff"/><rect x="46" y="42" width="28" height="8" rx="4" fill="#fff"/>'),
+    cards3: svgWrap('<rect x="8" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><rect x="45" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><rect x="82" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><circle cx="23" cy="26" r="3" fill="' + C_OR + '"/><circle cx="60" cy="26" r="3" fill="' + C_OR + '"/><circle cx="97" cy="26" r="3" fill="' + C_OR + '"/>'),
+    cards4: svgWrap('<rect x="6" y="18" width="24" height="36" rx="3" fill="' + C_BG + '"/><rect x="34" y="18" width="24" height="36" rx="3" fill="' + C_BG + '"/><rect x="62" y="18" width="24" height="36" rx="3" fill="' + C_BG + '"/><rect x="90" y="18" width="24" height="36" rx="3" fill="' + C_BG + '"/>'),
+    darkstat: svgWrap('<rect x="6" y="6" width="108" height="60" rx="4" fill="' + C_DK + '"/><rect x="16" y="28" width="24" height="12" rx="2" fill="#AFE56B"/><rect x="48" y="28" width="24" height="12" rx="2" fill="#AFE56B"/><rect x="80" y="28" width="24" height="12" rx="2" fill="#AFE56B"/>'),
+    tagcards: svgWrap('<rect x="8" y="14" width="32" height="42" rx="4" fill="' + C_BG + '"/><rect x="47" y="14" width="32" height="42" rx="4" fill="' + C_BG + '"/><rect x="86" y="14" width="26" height="42" rx="4" fill="' + C_BG + '"/><rect x="13" y="19" width="18" height="7" rx="3.5" fill="' + C_OR + '"/><rect x="52" y="19" width="18" height="7" rx="3.5" fill="' + C_OR + '"/>'),
+    steps: svgWrap('<line x1="20" y1="36" x2="100" y2="36" stroke="' + C_LN + '" stroke-width="3"/><circle cx="20" cy="36" r="9" fill="' + C_OR + '"/><circle cx="60" cy="36" r="9" fill="' + C_OR + '"/><circle cx="100" cy="36" r="9" fill="' + C_OR + '"/>'),
+    timeline: svgWrap('<line x1="20" y1="10" x2="20" y2="62" stroke="' + C_LN + '" stroke-width="3"/><circle cx="20" cy="18" r="4" fill="' + C_OR + '"/><rect x="32" y="14" width="70" height="6" rx="2" fill="#ddd"/><circle cx="20" cy="36" r="4" fill="' + C_OR + '"/><rect x="32" y="32" width="70" height="6" rx="2" fill="#ddd"/><circle cx="20" cy="54" r="4" fill="' + C_OR + '"/><rect x="32" y="50" width="70" height="6" rx="2" fill="#ddd"/>'),
+    price: svgWrap('<rect x="30" y="6" width="60" height="60" rx="6" fill="' + C_BG + '" stroke="' + C_OR + '" stroke-width="2"/><rect x="42" y="16" width="36" height="10" rx="2" fill="' + C_DK + '"/><rect x="48" y="32" width="24" height="4" rx="2" fill="#B4A99E"/><rect x="48" y="40" width="24" height="4" rx="2" fill="#B4A99E"/><rect x="44" y="50" width="32" height="9" rx="4.5" fill="' + C_OR + '"/>'),
+    compare: svgWrap('<rect x="8" y="10" width="48" height="50" rx="4" fill="' + C_BG + '"/><rect x="64" y="6" width="48" height="58" rx="4" fill="#fff" stroke="' + C_OR + '" stroke-width="2"/><rect x="16" y="18" width="32" height="5" rx="2" fill="#B4A99E"/><rect x="72" y="16" width="32" height="5" rx="2" fill="' + C_OR + '"/>'),
+    avatarbig: svgWrap('<circle cx="24" cy="36" r="14" fill="' + C_BG + '"/><rect x="46" y="26" width="64" height="5" rx="2" fill="#ccc"/><rect x="46" y="36" width="50" height="5" rx="2" fill="#ccc"/><rect x="46" y="46" width="30" height="5" rx="2" fill="' + C_OR + '"/>'),
+    quotecards: svgWrap('<rect x="8" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><rect x="45" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><rect x="82" y="16" width="30" height="40" rx="4" fill="' + C_BG + '"/><circle cx="23" cy="46" r="5" fill="#fff" stroke="' + C_OR + '"/><circle cx="60" cy="46" r="5" fill="#fff" stroke="' + C_OR + '"/><circle cx="97" cy="46" r="5" fill="#fff" stroke="' + C_OR + '"/>'),
+    team: svgWrap('<circle cx="24" cy="26" r="12" fill="' + C_BG + '"/><circle cx="60" cy="26" r="12" fill="' + C_BG + '"/><circle cx="96" cy="26" r="12" fill="' + C_BG + '"/><rect x="14" y="44" width="20" height="4" rx="2" fill="#ccc"/><rect x="50" y="44" width="20" height="4" rx="2" fill="#ccc"/><rect x="86" y="44" width="20" height="4" rx="2" fill="#ccc"/>'),
+    quote: svgWrap('<text x="60" y="34" font-size="26" text-anchor="middle" fill="' + C_OR + '" font-family="Georgia,serif">"</text><rect x="24" y="40" width="72" height="5" rx="2" fill="#ccc"/><rect x="36" y="50" width="48" height="5" rx="2" fill="#ccc"/>'),
+    video: svgWrap('<rect x="10" y="10" width="100" height="52" rx="4" fill="' + C_DK + '"/><circle cx="60" cy="36" r="12" fill="rgba(255,255,255,.9)"/><path d="M56 30l10 6-10 6z" fill="' + C_OR + '"/>'),
+    faq: svgWrap('<rect x="10" y="10" width="100" height="12" rx="3" fill="' + C_BG + '"/><rect x="10" y="26" width="100" height="12" rx="3" fill="' + C_BG + '"/><rect x="10" y="42" width="100" height="12" rx="3" fill="' + C_BG + '"/><text x="102" y="19" font-size="10" fill="' + C_OR + '">+</text><text x="102" y="35" font-size="10" fill="' + C_OR + '">+</text><text x="102" y="51" font-size="10" fill="' + C_OR + '">+</text>'),
+    checkimg: svgWrap('<rect x="8" y="12" width="46" height="48" rx="4" fill="' + C_BG + '"/><rect x="64" y="18" width="8" height="8" rx="2" fill="' + C_OR + '"/><rect x="76" y="19" width="34" height="5" rx="2" fill="#ccc"/><rect x="64" y="34" width="8" height="8" rx="2" fill="' + C_OR + '"/><rect x="76" y="35" width="34" height="5" rx="2" fill="#ccc"/><rect x="64" y="50" width="8" height="8" rx="2" fill="' + C_OR + '"/><rect x="76" y="51" width="34" height="5" rx="2" fill="#ccc"/>'),
+    checklist: svgWrap('<rect x="16" y="14" width="10" height="10" rx="2" fill="' + C_OR + '"/><rect x="32" y="16" width="72" height="6" rx="2" fill="#ccc"/><rect x="16" y="32" width="10" height="10" rx="2" fill="' + C_OR + '"/><rect x="32" y="34" width="72" height="6" rx="2" fill="#ccc"/><rect x="16" y="50" width="10" height="10" rx="2" fill="' + C_OR + '"/><rect x="32" y="52" width="72" height="6" rx="2" fill="#ccc"/>'),
+    countdown: svgWrap('<rect x="8" y="22" width="22" height="28" rx="3" fill="' + C_DK + '"/><rect x="34" y="22" width="22" height="28" rx="3" fill="' + C_DK + '"/><rect x="60" y="22" width="22" height="28" rx="3" fill="' + C_DK + '"/><rect x="86" y="22" width="22" height="28" rx="3" fill="' + C_DK + '"/>'),
+    form: svgWrap('<rect x="14" y="12" width="92" height="10" rx="2" fill="' + C_BG + '"/><rect x="14" y="28" width="92" height="10" rx="2" fill="' + C_BG + '"/><rect x="14" y="44" width="40" height="10" rx="5" fill="' + C_OR + '"/>'),
+    logos: svgWrap('<rect x="8" y="30" width="16" height="10" rx="2" fill="#ccc"/><rect x="32" y="30" width="16" height="10" rx="2" fill="#ccc"/><rect x="56" y="30" width="16" height="10" rx="2" fill="#ccc"/><rect x="80" y="30" width="16" height="10" rx="2" fill="#ccc"/><rect x="104" y="30" width="10" height="10" rx="2" fill="#ccc"/>'),
+    gallery: svgWrap('<rect x="8" y="10" width="32" height="24" rx="3" fill="' + C_BG + '"/><rect x="44" y="10" width="32" height="24" rx="3" fill="' + C_BG + '"/><rect x="80" y="10" width="32" height="24" rx="3" fill="' + C_BG + '"/><rect x="8" y="38" width="32" height="24" rx="3" fill="' + C_BG + '"/><rect x="44" y="38" width="32" height="24" rx="3" fill="' + C_BG + '"/><rect x="80" y="38" width="32" height="24" rx="3" fill="' + C_BG + '"/>'),
+    map: svgWrap('<rect x="8" y="10" width="104" height="52" rx="4" fill="' + C_BG + '"/><path d="M60 26c-6 0-10 4-10 10 0 8 10 18 10 18s10-10 10-18c0-6-4-10-10-10z" fill="' + C_OR + '"/><circle cx="60" cy="36" r="4" fill="#fff"/>'),
+    spacer: svgWrap('<line x1="20" y1="36" x2="100" y2="36" stroke="' + C_LN + '" stroke-width="2" stroke-dasharray="4 4"/>')
+  };
+  function glyphFor(type) { return GLYPHS[GLYPH_KIND[type]] || GLYPHS.colorhead; }
 
   /* ---------- PICKER chọn loại khối + gọi AJAX dựng HTML + chèn vào trang ---------- */
   var picker;
@@ -299,7 +388,7 @@
       var row = document.createElement('div'); row.className = 'tnl-blockpicker__row';
       groups[g].forEach(function (type) {
         var b = document.createElement('button'); b.type = 'button'; b.className = 'tnl-blockpicker__item';
-        b.textContent = tnlEdit.blockTypes[type].label;
+        b.innerHTML = '<span class="tnl-blockpicker__thumb">' + glyphFor(type) + '</span><span class="tnl-blockpicker__lbl">' + tnlEdit.blockTypes[type].label + '</span>';
         b.addEventListener('click', function () { picker.hidden = true; insertBlock(type); });
         row.appendChild(b);
       });
