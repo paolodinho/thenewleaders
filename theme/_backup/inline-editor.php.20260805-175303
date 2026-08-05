@@ -88,36 +88,6 @@ add_action('wp_ajax_tnl_reset_overrides', function () {
     wp_send_json_success(array('msg' => 'Đã hoàn tác trang này.'));
 });
 
-/* "Thêm khối" - render 1 khối mẫu (dùng lại đúng thư viện 28 khối của Landing Studio,
- * inc/landing-templates.php + inc/landing-studio.php::tnl_studio_render_section) với giá
- * trị mặc định, trả HTML thô để JS chèn vào trang qua co che override (find/replace-noi-them). */
-add_action('wp_ajax_tnl_render_block', function () {
-    if (!current_user_can('edit_pages')) wp_send_json_error(array('msg' => 'Không đủ quyền.'), 403);
-    check_ajax_referer('tnl_edit', 'nonce');
-    $type = isset($_POST['type']) ? sanitize_key($_POST['type']) : '';
-    if (!function_exists('tnl_studio_default_section') || !function_exists('tnl_studio_render_section')) {
-        wp_send_json_error(array('msg' => 'Thiếu thư viện khối.'));
-    }
-    $s = tnl_studio_default_section($type);
-    if (!$s) wp_send_json_error(array('msg' => 'Loại khối không hợp lệ.'));
-    $html = tnl_studio_render_section($type, $s['fields'], $s['items']);
-    if ($html === '') wp_send_json_error(array('msg' => 'Không dựng được khối.'));
-    // Bo comment Gutenberg (<!-- wp:... -->) - trang clone la HTML thuan, khong qua block editor.
-    $html = preg_replace('/<!--\s*\/?wp:[^>]*-->/', '', $html);
-    wp_send_json_success(array('html' => trim($html)));
-});
-
-/* Danh sách khối cho picker "+ Thêm khối" - rút gọn nhãn từ tnl_studio_schema() nếu có. */
-function tnl_ie_block_types() {
-    if (!function_exists('tnl_studio_schema')) return array();
-    $out = array();
-    foreach (tnl_studio_schema() as $type => $s) {
-        if (in_array($type, array('contact_hero', 'contact_form'), true)) continue; // markup riêng, không dùng ngoài trang Liên hệ
-        $out[$type] = array('label' => $s['label'], 'group' => isset($s['group']) ? $s['group'] : 'Khác');
-    }
-    return $out;
-}
-
 /* ============================================================
  * Nạp asset editor + biến JS (chỉ cho người có quyền sửa)
  * ============================================================ */
@@ -129,11 +99,10 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('tnl-inline-editor', $uri . '/assets/inline-editor.css', array(), @filemtime($dir . '/assets/inline-editor.css') ?: '1');
     wp_enqueue_script('tnl-inline-editor', $uri . '/assets/inline-editor.js', array('jquery'), @filemtime($dir . '/assets/inline-editor.js') ?: '1', true);
     wp_localize_script('tnl-inline-editor', 'tnlEdit', array(
-        'ajax'       => admin_url('admin-ajax.php'),
-        'nonce'      => wp_create_nonce('tnl_edit'),
-        'pagekey'    => tnl_page_key(),
-        'active'     => isset($_GET['tnl_edit']) ? 1 : 0,
-        'blockTypes' => tnl_ie_block_types(),
+        'ajax'    => admin_url('admin-ajax.php'),
+        'nonce'   => wp_create_nonce('tnl_edit'),
+        'pagekey' => tnl_page_key(),
+        'active'  => isset($_GET['tnl_edit']) ? 1 : 0,
     ));
 }, 20);
 

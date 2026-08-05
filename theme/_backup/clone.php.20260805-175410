@@ -151,11 +151,6 @@ function tnl_clone_emit($markup, $slug = '') {
     $opt_v = is_readable($opt_path) ? filemtime($opt_path) : 0;
     $fi_path = $clone_path . '/css/fonts-inline.css';
     $fi_v = is_readable($fi_path) ? filemtime($fi_path) : 0;
-    // landing.css: mang class .tnl-* dung boi cac khoi "Them khoi" (inc/inline-editor.php)
-    // chen vao trang CLONE MODE - tai luon de moi trang deu san sang, du chua chen khoi nao.
-    $theme_dir = get_template_directory();
-    $theme_uri = get_template_directory_uri();
-    $landing_v = @filemtime($theme_dir . '/assets/landing.css') ?: '1';
     ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -164,7 +159,6 @@ function tnl_clone_emit($markup, $slug = '') {
   <link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/live.css?v=' . $css_v); ?>">
   <?php if ($opt_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/optimize.css?v=' . $opt_v); ?>"><?php endif; ?>
   <?php if ($fi_v) : ?><link rel="stylesheet" href="<?php echo esc_url($clone_uri . '/css/fonts-inline.css?v=' . $fi_v); ?>"><?php endif; ?>
-  <link rel="stylesheet" href="<?php echo esc_url($theme_uri . '/assets/landing.css?v=' . $landing_v); ?>">
   <?php wp_head(); ?>
 </head>
 <body class="tnl-opt tnl-page-<?php echo esc_attr($slug); ?><?php echo ($slug === 'events') ? ' tnl-opt-events' : ''; ?> <?php echo esc_attr(implode(' ', get_body_class())); ?>">

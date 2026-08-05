@@ -35,21 +35,59 @@
   }
 
   function inChrome(el) {
-    return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast') || el.classList.contains('tnl-img-btn');
+    return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast')
+      || el.closest('.tnl-addblock-btn') || el.closest('.tnl-blockpicker')
+      || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn');
+  }
+
+  /* ---------- BỐ CỤC: đảo trái/phải trong khối flex-row 2 phần tử (ảnh-chữ) ----------
+   * Dùng CSS `order` (inline style) thay vì đảo DOM - an toàn với mọi cách viết class
+   * (Tailwind order-*, flex-row-reverse...) vì override đè lên bằng specificity cao nhất,
+   * không cần đoán/sửa class gốc. */
+  function findFlipContainer(el) {
+    var p = el.parentElement;
+    var hops = 0;
+    while (p && p !== body && hops < 6) {
+      var cs = getComputedStyle(p);
+      if ((cs.display === 'flex' || cs.display === 'inline-flex') && cs.flexDirection.indexOf('row') === 0) {
+        var kids = Array.prototype.filter.call(p.children, function (c) { return c.nodeType === 1; });
+        if (kids.length === 2) return p;
+      }
+      p = p.parentElement; hops++;
+    }
+    return null;
+  }
+  function flipContainer(container) {
+    var kids = Array.prototype.filter.call(container.children, function (c) { return c.nodeType === 1; });
+    if (kids.length !== 2) return;
+    var before = container.outerHTML;
+    var cur0 = parseInt(getComputedStyle(kids[0]).order, 10) || 0;
+    var cur1 = parseInt(getComputedStyle(kids[1]).order, 10) || 0;
+    if (cur0 <= cur1) { kids[0].style.order = '2'; kids[1].style.order = '1'; }
+    else { kids[0].style.order = '1'; kids[1].style.order = '2'; }
+    var after = container.outerHTML;
+    save('layout', before, after, function () {});
   }
 
   /* ---------- ẢNH: một nút nổi dùng chung (tránh chồng ở ảnh nhỏ sát nhau) ---------- */
-  var imgCtl, imgSpec, curImg, hideTimer;
+  var imgCtl, imgSpec, flipCtl, curImg, hideTimer;
   function ensureCtl() {
     if (imgCtl) return;
     imgSpec = document.createElement('span'); imgSpec.className = 'tnl-img-spec';
     imgCtl = document.createElement('button'); imgCtl.type = 'button'; imgCtl.className = 'tnl-img-btn'; imgCtl.textContent = '⇪ Thay ảnh';
-    body.appendChild(imgSpec); body.appendChild(imgCtl);
-    [imgCtl, imgSpec].forEach(function (e) {
+    flipCtl = document.createElement('button'); flipCtl.type = 'button'; flipCtl.className = 'tnl-img-btn tnl-flip-btn'; flipCtl.textContent = '⇄ Đảo bên';
+    body.appendChild(imgSpec); body.appendChild(imgCtl); body.appendChild(flipCtl);
+    [imgCtl, imgSpec, flipCtl].forEach(function (e) {
       e.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
       e.addEventListener('mouseleave', scheduleHide);
     });
     imgCtl.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (curImg) openMedia(curImg); });
+    flipCtl.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      if (!curImg) return;
+      var c = findFlipContainer(curImg);
+      if (c) flipContainer(c);
+    });
   }
   function showCtl(img) {
     ensureCtl(); clearTimeout(hideTimer); curImg = img;
@@ -61,10 +99,17 @@
     imgCtl.style.top = top + 'px'; imgCtl.style.left = left + 'px';
     imgSpec.style.top = (top + 40) + 'px'; imgSpec.style.left = left + 'px';
     imgCtl.classList.add('show'); imgSpec.classList.add('show');
+    var flipC = findFlipContainer(img);
+    if (flipC) {
+      flipCtl.style.top = top + 'px'; flipCtl.style.left = (left + 118) + 'px';
+      flipCtl.classList.add('show');
+    } else {
+      flipCtl.classList.remove('show');
+    }
   }
   function scheduleHide() {
     hideTimer = setTimeout(function () {
-      if (imgCtl) { imgCtl.classList.remove('show'); imgSpec.classList.remove('show'); }
+      if (imgCtl) { imgCtl.classList.remove('show'); imgSpec.classList.remove('show'); flipCtl.classList.remove('show'); }
     }, 160);
   }
   function setupImages() {
@@ -100,6 +145,161 @@
       });
     });
     frame.open();
+  }
+
+  /* ---------- VIDEO: nút nổi riêng để thay video nền (dùng chung style .tnl-img-btn) ---------- */
+  var vidCtl, curVid, vidHideTimer;
+  function ensureVidCtl() {
+    if (vidCtl) return;
+    vidCtl = document.createElement('button'); vidCtl.type = 'button'; vidCtl.className = 'tnl-img-btn tnl-vid-btn'; vidCtl.textContent = '🎬 Thay video';
+    body.appendChild(vidCtl);
+    vidCtl.addEventListener('mouseenter', function () { clearTimeout(vidHideTimer); });
+    vidCtl.addEventListener('mouseleave', scheduleVidHide);
+    vidCtl.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (curVid) openVideoMedia(curVid); });
+  }
+  function showVidCtl(vid) {
+    ensureVidCtl(); clearTimeout(vidHideTimer); curVid = vid;
+    var r = vid.getBoundingClientRect();
+    var top = Math.min(Math.max(r.top + 8, 8), window.innerHeight - 46);
+    var left = Math.min(Math.max(r.left + 8, 8), window.innerWidth - 150);
+    vidCtl.style.top = top + 'px'; vidCtl.style.left = left + 'px';
+    vidCtl.classList.add('show');
+  }
+  function scheduleVidHide() {
+    vidHideTimer = setTimeout(function () { if (vidCtl) vidCtl.classList.remove('show'); }, 160);
+  }
+  function setupVideos() {
+    document.querySelectorAll('video').forEach(function (vid) {
+      if (inChrome(vid) || vid.dataset.tnlVid) return;
+      vid.dataset.tnlVid = '1';
+      vid.classList.add('tnl-editable-vid');
+      vid._tnlOrig = vid.outerHTML;
+      vid.addEventListener('mouseenter', function () { showVidCtl(vid); });
+      vid.addEventListener('mouseleave', scheduleVidHide);
+    });
+  }
+
+  var vidFrame;
+  function openVideoMedia(vid) {
+    if (!window.wp || !wp.media) { toast('Chưa tải được thư viện media', true); return; }
+    vidFrame = wp.media({ title: 'Chọn / tải video thay thế', button: { text: 'Dùng video này' }, multiple: false, library: { type: 'video' } });
+    vidFrame.on('select', function () {
+      var a = vidFrame.state().get('selection').first().toJSON();
+      var url = a.url;
+      var before = vid._tnlOrig || vid.outerHTML;
+      var clone = vid.cloneNode(false);
+      clone.classList.remove('tnl-editable-vid');
+      var src = document.createElement('source');
+      src.setAttribute('src', url);
+      src.setAttribute('type', a.mime || 'video/mp4');
+      clone.appendChild(src);
+      var after = clone.outerHTML;
+      save('video', before, after, function () {
+        vid.querySelectorAll('source').forEach(function (s) { s.remove(); });
+        var s2 = document.createElement('source'); s2.setAttribute('src', url); s2.setAttribute('type', a.mime || 'video/mp4');
+        vid.appendChild(s2);
+        vid.load();
+        vid._tnlOrig = vid.outerHTML;
+      });
+    });
+    vidFrame.open();
+  }
+
+  /* ---------- THÊM KHỐI: nút nổi ở cạnh dưới mỗi khối lớn (data-sentry-component gốc React
+   * đánh dấu ranh giới khối/section thật - dùng lại làm điểm neo chèn, an toàn hơn tự đoán). ---------- */
+  var SECTION_SEL = '[data-sentry-component="Padding"], [data-sentry-component="Section"]';
+  var addCtl, curSection, addHideTimer;
+  function ensureAddCtl() {
+    if (addCtl) return;
+    addCtl = document.createElement('button');
+    addCtl.type = 'button'; addCtl.className = 'tnl-addblock-btn'; addCtl.textContent = '+ Thêm khối';
+    body.appendChild(addCtl);
+    addCtl.addEventListener('mouseenter', function () { clearTimeout(addHideTimer); });
+    addCtl.addEventListener('mouseleave', scheduleAddHide);
+    addCtl.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      if (curSection) openBlockPicker(curSection);
+    });
+  }
+  function showAddCtl(sec) {
+    ensureAddCtl(); clearTimeout(addHideTimer); curSection = sec;
+    var r = sec.getBoundingClientRect();
+    var top = Math.min(Math.max(r.bottom - 18, 8), window.innerHeight - 40);
+    var left = Math.max(8, r.left + r.width / 2 - 60);
+    addCtl.style.top = top + 'px'; addCtl.style.left = left + 'px';
+    addCtl.classList.add('show');
+  }
+  function scheduleAddHide() {
+    addHideTimer = setTimeout(function () { if (addCtl) addCtl.classList.remove('show'); }, 300);
+  }
+  function setupSectionInsert() {
+    document.querySelectorAll(SECTION_SEL).forEach(function (sec) {
+      if (inChrome(sec) || sec.dataset.tnlSecIns) return;
+      sec.dataset.tnlSecIns = '1';
+      sec.addEventListener('mouseenter', function () { showAddCtl(sec); });
+      sec.addEventListener('mouseleave', scheduleAddHide);
+    });
+  }
+
+  /* ---------- PICKER chọn loại khối + gọi AJAX dựng HTML + chèn vào trang ---------- */
+  var picker;
+  function ensurePicker() {
+    if (picker) return;
+    picker = document.createElement('div'); picker.className = 'tnl-blockpicker'; picker.hidden = true;
+    var box = document.createElement('div'); box.className = 'tnl-blockpicker__box';
+    box.innerHTML = '<div class="tnl-blockpicker__head"><b>Chọn khối để thêm</b><button type="button" class="tnl-blockpicker__close">✕</button></div><div class="tnl-blockpicker__grid"></div>';
+    picker.appendChild(box);
+    body.appendChild(picker);
+    picker.addEventListener('click', function (e) { if (e.target === picker) picker.hidden = true; });
+    box.querySelector('.tnl-blockpicker__close').addEventListener('click', function () { picker.hidden = true; });
+    var grid = box.querySelector('.tnl-blockpicker__grid');
+    var groups = {};
+    Object.keys(tnlEdit.blockTypes || {}).forEach(function (type) {
+      var g = tnlEdit.blockTypes[type].group || 'Khác';
+      (groups[g] = groups[g] || []).push(type);
+    });
+    Object.keys(groups).forEach(function (g) {
+      var h = document.createElement('h4'); h.textContent = g; h.className = 'tnl-blockpicker__gname'; grid.appendChild(h);
+      var row = document.createElement('div'); row.className = 'tnl-blockpicker__row';
+      groups[g].forEach(function (type) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'tnl-blockpicker__item';
+        b.textContent = tnlEdit.blockTypes[type].label;
+        b.addEventListener('click', function () { picker.hidden = true; insertBlock(type); });
+        row.appendChild(b);
+      });
+      grid.appendChild(row);
+    });
+  }
+  function openBlockPicker(sec) {
+    ensurePicker();
+    curSection = sec;
+    picker.hidden = false;
+  }
+  function insertBlock(type) {
+    if (!curSection) return;
+    var sec = curSection;
+    var d = new FormData();
+    d.append('action', 'tnl_render_block');
+    d.append('nonce', tnlEdit.nonce);
+    d.append('type', type);
+    fetch(tnlEdit.ajax, { method: 'POST', body: d, credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res || !res.success) { toast((res && res.data && res.data.msg) || 'Lỗi dựng khối', true); return; }
+        var before = sec.outerHTML;
+        var wrap = document.createElement('div');
+        wrap.innerHTML = res.data.html;
+        var newEl = wrap.firstElementChild;
+        if (!newEl) { toast('Khối rỗng', true); return; }
+        sec.insertAdjacentElement('afterend', newEl);
+        var after = before + newEl.outerHTML;
+        save('insert', before, after, function () {
+          // gan lai listener sua chu/anh/video cho noi dung vua chen
+          setupImages(); setupVideos(); setupSectionInsert(); setupText();
+          newEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      })
+      .catch(function () { toast('Lỗi kết nối', true); });
   }
 
   /* ---------- CHỮ ---------- */
@@ -163,7 +363,7 @@
 
   function init() {
     body.classList.add('tnl-editing');
-    bar(); setupImages(); setupText();
+    bar(); setupImages(); setupVideos(); setupText(); setupSectionInsert();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
