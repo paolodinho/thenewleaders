@@ -232,9 +232,20 @@
   function scheduleAddHide() {
     addHideTimer = setTimeout(function () { if (addCtl) addCtl.classList.remove('show'); }, 300);
   }
+  /* Chỉ lấy khối NGOÀI CÙNG (không lồng trong 1 khối khác cũng khớp SECTION_SEL) -
+   * tránh "+ Thêm khối" bám vào 1 mảnh nhỏ (vd Padding con) khiến khối mới bị chèn
+   * lọt vào giữa khối đang có thay vì tạo hẳn 1 khối/section mới độc lập. */
+  function isTopLevelSection(el) {
+    var p = el.parentElement;
+    while (p && p !== body) {
+      if (p.matches && p.matches(SECTION_SEL)) return false;
+      p = p.parentElement;
+    }
+    return true;
+  }
   function setupSectionInsert() {
     document.querySelectorAll(SECTION_SEL).forEach(function (sec) {
-      if (inChrome(sec) || sec.dataset.tnlSecIns) return;
+      if (inChrome(sec) || sec.dataset.tnlSecIns || !isTopLevelSection(sec)) return;
       sec.dataset.tnlSecIns = '1';
       sec.addEventListener('mouseenter', function () { showAddCtl(sec); });
       sec.addEventListener('mouseleave', scheduleAddHide);
