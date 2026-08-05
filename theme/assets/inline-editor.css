@@ -77,6 +77,16 @@ body.tnl-editing .tnl-editable-vid:hover { outline: 2px solid #FF4F21; }
 .tnl-addblock-btn.show { opacity: 1; visibility: visible; }
 .tnl-addblock-btn:hover { background: #FF4F21; border-color: #fff; }
 
+/* Nút "Xoá khối" - cùng nhóm với "+ Thêm khối", đặt góc trên-phải của khối đang hover */
+.tnl-delblock-btn {
+  position: fixed; z-index: 99997;
+  background: #7a1210; color: #fff; border: 2px dashed #ff6b5e; border-radius: 999px; padding: 7px 12px;
+  font: 600 13px/1 system-ui; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  opacity: 0; visibility: hidden; transition: opacity .12s;
+}
+.tnl-delblock-btn.show { opacity: 1; visibility: visible; }
+.tnl-delblock-btn:hover { background: #d63638; border-color: #fff; }
+
 /* Picker chọn loại khối */
 .tnl-blockpicker { position: fixed; inset: 0; z-index: 999999; background: rgba(16,16,16,.55); display: flex; align-items: center; justify-content: center; }
 .tnl-blockpicker[hidden] { display: none; }

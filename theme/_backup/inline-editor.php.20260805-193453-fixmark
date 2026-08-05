@@ -31,12 +31,8 @@ function tnl_apply_overrides($markup) {
     if (!$list) return $markup;
     foreach ($list as $ov) {
         if (empty($ov['find']) || !isset($ov['replace'])) continue;
-        // tnl_ie_strip_markers() phong ngua du lieu luu TU TRUOC ban va nay (con dinh
-        // vet class/data-tnl-*) - tu dong khop lai duoc ma khong can nguoi dung sua lai.
-        $find = tnl_ie_strip_markers($ov['find']);
-        $replace = tnl_ie_strip_markers($ov['replace']);
-        if (strpos($markup, $find) !== false) {
-            $markup = str_replace($find, $replace, $markup);
+        if (strpos($markup, $ov['find']) !== false) {
+            $markup = str_replace($ov['find'], $ov['replace'], $markup);
         }
     }
     return $markup;
@@ -52,25 +48,6 @@ function tnl_sanitize_fragment($html) {
     return $html;
 }
 
-/* Bo het "vet" ma trinh chinh sua tu gan vao DOM luc dang o che do sua (class
- * tnl-editable-*, data-tnl-txt/img/vid/sec-ins, contenteditable) khoi HTML truoc khi
- * luu. LY DO: JS gan cac marker nay NGAY khi vao che do sua (truoc khi bam sua) - neu
- * khong bo, chuoi "find" luu lai se KHONG BAO GIO khop voi markup goc luc trang tai lai
- * binh thuong (markup goc lam gi co cac marker chi-danh-cho-che-do-sua nay) -> sua xong,
- * bam Luu bao thanh cong, nhung sang trang lai/tai lai la mat het, tuong nhu chua luu. */
-function tnl_ie_strip_markers($html) {
-    if ($html === '' || $html === null) return $html;
-    $html = preg_replace('/\s*data-tnl-(txt|img|vid|sec-ins)="1"/', '', $html);
-    $html = preg_replace('/\s*contenteditable="(true|false)"/', '', $html);
-    $html = preg_replace_callback('/\s*class="([^"]*)"/', function ($m) {
-        $cls = array_filter(preg_split('/\s+/', $m[1]), function ($c) {
-            return $c !== '' && !in_array($c, array('tnl-editable-text', 'tnl-editable-img', 'tnl-editable-vid'), true);
-        });
-        return $cls ? ' class="' . implode(' ', $cls) . '"' : '';
-    }, $html);
-    return $html;
-}
-
 /* ============================================================
  * AJAX - lưu / xoá override
  * ============================================================ */
@@ -80,8 +57,8 @@ add_action('wp_ajax_tnl_save_override', function () {
 
     $key     = isset($_POST['pagekey']) ? sanitize_text_field(wp_unslash($_POST['pagekey'])) : '';
     $type    = isset($_POST['type']) ? sanitize_key($_POST['type']) : 'text';
-    $find    = isset($_POST['find']) ? tnl_ie_strip_markers(tnl_sanitize_fragment(wp_unslash($_POST['find']))) : '';
-    $replace = isset($_POST['replace']) ? tnl_ie_strip_markers(tnl_sanitize_fragment(wp_unslash($_POST['replace']))) : '';
+    $find    = isset($_POST['find']) ? tnl_sanitize_fragment(wp_unslash($_POST['find'])) : '';
+    $replace = isset($_POST['replace']) ? tnl_sanitize_fragment(wp_unslash($_POST['replace'])) : '';
 
     if ($key === '' || $find === '' || $find === $replace) {
         wp_send_json_error(array('msg' => 'Không có thay đổi.'), 400);

@@ -36,7 +36,7 @@
 
   function inChrome(el) {
     return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast')
-      || el.closest('.tnl-addblock-btn') || el.closest('.tnl-delblock-btn') || el.closest('.tnl-blockpicker')
+      || el.closest('.tnl-addblock-btn') || el.closest('.tnl-blockpicker')
       || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn');
   }
 
@@ -208,7 +208,7 @@
   /* ---------- THÊM KHỐI: nút nổi ở cạnh dưới mỗi khối lớn (data-sentry-component gốc React
    * đánh dấu ranh giới khối/section thật - dùng lại làm điểm neo chèn, an toàn hơn tự đoán). ---------- */
   var SECTION_SEL = '[data-sentry-component="Padding"], [data-sentry-component="Section"]';
-  var addCtl, delCtl, curSection, addHideTimer;
+  var addCtl, curSection, addHideTimer;
   function ensureAddCtl() {
     if (addCtl) return;
     addCtl = document.createElement('button');
@@ -220,24 +220,6 @@
       e.preventDefault(); e.stopPropagation();
       if (curSection) openBlockPicker(curSection);
     });
-
-    delCtl = document.createElement('button');
-    delCtl.type = 'button'; delCtl.className = 'tnl-delblock-btn'; delCtl.textContent = '🗑 Xoá khối';
-    body.appendChild(delCtl);
-    delCtl.addEventListener('mouseenter', function () { clearTimeout(addHideTimer); });
-    delCtl.addEventListener('mouseleave', scheduleAddHide);
-    delCtl.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      if (!curSection) return;
-      if (!confirm('Xoá hẳn khối này khỏi trang?')) return;
-      var sec = curSection;
-      var before = sec.outerHTML;
-      save('delete', before, '', function () {
-        sec.remove();
-        addCtl.classList.remove('show'); delCtl.classList.remove('show');
-        curSection = null;
-      });
-    });
   }
   function showAddCtl(sec) {
     ensureAddCtl(); clearTimeout(addHideTimer); curSection = sec;
@@ -246,16 +228,9 @@
     var left = Math.max(8, r.left + r.width / 2 - 60);
     addCtl.style.top = top + 'px'; addCtl.style.left = left + 'px';
     addCtl.classList.add('show');
-    var dtop = Math.min(Math.max(r.top + 8, 8), window.innerHeight - 40);
-    var dleft = Math.min(Math.max(r.right - 108, 8), window.innerWidth - 116);
-    delCtl.style.top = dtop + 'px'; delCtl.style.left = dleft + 'px';
-    delCtl.classList.add('show');
   }
   function scheduleAddHide() {
-    addHideTimer = setTimeout(function () {
-      if (addCtl) addCtl.classList.remove('show');
-      if (delCtl) delCtl.classList.remove('show');
-    }, 300);
+    addHideTimer = setTimeout(function () { if (addCtl) addCtl.classList.remove('show'); }, 300);
   }
   /* Chỉ lấy khối NGOÀI CÙNG (không lồng trong 1 khối khác cũng khớp SECTION_SEL) -
    * tránh "+ Thêm khối" bám vào 1 mảnh nhỏ (vd Padding con) khiến khối mới bị chèn
@@ -327,10 +302,6 @@
         wrap.innerHTML = res.data.html;
         var newEl = wrap.firstElementChild;
         if (!newEl) { toast('Khối rỗng', true); return; }
-        // Khoi chen boc trong .tnl-landing (de an style), nen khong co san
-        // data-sentry-component nhu section that -> tu gan de no cung nhan duoc
-        // nut "+ Them khoi"/"Xoa khoi" ngay ben duoi, chen lien tiep duoc.
-        newEl.setAttribute('data-sentry-component', 'Section');
         sec.insertAdjacentElement('afterend', newEl);
         var after = before + newEl.outerHTML;
         save('insert', before, after, function () {
