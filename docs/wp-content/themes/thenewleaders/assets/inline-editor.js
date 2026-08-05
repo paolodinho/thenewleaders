@@ -551,38 +551,87 @@
    * Dùng execCommand (vẫn chạy tốt trên mọi trình duyệt hiện tại cho contenteditable,
    * đơn giản hơn nhiều so với tự viết lại cơ chế chọn vùng bôi đen). Mã màu nhập tay
    * (không giới hạn palette) - theo đúng yêu cầu Hiếu. */
-  var txtTool;
+  var FONT_SIZES = [13, 14, 16, 18, 20, 24, 28, 32, 40, 48];
+  var txtTool, sizeSel, curTxtEl;
+  function askHex(label) {
+    var hex = prompt(label + ' (vd #FF4F21):', '');
+    if (hex === null) return null;
+    hex = hex.trim();
+    if (hex === '') return null;
+    if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex)) { toast('Mã màu không hợp lệ, ví dụ #FF4F21', true); return null; }
+    return hex;
+  }
+  /* execCommand('fontSize') chỉ có 7 mức cố định (không theo px) - dùng mẹo: đặt tạm mức 7
+   * rồi thay the <font size="7"> vừa sinh ra bằng <span style="font-size:Npx"> theo đúng px
+   * người dùng chọn. */
+  function applyFontSize(px) {
+    document.execCommand('fontSize', false, '7');
+    (curTxtEl || body).querySelectorAll('font[size="7"]').forEach(function (f) {
+      var span = document.createElement('span');
+      span.style.fontSize = px + 'px';
+      while (f.firstChild) span.appendChild(f.firstChild);
+      f.parentNode.replaceChild(span, f);
+    });
+  }
   function ensureTxtTool() {
     if (txtTool) return;
     txtTool = document.createElement('div'); txtTool.className = 'tnl-txttool';
-    txtTool.innerHTML = '<button type="button" class="tnl-txttool__b" data-cmd="bold"><b>B</b></button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="italic"><i>I</i></button>' +
-      '<button type="button" class="tnl-txttool__b tnl-txttool__color">🎨 Màu chữ</button>';
+    var sizeOpts = FONT_SIZES.map(function (s) { return '<option value="' + s + '">' + s + 'px</option>'; }).join('');
+    txtTool.innerHTML =
+      '<select class="tnl-txttool__size" title="Cỡ chữ"><option value="">Cỡ chữ</option>' + sizeOpts + '</select>' +
+      '<span class="tnl-txttool__sep"></span>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="bold" title="Đậm"><b>B</b></button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="italic" title="Nghiêng"><i>I</i></button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="underline" title="Gạch chân"><u>U</u></button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="strikeThrough" title="Gạch ngang"><s>S</s></button>' +
+      '<span class="tnl-txttool__sep"></span>' +
+      '<button type="button" class="tnl-txttool__b tnl-txttool__color" title="Màu chữ">🎨</button>' +
+      '<button type="button" class="tnl-txttool__b tnl-txttool__hilite" title="Tô nền chữ">🖍</button>' +
+      '<span class="tnl-txttool__sep"></span>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="justifyLeft" title="Căn trái">⯇</button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="justifyCenter" title="Căn giữa">☰</button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="justifyRight" title="Căn phải">⯈</button>' +
+      '<span class="tnl-txttool__sep"></span>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="insertUnorderedList" title="Danh sách gạch đầu dòng">•≡</button>' +
+      '<button type="button" class="tnl-txttool__b tnl-txttool__clear" title="Xoá định dạng">⌫</button>';
     body.appendChild(txtTool);
     // Giữ nguyên vùng bôi đen khi bấm nút (không để nút "cướp" focus khỏi ô đang sửa).
-    txtTool.addEventListener('mousedown', function (e) { e.preventDefault(); });
-    txtTool.querySelector('[data-cmd="bold"]').addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation(); document.execCommand('bold');
+    txtTool.addEventListener('mousedown', function (e) { if (e.target.tagName !== 'SELECT') e.preventDefault(); });
+    txtTool.querySelectorAll('[data-cmd]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        document.execCommand(btn.getAttribute('data-cmd'));
+      });
     });
-    txtTool.querySelector('[data-cmd="italic"]').addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation(); document.execCommand('italic');
+    sizeSel = txtTool.querySelector('.tnl-txttool__size');
+    sizeSel.addEventListener('change', function () {
+      if (sizeSel.value) applyFontSize(parseInt(sizeSel.value, 10));
+      sizeSel.value = '';
     });
     txtTool.querySelector('.tnl-txttool__color').addEventListener('click', function (e) {
       e.preventDefault(); e.stopPropagation();
-      var hex = prompt('Nhập mã màu cho phần chữ đang bôi đen (vd #FF4F21):', '');
-      if (hex === null) return;
-      hex = hex.trim();
-      if (hex === '') return;
-      if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex)) { toast('Mã màu không hợp lệ, ví dụ #FF4F21', true); return; }
+      var hex = askHex('Nhập mã màu chữ cho phần đang bôi đen');
+      if (!hex) return;
       document.execCommand('styleWithCSS', false, true);
       document.execCommand('foreColor', false, hex);
+    });
+    txtTool.querySelector('.tnl-txttool__hilite').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var hex = askHex('Nhập mã màu tô nền cho phần đang bôi đen');
+      if (!hex) return;
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('hiliteColor', false, hex);
+    });
+    txtTool.querySelector('.tnl-txttool__clear').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation(); document.execCommand('removeFormat');
     });
   }
   function showTxtTool(el) {
     ensureTxtTool();
+    curTxtEl = el;
     var r = el.getBoundingClientRect();
     var top = Math.max(8, r.top - 44);
-    var left = Math.min(Math.max(r.left, 8), window.innerWidth - 190);
+    var left = Math.min(Math.max(r.left, 8), window.innerWidth - 420);
     txtTool.style.top = top + 'px'; txtTool.style.left = left + 'px';
     txtTool.classList.add('show');
   }
