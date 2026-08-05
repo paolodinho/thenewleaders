@@ -65,9 +65,29 @@ body.tnl-editing .tnl-editable-text { position: relative; }
 .tnl-flip-btn { background: #101010; }
 .tnl-flip-btn:hover { background: #2b2b2b; }
 
-/* Nút "Thêm giống vầy" (nhân bản 1 phần tử trong danh sách lặp: logo, thẻ, ảnh gallery...) */
+/* Nút "Nhân bản mục này" (thêm 1 phần tử trong danh sách lặp: logo, thẻ, ảnh gallery...) */
 .tnl-dup-btn { background: #1a7f37; }
 .tnl-dup-btn:hover { background: #146c2e; }
+
+/* Thanh định dạng chữ (đậm/nghiêng/màu) - nổi phía trên ô đang sửa */
+.tnl-txttool {
+  position: fixed; z-index: 99998; display: flex; gap: 4px;
+  background: #1D1D1D; border-radius: 8px; padding: 5px; box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  opacity: 0; visibility: hidden; transition: opacity .12s;
+}
+.tnl-txttool.show { opacity: 1; visibility: visible; }
+.tnl-txttool__b {
+  border: 0; border-radius: 5px; background: transparent; color: #fff; cursor: pointer;
+  font: 600 13px/1 system-ui; padding: 7px 10px; white-space: nowrap;
+}
+.tnl-txttool__b:hover { background: rgba(255,255,255,.15); }
+.tnl-txttool__color:hover { background: #FF4F21; }
+
+/* Kéo-thả đổi vị trí trong cùng 1 danh sách lặp (logo, thẻ, ảnh gallery...) */
+body.tnl-editing .tnl-drag-item { cursor: grab; }
+body.tnl-editing .tnl-drag-item.tnl-dragging { opacity: .35; cursor: grabbing; }
+body.tnl-editing .tnl-drag-item.tnl-drop-before { box-shadow: inset 4px 0 0 0 #FF4F21; }
+body.tnl-editing .tnl-drag-item.tnl-drop-after { box-shadow: inset -4px 0 0 0 #FF4F21; }
 body.tnl-editing .tnl-editable-vid { position: relative; outline: 2px dashed rgba(255,79,33,.5); outline-offset: -2px; }
 body.tnl-editing .tnl-editable-vid:hover { outline: 2px solid #FF4F21; }
 

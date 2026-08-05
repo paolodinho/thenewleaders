@@ -37,6 +37,7 @@
   function inChrome(el) {
     return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast')
       || el.closest('.tnl-addblock-btn') || el.closest('.tnl-sectool') || el.closest('.tnl-blockpicker')
+      || el.closest('.tnl-txttool')
       || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn') || el.classList.contains('tnl-dup-btn');
   }
 
@@ -86,6 +87,72 @@
     }
     return null;
   }
+  /* ---------- KÉO-THẢ đổi vị trí (chỉ trong cùng 1 danh sách lặp - an toàn, không cho kéo
+   * sang chỗ khác cấu trúc khác vì dễ vỡ layout trên HTML tĩnh nhiều lớp). ---------- */
+  var dragEl = null;
+  function markDraggable(item) {
+    if (item.dataset.tnlDrag) return;
+    item.dataset.tnlDrag = '1';
+    item.classList.add('tnl-drag-item');
+    item.setAttribute('draggable', 'true');
+    item.addEventListener('dragstart', function (e) {
+      dragEl = item;
+      item.classList.add('tnl-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', ''); } catch (err) {}
+    });
+    item.addEventListener('dragend', function () {
+      item.classList.remove('tnl-dragging');
+      document.querySelectorAll('.tnl-drop-before,.tnl-drop-after').forEach(function (el) {
+        el.classList.remove('tnl-drop-before', 'tnl-drop-after');
+      });
+      dragEl = null;
+    });
+    item.addEventListener('dragover', function (e) {
+      if (!dragEl || dragEl === item || dragEl.parentElement !== item.parentElement || dragEl.tagName !== item.tagName) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      var r = item.getBoundingClientRect();
+      var before = (e.clientX - r.left) < r.width / 2;
+      item.classList.toggle('tnl-drop-before', before);
+      item.classList.toggle('tnl-drop-after', !before);
+    });
+    item.addEventListener('dragleave', function () {
+      item.classList.remove('tnl-drop-before', 'tnl-drop-after');
+    });
+    item.addEventListener('drop', function (e) {
+      e.preventDefault();
+      var before = item.classList.contains('tnl-drop-before');
+      item.classList.remove('tnl-drop-before', 'tnl-drop-after');
+      if (!dragEl || dragEl === item || dragEl.parentElement !== item.parentElement) return;
+      doDragReorder(dragEl, item, before);
+    });
+  }
+  /* Ghép lại đúng đoạn HTML gốc (đọc từ innerHTML của cha, giữ nguyên khoảng trắng) rồi
+   * dựng chuỗi mới với phần tử kéo (a) chuyển tới trước/sau đích (b) - cùng kỹ thuật
+   * find/replace-theo-vị-trí-thật đã dùng cho đổi chỗ khối, áp dụng khoảng cách bất kỳ. */
+  function doDragReorder(a, b, before) {
+    var parent = a.parentElement;
+    var pHTML = parent.innerHTML;
+    var aHTML = a.outerHTML, bHTML = b.outerHTML;
+    var aIdx = pHTML.indexOf(aHTML);
+    var bIdx = pHTML.indexOf(bHTML);
+    if (aIdx === -1 || bIdx === -1 || aIdx === bIdx) { toast('Không xác định được vị trí', true); return; }
+    var lo = Math.min(aIdx, bIdx);
+    var hi = Math.max(aIdx + aHTML.length, bIdx + bHTML.length);
+    var span = pHTML.substring(lo, hi);
+    var withoutA = span.split(aHTML).join('');
+    var bPos = withoutA.indexOf(bHTML);
+    if (bPos === -1) { toast('Không dựng lại được vị trí mới', true); return; }
+    var insertPos = before ? bPos : bPos + bHTML.length;
+    var newSpan = withoutA.slice(0, insertPos) + aHTML + withoutA.slice(insertPos);
+    if (newSpan === span) { toast('Không đổi được', true); return; }
+    save('reorder', span, newSpan, function () {
+      if (before) parent.insertBefore(a, b); else parent.insertBefore(a, b.nextSibling);
+      toast('Đã đổi vị trí ✓');
+    });
+  }
+
   function duplicateItem(item) {
     var before = item.outerHTML;
     var clone = item.cloneNode(true);
@@ -106,7 +173,7 @@
     imgSpec = document.createElement('span'); imgSpec.className = 'tnl-img-spec';
     imgCtl = document.createElement('button'); imgCtl.type = 'button'; imgCtl.className = 'tnl-img-btn'; imgCtl.textContent = '⇪ Thay ảnh';
     flipCtl = document.createElement('button'); flipCtl.type = 'button'; flipCtl.className = 'tnl-img-btn tnl-flip-btn'; flipCtl.textContent = '⇄ Đảo bên';
-    dupCtl = document.createElement('button'); dupCtl.type = 'button'; dupCtl.className = 'tnl-img-btn tnl-dup-btn'; dupCtl.textContent = '🧬 Thêm giống vầy';
+    dupCtl = document.createElement('button'); dupCtl.type = 'button'; dupCtl.className = 'tnl-img-btn tnl-dup-btn'; dupCtl.textContent = '🧬 Nhân bản mục này';
     body.appendChild(imgSpec); body.appendChild(imgCtl); body.appendChild(flipCtl); body.appendChild(dupCtl);
     [imgCtl, imgSpec, flipCtl, dupCtl].forEach(function (e) {
       e.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
@@ -167,6 +234,8 @@
       img._tnlOrig = img.outerHTML;
       img.addEventListener('mouseenter', function () { showCtl(img); });
       img.addEventListener('mouseleave', scheduleHide);
+      var item = findRepeatItem(img);
+      if (item) markDraggable(item);
     });
   }
 
@@ -478,6 +547,47 @@
   }
 
   /* ---------- CHỮ ---------- */
+  /* ---------- ĐỊNH DẠNG CHỮ: đậm/nghiêng/màu cho phần đang bôi đen trong ô đang sửa.
+   * Dùng execCommand (vẫn chạy tốt trên mọi trình duyệt hiện tại cho contenteditable,
+   * đơn giản hơn nhiều so với tự viết lại cơ chế chọn vùng bôi đen). Mã màu nhập tay
+   * (không giới hạn palette) - theo đúng yêu cầu Hiếu. */
+  var txtTool;
+  function ensureTxtTool() {
+    if (txtTool) return;
+    txtTool = document.createElement('div'); txtTool.className = 'tnl-txttool';
+    txtTool.innerHTML = '<button type="button" class="tnl-txttool__b" data-cmd="bold"><b>B</b></button>' +
+      '<button type="button" class="tnl-txttool__b" data-cmd="italic"><i>I</i></button>' +
+      '<button type="button" class="tnl-txttool__b tnl-txttool__color">🎨 Màu chữ</button>';
+    body.appendChild(txtTool);
+    // Giữ nguyên vùng bôi đen khi bấm nút (không để nút "cướp" focus khỏi ô đang sửa).
+    txtTool.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    txtTool.querySelector('[data-cmd="bold"]').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation(); document.execCommand('bold');
+    });
+    txtTool.querySelector('[data-cmd="italic"]').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation(); document.execCommand('italic');
+    });
+    txtTool.querySelector('.tnl-txttool__color').addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var hex = prompt('Nhập mã màu cho phần chữ đang bôi đen (vd #FF4F21):', '');
+      if (hex === null) return;
+      hex = hex.trim();
+      if (hex === '') return;
+      if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex)) { toast('Mã màu không hợp lệ, ví dụ #FF4F21', true); return; }
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('foreColor', false, hex);
+    });
+  }
+  function showTxtTool(el) {
+    ensureTxtTool();
+    var r = el.getBoundingClientRect();
+    var top = Math.max(8, r.top - 44);
+    var left = Math.min(Math.max(r.left, 8), window.innerWidth - 190);
+    txtTool.style.top = top + 'px'; txtTool.style.left = left + 'px';
+    txtTool.classList.add('show');
+  }
+  function hideTxtTool() { if (txtTool) txtTool.classList.remove('show'); }
+
   function setupText() {
     var nodes = document.querySelectorAll(TEXT_SEL);
     nodes.forEach(function (el) {
@@ -495,12 +605,14 @@
         el._tnlOrigInner = el.innerHTML;
         el.setAttribute('contenteditable', 'true');
         el.focus();
+        showTxtTool(el);
       }, true);
 
       el.addEventListener('blur', function () {
         if (el.getAttribute('contenteditable') !== 'true') return;
         el.setAttribute('contenteditable', 'false');
         el.removeAttribute('contenteditable');
+        hideTxtTool();
         if (el.innerHTML === el._tnlOrigInner) return; // không đổi
         var after = el.outerHTML.replace(' contenteditable="true"', '');
         save('text', el._tnlOrig, after, function () { el._tnlOrig = el.outerHTML; });

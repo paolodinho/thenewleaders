@@ -60,11 +60,15 @@ function tnl_sanitize_fragment($html) {
  * bam Luu bao thanh cong, nhung sang trang lai/tai lai la mat het, tuong nhu chua luu. */
 function tnl_ie_strip_markers($html) {
     if ($html === '' || $html === null) return $html;
-    $html = preg_replace('/\s*data-tnl-(txt|img|vid|sec-ins)="1"/', '', $html);
+    $html = preg_replace('/\s*data-tnl-(txt|img|vid|sec-ins|drag)="1"/', '', $html);
+    $html = preg_replace('/\s*draggable="(true|false)"/', '', $html);
     $html = preg_replace('/\s*contenteditable="(true|false)"/', '', $html);
     $html = preg_replace_callback('/\s*class="([^"]*)"/', function ($m) {
         $cls = array_filter(preg_split('/\s+/', $m[1]), function ($c) {
-            return $c !== '' && !in_array($c, array('tnl-editable-text', 'tnl-editable-img', 'tnl-editable-vid'), true);
+            return $c !== '' && !in_array($c, array(
+                'tnl-editable-text', 'tnl-editable-img', 'tnl-editable-vid',
+                'tnl-drag-item', 'tnl-dragging', 'tnl-drop-before', 'tnl-drop-after',
+            ), true);
         });
         return $cls ? ' class="' . implode(' ', $cls) . '"' : '';
     }, $html);
