@@ -3,7 +3,11 @@
   'use strict';
   if (typeof tnlEdit === 'undefined' || !tnlEdit.active) return;
 
-  var TEXT_SEL = 'h1,h2,h3,h4,h5,h6,p,li,blockquote,figcaption,button';
+  // KHONG gom 'button' - da nghi la nguyen nhan "gay roi" lan truoc (2026-07-12): rat nhieu
+  // <button> tren site la nut chuc nang that (mobile menu toggle, mega-menu dropdown, combobox
+  // doi ngon ngu...), gan contenteditable + preventDefault vao do se lam hong tuong tac that.
+  // Nut CTA can sua chu nam trong the <a> (h1..blockquote/figcaption) da duoc cover roi.
+  var TEXT_SEL = 'h1,h2,h3,h4,h5,h6,p,li,blockquote,figcaption';
   var body = document.body;
 
   function toast(msg, err) {

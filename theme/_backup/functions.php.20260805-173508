@@ -34,17 +34,12 @@ require get_template_directory() . '/inc/landing-templates.php';
 // Landing Studio - trinh tao landing keo-tha don gian (khong plugin)
 require get_template_directory() . '/inc/landing-studio.php';
 
-// Landing Elementor - ĐÃ TẮT (2026-08-05): gỡ plugin Elementor khỏi site theo yêu cầu Hiếu,
-// hệ này phụ thuộc Elementor nên tắt theo. Landing Studio (không phụ thuộc plugin) thay thế.
-// require get_template_directory() . '/inc/landing-elementor.php';
+// Landing Elementor - bộ template landing kéo-thả bằng Elementor (gu live qua landing.css)
+require get_template_directory() . '/inc/landing-elementor.php';
 
-// Inline editor - BẬT LẠI (2026-08-05) theo yêu cầu Hiếu: sửa chữ/ảnh trực tiếp ngay trên
-// trang, giữ nguyên giao diện, không cần dựng lại bằng khối. Từng bị tắt 2026-07-12 vì
-// "gây rối" (không rõ lỗi cụ thể, không tìm thấy chi tiết trong git log) - QA kỹ trước khi
-// dùng thật, đặc biệt các trang có tương tác JS (eq-quiz, mobile menu, FAQ accordion...) vì
-// nghi vấn `button` trong danh sách phần tử sửa chữ (TEXT_SEL) có thể đã chặn mất các nút
-// chức năng thật trên trang khi bật chế độ sửa.
-require get_template_directory() . '/inc/inline-editor.php';
+// Inline editor - ĐÃ TẮT (2026-07-12): gây rối. Nội dung sửa trong trình soạn admin.
+// Bật lại khi cần: bỏ comment dòng dưới.
+// require get_template_directory() . '/inc/inline-editor.php';
 
 // Content editor - màn hình field sửa nội dung trang clone (giữ giao diện)
 require get_template_directory() . '/inc/content-editor.php';

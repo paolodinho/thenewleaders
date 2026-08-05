@@ -838,13 +838,12 @@ function tnl_studio_default_section($type) {
 }
 
 /* ============================================================
- * 3c. "EDIT" CHUAN CUA WP -> LUON DAN VE LANDING STUDIO
- * - Post DA bat Studio (co _tnl_studio_data) -> vao thang man sua truc tiep.
- * - Trang con CLONE MODE (chua bat Studio) nhung co the chuyen duoc (co file
- *   clone tuong ung) -> dan ve man "Chuyen sang Landing Studio" voi trang do
- *   DA CHON SAN trong dropdown, thay vi roi vao Gutenberg trong gay hoang mang.
- *   KHONG tu dong bam "Chuyen" thay nguoi dung - buoc dung lai bang khoi la
- *   hanh dong thay doi noi dung, phai do chinh tay Hieu xac nhan.
+ * 3c. "EDIT" CHUAN CUA WP -> LUON DAN VE DUNG CHO SUA
+ * - Post DA bat Landing Studio (co _tnl_studio_data) -> vao thang man keo-tha.
+ * - Trang con CLONE MODE (chua bat Studio, van con nguyen giao dien goc) ->
+ *   dan THANG RA TRANG THAT voi ?tnl_edit=1 (bat Inline Editor - inc/inline-editor.php):
+ *   bam vao chu la sua ngay, di vao anh la doi ngay, GIU NGUYEN giao dien, khong
+ *   phai dung lai bang khoi. Day la duong mac dinh cho moi trang co san.
  * - Trang khong lien quan Studio/clone (post thuong, trang moi tinh...) ->
  *   giu nguyen hanh vi WP mac dinh.
  * ============================================================ */
@@ -855,7 +854,7 @@ function tnl_studio_edit_target($id) {
     }
     $p = get_post($id);
     if ($p && $p->post_type === 'page' && function_exists('tnl_clone_has') && tnl_clone_has($p->post_name)) {
-        return admin_url('admin.php?page=tnl-studio&adopt=' . $id);
+        return add_query_arg('tnl_edit', '1', get_permalink($p));
     }
     return '';
 }
