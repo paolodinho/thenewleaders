@@ -3,15 +3,6 @@
  * front-page.php — CLONE MODE (trang chủ).
  * Render markup + CSS lấy nguyên từ live để parity ~100%. Logic dùng chung ở inc/clone.php.
  */
-
-// LANDING STUDIO (page-shell): nếu trang chủ đã được chuyển sang kéo-thả Studio -> ưu tiên
-// render nội dung Studio (giữ nav/footer THẬT). Chạy TRƯỚC clone mode, giống page.php.
-$tnl_qo = get_queried_object();
-if ($tnl_qo && get_post_meta($tnl_qo->ID, '_tnl_studio_data', true) && function_exists('tnl_studio_render_clone_page')
-    && tnl_studio_render_clone_page($tnl_qo)) {
-    return;
-}
-
 if (function_exists('tnl_clone_render') && tnl_clone_render('home')) {
     return;
 }
