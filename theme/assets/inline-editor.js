@@ -668,8 +668,12 @@
         showTxtTool(el);
       }, true);
 
-      el.addEventListener('blur', function () {
+      el.addEventListener('blur', function (e) {
         if (el.getAttribute('contenteditable') !== 'true') return;
+        // Focus chuyển vào chính thanh định dạng (vd bấm mở ô "Cỡ chữ") -> CHƯA phải sửa
+        // xong, chỉ là thao tác định dạng. Giữ nguyên chế độ sửa, không tắt/không lưu vội -
+        // nếu không, ô Cỡ chữ chưa kịp chọn đã bị huỷ mất chế độ sửa (bug Hiếu gặp phải).
+        if (e.relatedTarget && txtTool && txtTool.contains(e.relatedTarget)) return;
         el.setAttribute('contenteditable', 'false');
         el.removeAttribute('contenteditable');
         hideTxtTool();
