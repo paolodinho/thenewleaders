@@ -592,7 +592,7 @@
   function ensureTxtTool() {
     if (txtTool) return;
     txtTool = document.createElement('div'); txtTool.className = 'tnl-txttool';
-    var sizeOpts = FONT_SIZES.map(function (s) { return '<option value="' + s + '">' + s + 'px</option>'; }).join('');
+    var sizeOpts = FONT_SIZES.map(function (s) { return '<option value="' + s + '">' + s + 'px</option>'; }).join('') + '<option value="custom">Tuỳ chỉnh…</option>';
     function grp(rows) { return '<div class="tnl-txttool__grp">' + rows + '</div>'; }
     function btn(cmd, label, icon) {
       return '<button type="button" class="tnl-txttool__b" data-cmd="' + cmd + '" title="' + label + '">'
@@ -624,14 +624,24 @@
       if (sel.rangeCount && !sel.isCollapsed) savedRange = sel.getRangeAt(0).cloneRange();
     });
     sizeSel.addEventListener('change', function () {
-      if (sizeSel.value) {
-        if (savedRange && curTxtEl) {
+      var raw = sizeSel.value;
+      if (raw) {
+        var px = raw === 'custom' ? null : parseInt(raw, 10);
+        if (raw === 'custom') {
+          var input = prompt('Nhập cỡ chữ tuỳ chỉnh, tính theo px (vd 22):', '');
+          if (input !== null && input.trim() !== '') {
+            var n = parseInt(input.trim(), 10);
+            if (!isNaN(n) && n > 0 && n <= 300) px = n;
+            else if (input.trim() !== '') toast('Cỡ chữ không hợp lệ (1-300px)', true);
+          }
+        }
+        if (px && savedRange && curTxtEl) {
           curTxtEl.focus();
           var sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(savedRange);
+          applyFontSize(px);
         }
-        applyFontSize(parseInt(sizeSel.value, 10));
       }
       sizeSel.value = '';
     });
