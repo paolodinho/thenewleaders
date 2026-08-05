@@ -564,14 +564,30 @@
   /* execCommand('fontSize') chỉ có 7 mức cố định (không theo px) - dùng mẹo: đặt tạm mức 7
    * rồi thay the <font size="7"> vừa sinh ra bằng <span style="font-size:Npx"> theo đúng px
    * người dùng chọn. */
+  /* KHÔNG dùng execCommand('fontSize') - hay tạo <font size="7"> để đổi tiếp sang px, nhưng
+   * khi trang đã bật "styleWithCSS" (bật khi bấm nút Màu chữ/Tô nền) thì lệnh này đổi sang
+   * kiểu khác hẳn (không còn ra <font>), khiến khâu "tìm rồi thay" phía sau không tìm thấy
+   * gì -> im lặng không đổi được, dù bấm cỡ chữ nào (đúng lỗi Hiếu gặp). Tự bọc trực tiếp
+   * vùng bôi đen bằng <span style="font-size:Npx"> - không phụ thuộc execCommand, chắc ăn. */
   function applyFontSize(px) {
-    document.execCommand('fontSize', false, '7');
-    (curTxtEl || body).querySelectorAll('font[size="7"]').forEach(function (f) {
-      var span = document.createElement('span');
-      span.style.fontSize = px + 'px';
-      while (f.firstChild) span.appendChild(f.firstChild);
-      f.parentNode.replaceChild(span, f);
-    });
+    var sel = window.getSelection();
+    if (!sel.rangeCount || sel.isCollapsed) { toast('Hãy bôi đen đoạn chữ cần đổi cỡ trước', true); return; }
+    var range = sel.getRangeAt(0);
+    var span = document.createElement('span');
+    span.style.fontSize = px + 'px';
+    try {
+      range.surroundContents(span);
+    } catch (e) {
+      // Vùng bôi đen cắt ngang qua nhiều thẻ (vd nửa chữ đậm, nửa chữ thường) khiến
+      // surroundContents() không bọc gọn được -> tách nội dung ra rồi bọc lại.
+      var frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+    }
+    sel.removeAllRanges();
+    var newRange = document.createRange();
+    newRange.selectNodeContents(span);
+    sel.addRange(newRange);
   }
   function ensureTxtTool() {
     if (txtTool) return;
