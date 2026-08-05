@@ -62,12 +62,12 @@
   box-shadow: 0 4px 18px rgba(0,0,0,.04);
 }
 .tnl-landing .tnl-card__ico { font-size: 34px; margin: 0 0 8px; }
-.tnl-landing .tnl-card h3 { margin: 0 0 6px; font-size: 15px; color: #888; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
-.tnl-landing .tnl-card p { margin: 0; font-size: 20px; font-weight: 600; }
+.tnl-landing .tnl-info__grid .tnl-card h3 { margin: 0 0 6px; font-size: 15px; color: #888; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
+.tnl-landing .tnl-info__grid .tnl-card p { margin: 0; font-size: 20px; font-weight: 600; }
 
 /* ---------- ABOUT ---------- */
 .tnl-landing .tnl-about__grid { gap: 48px; }
-.tnl-landing .tnl-about__img img { border-radius: 18px; width: 100%; object-fit: cover; }
+.tnl-landing .tnl-about__img img { border-radius: 18px; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
 .tnl-landing .tnl-checklist { list-style: none; margin: 18px 0 0; padding: 0; }
 .tnl-landing .tnl-checklist li { position: relative; padding-left: 30px; margin-bottom: 12px; font-size: 17px; }
 .tnl-landing .tnl-checklist li:before {
@@ -164,13 +164,16 @@
 /* ---------- FEATURE (ảnh + chữ xen kẽ) ---------- */
 .tnl-landing .tnl-feat__grid { align-items: center; gap: 44px; }
 .tnl-landing .tnl-feat--rev .tnl-feat__grid { flex-direction: row-reverse; }
-.tnl-landing .tnl-feat__img img { width: 100%; border-radius: 18px; object-fit: cover; }
+.tnl-landing .tnl-feat__img img { width: 100%; aspect-ratio: 16/9; border-radius: 18px; object-fit: cover; }
 .tnl-landing .tnl-feat p { font-size: 18px; color: #4a4a4a; line-height: 1.65; }
 
 /* ---------- AUDIENCE / CARDS 3 cột ---------- */
 .tnl-landing .tnl-cards3 { gap: 22px; }
 .tnl-landing .tnl-cards3 .tnl-card { text-align: left; height: 100%; }
 .tnl-landing .tnl-card__ico { font-size: 34px; margin: 0 0 10px; line-height: 1; }
+/* Kiểu chữ mặc định cho thẻ dạng tiêu đề + mô tả (cards3, prog, reports...) -
+ * .tnl-info__grid .tnl-card ở trên có 2 lớp class nên độ ưu tiên cao hơn, tự
+ * ghi đè đúng cho kiểu thẻ "số liệu" mà không đụng vào kiểu mặc định này. */
 .tnl-landing .tnl-card h3 { font-size: 20px; margin: 0 0 8px; }
 .tnl-landing .tnl-card p { margin: 0; color: #666; font-size: 16px; line-height: 1.55; }
 

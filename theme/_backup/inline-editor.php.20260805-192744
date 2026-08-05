@@ -104,12 +104,7 @@ add_action('wp_ajax_tnl_render_block', function () {
     if ($html === '') wp_send_json_error(array('msg' => 'Không dựng được khối.'));
     // Bo comment Gutenberg (<!-- wp:... -->) - trang clone la HTML thuan, khong qua block editor.
     $html = preg_replace('/<!--\s*\/?wp:[^>]*-->/', '', $html);
-    // BOC trong .tnl-landing - toan bo CSS cua landing.css (mau, bo cuc, khoang cach the/card...)
-    // chi co tac dung ben trong lop nay (dung trong Landing Studio). Trang CLONE MODE (nơi
-    // "+ Them khoi" chen thang vao) khong co san lop nay -> thieu no la khoi hien ra tran trui,
-    // khong mau khong khoang cach. Boc rieng cho tung khoi chen, khong dung ca trang, de khong
-    // dung cham gi den style/markup that dang co.
-    wp_send_json_success(array('html' => '<div class="tnl-landing">' . trim($html) . '</div>'));
+    wp_send_json_success(array('html' => trim($html)));
 });
 
 /* Danh sách khối cho picker "+ Thêm khối" - rút gọn nhãn từ tnl_studio_schema() nếu có. */
