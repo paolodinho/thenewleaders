@@ -37,7 +37,7 @@
   function inChrome(el) {
     return el.closest('#wpadminbar') || el.closest('.tnl-editbar') || el.closest('.tnl-toast')
       || el.closest('.tnl-addblock-btn') || el.closest('.tnl-sectool') || el.closest('.tnl-blockpicker')
-      || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn') || el.classList.contains('tnl-dup-btn');
+      || el.classList.contains('tnl-img-btn') || el.classList.contains('tnl-vid-btn');
   }
 
   /* ---------- BỐ CỤC: đảo trái/phải trong khối flex-row 2 phần tử (ảnh-chữ) ----------
@@ -69,46 +69,15 @@
     save('layout', before, after, function () {});
   }
 
-  /* ---------- NHÂN BẢN: nhận ra ảnh đang nằm trong 1 danh sách lặp (logo, thẻ, ảnh gallery...)
-   * để có thể "+ thêm 1 cái nữa cùng kiểu" thay vì chỉ thay được ảnh đã có sẵn. Nhận diện bằng
-   * cấu trúc (đi lên tìm cấp có >=2 phần tử anh em cùng tên thẻ), không đoán theo tên class cụ
-   * thể - áp dụng được cho mọi khối lặp có sẵn trên trang, không chỉ khối do Landing Studio dựng. */
-  function findRepeatItem(img) {
-    var el = img, hops = 0;
-    while (el && el.parentElement && el.parentElement !== body && hops < 6) {
-      var parent = el.parentElement;
-      var sibs = Array.prototype.filter.call(parent.children, function (c) { return c.nodeType === 1; });
-      if (sibs.length >= 2) {
-        var sameTag = sibs.filter(function (s) { return s.tagName === el.tagName; });
-        if (sameTag.length >= 2) return el;
-      }
-      el = parent; hops++;
-    }
-    return null;
-  }
-  function duplicateItem(item) {
-    var before = item.outerHTML;
-    var clone = item.cloneNode(true);
-    item.insertAdjacentElement('afterend', clone);
-    var after = before + clone.outerHTML;
-    save('insert', before, after, function () {
-      setupImages(); setupVideos(); setupText();
-      var newImg = clone.tagName === 'IMG' ? clone : clone.querySelector('img');
-      clone.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (newImg) openMedia(newImg); // mở luôn thư viện ảnh để chọn ảnh mới cho bản sao
-    });
-  }
-
   /* ---------- ẢNH: một nút nổi dùng chung (tránh chồng ở ảnh nhỏ sát nhau) ---------- */
-  var imgCtl, imgSpec, flipCtl, dupCtl, curImg, hideTimer;
+  var imgCtl, imgSpec, flipCtl, curImg, hideTimer;
   function ensureCtl() {
     if (imgCtl) return;
     imgSpec = document.createElement('span'); imgSpec.className = 'tnl-img-spec';
     imgCtl = document.createElement('button'); imgCtl.type = 'button'; imgCtl.className = 'tnl-img-btn'; imgCtl.textContent = '⇪ Thay ảnh';
     flipCtl = document.createElement('button'); flipCtl.type = 'button'; flipCtl.className = 'tnl-img-btn tnl-flip-btn'; flipCtl.textContent = '⇄ Đảo bên';
-    dupCtl = document.createElement('button'); dupCtl.type = 'button'; dupCtl.className = 'tnl-img-btn tnl-dup-btn'; dupCtl.textContent = '🧬 Thêm giống vầy';
-    body.appendChild(imgSpec); body.appendChild(imgCtl); body.appendChild(flipCtl); body.appendChild(dupCtl);
-    [imgCtl, imgSpec, flipCtl, dupCtl].forEach(function (e) {
+    body.appendChild(imgSpec); body.appendChild(imgCtl); body.appendChild(flipCtl);
+    [imgCtl, imgSpec, flipCtl].forEach(function (e) {
       e.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
       e.addEventListener('mouseleave', scheduleHide);
     });
@@ -118,12 +87,6 @@
       if (!curImg) return;
       var c = findFlipContainer(curImg);
       if (c) flipContainer(c);
-    });
-    dupCtl.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      if (!curImg) return;
-      var item = findRepeatItem(curImg);
-      if (item) duplicateItem(item);
     });
   }
   function showCtl(img) {
@@ -136,26 +99,17 @@
     imgCtl.style.top = top + 'px'; imgCtl.style.left = left + 'px';
     imgSpec.style.top = (top + 40) + 'px'; imgSpec.style.left = left + 'px';
     imgCtl.classList.add('show'); imgSpec.classList.add('show');
-    var nextLeft = left + 118;
     var flipC = findFlipContainer(img);
     if (flipC) {
-      flipCtl.style.top = top + 'px'; flipCtl.style.left = nextLeft + 'px';
+      flipCtl.style.top = top + 'px'; flipCtl.style.left = (left + 118) + 'px';
       flipCtl.classList.add('show');
-      nextLeft += 108;
     } else {
       flipCtl.classList.remove('show');
-    }
-    var repeatItem = findRepeatItem(img);
-    if (repeatItem) {
-      dupCtl.style.top = top + 'px'; dupCtl.style.left = nextLeft + 'px';
-      dupCtl.classList.add('show');
-    } else {
-      dupCtl.classList.remove('show');
     }
   }
   function scheduleHide() {
     hideTimer = setTimeout(function () {
-      if (imgCtl) { imgCtl.classList.remove('show'); imgSpec.classList.remove('show'); flipCtl.classList.remove('show'); dupCtl.classList.remove('show'); }
+      if (imgCtl) { imgCtl.classList.remove('show'); imgSpec.classList.remove('show'); flipCtl.classList.remove('show'); }
     }, 160);
   }
   function setupImages() {
