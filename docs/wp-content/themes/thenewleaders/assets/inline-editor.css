@@ -69,24 +69,33 @@ body.tnl-editing .tnl-editable-text { position: relative; }
 .tnl-dup-btn { background: #1a7f37; }
 .tnl-dup-btn:hover { background: #146c2e; }
 
-/* Thanh định dạng chữ (kiểu Word: cỡ chữ, đậm/nghiêng/gạch chân/gạch ngang, màu chữ,
-   tô nền, căn lề, danh sách, xoá định dạng) - nổi phía trên ô đang sửa */
+/* Thanh định dạng chữ (kiểu Word/Canva: mỗi nút có icon + nhãn chữ rõ ràng bên dưới,
+   chia thành từng nhóm cách nhau bằng vạch dọc - dễ nhận biết, không cần đoán icon) */
 .tnl-txttool {
-  position: fixed; z-index: 99998; display: flex; align-items: center; gap: 2px;
-  background: #1D1D1D; border-radius: 8px; padding: 5px; box-shadow: 0 6px 20px rgba(0,0,0,.35);
-  opacity: 0; visibility: hidden; transition: opacity .12s; max-width: 400px; flex-wrap: wrap;
+  position: fixed; z-index: 99998; display: flex; align-items: stretch; gap: 0;
+  background: #1D1D1D; border-radius: 10px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  opacity: 0; visibility: hidden; transition: opacity .12s; max-width: 92vw; overflow-x: auto;
 }
 .tnl-txttool.show { opacity: 1; visibility: visible; }
-.tnl-txttool__sep { width: 1px; align-self: stretch; background: rgba(255,255,255,.15); margin: 2px 3px; }
-.tnl-txttool__b {
-  border: 0; border-radius: 5px; background: transparent; color: #fff; cursor: pointer;
-  font: 600 13px/1 system-ui; padding: 7px 9px; white-space: nowrap; min-width: 30px;
+.tnl-txttool__grp {
+  display: flex; align-items: center; gap: 2px; padding: 0 7px; flex: none;
+  border-right: 1px solid rgba(255,255,255,.15);
 }
+.tnl-txttool__grp:last-child { border-right: 0; padding-right: 0; }
+.tnl-txttool__grp:first-child { padding-left: 0; }
+.tnl-txttool__b {
+  border: 0; border-radius: 6px; background: transparent; color: #fff; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: 6px 9px; white-space: nowrap; min-width: 46px;
+}
+.tnl-txttool__ic { font: 700 15px/1 system-ui; }
+.tnl-txttool__tx { font: 500 10px/1 system-ui; color: rgba(255,255,255,.75); }
 .tnl-txttool__b:hover { background: rgba(255,255,255,.15); }
+.tnl-txttool__b:hover .tnl-txttool__tx { color: #fff; }
 .tnl-txttool__color:hover, .tnl-txttool__hilite:hover { background: #FF4F21; }
 .tnl-txttool__size {
-  border: 0; border-radius: 5px; background: rgba(255,255,255,.1); color: #fff; cursor: pointer;
-  font: 600 12px system-ui; padding: 6px 4px; max-width: 78px;
+  border: 0; border-radius: 6px; background: rgba(255,255,255,.1); color: #fff; cursor: pointer;
+  font: 600 12px system-ui; padding: 8px 6px; max-width: 84px; align-self: center;
 }
 .tnl-txttool__size option { color: #1D1D1D; }
 

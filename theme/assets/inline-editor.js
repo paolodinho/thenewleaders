@@ -577,23 +577,18 @@
     if (txtTool) return;
     txtTool = document.createElement('div'); txtTool.className = 'tnl-txttool';
     var sizeOpts = FONT_SIZES.map(function (s) { return '<option value="' + s + '">' + s + 'px</option>'; }).join('');
+    function grp(rows) { return '<div class="tnl-txttool__grp">' + rows + '</div>'; }
+    function btn(cmd, label, icon) {
+      return '<button type="button" class="tnl-txttool__b" data-cmd="' + cmd + '" title="' + label + '">'
+        + '<span class="tnl-txttool__ic">' + icon + '</span><span class="tnl-txttool__tx">' + label + '</span></button>';
+    }
     txtTool.innerHTML =
-      '<select class="tnl-txttool__size" title="Cỡ chữ"><option value="">Cỡ chữ</option>' + sizeOpts + '</select>' +
-      '<span class="tnl-txttool__sep"></span>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="bold" title="Đậm"><b>B</b></button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="italic" title="Nghiêng"><i>I</i></button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="underline" title="Gạch chân"><u>U</u></button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="strikeThrough" title="Gạch ngang"><s>S</s></button>' +
-      '<span class="tnl-txttool__sep"></span>' +
-      '<button type="button" class="tnl-txttool__b tnl-txttool__color" title="Màu chữ">🎨</button>' +
-      '<button type="button" class="tnl-txttool__b tnl-txttool__hilite" title="Tô nền chữ">🖍</button>' +
-      '<span class="tnl-txttool__sep"></span>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="justifyLeft" title="Căn trái">⯇</button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="justifyCenter" title="Căn giữa">☰</button>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="justifyRight" title="Căn phải">⯈</button>' +
-      '<span class="tnl-txttool__sep"></span>' +
-      '<button type="button" class="tnl-txttool__b" data-cmd="insertUnorderedList" title="Danh sách gạch đầu dòng">•≡</button>' +
-      '<button type="button" class="tnl-txttool__b tnl-txttool__clear" title="Xoá định dạng">⌫</button>';
+      grp('<select class="tnl-txttool__size" title="Cỡ chữ"><option value="">Cỡ chữ</option>' + sizeOpts + '</select>') +
+      grp(btn('bold', 'Đậm', '<b>B</b>') + btn('italic', 'Nghiêng', '<i>I</i>') + btn('underline', 'Gạch chân', '<u>U</u>') + btn('strikeThrough', 'Gạch ngang', '<s>S</s>')) +
+      grp('<button type="button" class="tnl-txttool__b tnl-txttool__color" title="Màu chữ"><span class="tnl-txttool__ic">🎨</span><span class="tnl-txttool__tx">Màu chữ</span></button>'
+        + '<button type="button" class="tnl-txttool__b tnl-txttool__hilite" title="Tô màu nền"><span class="tnl-txttool__ic">🖍</span><span class="tnl-txttool__tx">Tô nền</span></button>') +
+      grp(btn('justifyLeft', 'Căn trái', '⬅') + btn('justifyCenter', 'Căn giữa', '⬌') + btn('justifyRight', 'Căn phải', '➡')) +
+      grp(btn('insertUnorderedList', 'Danh sách', '☰') + '<button type="button" class="tnl-txttool__b tnl-txttool__clear" title="Xoá hết định dạng, về chữ thường"><span class="tnl-txttool__ic">↺</span><span class="tnl-txttool__tx">Về mặc định</span></button>');
     body.appendChild(txtTool);
     // Giữ nguyên vùng bôi đen khi bấm nút (không để nút "cướp" focus khỏi ô đang sửa).
     txtTool.addEventListener('mousedown', function (e) { if (e.target.tagName !== 'SELECT') e.preventDefault(); });
