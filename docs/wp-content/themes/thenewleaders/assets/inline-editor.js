@@ -599,8 +599,24 @@
       });
     });
     sizeSel = txtTool.querySelector('.tnl-txttool__size');
+    // <select> cần nhận focus thật để mở được dropdown -> trình duyệt tự xoá vùng bôi đen
+    // trong ô đang sửa lúc đó. Phải tự lưu lại vùng bôi đen NGAY TRƯỚC khi mất (mousedown,
+    // trước khi focus chuyển đi), rồi khôi phục lại đúng vùng đó trước khi áp cỡ chữ.
+    var savedRange = null;
+    sizeSel.addEventListener('mousedown', function () {
+      var sel = window.getSelection();
+      if (sel.rangeCount && !sel.isCollapsed) savedRange = sel.getRangeAt(0).cloneRange();
+    });
     sizeSel.addEventListener('change', function () {
-      if (sizeSel.value) applyFontSize(parseInt(sizeSel.value, 10));
+      if (sizeSel.value) {
+        if (savedRange && curTxtEl) {
+          curTxtEl.focus();
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(savedRange);
+        }
+        applyFontSize(parseInt(sizeSel.value, 10));
+      }
       sizeSel.value = '';
     });
     txtTool.querySelector('.tnl-txttool__color').addEventListener('click', function (e) {
