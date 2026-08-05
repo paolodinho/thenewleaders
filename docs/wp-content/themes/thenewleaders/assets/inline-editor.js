@@ -357,9 +357,19 @@
     b.innerHTML = '<span class="tnl-editbar__dot"></span><b>Chế độ sửa</b>' +
       '<span class="tnl-editbar__hint">Bấm vào chữ để sửa · di vào ảnh để thay</span>' +
       '<button class="tnl-eb-reset">Hoàn tác trang này</button>' +
+      '<button class="tnl-eb-save">💾 Lưu</button>' +
       '<button class="tnl-eb-done">Xong</button>';
     body.appendChild(b);
+    // Mọi sửa (chữ/ảnh/video/bố cục/thêm khối) đã tự lưu ngay khi thao tác xong (blur/chọn xong).
+    // Nút này chốt luôn ô chữ đang gõ dở (nếu có) rồi báo lại cho Hiếu yên tâm là đã lưu hết.
+    b.querySelector('.tnl-eb-save').addEventListener('click', function () {
+      var ed = document.querySelector('[contenteditable="true"]');
+      if (ed) ed.blur();
+      toast('Đã lưu tất cả ✓');
+    });
     b.querySelector('.tnl-eb-done').addEventListener('click', function () {
+      var ed = document.querySelector('[contenteditable="true"]');
+      if (ed) ed.blur();
       var u = new URL(location.href); u.searchParams.delete('tnl_edit'); location.href = u.toString();
     });
     b.querySelector('.tnl-eb-reset').addEventListener('click', function () {

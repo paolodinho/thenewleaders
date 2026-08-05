@@ -17,6 +17,8 @@
 }
 .tnl-editbar .tnl-eb-reset { background: transparent; color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.25); }
 .tnl-editbar .tnl-eb-reset:hover { color: #fff; border-color: #fff; }
+.tnl-editbar .tnl-eb-save { background: #1a7f37; color: #fff; }
+.tnl-editbar .tnl-eb-save:hover { background: #146c2e; }
 .tnl-editbar .tnl-eb-done { background: #FF4F21; color: #fff; }
 .tnl-editbar .tnl-eb-done:hover { background: #E03A10; }
 
