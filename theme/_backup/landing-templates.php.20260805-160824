@@ -56,12 +56,12 @@ function tnl_sec_feat($kicker, $title, $body, $img, $rev = false) {
 <section class="wp-block-group ' . $cls . '">
 <!-- wp:columns {"verticalAlignment":"center","className":"tnl-feat__grid"} --><div class="wp-block-columns are-vertically-aligned-center tnl-feat__grid">
 <!-- wp:column {"verticalAlignment":"center","width":"50%"} --><div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
-<!-- wp:image {"className":"tnl-feat__img"} --><figure class="wp-block-image tnl-feat__img"><img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '" data-tnls-img="1"/></figure><!-- /wp:image -->
+<!-- wp:image {"className":"tnl-feat__img"} --><figure class="wp-block-image tnl-feat__img"><img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '"/></figure><!-- /wp:image -->
 </div><!-- /wp:column -->
 <!-- wp:column {"verticalAlignment":"center","width":"50%"} --><div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
-<!-- wp:paragraph {"className":"tnl-kicker"} --><p class="tnl-kicker" data-tnls-key="kicker">' . $kicker . '</p><!-- /wp:paragraph -->
-<!-- wp:heading {"className":"tnl-h2"} --><h2 class="tnl-h2" data-tnls-key="title">' . $title . '</h2><!-- /wp:heading -->
-<!-- wp:paragraph --><p data-tnls-key="body">' . $body . '</p><!-- /wp:paragraph -->
+<!-- wp:paragraph {"className":"tnl-kicker"} --><p class="tnl-kicker">' . $kicker . '</p><!-- /wp:paragraph -->
+<!-- wp:heading {"className":"tnl-h2"} --><h2 class="tnl-h2">' . $title . '</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>' . $body . '</p><!-- /wp:paragraph -->
 </div><!-- /wp:column -->
 </div><!-- /wp:columns -->
 </section>
@@ -81,7 +81,7 @@ function tnl_sec_cards3($title, $cards, $extra_cls = 'tnl-aud') {
     return '
 <!-- wp:group {"tagName":"section","className":"tnl-sec ' . $extra_cls . '","layout":{"type":"constrained"}} -->
 <section class="wp-block-group tnl-sec ' . $extra_cls . '">
-<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2" data-tnls-key="title">' . $title . '</h2><!-- /wp:heading -->
+<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2">' . $title . '</h2><!-- /wp:heading -->
 <!-- wp:columns {"className":"tnl-cards3"} --><div class="wp-block-columns tnl-cards3">' . $cols . '</div><!-- /wp:columns -->
 </section>
 <!-- /wp:group -->';
@@ -172,8 +172,8 @@ function tnl_sec_contact($title = 'Liên hệ với chúng tôi', $sub = 'Để 
     return '
 <!-- wp:group {"tagName":"section","className":"tnl-sec tnl-contact","anchor":"lien-he","layout":{"type":"constrained"}} -->
 <section class="wp-block-group tnl-sec tnl-contact" id="lien-he">
-<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2" data-tnls-key="title">' . $title . '</h2><!-- /wp:heading -->
-<!-- wp:paragraph {"align":"center","className":"tnl-contact__sub"} --><p class="has-text-align-center tnl-contact__sub" data-tnls-key="sub">' . $sub . '</p><!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2">' . $title . '</h2><!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"tnl-contact__sub"} --><p class="has-text-align-center tnl-contact__sub">' . $sub . '</p><!-- /wp:paragraph -->
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-btn tnl-btn--light"} --><div class="wp-block-button tnl-btn tnl-btn--light"><a class="wp-block-button__link wp-element-button" href="mailto:info@thenewleaders.asia">Gửi email cho chúng tôi</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
 <!-- wp:html --><div class="tnl-contact__info"><span>📞 <a href="tel:+84916663670">(84) 91 666 3670</a></span><span>✉️ <a href="mailto:info@thenewleaders.asia">info@thenewleaders.asia</a></span></div><!-- /wp:html -->
 </section>
@@ -186,10 +186,10 @@ function tnl_sec_offer_hero($badge, $title, $sub, $btn, $countdown_date = '') {
     return '
 <!-- wp:group {"tagName":"section","className":"tnl-sec tnl-offer","layout":{"type":"constrained"}} -->
 <section class="wp-block-group tnl-sec tnl-offer">
-<!-- wp:paragraph {"align":"center","className":"tnl-offer__badge"} --><p class="has-text-align-center tnl-offer__badge" data-tnls-key="badge">' . $badge . '</p><!-- /wp:paragraph -->
-<!-- wp:heading {"level":1,"textAlign":"center","className":"tnl-offer__title"} --><h1 class="has-text-align-center tnl-offer__title" data-tnls-key="title">' . $title . '</h1><!-- /wp:heading -->
-<!-- wp:paragraph {"align":"center","className":"tnl-offer__sub"} --><p class="has-text-align-center tnl-offer__sub" data-tnls-key="sub">' . $sub . '</p><!-- /wp:paragraph -->
-<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-btn"} --><div class="wp-block-button tnl-btn"><a class="wp-block-button__link wp-element-button" href="#uu-dai" data-tnls-key="btn">' . $btn . '</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
+<!-- wp:paragraph {"align":"center","className":"tnl-offer__badge"} --><p class="has-text-align-center tnl-offer__badge">' . $badge . '</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"textAlign":"center","className":"tnl-offer__title"} --><h1 class="has-text-align-center tnl-offer__title">' . $title . '</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","className":"tnl-offer__sub"} --><p class="has-text-align-center tnl-offer__sub">' . $sub . '</p><!-- /wp:paragraph -->
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-btn"} --><div class="wp-block-button tnl-btn"><a class="wp-block-button__link wp-element-button" href="#uu-dai">Nhận ưu đãi ngay</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
 ' . $cd . '
 </section>
 <!-- /wp:group -->';
@@ -226,9 +226,9 @@ function tnl_secx_hero($title, $sub, $btn) {
     return '
 <!-- wp:cover {"url":"' . esc_url($img) . '","dimRatio":90,"customGradient":"' . $grad . '","contentPosition":"center center","align":"full","className":"tnl-xhero"} -->
 <div class="wp-block-cover alignfull tnl-xhero"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-90 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:' . $grad . '"></span><img class="wp-block-cover__image-background" alt="" src="' . esc_url($img) . '" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
-<!-- wp:heading {"level":1,"textAlign":"center"} --><h1 class="wp-block-heading has-text-align-center" data-tnls-key="title">' . $title . '</h1><!-- /wp:heading -->
-<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center" data-tnls-key="sub">' . $sub . '</p><!-- /wp:paragraph -->
-<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-pill tnl-pill--white"} --><div class="wp-block-button tnl-pill tnl-pill--white"><a class="wp-block-button__link wp-element-button" href="#lien-he" data-tnls-key="btn">' . $btn . '</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
+<!-- wp:heading {"level":1,"textAlign":"center"} --><h1 class="wp-block-heading has-text-align-center">' . $title . '</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center">' . $sub . '</p><!-- /wp:paragraph -->
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-pill tnl-pill--white"} --><div class="wp-block-button tnl-pill tnl-pill--white"><a class="wp-block-button__link wp-element-button" href="#lien-he">' . $btn . '</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
 </div></div>
 <!-- /wp:cover -->';
 }
@@ -239,8 +239,8 @@ function tnl_secx_intro($hl_color, $title, $body, $gray = false) {
     return '
 <!-- wp:group {"tagName":"section","className":"' . $seccls . '","layout":{"type":"constrained"}} -->
 <section class="wp-block-group ' . $seccls . '">
-<!-- wp:heading {"className":"tnl-hl tnl-hl--' . $hl_color . '"} --><h2 class="wp-block-heading tnl-hl tnl-hl--' . $hl_color . '" data-tnls-key="title">' . $title . '</h2><!-- /wp:heading -->
-<!-- wp:paragraph --><p style="font-size:clamp(17px,1.5vw,20px);line-height:1.7;max-width:760px" data-tnls-key="body">' . $body . '</p><!-- /wp:paragraph -->
+<!-- wp:heading {"className":"tnl-hl tnl-hl--' . $hl_color . '"} --><h2 class="wp-block-heading tnl-hl tnl-hl--' . $hl_color . '">' . $title . '</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p style="font-size:clamp(17px,1.5vw,20px);line-height:1.7;max-width:760px">' . $body . '</p><!-- /wp:paragraph -->
 </section>
 <!-- /wp:group -->';
 }
@@ -251,9 +251,9 @@ function tnl_secx_panel($color, $title, $body, $btn, $rev = false) {
     $cls = 'tnl-panel tnl-panel--' . $color . ($rev ? ' tnl-panel--rev' : '');
     return '
 <!-- wp:html --><div class="' . $cls . '">
-<div class="tnl-panel__c"><h3 data-tnls-key="title">' . $title . '</h3><p data-tnls-key="body">' . $body . '</p>
-<div class="wp-block-buttons"><div class="wp-block-button tnl-pill"><a class="wp-block-button__link wp-element-button" href="#lien-he" data-tnls-key="btn">' . $btn . '</a></div></div></div>
-<div class="tnl-panel__img" data-tnls-img="1" style="background-image:url(' . esc_url($img) . ')"></div>
+<div class="tnl-panel__c"><h3>' . $title . '</h3><p>' . $body . '</p>
+<div class="wp-block-buttons"><div class="wp-block-button tnl-pill"><a class="wp-block-button__link wp-element-button" href="#lien-he">' . $btn . '</a></div></div></div>
+<div class="tnl-panel__img" style="background-image:url(' . esc_url($img) . ')"></div>
 </div><!-- /wp:html -->';
 }
 
@@ -514,16 +514,13 @@ function tnl_wrap_secx($inner, $gray = false) {
     $c = 'tnl-secx' . ($gray ? ' tnl-bg-gray' : '');
     return '<!-- wp:group {"tagName":"section","className":"' . $c . '","layout":{"type":"constrained"}} --><section class="wp-block-group ' . $c . '">' . $inner . '</section><!-- /wp:group -->';
 }
-/* Dung chung boi nhieu loai khoi (video/twocol/faq/infocards/steps/team/timeline/
- * checklist/gallery/compare/map/richtext) - tat ca deu dat field tieu de la 'title'
- * trong schema Landing Studio, nen data-tnls-key="title" o day ap dung dung cho ca. */
 function tnl_hl_h($color, $text) {
-    return '<!-- wp:heading {"className":"tnl-hl tnl-hl--' . $color . '"} --><h2 class="wp-block-heading tnl-hl tnl-hl--' . $color . '" data-tnls-key="title">' . $text . '</h2><!-- /wp:heading -->';
+    return '<!-- wp:heading {"className":"tnl-hl tnl-hl--' . $color . '"} --><h2 class="wp-block-heading tnl-hl tnl-hl--' . $color . '">' . $text . '</h2><!-- /wp:heading -->';
 }
 
 /* Trích dẫn nổi bật */
 function tnl_secx_quote($q, $by) {
-    return tnl_wrap_secx('<!-- wp:html --><div class="tnl-quote"><p class="tnl-quote__mark">"</p><p class="tnl-quote__t" data-tnls-key="q">' . $q . '</p><p class="tnl-quote__by" data-tnls-key="by">' . $by . '</p></div><!-- /wp:html -->');
+    return tnl_wrap_secx('<!-- wp:html --><div class="tnl-quote"><p class="tnl-quote__mark">"</p><p class="tnl-quote__t">' . $q . '</p><p class="tnl-quote__by">' . $by . '</p></div><!-- /wp:html -->');
 }
 /* Các bước / quy trình (3 bước) */
 function tnl_secx_steps($hl, $title, $steps) {
@@ -539,9 +536,9 @@ function tnl_secx_steps($hl, $title, $steps) {
 function tnl_secx_band($dark, $title, $sub, $btn) {
     $cls = 'tnl-secx tnl-band ' . ($dark ? 'tnl-band--dark' : 'tnl-band--light');
     return '<!-- wp:group {"tagName":"section","className":"' . $cls . '","layout":{"type":"constrained"}} --><section class="wp-block-group ' . $cls . '">'
-        . '<!-- wp:heading {"textAlign":"center"} --><h2 class="wp-block-heading has-text-align-center" data-tnls-key="title">' . $title . '</h2><!-- /wp:heading -->'
-        . '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center" data-tnls-key="sub">' . $sub . '</p><!-- /wp:paragraph -->'
-        . '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-pill' . ($dark ? ' tnl-pill--white' : '') . '"} --><div class="wp-block-button tnl-pill' . ($dark ? ' tnl-pill--white' : '') . '"><a class="wp-block-button__link wp-element-button" href="#lien-he" data-tnls-key="btn">' . $btn . '</a></div><!-- /wp:button --></div><!-- /wp:buttons -->'
+        . '<!-- wp:heading {"textAlign":"center"} --><h2 class="wp-block-heading has-text-align-center">' . $title . '</h2><!-- /wp:heading -->'
+        . '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center">' . $sub . '</p><!-- /wp:paragraph -->'
+        . '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} --><div class="wp-block-buttons"><!-- wp:button {"className":"tnl-pill' . ($dark ? ' tnl-pill--white' : '') . '"} --><div class="wp-block-button tnl-pill' . ($dark ? ' tnl-pill--white' : '') . '"><a class="wp-block-button__link wp-element-button" href="#lien-he">' . $btn . '</a></div><!-- /wp:button --></div><!-- /wp:buttons -->'
         . '</section><!-- /wp:group -->';
 }
 /* Video nhúng */
@@ -643,7 +640,7 @@ function tnl_secx_richtext($title, $body, $gray = false) {
         if ($line !== '') $paras .= '<p>' . $line . '</p>';
     }
     $h = $title ? tnl_hl_h('cyan', $title) : '';
-    return tnl_wrap_secx($h . '<!-- wp:html --><div class="tnl-richtext" data-tnls-key="body" data-tnls-multiline="1">' . $paras . '</div><!-- /wp:html -->', $gray);
+    return tnl_wrap_secx($h . '<!-- wp:html --><div class="tnl-richtext">' . $paras . '</div><!-- /wp:html -->', $gray);
 }
 
 /* Khoảng cách / đường kẻ phân tách */

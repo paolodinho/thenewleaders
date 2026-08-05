@@ -1,0 +1,36 @@
+/* LANDING STUDIO - CANVAS (sua truc tiep). Chi tai trong khung preview co quyen edit. */
+.tnls-canvas-sec { position: relative; }
+.tnls-canvas-sec.tnls-cv-hover { outline: 2px dashed #FF7121; outline-offset: -2px; }
+.tnls-canvas-sec.tnls-cv-dragover { outline: 3px solid #FF7121; }
+
+[data-tnls-key].tnls-editable { cursor: text; border-radius: 3px; transition: background-color .15s; }
+[data-tnls-key].tnls-editable:hover { background: rgba(255,113,33,.08); }
+[data-tnls-key].tnls-editable:focus { background: rgba(255,113,33,.14); outline: 1px dashed #FF7121; }
+
+[data-tnls-img] { position: relative; }
+[data-tnls-img]:hover::after {
+  content: "🖼 Đổi ảnh";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(16,16,16,.45); color: #fff; font: 600 13px/1 -apple-system,sans-serif;
+  border-radius: inherit; pointer-events: none; z-index: 2;
+}
+
+.tnls-cv-bar {
+  position: absolute; z-index: 999999; display: flex; align-items: center; gap: 2px;
+  background: #101010; border-radius: 6px; padding: 3px; box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.tnls-cv-bar[hidden] { display: none; }
+.tnls-cv-bar button, .tnls-cv-bar .tnls-cv-grip {
+  border: 0; background: transparent; color: #fff; font-size: 13px; line-height: 1;
+  width: 26px; height: 26px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.tnls-cv-bar .tnls-cv-grip { cursor: grab; }
+.tnls-cv-bar button:hover { background: rgba(255,255,255,.15); }
+.tnls-cv-bar .tnls-cv-del:hover { background: #E4483B; }
+
+.tnls-cv-swatch {
+  position: absolute; z-index: 999999; display: flex; gap: 4px;
+  background: #101010; border-radius: 6px; padding: 5px; box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.tnls-cv-swatch[hidden] { display: none; }
+.tnls-cv-swatch button { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; padding: 0; }

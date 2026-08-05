@@ -699,7 +699,7 @@ function tnl_studio_render_section($type, $fields, $items) {
             $it = array(); foreach ($rows as $r) $it[] = $r['text'];
             return tnl_sec_pricing($F('title'), $F('old'), $F('now'), $F('save'), $it, $F('note'), $F('btn'));
         case 'bigtesti':
-            $html = '<h2 class="tnl-bigtesti__h" data-tnls-key="title">' . $F('title') . '</h2>';
+            $html = '<h2 class="tnl-bigtesti__h">' . $F('title') . '</h2>';
             $i = 0;
             foreach ($rows as $r) {
                 $html .= '<div class="tnl-bigtesti__row' . ($i % 2 ? ' tnl-bigtesti__row--rev' : '') . '">'
@@ -720,7 +720,7 @@ function tnl_studio_render_section($type, $fields, $items) {
             return '
 <!-- wp:group {"tagName":"section","className":"tnl-sec tnl-testi","layout":{"type":"constrained"}} -->
 <section class="wp-block-group tnl-sec tnl-testi">
-<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2" data-tnls-key="title">' . $F('title') . '</h2><!-- /wp:heading -->
+<!-- wp:heading {"textAlign":"center","className":"tnl-h2"} --><h2 class="has-text-align-center tnl-h2">' . $F('title') . '</h2><!-- /wp:heading -->
 <!-- wp:columns {"className":"tnl-testi__grid"} --><div class="wp-block-columns tnl-testi__grid">' . $cols . '</div><!-- /wp:columns -->
 </section>
 <!-- /wp:group -->';
@@ -787,35 +787,15 @@ function tnl_studio_render_section($type, $fields, $items) {
     return '';
 }
 
-/* $editable=true: bọc mỗi khối trong <div data-tnls-idx data-tnls-type ...> để
- * assets/studio-canvas.js nhận diện và cho sửa trực tiếp trên canvas (kiểu Elementor).
- * CHỈ bật khi render cho khung preview của Landing Studio (người có quyền edit_pages) -
- * không bao giờ bật cho post_content lưu vĩnh viễn / trang thật cho khách xem. */
-function tnl_studio_compose($sections, $editable = false) {
+function tnl_studio_compose($sections) {
     $out = '';
-    $i = -1;
-    $schema = $editable ? tnl_studio_schema() : null;
     foreach ((array) $sections as $s) {
-        $i++;
         if (empty($s['type'])) continue;
-        $type = sanitize_key($s['type']);
-        $html = tnl_studio_render_section(
-            $type,
+        $out .= tnl_studio_render_section(
+            sanitize_key($s['type']),
             isset($s['fields']) ? (array) $s['fields'] : array(),
             isset($s['items']) ? (array) $s['items'] : array()
         );
-        if ($editable && $html !== '') {
-            $attrs = ' data-tnls-idx="' . $i . '" data-tnls-type="' . esc_attr($type) . '"';
-            if (isset($schema[$type]['fields'])) {
-                $has_img = $has_color = false;
-                foreach ($schema[$type]['fields'] as $fk => $fd) {
-                    if (!$has_img && $fd[0] === 'image') { $attrs .= ' data-tnls-img-key="' . esc_attr($fk) . '"'; $has_img = true; }
-                    if (!$has_color && $fd[0] === 'select') { $attrs .= ' data-tnls-color-key="' . esc_attr($fk) . '"'; $has_color = true; }
-                }
-            }
-            $html = '<div class="tnls-canvas-sec"' . $attrs . '>' . $html . '</div>';
-        }
-        $out .= $html;
     }
     return $out;
 }
@@ -836,29 +816,6 @@ function tnl_studio_default_section($type) {
     }
     return $s;
 }
-
-/* ============================================================
- * 3c. "EDIT" CHUAN CUA WP -> NHAY THANG VAO LANDING STUDIO
- * Chi cho post DA bat Studio (co _tnl_studio_data) - post con CLONE MODE
- * (chua bat Studio) giu nguyen hanh vi cu (Gutenberg mac dinh), vi tu dong
- * ep "Chuyen sang Landing Studio" khi chi bam Edit la hanh dong pha noi
- * dung trang (dung lai tu dau), khong duoc tu y lam thay nguoi dung.
- * ============================================================ */
-add_action('load-post.php', function () {
-    if (!isset($_GET['action']) || $_GET['action'] !== 'edit') return;
-    $id = isset($_GET['post']) ? absint($_GET['post']) : 0;
-    if (!$id || !get_post_meta($id, '_tnl_studio_data', true)) return;
-    if (!current_user_can('edit_post', $id)) return;
-    wp_safe_redirect(admin_url('admin.php?page=tnl-studio&post=' . $id));
-    exit;
-});
-
-add_filter('get_edit_post_link', function ($link, $post_id) {
-    if (get_post_meta($post_id, '_tnl_studio_data', true)) {
-        return admin_url('admin.php?page=tnl-studio&post=' . $post_id);
-    }
-    return $link;
-}, 10, 2);
 
 /* ============================================================
  * 4. ADMIN PAGE
@@ -1206,22 +1163,8 @@ add_filter('the_content', function ($content) {
     $dec = json_decode($raw, true);
     if (!is_array($dec) || !isset($dec['sections'])) return $content;
     // Tra ve block markup o priority 0 -> do_blocks/shortcode chay sau se xu ly
-    // $editable=true: day la duong preview cua Studio (chi nguoi co quyen edit_pages thay) -> danh dau canvas de sua truc tiep.
-    return tnl_studio_compose($dec['sections'], true);
+    return tnl_studio_compose($dec['sections']);
 }, 0);
-
-/* Canvas sua truc tiep (kieu Elementor): CHI nap studio-canvas.js khi dang xem khung
- * preview cua Landing Studio (?tnl_preview=1 + nguoi co quyen edit_pages). KHONG BAO GIO
- * nap cho khach xem trang that - script vo hai (chi doc data-tnls-* attribute) nhung
- * khong can thiet phai tai cho khach. */
-add_action('wp_enqueue_scripts', function () {
-    if (!isset($_GET['tnl_preview']) || !current_user_can('edit_pages')) return;
-    $dir = get_template_directory();
-    $uri = get_template_directory_uri();
-    wp_enqueue_media();
-    wp_enqueue_style('tnl-studio-canvas', $uri . '/assets/studio-canvas.css', array(), @filemtime($dir . '/assets/studio-canvas.css') ?: '1');
-    wp_enqueue_script('tnl-studio-canvas', $uri . '/assets/studio-canvas.js', array(), @filemtime($dir . '/assets/studio-canvas.js') ?: '1', true);
-}, 30);
 
 /* Trang/bai viet dung Studio: them row action trong danh sach Pages/Posts */
 function tnl_studio_row_action($actions, $post) {
@@ -1270,9 +1213,8 @@ function tnl_studio_render_clone_page($post) {
     if (!$shell) return false;
 
     $sections_json = get_post_meta($post->ID, '_tnl_studio_data', true);
-    $is_preview = isset($_GET['tnl_preview']) && current_user_can('edit_pages');
     $sections = array();
-    if ($is_preview) {
+    if (isset($_GET['tnl_preview']) && current_user_can('edit_pages')) {
         $raw_prev = get_transient('tnl_studio_prev_' . $post->ID);
         if ($raw_prev) {
             $dec = json_decode($raw_prev, true);
@@ -1283,8 +1225,7 @@ function tnl_studio_render_clone_page($post) {
         $dec = json_decode($sections_json, true);
         if (is_array($dec) && isset($dec['sections'])) $sections = $dec['sections'];
     }
-    // $editable=true chi khi dang xem preview cua Studio (nguoi co quyen) -> danh dau canvas de sua truc tiep.
-    $body = tnl_studio_compose($sections, $is_preview);
+    $body = tnl_studio_compose($sections);
     $body = apply_filters('the_content', $body);
 
     $dir = get_template_directory();

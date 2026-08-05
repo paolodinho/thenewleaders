@@ -250,34 +250,75 @@
     return form;
   }
 
+  /* ---------- thao tac tren 1 khoi: dung chung cho nut sidebar VA postMessage tu canvas ---------- */
+  function doSectionOp(idx, act, skipConfirm) {
+    if (act === 'del') {
+      if (!skipConfirm && !confirm('Xoá khối này?')) return;
+      state.sections.splice(idx, 1);
+      if (state.openIndex === idx) state.openIndex = -1;
+    } else if (act === 'dup') {
+      state.sections.splice(idx + 1, 0, JSON.parse(JSON.stringify(state.sections[idx])));
+    } else if (act === 'up' && idx > 0) {
+      var t = state.sections[idx - 1]; state.sections[idx - 1] = state.sections[idx]; state.sections[idx] = t;
+      if (state.openIndex === idx) state.openIndex = idx - 1;
+    } else if (act === 'down' && idx < state.sections.length - 1) {
+      var t2 = state.sections[idx + 1]; state.sections[idx + 1] = state.sections[idx]; state.sections[idx] = t2;
+      if (state.openIndex === idx) state.openIndex = idx + 1;
+    }
+    markDirty(); render();
+  }
+  function doReorder(from, to) {
+    if (to === from || !state.sections[from]) return;
+    var moved = state.sections.splice(from, 1)[0];
+    state.sections.splice(to, 0, moved);
+    state.openIndex = -1;
+    markDirty(); render();
+  }
+
   /* ---------- list interactions ---------- */
   $list.addEventListener('click', function (e) {
     var btn = e.target.closest('.tnls-ib');
     var li = e.target.closest('.tnls-item');
     if (!li) return;
     var idx = parseInt(li.dataset.idx, 10);
-    if (btn) {
-      var act = btn.dataset.act;
-      if (act === 'del') {
-        if (!confirm('Xoá khối này?')) return;
-        state.sections.splice(idx, 1);
-        if (state.openIndex === idx) state.openIndex = -1;
-      } else if (act === 'dup') {
-        state.sections.splice(idx + 1, 0, JSON.parse(JSON.stringify(state.sections[idx])));
-      } else if (act === 'up' && idx > 0) {
-        var t = state.sections[idx - 1]; state.sections[idx - 1] = state.sections[idx]; state.sections[idx] = t;
-        if (state.openIndex === idx) state.openIndex = idx - 1;
-      } else if (act === 'down' && idx < state.sections.length - 1) {
-        var t2 = state.sections[idx + 1]; state.sections[idx + 1] = state.sections[idx]; state.sections[idx] = t2;
-        if (state.openIndex === idx) state.openIndex = idx + 1;
-      }
-      markDirty(); render();
-      return;
-    }
+    if (btn) { doSectionOp(idx, btn.dataset.act); return; }
     if (e.target.closest('.tnls-item-form')) return; // click trong form
     if (e.target.closest('.tnls-item-head')) {
       state.openIndex = state.openIndex === idx ? -1 : idx;
       render();
+    }
+  });
+
+  /* ---------- sua truc tiep tren canvas (iframe xem truoc) - xem assets/studio-canvas.js ---------- */
+  window.addEventListener('message', function (e) {
+    if (e.origin !== window.location.origin) return;
+    var d = e.data;
+    if (!d || d.ns !== 'tnls') return;
+    var s = (typeof d.idx === 'number') ? state.sections[d.idx] : null;
+    if (d.type === 'field') {
+      if (!s) return;
+      s.fields[d.key] = d.value;
+      state.dirty = true; $msg.textContent = 'Có thay đổi chưa lưu'; $msg.className = 'tnls-savemsg is-dirty';
+      var li = $list.querySelector('.tnls-item[data-idx="' + d.idx + '"] .tnls-item-name i');
+      if (li) li.textContent = sectionTitle(s);
+    } else if (d.type === 'color') {
+      if (!s) return;
+      s.fields[d.key] = d.value;
+      markDirty(); // doi mau can dung lai class -> reload preview
+    } else if (d.type === 'op') {
+      doSectionOp(d.idx, d.op, true);
+    } else if (d.type === 'reorder') {
+      doReorder(d.from, d.to);
+    } else if (d.type === 'pick-image') {
+      var idx = d.idx, key = d.key;
+      var frame = wp.media({ title: 'Chọn ảnh', multiple: false, library: { type: 'image' } });
+      frame.on('select', function () {
+        var att = frame.state().get('selection').first().toJSON();
+        var s2 = state.sections[idx];
+        if (s2) { s2.fields[key] = att.url; markDirty(); }
+        $frame.contentWindow.postMessage({ ns: 'tnls', type: 'image-selected', idx: idx, key: key, value: att.url }, window.location.origin);
+      });
+      frame.open();
     }
   });
 
@@ -303,12 +344,7 @@
     var li = e.target.closest('.tnls-item');
     if (!li || dragIdx === null) return;
     var to = parseInt(li.dataset.idx, 10);
-    if (to !== dragIdx) {
-      var moved = state.sections.splice(dragIdx, 1)[0];
-      state.sections.splice(to, 0, moved);
-      state.openIndex = -1;
-      markDirty();
-    }
+    doReorder(dragIdx, to);
     dragIdx = null;
     render();
   });
