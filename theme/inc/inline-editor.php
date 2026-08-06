@@ -75,6 +75,15 @@ function tnl_ie_strip_markers($html) {
     return $html;
 }
 
+/* Xoá cache tầng server (LiteSpeed - Hostinger bật edge cache, giữ HTML cũ tới 7 ngày
+ * MẶC KỆ WordPress đã báo no-cache) ngay khi override được lưu/xoá - nếu không, người
+ * sửa và khách xem đều thấy bản cũ cho tới khi cache tự hết hạn. Purge toàn site (an
+ * toàn, chỉ khiến lượt xem kế tiếp build lại cache) vì trang clone dùng chung asset/CSS
+ * theo nhiều slug, khó tính đúng 1 tag riêng lẻ. */
+function tnl_purge_litespeed() {
+    if (!headers_sent()) header('X-LiteSpeed-Purge: *');
+}
+
 /* ============================================================
  * AJAX - lưu / xoá override
  * ============================================================ */
@@ -103,6 +112,7 @@ add_action('wp_ajax_tnl_save_override', function () {
 
     $all[$key] = array_values($list);
     update_option('tnl_overrides', $all, false);
+    tnl_purge_litespeed();
     wp_send_json_success(array('msg' => 'Đã lưu.'));
 });
 
@@ -112,6 +122,7 @@ add_action('wp_ajax_tnl_reset_overrides', function () {
     $key = isset($_POST['pagekey']) ? sanitize_text_field(wp_unslash($_POST['pagekey'])) : '';
     $all = tnl_overrides_all();
     if (isset($all[$key])) { unset($all[$key]); update_option('tnl_overrides', $all, false); }
+    tnl_purge_litespeed();
     wp_send_json_success(array('msg' => 'Đã hoàn tác trang này.'));
 });
 
