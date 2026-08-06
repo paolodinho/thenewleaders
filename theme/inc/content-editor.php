@@ -260,6 +260,7 @@ add_action('admin_init', function () {
             }
             if (empty($all[$slug])) unset($all[$slug]);
             update_option('tnl_content', $all, false);
+            if (function_exists('tnl_purge_litespeed')) tnl_purge_litespeed();
             add_action('admin_notices', function () { echo '<div class="notice notice-success is-dismissible"><p>Đã lưu nội dung.</p></div>'; });
         }
     }

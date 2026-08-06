@@ -75,14 +75,7 @@ function tnl_ie_strip_markers($html) {
     return $html;
 }
 
-/* Xoá cache tầng server (LiteSpeed - Hostinger bật edge cache, giữ HTML cũ tới 7 ngày
- * MẶC KỆ WordPress đã báo no-cache) ngay khi override được lưu/xoá - nếu không, người
- * sửa và khách xem đều thấy bản cũ cho tới khi cache tự hết hạn. Purge toàn site (an
- * toàn, chỉ khiến lượt xem kế tiếp build lại cache) vì trang clone dùng chung asset/CSS
- * theo nhiều slug, khó tính đúng 1 tag riêng lẻ. */
-function tnl_purge_litespeed() {
-    if (!headers_sent()) header('X-LiteSpeed-Purge: *');
-}
+/* tnl_purge_litespeed() dùng chung, định nghĩa ở inc/clone.php (load trước file này). */
 
 /* ============================================================
  * AJAX - lưu / xoá override

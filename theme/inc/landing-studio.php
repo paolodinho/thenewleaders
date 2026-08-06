@@ -1155,6 +1155,7 @@ add_action('admin_post_tnl_studio_adopt', function () {
     }
     delete_post_meta($post_id, '_wp_page_template');
     update_post_meta($post_id, '_tnl_studio_data', wp_slash(wp_json_encode(array('sections' => $sections), JSON_UNESCAPED_UNICODE)));
+    if (function_exists('tnl_purge_litespeed')) tnl_purge_litespeed();
     wp_safe_redirect(admin_url('admin.php?page=tnl-studio&post=' . $post_id));
     exit;
 });
@@ -1197,6 +1198,7 @@ add_action('wp_ajax_tnl_studio_save', function () {
     // SEO tung trang
     if (isset($_POST['seo_title'])) update_post_meta($post_id, '_tnl_seo_title', sanitize_text_field(wp_unslash($_POST['seo_title'])));
     if (isset($_POST['seo_desc']))  update_post_meta($post_id, '_tnl_seo_desc', sanitize_text_field(wp_unslash($_POST['seo_desc'])));
+    if (function_exists('tnl_purge_litespeed')) tnl_purge_litespeed();
 
     $p = get_post($post_id);
     wp_send_json_success(array(

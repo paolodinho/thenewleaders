@@ -7,6 +7,18 @@
 
 if (!defined('ABSPATH')) exit;
 
+/* Xoá cache tầng server (LiteSpeed - Hostinger bật edge cache, giữ HTML cũ tới 7 ngày
+ * MẶC KỆ WordPress đã báo no-cache) ngay khi nội dung được lưu qua bất kỳ công cụ sửa
+ * nào (Inline Editor, Content Editor, Landing Studio) - nếu không, người sửa và khách
+ * xem đều thấy bản cũ cho tới khi cache tự hết hạn. Purge toàn site (an toàn, chỉ khiến
+ * lượt xem kế tiếp build lại cache) vì các trang dùng chung asset/CSS theo nhiều slug,
+ * khó tính đúng 1 tag riêng lẻ. Đặt ở clone.php vì file này luôn load trước các file lưu
+ * nội dung khác (functions.php require clone.php đầu tiên).
+ */
+function tnl_purge_litespeed() {
+    if (!headers_sent()) header('X-LiteSpeed-Purge: *');
+}
+
 function tnl_clone_lang() {
     return (function_exists('tnl_lang') && tnl_lang() === 'en') ? 'en' : 'vi';
 }
